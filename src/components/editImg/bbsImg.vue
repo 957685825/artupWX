@@ -118,7 +118,7 @@
 					</li>
 				</ul>
 				<div class="btn_button">
-					<a class="Determine" href="">确认</a>
+					<a class="Determine" v-tap="{methods : okQuery}">确认</a>
 				</div>
 		  	</div>
 		</mt-popup>
@@ -159,6 +159,22 @@ export default{
   					dragThumb($(el).find("img"),$(el));
   				},100)
   			})			
+  		},
+  		okQuery(){//弹出框确认选中图片操作
+  			var thumbnailUrl = this.bbs.Material[this.bbs.MaterialImgIndex].thumbnailUrl;
+  			//确认回显图片到页面
+//			$(".OnlyOne").attr("src",thumbnailUrl);
+  			$(".OnlyOne").prev(".myImgBox").show().find("img").attr("src",thumbnailUrl);
+				//让图片剧中裁切隐藏	
+			setTimeout(function(){
+				dragThumb($(".OnlyOne").prev(".myImgBox").find("img"),$(".OnlyOne").prev(".myImgBox"));
+				$(".OnlyOne").remove(); //清空触发弹出上传框的节点,防止vue事件委派兼容
+			},100)
+  			
+  			this.sheetVisible = false;
+  			this.popupVisible = false;
+  			
+  			
   		},
   		goAnchor(selector) { //跳转锚点的函数
         		var anchor = this.$el.querySelector(selector);
