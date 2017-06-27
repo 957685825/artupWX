@@ -12,6 +12,8 @@ import editImg from './components/editImg/editImg.vue'
 
 //BbsImg 宝宝书 图片上传
 import BbsImg from './components/editImg/bbsImg.vue'
+//我的作品库
+import workList from './components/workList/workList.vue'
 
 ////导出路由
 export default{
@@ -49,6 +51,9 @@ export default{
 		},
 		{
 			path:'/BbsImg', component:BbsImg //宝宝书图片上传
-		}		
+		},
+		{
+			path:'/workList', component:workList //我的作品库
+		}	
 	]
 }
