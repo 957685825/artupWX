@@ -2,6 +2,7 @@
 import Login from './components/Login.vue'
 import User from './components/user/userInfo.vue'
 import NewAddress from './components/user/newAddress.vue'
+import Address from './components/user/address.vue'
 import OrderList from './components/user/orderList.vue'
 
 import Cart from './components/cart/cart.vue'
@@ -36,6 +37,9 @@ export default{
 		},
 		{
 			path:'/NewAddress', component:NewAddress //新建地址
+		},
+		{
+			path:'/Address', component:Address //收货地址
 		},
 		{
 			path:'/OrderList', component:OrderList //订单列表
