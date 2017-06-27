@@ -1,10 +1,19 @@
 <template>
 	<div id="bbsImg">
-		<mt-header title="宝宝书">
+		<mt-header  title="宝宝书预览" v-if="previewPage" >
+			<router-link to="" slot="left">
+				
+				<mt-button v-tap="{methods : ContinueEdit}"   icon="back">继续编辑</mt-button>
+			</router-link>
+			<router-link to="" v-tap="{methods : nextPageEdit}" slot="right">
+				<mt-button v-tap="{methods : goCart}">添加购物车</mt-button>
+			</router-link>
+		</mt-header>
+		<mt-header title="宝宝书" v-if="!previewPage">
 			<router-link to="" slot="left">
 				<mt-button  icon="back">返回</mt-button>
 			</router-link>
-			<router-link to="" slot="right">
+			<router-link to="" v-tap="{methods : nextPageEdit}" slot="right">
 				<mt-button>下一步</mt-button>
 			</router-link>
 		</mt-header>
@@ -23,7 +32,7 @@
 					<div class="bs">
 						<div class="bsLeft imgBox">
 							<div class="bstp bstpfm">
-								<div class="bbs03 bbsClass fmPage"></div>
+								<div class="bbs03  fmPage"></div>
 							</div>
 						</div>
 						<div class="fmFont">封面</div>
@@ -34,7 +43,7 @@
 					<div class="bs">
 						<div class="bsLeft imgBox">
 							<div class="bstp bstpfm">
-								<div class="bbs03 bbsClass fePage">
+								<div class="bbs03  fePage">
 								</div>
 							</div>
 						</div>
@@ -46,7 +55,7 @@
 						<div class="bbsBtn">
 							<ul>
 								<li><p>第<span>{{index+1}}</span>页</p></li>
-								<li><a v-tap="{methods : switchBs,index : index}">更换板式</a></li>
+								<li class="switchBs"><a v-tap="{methods : switchBs,index : index}">更换板式</a></li>
 							</ul>
 						</div>
 					</div>
@@ -55,7 +64,7 @@
 					<div class="bs">
 						<div class="bsLeft imgBox">
 							<div class="bstp bstpfm">
-								<div class="bbs03 bbsClass fmPage">
+								<div class="bbs03  fmPage">
 
 								</div>
 							</div>
@@ -82,8 +91,11 @@
 		<div class="cart_btn">
 			<div class="price">
 				合计<span><b>¥</b>88.00</span></div> 
-			<div v-tap="{methods : editWork}" class="crectOrder">
+			<div v-if="!previewPage" v-tap="{methods : editWork}" class="crectOrder">
 				保存作品
+			</div>
+			<div v-if="previewPage"  v-tap="{methods : goCart}" class="crectOrder">
+				加入购物车
 			</div>
 		</div>		
 		<!-- 弹出框选上传方式 -->
@@ -153,12 +165,15 @@ export default{
 		      checkBS:true,//更换板式
 		      selectBS:false, //板式选择的模版页面
 		      textareaTexts:false,//文本弹出框编辑
+		      previewPage:false, //预览页面切换
 		      bbs:{
 		      	index2:0,
 		      	imgUploadNumber:0,
 		      	textTextarea:'', //弹出框文本字段
 		      	Material:[], //素材库图片
 		      	MaterialImgIndex:0,
+		      	nextPageTrue:false,//变量，判断函数到底是保存操作还是下一步的操作
+		      	extraCode:'',//下一步最终完成跳转到购物车的extraCode  (dbid)
 		      	workEdit:{ //给后端保存或者编辑完成下一步传递的对象
 		      		format:"json",
 		      		ignore:"true",
@@ -183,7 +198,22 @@ export default{
 		    }
 	  }, 	
   	methods:{
-  		assembleData(){//组装数据的函数保存数据和  			
+  		goCart(){
+  			var category = "baobaoshu"
+			location.href="#cart?edtDbId="+this.bbs.extraCode+"&category="+category			
+  		},
+  		ContinueEdit(){//继续编辑
+  			$(this.$el).find(".editImg").show();
+			$(this.$el).find(".switchBs").show();
+			this.previewPage = false;
+  		},
+  		nextPageEdit(){//下一步
+  			//修改下一步需要绑定的变量
+  			this.bbs.nextPageTrue = true;
+  			//再次调用需要保存的方法
+  			this.assembleData();
+  		},
+  		assembleData(){//组装数据的函数保存数据和
   			var arrMap = []; //宝宝书图片的
 			var textArrMap = [];//文字的
 			var lomArrMap = []; //lomo卡的
@@ -207,10 +237,48 @@ export default{
 			this.bbs.workEdit.editTxt = JSON.stringify(textArrMap);
 			this.bbs.workEdit.lomo = JSON.stringify(lomArrMap);
 			
+			//保存函数
 			Api.work.workEdit("artup-build/builder/cors/edit/add/command.do",this.bbs.workEdit).then((res)=>{
-				console.log(res)
+				 
+				var oThis = this;
+				if (res.data.code=="success") { //保存成功
+					this.bbs.extraCode= res.data.extraCode;
+					var isOK = true;
+					if(this.bbs.nextPageTrue){//如果是点击了下一步的操作
+						var oDom = $(this.$el).find(".bbsA");
+						oDom.each(function(index,el){
+							if (!isOK) {
+								return
+							}
+							var attrs = $(el).attr("imgNum");
+							if ($(el).find(".myImgBox >img").size()==attrs) {
+								$(el).find(".myImgBox >img").each(function(i,e){
+									if (!$(e).attr("src")) {
+										if ($(e).attr("class")=="lomo") {
+											Toast('lomo卡第'+(index-oThis.typeHtml.length+1)+'页图片上传不完整!');	
+											isOK = false;
+											return;
+										}
+										Toast('第'+(index+1)+'页图片上传不完整!');
+										isOK = false;
+										return;
+									}
+								})
+							}							
+						})
+						//最后保存成功进行预览
+						if (isOK) {
+							$(this.$el).find(".editImg").hide();
+							$(this.$el).find(".switchBs").hide();
+							this.previewPage = true;
+						}
+						return;
+					}
+					Toast('保存成功 !');
+				}
 			})
-			console.log(this.bbs.workEdit)
+//			console.log(this.bbs.nextPageTrue)
+//			console.log(this.bbs.workEdit)
 
   		},
   		slectUpload(){ //素材库倒入的操作
@@ -225,6 +293,7 @@ export default{
   		},
   		okQuery(){//弹出框确认选中图片操作
   			var thumbnailUrl = this.bbs.Material[this.bbs.MaterialImgIndex].thumbnailUrl;
+  			
   			//确认回显图片到页面
 //			$(".OnlyOne").attr("src",thumbnailUrl);
   			$(".OnlyOne").prev(".myImgBox").show().find("img").attr("src",thumbnailUrl);
@@ -241,9 +310,11 @@ export default{
 			var cropitData = {"x":200.21,"y":400.32,"width":100,"height":300,"rotate":0,"thumbnailScale":1};
 			
 			var constName = this.bbs.page+'_'+this.bbs.num; //几页加第几张图
+			if (constName=="1_1") {//如果有第一张图
+				this.bbs.workEdit.thumbnailImageUrl=thumbnailUrl;
+			}			
 			var picObj = {"constName":constName,"picDbId" : oData.dbId, "page" : this.bbs.page, "editCnfIndex" : this.bbs.styleType, "num" : this.bbs.num, "actions" : cropitData,
 			"thumbnailImageUrl":oData.thumbnailUrl, "previewThumbnailImageUrl" :oData.previewThumbnailImageUrl, "crop" : "false","editCnfName" : this.bbs.editCnfName};
-			console.log()
 			if (this.bbs.editCnfName=="baobaoshu_lomo") { //判断是lomo卡的东西
 					this.editData.lomHashMap.putvalue(constName,picObj);//存入lomo卡的对象
 					Indicator.close();//关闭弹出框
@@ -400,8 +471,9 @@ export default{
   		console.log(document.getElementById('browseButton'));
   		//初始化的时候默认宝宝书和lomo卡的html渲染模版
   		this.typeHtml = typeHtml;
+  	
   		this.lomok = typeHtmlLome;
-  		
+  		console.log(typeHtmlLome)
 		var oThis = this;
   		/* 文件上传init */
 		var uploadUrl = 'http://image2.artup.com/artup-build/builder/cors/picture/baobaoshu/upload.do?format=json&sessionId=2141731';
@@ -438,14 +510,20 @@ export default{
 			r.on('fileSuccess', function(file, message){
 				var responseText = $.parseJSON(message);				
 				$(".OnlyOne").prev(".myImgBox").show().find("img").attr("src",responseText.thumbnailUrl);
+				
+				
 				//让图片剧中裁切隐藏	
 				setTimeout(function(){
 					dragThumb($(".OnlyOne").prev(".myImgBox").find("img"),$(".OnlyOne").prev(".myImgBox"));
 					$(".OnlyOne").remove(); //清空触发弹出上传框的节点,防止vue事件委派兼容
 				},100)
-				console.log(responseText)		
+				console.log(responseText)	
+				
 				//组装后端需要的数据
 				var constName = responseText.picPage+'_'+responseText.picNum; //几页加第几张图
+				if (constName=="1_1"){//如果有第一页存入预览图
+					oThis.bbs.workEdit.thumbnailImageUrl=responseText.thumbnailUrl;
+				}
 				var picObj = {"constName":constName,"picDbId" : responseText.pictureDbId, "page" : responseText.picPage, "editCnfIndex" : responseText.styleType, "num" : responseText.picNum, "actions" : cropitData,
 				"thumbnailImageUrl":responseText.thumbnailUrl, "previewThumbnailImageUrl" :responseText.previewThumbnailImageUrl, "crop" : "false","editCnfName" : responseText.editCnfName};
 				

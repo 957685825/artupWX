@@ -34,12 +34,28 @@ export default {
 	   	  	return  VueHttp.$http.get(HOST+inter)
 	   	  }
 	   },
-	   work:{
+	   work:{ //作品的接口post方法(保存)
 	   	 	workEdit:(inter,jsons)=>{
 	   	 		return VueHttp.$http.post(HOST+inter,
 	   	 			qs.stringify(jsons)   	 				   	 		
 	   	 		)
-	   	 	}
+	   	 	},
+	   	 	workList:(inter,status,pageNum,category)=>{ //作品列表查询
+	   	  		return  VueHttp.$http.get(HOST+inter,{
+						params: {
+				   	  		format:"json",
+				   	  		ignore:"true",
+				   	  		userDbId:sessionIds,
+				   	  		sessionId:sessionIds,
+				   	  		status:status, //未完成1，已经完成2 
+				   	  		sortField:"createdDt",
+				   	  		pageSize:15,//每页多少条
+				   	  		pageNum:pageNum, //第几页
+				   	  		order:"desc",
+				   	  		category:category //类型
+				   	  	}
+				})
+	   	  }
 	   },
 	   Material:{
 	   		MaterialData:(inter)=>{//素材数据

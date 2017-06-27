@@ -74,6 +74,24 @@
 </template>
 	
 <script>
+	
+import  Api   from '../../API.js'
+export default {
+
+  data () {
+    return {
+
+    }
+  },
+	methods:{
+	
+	},	
+	mounted(){
+		console.log(this.$route.query)
+//		GetQueryString("category")
+	}
+}
+	
 </script>
 
 <style>

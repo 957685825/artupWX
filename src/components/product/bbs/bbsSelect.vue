@@ -32,14 +32,12 @@
 
 <script>
 	import Api from '../../../API.js'	
-	import { Toast,Indicator} from 'mint-ui';	
+	import { Toast,Indicator,MessageBox} from 'mint-ui';	
 //	import {mapGetters, mapActions} from 'vuex'
 	export default{
 		data(){
 			return{
-				bbs:{
-					
-					
+				bbs:{				
 				},
 				bbsSlsectDate:{ //给后端传递的数据
 					
@@ -108,7 +106,25 @@
 				 setTimeout(function(){
 				 	This.getPrice($("#bbs-select .slect_dl > dd .dd_active"))				    
 				 },100)	 
-			});			
+			});	
+			//开始默认的时候，去拿我的作品列表判断是否有未完成的作品
+			var category = 'baobaoshu'
+			Api.work.workList("artup-build/builder/cors/edit/queryAll.do",1,0,category).then((res)=>{
+				if (res.data.length>0) {
+					MessageBox({
+					  title: '我的作品',
+					  message: '您有未完成的作品,需要编辑未完成的作品吗?',
+					  confirmButtonText:'编辑未完成作品',
+					  cancelButtonText:'创建新作品',
+					  showCancelButton: true
+					}).then((res)=>{
+						if(res=="confirm"){//有未完成的作品
+							//跳转到未完成的页面去
+							window.location.href="#workList"
+						}					
+					})
+				};				
+			})
 		}
 	}
 </script>

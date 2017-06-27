@@ -19,7 +19,7 @@
 			  v-infinite-scroll="loadMore"
 			  infinite-scroll-disabled="loading"
 			  infinite-scroll-distance="10">
-			  <li v-for="item in list" style="margin-top: 0.53rem;">
+			  <li v-for="item in worklist" style="margin-top: 0.53rem;">
 			  	<div class="content">
 					<ul>
 						<li><p v-tap='{methods:updataCheck}' class= "circle circleNone"><i class="icon iconfont">&#xe639;</i></p></li>
@@ -29,12 +29,12 @@
 						<li>
 							<ul>
 								<li>
-									<span>宝宝书</span>
-									<span>智慧蓝</span>
-									<span>24页</span>
+									<span>{{item.sku}}</span>
+									<!--<span>智慧蓝</span>
+									<span>24页</span>-->
 								</li>
-								<li>170mm*235mm</li>
-								<li>2017-06-9</li>
+								<!--<li>170mm*235mm</li>-->
+								<li>{{item.createdDt}}</li>
 							</ul>
 						</li>
 						<li v-bind:hidden="tapStyle">
@@ -44,9 +44,9 @@
 				</div>
 			  </li>
 			</ul>
-			<p class="page-infinite-loading" v-bind:hidden="loading == false">
+			<!--<p class="page-infinite-loading" v-bind:hidden="loading == false">
 		    	  加载中...
-		    </p>
+		    </p>-->
 			</div>
 			
 		</div>
@@ -54,13 +54,16 @@
 </template>
 
 <script>
-	import { InfiniteScroll } from 'mint-ui';
+	import { InfiniteScroll,Indicator } from 'mint-ui';
+	import Api from '../../API.js'
 	export default{
 		data(){
 			return{
 				tapStyle:false,
-				list:[1,2,3,4,5,6],
-				loading:false
+				worklist:[],
+				loading:false,
+				workStatus:1, //默认是未完成的数据
+				workPage:0 //第0页
 			}
 		},
 		methods:{
@@ -85,25 +88,29 @@
 					if($(params.event.target).hasClass("icon")){
 						$(params.event.target).hide();
 						$(params.event.target).parent('p').addClass('circleNone');
-					}
-					
-					
-					
+					}	
 				}
 			},
 			loadMore() {
 			  this.loading = true;
-			  setTimeout(() => {
-			    let last = this.list[this.list.length - 1];
-			    for (let i = 1; i <= 10; i++) {
-			      this.list.push(last + i);
-			    }
-			    this.loading = false;
-			  }, 2500);
+//			  setTimeout(() => {
+//			    let last = this.list[this.list.length - 1];
+//			    for (let i = 1; i <= 10; i++) {
+//			      this.list.push(last + i);
+//			    }
+//			    this.loading = false;
+//			  }, 2500);
 			}
 		},
 		mounted(){
-			
+			var category = 'baobaoshu'
+			Indicator.open({text: '作品加载中...',spinnerType: 'fading-circle'});
+			//开始默认的时候，去拿我的作品列表
+			Api.work.workList("artup-build/builder/cors/edit/queryByPage.do",this.workStatus,this.workPage,category).then((res)=>{
+				this.worklist = res.data.results;
+				Indicator.close();
+				console.log(this.worklist)
+			})
 		}
 	}
 </script>
