@@ -80,14 +80,16 @@
 						dataCode+=$(this).attr("data-code")+'.'
 						dataCode2+=$(this).attr("data-name")+'.'
 					})
+					console.log(dataCode)
+					console.log(dataCode2)
 					//组装后端需要的数据暂存浏览器
-					this.bbsSlsectDate.name = this.bbsSlsectDate.name+'.'+dataCode2;
+					this.bbsSlsectDate.name = this.bbs.name+'.'+dataCode2;
 					localStorage.setItem("bbsSlsectDate",JSON.stringify(this.bbsSlsectDate))
 				 	//请求价格:			
-//					Api.baobaoshu.bbsPrice(`artup-build/builder/price.do?format=json&ignore=true&category=baobaoshu&parameter=dataCode`).then((res)=>{
-//						//价格计算
-//						 this.price = res.data.price;
-//					})
+					Api.baobaoshu.bbsPrice(`artup-build/builder/price.do?format=json&ignore=true&category=baobaoshu&parameter=${dataCode}`).then((res)=>{
+						//价格计算
+						 this.price = res.data.price;
+					})
 					console.log(this.bbsSlsectDate)					
 			}
 		},
@@ -96,21 +98,17 @@
 			//宝宝书选择作品
 			Indicator.open({text: '页面加载中...',spinnerType: 'fading-circle'});
 			Api.baobaoshu.bbsSelect("artup-build/builder/service/baobaoshu/attributes.do?format=json&ignore=true").then((res)=>{
-				 console.log(res.data)
-				 //组装后端数据
-				 this.bbsSlsectDate.name=res.data.name; 
+				//添加1个titleName
+				 localStorage.setItem('titleName',res.data.name);
 				 this.bbs= res.data;
 				 //给数据里面添加1个判断class的对象
-				 this.checkColor(this.bbs.attributes,0)
+				 this.checkColor(this.bbs.attributes,0)				 
 				 Indicator.close();				 
 				 //默认的价格
 				 setTimeout(function(){
-				 	This.getPrice($("#bbs-select .slect_dl > dd .dd_active"))
-				 })	
-				 
-			});
-			
-			
+				 	This.getPrice($("#bbs-select .slect_dl > dd .dd_active"))				    
+				 },100)	 
+			});			
 		}
 	}
 </script>

@@ -1,13 +1,16 @@
 import Vue from 'vue'
 import axios from 'axios'
+import qs from 'qs'
+console.log(qs)
 Vue.prototype.$http = axios
 // 常量 API 接口地址
-
 const HOST = 'http://image2.artup.com/'
 
 //用户名全局变量获取
-//const sessionIds = localStorage.getItem("sessionId");
-const sessionIds = '2141731';
+
+localStorage.setItem("sessionId","2141731");
+const sessionIds = localStorage.getItem("sessionId");
+
 ////只要访问ajax的时候，没有这个用户信息，就跳到首页去登录获取用户信息
 //if (!sessionIds) {
 //	alert('用户信息不存在!');  
@@ -31,8 +34,15 @@ export default {
 	   	  	return  VueHttp.$http.get(HOST+inter)
 	   	  }
 	   },
+	   work:{
+	   	 	workEdit:(inter,jsons)=>{
+	   	 		return VueHttp.$http.post(HOST+inter,
+	   	 			qs.stringify(jsons)   	 				   	 		
+	   	 		)
+	   	 	}
+	   },
 	   Material:{
-	   		MaterialData:(inter)=>{//素材库数据
+	   		MaterialData:(inter)=>{//素材数据
 		   	  	return VueHttp.$http.get(HOST+inter, {
 						params: {
 				   	  		format:"json",
@@ -45,7 +55,7 @@ export default {
 				   	  		category:''
 				   	  	}
 				})
-	   	  }
+	   	 }	   	 
 	   },
 	   ajax(url,callback){
 	   	 console.log(arguments.length)
