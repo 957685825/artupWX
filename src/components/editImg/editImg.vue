@@ -9,7 +9,7 @@
 		  </router-link>
 		</mt-header>	
 		
-		<loading></loading>
+		<editimg></editimg>
 		
 	</div>
 	

@@ -429,9 +429,11 @@ export default{
 //			console.log(fns)
 //		})
 		var oThis = this;
+		console.log()
 	  //继续编辑初始化的数据
-	  Api.work.unfinishedWork("artup-build/builder/cors/edit/queryOne.do",this.$route.query.edtDbid).then((res)=>{
-	  	console.log(res)
+	  if (this.$route.query.edtDbid) {
+	  	Api.work.unfinishedWork("artup-build/builder/cors/edit/queryOne.do",this.$route.query.edtDbid).then((res)=>{
+	  			console.log(res)
 			var oImgData = JSON.parse(res.data.data.editPicture);
 			//动态添加图片
 			$("#bbsImg").find(".listBox .bbsClass >img").each(function(i,el){
@@ -451,7 +453,9 @@ export default{
 				$("#"+pageNum).prev(".myImgBox").show().find("img").attr("src",oImgData[i].previewThumbnailImageUrl)
 				$("#"+pageNum).remove();
 			}
-	  })
+	 	 })
+	  }
+	  
 		//素材库地址图片
 		Api.Material.MaterialData("artup-build/service/picture/page.do").then((res)=>{
 			 this.bbs.Material = res.data.results;

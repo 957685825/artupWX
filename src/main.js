@@ -20,8 +20,10 @@ import vueTap from 'v-tap';
 console.log(vueTap)
 
 import loading from './components/component/edit'
+import editimg from './components/component/editImg';
 
 Vue.use(loading)
+Vue.use(editimg);
 Vue.use(vueTap)
 //使用use 引入插件
 Vue.use(MintUI);
