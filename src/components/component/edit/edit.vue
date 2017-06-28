@@ -26,7 +26,7 @@
                 number2: ''//test
             }
         },
-        props: ['imgSrc', 'editFinish', 'imgSize', 'getCropit'],
+        props: ['imgSrc', 'editFinish', 'imgSize'],
         methods: {
             selectPreview(){
                 this.$store.commit('selectPreview');
@@ -87,9 +87,6 @@
                     reg = 0;
                 }
             });
-
-
-            this.getCropit(imageCropper);
 
             //获取最后结果
             /*$('.export').click(function () {

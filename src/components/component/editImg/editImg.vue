@@ -9,7 +9,7 @@
             </div>
         </mt-header>
 
-        <loading :img-src="imgSrc" :edit-finish="editFinish" :img-size="imgSize" :get-cropit="getCropit"></loading>
+        <loading :img-src="imgSrc" :img-size="imgSize"></loading>
 
     </div>
 
@@ -19,20 +19,12 @@
     import {mapState, mapMutations} from 'vuex';
     export default {
         data: () => ({
-            editorHeight: window.innerHeight,
-
-            getCropit(instance){
-                console.log('函数', this);
-                this.cropitInstance = instance
-            },
-
-            cropitInstance: ''
+            editorHeight: window.innerHeight
         }),
 
         computed: mapState({
             isShow: ({editImgModule}) => editImgModule.isShow,
             imgSrc: ({editImgModule}) => editImgModule.imgSrc,
-            editFinish: ({editImgModule}) => editImgModule.editFinish,
             imgSize: ({editImgModule}) => editImgModule.imgSize
         }),
 
@@ -41,12 +33,7 @@
         methods: {
             save(){
                 let {
-                    commit,
-                    state: {
-                        editImgModule: {
-                            editFinish
-                        }
-                    }
+                    commit
                 } = this.$store;
 
                 var cropitData = build(),
@@ -60,7 +47,7 @@
                     postData[extraData] = extraPostData[extraData];
                 }
 
-                this.$emit('editFinish', {postData,imgData:$('#image-cropper').cropit('export')});
+                this.$emit('editFinish', {postData, imgData: $('#image-cropper').cropit('export')});
 
                 //commit('clearImgSrc');
                 commit('hideEditor');
