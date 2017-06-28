@@ -75,11 +75,15 @@ export default {
 			add(params){
 				var num = params.num+=1;
 				this.dataList[params.index].num = num;
-				this.oPrice();
+				var that = this;
+				setTimeout(function(){
+					this.oPrice();
+				},500)
 			},
 			/*减少数量*/
 			reduce(params){
 				if( params.num > 1){
+					
 					var num = params.num-=1;
 					this.dataList[params.index].num = num;
 					this.oPrice();
@@ -90,8 +94,8 @@ export default {
 				$('.cartList li').each(function(n,el){
 					if($(el).hasClass('xz')){
 						var pic = parseFloat($(el).find('.div_comenter .img_msg .pic').text().substring(1));
+						console.log($(el).find('.div_comenter .img_msg .pic').text())
 						arr+=pic;
-						
 					}
 				})
 				this.allPic = arr;
