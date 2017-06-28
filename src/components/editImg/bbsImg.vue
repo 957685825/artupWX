@@ -95,7 +95,7 @@
 				保存作品
 			</div>
 			<div v-if="previewPage"  v-tap="{methods : goCart}" class="crectOrder">
-				加入购物车
+				添加购物车
 			</div>
 		</div>		
 		<!-- 弹出框选上传方式 -->
@@ -199,8 +199,29 @@ export default{
 	  }, 	
   	methods:{
   		goCart(){
-  			var category = "baobaoshu"
-			location.href="#cart?edtDbId="+this.bbs.extraCode+"&category="+category			
+  			var jsons = {
+  				operator:"add",
+  				sessionId:localStorage.getItem("sessionId"),
+  				userDbId:localStorage.getItem("sessionId"),
+  				client:"mobile",//渠道前端传递，暂时写死
+				category:category,//产品类型这里是宝宝书,暂时写死
+				edtDbId:this.bbs.extraCode,
+				price:"",
+				num:1,
+				discount:'',
+				channelCode:"zc",
+				opSystem:'',
+				thumbnailImageUrl:this.bbs.workEdit.thumbnailImageUrl,
+				total:''
+  			}
+  			API.car.addCar(jsons).then(res=>{
+  				var category = "baobaoshu"
+				location.href="#cart?edtDbId="+this.bbs.extraCode+"&category="+category		
+  			},err=>{
+  				Toast('添加购物车出错');
+  			})
+  			
+  				
   		},
   		ContinueEdit(){//继续编辑
   			$(this.$el).find(".editImg").show();

@@ -11,6 +11,12 @@ const HOST = 'http://image2.artup.com/'
 localStorage.setItem("sessionId","2141731");
 const sessionIds = localStorage.getItem("sessionId");
 
+
+/*添加购物车*/
+const ADD_CAR = `${HOST}artrup-build/builder/car/add/command.do?format=json&ignore=true`
+/*购物车列表*/
+const CAR_LIST = `${HOST}`
+
 ////只要访问ajax的时候，没有这个用户信息，就跳到首页去登录获取用户信息
 //if (!sessionIds) {
 //	alert('用户信息不存在!');  
@@ -24,6 +30,17 @@ export default {
 	  		test:(inter)=>{
 	  			return  VueHttp.$http.get(HOST+inter)   
 	  		}
+	   },
+	   car:{//购物车
+	   	/*添加购物车*/
+	   	addCar:(jsons)=>{
+	   		return VueHttp.$http.post(ADD_CAR,
+	   	 			qs.stringify(jsons)   	 				   	 		
+	   	 	)
+	   	},
+	   	addCarList:()=>{
+	   		return VueHttp.$http.get()
+	   	}
 	   },
 	   baobaoshu:{ //宝宝书
 	   	//artup-build/builder/service/baobaoshu/attributes.do?format=json&ignore=true
