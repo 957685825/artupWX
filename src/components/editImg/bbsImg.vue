@@ -428,17 +428,30 @@ export default{
 //		Api.ajax("url22",function(fns){
 //			console.log(fns)
 //		})
-	  
-//	  console.log()
-//	  $(this.$el).find("")
-	  
+		var oThis = this;
+	  //继续编辑初始化的数据
 	  Api.work.unfinishedWork("artup-build/builder/cors/edit/queryOne.do",this.$route.query.edtDbid).then((res)=>{
-			console.log(JSON.parse(res.data.data.editPicture))
+	  	console.log(res)
+			var oImgData = JSON.parse(res.data.data.editPicture);
+			//动态添加图片
+			$("#bbsImg").find(".listBox .bbsClass >img").each(function(i,el){
+				var page = $(this).parents(".bstp").next(".bbsBtn").find("ul li p >span").text();				 
+				$(this).attr("id",page+'_'+$(el).attr("nm")+'_'+$(this).attr("editcnfname"))
+			})
+			//图片回显到页面
+			for (var i = 0; i < oImgData.length; i++) {
+				var constName = oImgData[i].page+'_'+oImgData[i].num;
+				console.log(oImgData[i])
+				//map生成变量
+				var picObj = {"constName":constName,"picDbId" : oImgData[i].picDbId, "page" : oImgData[i].page, "editCnfIndex" : oImgData[i].editCnfIndex, "num" : oImgData[i].num, "actions" : {},
+				"thumbnailImageUrl":oImgData[i].thumbnailImageUrl, "previewThumbnailImageUrl" :oImgData[i].previewThumbnailImageUrl, "crop" : oImgData[i].crop,"editCnfName" : oImgData[i].editCnfName};
+				oThis.editData.ImgHashMap.putvalue(constName,picObj);
+				console.log(oImgData[i].editCnfName)
+				var pageNum = oImgData[i].page+'_'+oImgData[i].num+'_'+oImgData[i].editCnfName;
+				$("#"+pageNum).prev(".myImgBox").show().find("img").attr("src",oImgData[i].previewThumbnailImageUrl)
+				$("#"+pageNum).remove();
+			}
 	  })
-
-	 
-
-
 		//素材库地址图片
 		Api.Material.MaterialData("artup-build/service/picture/page.do").then((res)=>{
 			 this.bbs.Material = res.data.results;
@@ -485,7 +498,7 @@ export default{
   	
   		this.lomok = typeHtmlLome;
   		console.log(typeHtmlLome)
-		var oThis = this;
+		
   		/* 文件上传init */
 		var uploadUrl = 'http://image2.artup.com/artup-build/builder/cors/picture/baobaoshu/upload.do?format=json&sessionId=2141731';
      	uploadInitializer($, uploadUrl, onUploadComplete);     	

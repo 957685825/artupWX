@@ -24,7 +24,7 @@
 					<ul>
 						<li><p v-tap='{methods:updataCheck}' class= "circle circleNone"><i class="icon iconfont">&#xe639;</i></p></li>
 						<li>
-							<img src="/dist/图层 3.png?36074abbec880d869d7da666542c62e3">
+							<img :src="item.thumbnailImageUrl">
 						</li> 
 						<li>
 							<ul>
