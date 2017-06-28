@@ -176,7 +176,7 @@ export default{
 		      	nextPageTrue:false,//变量，判断函数到底是保存操作还是下一步的操作
 		      	extraCode:'',//下一步最终完成跳转到购物车的extraCode  (dbid)
 		      	imgEdit:{ //图片编辑的对象
-		      		imgEditIndex : '' //我到底编辑的那个变量id
+		      		imgEditIndex : '' //我到底编辑的那个变量的map值
 		      	},
 		      	workEdit:{ //给后端保存或者编辑完成下一步传递的对象
 		      		format:"json",
@@ -409,14 +409,23 @@ export default{
   			}
   			//editImg 图片编辑功能
   			if ($(params.event.target).hasClass("editImg")) { 
+  				//编辑时候添加1个图片回显唯一标识符
+  				$(".OnlyOne").removeClass("OnlyOneEditImg");
+  				$(params.event.target).addClass("OnlyOneEditImg");
+  				
   				//拿到编辑的图片地址
   				var oImg = $(params.event.target).prev("img");
-
+				var costName = params.index+1+'_'+$(params.event.target).attr("nm");
   				this.bbs.imgEdit.oSrc = oImg.attr("src");
-  				this.bbs.imgEdit.ow = oImg.parent(".myImgBox").width();
+  				this.bbs.imgEdit.imgEditIndex = costName;				
+  				this.bbs.imgEdit.oW = oImg.parent(".myImgBox").width();
   				this.bbs.imgEdit.oH = oImg.parent(".myImgBox").height();
-//				console.log(this.bbs.imgEdit)
-  				this.editorImage(this.bbs.imgEdit)
+  				this.bbs.imgEdit.editCnfName = '';
+  				if ($(params.event.target).attr("editCnfName")) {
+  					this.bbs.imgEdit.editCnfName = $(params.event.target).attr("editCnfName");
+  				}
+				console.log(this.bbs.imgEdit)
+				this.editorImage(this.bbs.imgEdit)
 				//给地址存入vuex和浏览器
 //				this.$store.state.mutations.editImg = editImgs;
 //				localStorage.setItem("editImg",editImgs)
@@ -452,23 +461,32 @@ export default{
 			this.bbs.textTextarea = $(".textErea").text();
   		},
   		DomDongTai(){
-	  		$("#bbsImg").find(".listBox .bbsClass >img").each(function(i,el){
-				var page = $(this).parents(".bstp").next(".bbsBtn").find("ul li p >span").text();				 
-				$(this).attr("PageNumber",page+'_'+$(el).attr("nm"))
-			})	
+//	  		$("#bbsImg").find(".listBox .bbsClass >img").each(function(i,el){
+//				var page = $(this).parents(".bstp").next(".bbsBtn").find("ul li p >span").text();				 
+//				$(this).attr("PageNumber",page+'_'+$(el).attr("nm"))
+//			})	
   		},
-        editorImage(jsons){
-        		console.log(jsons)
-        		console.log(this.$el)
-//          this.$store.commit(
-//              'showEditor',
-//              {
-//                  imgSrc: jsons.oSrc,
-//                  imgSize: {width: jsons.oW, height: jsons.oH}
-//              }
-//          )
+        editorImage(jsons){      		
+        		console.log('宽高',jsons)        		
+            this.$store.commit(
+                'showEditor',
+                {
+                    imgSrc: jsons.oSrc,
+                    imgSize: {width: jsons.oW, height: jsons.oH}
+                }
+            )
         },
-        editFinish(imgData){
+        editFinish(imgData){ //图片编辑完毕的操作	
+        		if (!this.bbs.imgEdit.editCnfName) { //宝宝书的对象
+        			console.log('宝宝书对象',this.bbs.imgEdit.imgEditIndex)
+        			this.editData.ImgHashMap.getvalue(this.bbs.imgEdit.imgEditIndex).actions = imgData.postData
+        			
+        			console.log(this.editData.ImgHashMap.getvalue(this.bbs.imgEdit.imgEditIndex))
+        		}else{ //lomo卡的对象
+        			console.log('lomo卡的对象',this.bbs.imgEdit.imgEditIndex)
+        			this.editData.lomHashMap.getvalue(this.bbs.imgEdit.imgEditIndex).actions = imgData.postData
+        		}
+        		$(".OnlyOneEditImg").siblings("img").css("width","100%").css("height","100%").css("position","inherit").css("left","0").css("top","0").attr("src",imgData.imgData)
             console.log('编辑完毕', imgData);
         },
         selectPreview(){

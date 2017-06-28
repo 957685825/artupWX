@@ -36,10 +36,10 @@
             imgSrc(val, oldVal) {
                 if (val) {
                     console.log('更新', this.imgSize);
-                    //setTimeout(function () {
+                    if(this.imgSize.width&&this.imgSize.height){
+                        imageCropper.cropit('previewSize', this.imgSize);
+                    }
                     imageCropper.cropit('imageSrc', val);
-                        //imageCropper.cropit('previewSize', this.imgSize);
-                    //})
                 }
             }
         },
