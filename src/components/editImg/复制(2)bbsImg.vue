@@ -116,9 +116,9 @@
 					<mt-button   v-tap="{methods : nextBS}">下一步</mt-button>
 				</router-link>
 			</mt-header>
-			<ul class="checkBS">
-			 	<li v-tap="{methods : selectMoban ,index : index}" v-for="(moban,index) in mobanArr"><img v-bind:src="moban"/></li>
-	 		</ul>
+				<ul class="checkBS">
+				 	<li v-tap="{methods : selectMoban ,index : index}" v-for="(moban,index) in mobanArr"><img v-bind:src="moban"/></li>
+		 		</ul>
 		</div>
 		<!--弹出框-->
 		<mt-popup v-model="textareaTexts"  popup-transition="popup-fade">
@@ -175,9 +175,6 @@ export default{
 		      	MaterialImgIndex:0,
 		      	nextPageTrue:false,//变量，判断函数到底是保存操作还是下一步的操作
 		      	extraCode:'',//下一步最终完成跳转到购物车的extraCode  (dbid)
-		      	imgEdit:{ //图片编辑的对象
-		      		
-		      	},
 		      	workEdit:{ //给后端保存或者编辑完成下一步传递的对象
 		      		format:"json",
 		      		ignore:"true",
@@ -392,17 +389,11 @@ export default{
   			//editImg 图片编辑功能
   			if ($(params.event.target).hasClass("editImg")) { 
   				//拿到编辑的图片地址
-  				var oImg = $(params.event.target).prev("img");
-
-  				this.bbs.imgEdit.oSrc = oImg.attr("src");
-  				this.bbs.imgEdit.ow = oImg.parent(".myImgBox").width();
-  				this.bbs.imgEdit.oH = oImg.parent(".myImgBox").height();
-//				console.log(this.bbs.imgEdit)
-  				this.editorImage(this.bbs.imgEdit)
+  				var editImgs = $(params.event.target).prev("img").attr("src");	
 				//给地址存入vuex和浏览器
-//				this.$store.state.mutations.editImg = editImgs;
-//				localStorage.setItem("editImg",editImgs)
-//				location.href="#/editImg"
+  				this.$store.state.mutations.editImg = editImgs;
+  				localStorage.setItem("editImg",editImgs)
+  				location.href="#/editImg"
   			}
   			//点击弹出文本输入框
   			if ($(params.event.target).hasClass("classP")) {
@@ -433,8 +424,7 @@ export default{
   			//重新定义文本框内容
 			this.bbs.textTextarea = $(".textErea").text();
   		},
-        editorImage(jsons){
-        		console.log(jsons)
+        editorImage(){
             this.$store.commit(
                 'showEditor',
                 {
