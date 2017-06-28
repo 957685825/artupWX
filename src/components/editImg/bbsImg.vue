@@ -199,24 +199,26 @@ export default{
 	  }, 	
   	methods:{
   		goCart(){
+  			var bbsSlsectDate = JSON.parse(localStorage.getItem("bbsSlsectDate"));
+  			console.log(bbsSlsectDate)
   			var jsons = {
   				operator:"add",
   				sessionId:localStorage.getItem("sessionId"),
   				userDbId:localStorage.getItem("sessionId"),
   				client:"mobile",//渠道前端传递，暂时写死
-				category:category,//产品类型这里是宝宝书,暂时写死
+				category:bbsSlsectDate.category,//产品类型这里是宝宝书,暂时写死
 				edtDbId:this.bbs.extraCode,
-				price:"",
+				price:bbsSlsectDate.price,
 				num:1,
 				discount:'',
 				channelCode:"zc",
 				opSystem:'',
 				thumbnailImageUrl:this.bbs.workEdit.thumbnailImageUrl,
-				total:''
+				total:bbsSlsectDate.price
   			}
-  			API.car.addCar(jsons).then(res=>{
-  				var category = "baobaoshu"
-				location.href="#cart?edtDbId="+this.bbs.extraCode+"&category="+category		
+  			Api.car.addCar(jsons).then(res=>{
+  				//var category = "baobaoshu"
+				location.href="#cart?edtDbId="+this.bbs.extraCode+"&category="+bbsSlsectDate.category		
   			},err=>{
   				Toast('添加购物车出错');
   			})
@@ -449,6 +451,17 @@ export default{
 //		Api.ajax("url22",function(fns){
 //			console.log(fns)
 //		})
+	  
+//	  console.log()
+//	  $(this.$el).find("")
+	  
+	  Api.work.unfinishedWork("artup-build/builder/cors/edit/queryOne.do",this.$route.query.edtDbid).then((res)=>{
+			console.log(JSON.parse(res.data.data.editPicture))
+	  })
+
+	 
+
+
 		//素材库地址图片
 		Api.Material.MaterialData("artup-build/service/picture/page.do").then((res)=>{
 			 this.bbs.Material = res.data.results;

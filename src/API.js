@@ -13,9 +13,9 @@ const sessionIds = localStorage.getItem("sessionId");
 
 
 /*添加购物车*/
-const ADD_CAR = `${HOST}artrup-build/builder/car/add/command.do?format=json&ignore=true`
+const ADD_CAR = `${HOST}artup-build/builder/cors/car/add/command.do?format=json&ignore=true`
 /*购物车列表*/
-const CAR_LIST = `${HOST}`
+const CAR_LIST = `${HOST}artup-build/builder/cors/car/queryByPage.do?format=json&ignore=true`
 
 ////只要访问ajax的时候，没有这个用户信息，就跳到首页去登录获取用户信息
 //if (!sessionIds) {
@@ -38,8 +38,8 @@ export default {
 	   	 			qs.stringify(jsons)   	 				   	 		
 	   	 	)
 	   	},
-	   	addCarList:()=>{
-	   		return VueHttp.$http.get()
+	   	carList:(jsons)=>{
+	   		return VueHttp.$http.get(CAR_LIST,jsons)
 	   	}
 	   },
 	   baobaoshu:{ //宝宝书
@@ -71,8 +71,19 @@ export default {
 				   	  		order:"desc",
 				   	  		category:category //类型
 				   	  	}
+			})
+	   	  },
+	   	  unfinishedWork:(inter,edtDbId)=>{//素材数据
+		   	  	return VueHttp.$http.get(HOST+inter, {
+	   	 			params: {
+			   	  		format:"json",
+			   	  		ignore:"true",
+			   	  		userDbId:sessionIds,
+			   	  		sessionId:sessionIds,
+			   	  		edtDbId:edtDbId				   	  		
+				   	}
 				})
-	   	  }
+	   	 }
 	   },
 	   Material:{
 	   		MaterialData:(inter)=>{//素材数据

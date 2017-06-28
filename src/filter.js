@@ -8,3 +8,15 @@ Vue.filter("json", function(value) {   //全局方法 Vue.filter() 注册一个�
    console.log(value)
    return JSON.stringify(value);
 });
+Vue.filter("splitSku",function(value){
+	var arr = value.split('.');
+	var newArr = [];
+	for(var i=0; i<arr.length-2; i++){
+		newArr.push(arr[i])
+	}
+	return newArr.join('.');
+});
+Vue.filter("splitSkuLast",function(value){
+	var arr = value.split('.');
+	return arr[arr.length - 1];
+})

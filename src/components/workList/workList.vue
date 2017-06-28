@@ -19,7 +19,7 @@
 			  v-infinite-scroll="loadMore"
 			  infinite-scroll-disabled="loading"
 			  infinite-scroll-distance="10">
-			  <li v-for="item in worklist" style="margin-top: 0.53rem;">
+			  <li v-for="(item,index) in worklist" style="margin-top: 0.53rem;">
 			  	<div class="content">
 					<ul>
 						<li><p v-tap='{methods:updataCheck}' class= "circle circleNone"><i class="icon iconfont">&#xe639;</i></p></li>
@@ -37,7 +37,7 @@
 								<li>{{item.createdDt}}</li>
 							</ul>
 						</li>
-						<li v-bind:hidden="tapStyle">
+						<li v-tap="{methods : continueEdit ,index : index}"  v-bind:hidden="tapStyle">
 							<p>继续编辑</p>
 						</li>
 					</ul>
@@ -92,17 +92,23 @@
 				}
 			},
 			loadMore() {
-			  this.loading = true;
-//			  setTimeout(() => {
-//			    let last = this.list[this.list.length - 1];
-//			    for (let i = 1; i <= 10; i++) {
-//			      this.list.push(last + i);
-//			    }
-//			    this.loading = false;
-//			  }, 2500);
+				  this.loading = true;
+	//			  setTimeout(() => {
+	//			    let last = this.list[this.list.length - 1];
+	//			    for (let i = 1; i <= 10; i++) {
+	//			      this.list.push(last + i);
+	//			    }
+	//			    this.loading = false;
+	//			  }, 2500);
+			},
+			continueEdit(params){ //继续编辑
+				//存入继续编辑页面的id
+				location.href = "#BbsImg?edtDbid="+this.worklist[params.index].dbId;
+				
 			}
 		},
 		mounted(){
+
 			var category = 'baobaoshu'
 			Indicator.open({text: '作品加载中...',spinnerType: 'fading-circle'});
 			//开始默认的时候，去拿我的作品列表

@@ -9,49 +9,27 @@
 		</mt-header>
 		<!--购物车列表-->
 		<ul class="cartList">
-			<li>
+			<li v-for="(itme,indexs) in dataList">
 				<div class="div_select">
-					<b class=""></b>
+					<b v-tap='{methods:updateCheck,index:indexs}'  ><i class="icon iconfont">&#xe672;</i></b>
 				</div>
 				<div class="div_comenter">
 					<div class="img_cart">
-						<img src="../../assets/img/bbs.png"/>
+						<img v-bind:src="itme.thumbnailImageUrl" alt="" />
+						
 					</div>
 					<ol class="img_msg">
-						<li>宝宝书  智慧蓝 24页</li>
-						<li>170mm*235mm</li>
-						<li>2017-06-09  13:32</li>
-						<li>¥100.01</li>
+						<li>{{itme.sku | splitSku}}</li>
+						<li>{{itme.sku | splitSkuLast}}</li>
+						<li>{{itme.createdDt}}</li>
+						<li class="pic" v-model="itme.num">¥&nbsp;{{itme.total * itme.num}}</li>
 					</ol>
 				</div>
 				<div class="div_number">
 					<ol>
-						<li>减</li>
-						<li>10</li>
-						<li>加</li>
-					</ol>
-				</div>
-			</li>
-			<li>
-				<div class="div_select">
-					<b class="activeSelect"><i class="icon iconfont">&#xe672;</i></b>
-				</div>
-				<div class="div_comenter">
-					<div class="img_cart">
-						<img src="../../assets/img/bbs.png"/>
-					</div>
-					<ol class="img_msg">
-						<li>宝宝书  智慧蓝 24页</li>
-						<li>170mm*235mm</li>
-						<li>2017-06-09  13:32</li>
-						<li>¥100.01</li>
-					</ol>
-				</div>
-				<div class="div_number">
-					<ol>
-						<li>减</li>
-						<li>10</li>
-						<li>加</li>
+						<li v-tap='{methods : reduce,num:itme.num,index:indexs}'>减</li>
+						<li v-model="itme.num">{{itme.num}}</li>
+						<li v-tap='{methods : add,num:itme.num,index:indexs}'>加</li>
 					</ol>
 				</div>
 			</li>			
@@ -64,7 +42,7 @@
 				<span>全选</span>
 			</div>
 			<div class="price">
-				合计<span><b>¥</b>88.00</span>
+				合计<span><b>¥</b> {{allPic}}</span>
 			</div>
 			<div class="crectOrder">
 				结算
@@ -78,19 +56,81 @@
 import  Api   from '../../API.js'
 export default {
 
-  data () {
-    return {
-
-    }
-  },
-	methods:{
-	
-	},	
-	mounted(){
-		console.log(this.$route.query)
-//		GetQueryString("category")
+	  data () {
+	    return {
+			dataList:[],
+			price:'',
+			orderNum:'',
+			checkes:false,
+			allPic:0,
+			arr:[],
+			picMap:[]
+	    }
+	  },
+	 watch:{
+　　　　
+　　　　},
+		methods:{
+			/*添加数量*/
+			add(params){
+				var num = params.num+=1;
+				this.dataList[params.index].num = num;
+				this.oPrice();
+			},
+			/*减少数量*/
+			reduce(params){
+				if( params.num > 1){
+					var num = params.num-=1;
+					this.dataList[params.index].num = num;
+					this.oPrice();
+				}
+			},
+			oPrice(){
+				var arr = 0;
+				$('.cartList li').each(function(n,el){
+					if($(el).hasClass('xz')){
+						var pic = parseFloat($(el).find('.div_comenter .img_msg .pic').text().substring(1));
+						arr+=pic;
+						
+					}
+				})
+				this.allPic = arr;
+			},
+			/*设置选中状态*/
+			updateCheck(params){
+				if($(params.event.target).parent('b').hasClass("activeSelect")){
+					$(params.event.target).parent('b').removeClass('activeSelect');
+					$(".cartList >li:nth-child("+(params.index+1)+")").removeClass('xz')
+					//this.oPrice("yc",params.index)
+				}else{
+					$(params.event.target).parent('b').addClass('activeSelect');
+					$(".cartList >li:nth-child("+(params.index+1)+")").addClass('xz')
+				}
+				this.oPrice();
+			}
+		},	
+		mounted(){
+			var jsons = {
+				sessionId:localStorage.getItem("sessionId"),
+	  			userDbId:localStorage.getItem("sessionId"),
+	  			status:1,
+	  			pageNum:0,
+	  			pageSize:15,
+	  			sort:"createdDt",
+	  			order:'desc'
+			}
+			Api.car.carList(jsons).then(res=>{
+				this.dataList = res.data.results;
+				
+				console.log(res)
+			},err=>{
+				
+			})
+			
+			console.log(this.$route.query)
+	//		GetQueryString("category")
+		}
 	}
-}
 	
 </script>
 
