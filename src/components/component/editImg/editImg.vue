@@ -1,18 +1,19 @@
 <template>
-    <div id="editImg" class="editImg-wrap" :style="{height:editorHeight+'px'}" v-show="isShow">
-        <mt-header title="图片编辑">
-            <router-link to="/" slot="left">
-                <mt-button>撤销</mt-button>
-            </router-link>
-            <div to="/" slot="right">
-                <mt-button @click="save">保存</mt-button>
-            </div>
-        </mt-header>
+    <transition name="fade">
+        <div id="editImg" class="editImg-wrap" :style="{height:editorHeight+'px'}" v-show="isShow">
+            <mt-header title="图片编辑">
+                <router-link to="/" slot="left">
+                    <mt-button>撤销</mt-button>
+                </router-link>
+                <div to="/" slot="right">
+                    <mt-button @click="save">保存</mt-button>
+                </div>
+            </mt-header>
 
-        <loading :img-src="imgSrc" :img-size="imgSize"></loading>
+            <loading :img-src="imgSrc" :img-size="imgSize"></loading>
 
-    </div>
-
+        </div>
+    </transition>
 </template>
 
 <script>
