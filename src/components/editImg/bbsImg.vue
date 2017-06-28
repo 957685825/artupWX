@@ -438,8 +438,8 @@ export default{
             this.$store.commit(
                 'showEditor',
                 {
-                    imgSrc: '../../../src/assets/img/bbs.png',
-                    imgSize: {width: 100, height: 100}
+                    imgSrc: jsons.oSrc,
+                    imgSize: {width: jsons.oW, height: jsons.oH}
                 }
             )
         },

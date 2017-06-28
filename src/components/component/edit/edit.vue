@@ -36,8 +36,10 @@
             imgSrc(val, oldVal) {
                 if (val) {
                     console.log('更新', this.imgSize);
-                    imageCropper.cropit('previewSize', this.imgSize);
-                    imageCropper.cropit('imageSrc', val)
+                    //setTimeout(function () {
+                    imageCropper.cropit('imageSrc', val);
+                        //imageCropper.cropit('previewSize', this.imgSize);
+                    //})
                 }
             }
         },
@@ -60,10 +62,8 @@
                 exportZoom: 1,
                 imageBackground: true,
                 imageBackgroundBorderWidth: 0,
-                imageState: {
-                    //				src : '${ctx}/upload/bees-1.png',
-                    //src: '../../../src/assets/img/bbs.png'
-                }
+                width:200,
+                height:200
             });
 
 
