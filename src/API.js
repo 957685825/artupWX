@@ -54,8 +54,19 @@ export default {
 				   	  		order:"desc",
 				   	  		category:category //类型
 				   	  	}
+			})
+	   	  },
+	   	  unfinishedWork:(inter,edtDbId)=>{//素材数据
+		   	  	return VueHttp.$http.get(HOST+inter, {
+	   	 			params: {
+			   	  		format:"json",
+			   	  		ignore:"true",
+			   	  		userDbId:sessionIds,
+			   	  		sessionId:sessionIds,
+			   	  		edtDbId:edtDbId				   	  		
+				   	}
 				})
-	   	  }
+	   	 }
 	   },
 	   Material:{
 	   		MaterialData:(inter)=>{//素材数据

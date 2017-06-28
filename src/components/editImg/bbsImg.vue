@@ -428,6 +428,17 @@ export default{
 //		Api.ajax("url22",function(fns){
 //			console.log(fns)
 //		})
+	  
+//	  console.log()
+//	  $(this.$el).find("")
+	  
+	  Api.work.unfinishedWork("artup-build/builder/cors/edit/queryOne.do",this.$route.query.edtDbid).then((res)=>{
+			console.log(JSON.parse(res.data.data.editPicture))
+	  })
+
+	 
+
+
 		//素材库地址图片
 		Api.Material.MaterialData("artup-build/service/picture/page.do").then((res)=>{
 			 this.bbs.Material = res.data.results;
