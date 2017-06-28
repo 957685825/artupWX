@@ -418,7 +418,7 @@ export default{
   				var oImg = $(params.event.target).prev("img");
 
   				this.bbs.imgEdit.oSrc = oImg.attr("src");
-  				this.bbs.imgEdit.ow = oImg.parent(".myImgBox").width();
+  				this.bbs.imgEdit.oW = oImg.parent(".myImgBox").width();
   				this.bbs.imgEdit.oH = oImg.parent(".myImgBox").height();
 //				console.log(this.bbs.imgEdit)
   				this.editorImage(this.bbs.imgEdit)
@@ -457,7 +457,7 @@ export default{
 			this.bbs.textTextarea = $(".textErea").text();
   		},
         editorImage(jsons){
-        		console.log(jsons)
+        		console.log('宽高',jsons)
             this.$store.commit(
                 'showEditor',
                 {
