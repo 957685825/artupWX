@@ -22,11 +22,11 @@
             editorHeight: window.innerHeight,
 
             getCropit(instance){
-                console.log('函数',this);
-                this.cropitInstance=instance
+                console.log('函数', this);
+                this.cropitInstance = instance
             },
 
-            cropitInstance:''
+            cropitInstance: ''
         }),
 
         computed: mapState({
@@ -48,7 +48,6 @@
                         }
                     }
                 } = this.$store;
-                commit('hideEditor');
 
                 var cropitData = build(),
                     postData = {},
@@ -61,13 +60,10 @@
                     postData[extraData] = extraPostData[extraData];
                 }
 
-                //editFinish(postData);
+                this.$emit('editFinish', {postData,imgData:$('#image-cropper').cropit('export')});
 
-                console.log(this.cropitInstance);
-
-                this.$emit('editFinish', postData);
-
-                commit('clearImgSrc');
+                //commit('clearImgSrc');
+                commit('hideEditor');
             }
         },
 
@@ -89,6 +85,7 @@
                             Object.assign(state, payload, {isShow: true});
                         },
                         hideEditor(state){
+                            state.imgSrc = '';
                             state.isShow = false;
                         },
                         clearImgSrc(state){
@@ -111,6 +108,6 @@
         background: #fff;
         top: 0;
         left: 0;
-        z-index:9999
+        z-index: 9999
     }
 </style>
