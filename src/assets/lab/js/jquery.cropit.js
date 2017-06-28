@@ -481,7 +481,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 
 	      e.stopPropagation();
-	      return false;
+	      //return false;
 	    }
 	  }, {
 	    key: 'onMove',

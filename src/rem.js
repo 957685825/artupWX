@@ -26,9 +26,15 @@ var htmlData={
 
 /*板式默认的格式*/
 //var typeHtmlLome = [htmlData.bbs09,htmlData.bbs10,htmlData.bbs10,htmlData.bbs10,htmlData.bbs10,htmlData.bbs10,htmlData.bbs10,htmlData.bbs10,htmlData.bbs10,htmlData.bbs10,htmlData.bbs10]
+<<<<<<< HEAD
 var typeHtmlLome = [htmlData.bbs09,htmlData.bbs02,htmlData.bbs01]	
 //var typeHtml = [htmlData.bbs01,htmlData.bbs02,htmlData.bbs01,htmlData.bbs03,htmlData.bbs01,htmlData.bbs01,htmlData.bbs03,htmlData.bbs03,htmlData.bbs04,htmlData.bbs04,htmlData.bbs02,htmlData.bbs05,htmlData.bbs06,htmlData.bbs02,htmlData.bbs07,htmlData.bbs04,htmlData.bbs08,htmlData.bbs02,htmlData.bbs02,htmlData.bbs01,htmlData.bbs02,htmlData.bbs02,htmlData.bbs06,htmlData.bbs03,htmlData.bbs01,htmlData.bbs02,htmlData.bbs03,htmlData.bbs01,htmlData.bbs04,htmlData.bbs03,htmlData.bbs01,htmlData.bbs04]
 var typeHtml = [htmlData.bbs01,htmlData.bbs10,htmlData.bbs10]
+=======
+var typeHtmlLome = [htmlData.bbs09,htmlData.bbs10]	
+//var typeHtml = [htmlData.bbs01,htmlData.bbs02,htmlData.bbs01,htmlData.bbs03,htmlData.bbs01,htmlData.bbs01,htmlData.bbs03,htmlData.bbs03,htmlData.bbs04,htmlData.bbs04,htmlData.bbs02,htmlData.bbs05,htmlData.bbs06,htmlData.bbs02,htmlData.bbs07,htmlData.bbs04,htmlData.bbs08,htmlData.bbs02,htmlData.bbs02,htmlData.bbs01,htmlData.bbs02,htmlData.bbs02,htmlData.bbs06,htmlData.bbs03,htmlData.bbs01,htmlData.bbs02,htmlData.bbs03,htmlData.bbs01,htmlData.bbs04,htmlData.bbs03,htmlData.bbs01,htmlData.bbs04]
+var typeHtml = [htmlData.bbs01,htmlData.bbs02,htmlData.bbs01,htmlData.bbs03]
+>>>>>>> efaf3b50f2e7d2f116b2d4a3522c53df34615ff3
 
 //HashMap取值
 function HashMap () {

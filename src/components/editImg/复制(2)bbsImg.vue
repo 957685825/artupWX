@@ -95,7 +95,7 @@
 				保存作品
 			</div>
 			<div v-if="previewPage"  v-tap="{methods : goCart}" class="crectOrder">
-				添加购物车
+				加入购物车
 			</div>
 		</div>		
 		<!-- 弹出框选上传方式 -->
@@ -116,9 +116,9 @@
 					<mt-button   v-tap="{methods : nextBS}">下一步</mt-button>
 				</router-link>
 			</mt-header>
-			<ul class="checkBS">
-			 	<li v-tap="{methods : selectMoban ,index : index}" v-for="(moban,index) in mobanArr"><img v-bind:src="moban"/></li>
-	 		</ul>
+				<ul class="checkBS">
+				 	<li v-tap="{methods : selectMoban ,index : index}" v-for="(moban,index) in mobanArr"><img v-bind:src="moban"/></li>
+		 		</ul>
 		</div>
 		<!--弹出框-->
 		<mt-popup v-model="textareaTexts"  popup-transition="popup-fade">
@@ -175,9 +175,6 @@ export default{
 		      	MaterialImgIndex:0,
 		      	nextPageTrue:false,//变量，判断函数到底是保存操作还是下一步的操作
 		      	extraCode:'',//下一步最终完成跳转到购物车的extraCode  (dbid)
-		      	imgEdit:{ //图片编辑的对象
-		      		
-		      	},
 		      	workEdit:{ //给后端保存或者编辑完成下一步传递的对象
 		      		format:"json",
 		      		ignore:"true",
@@ -203,31 +200,8 @@ export default{
 	  }, 	
   	methods:{
   		goCart(){
-  			var bbsSlsectDate = JSON.parse(localStorage.getItem("bbsSlsectDate"));
-  			console.log(bbsSlsectDate)
-  			var jsons = {
-  				operator:"add",
-  				sessionId:localStorage.getItem("sessionId"),
-  				userDbId:localStorage.getItem("sessionId"),
-  				client:"mobile",//渠道前端传递，暂时写死
-				category:bbsSlsectDate.category,//产品类型这里是宝宝书,暂时写死
-				edtDbId:this.bbs.extraCode,
-				price:bbsSlsectDate.price,
-				num:1,
-				discount:'',
-				channelCode:"zc",
-				opSystem:'',
-				thumbnailImageUrl:this.bbs.workEdit.thumbnailImageUrl,
-				total:bbsSlsectDate.price
-  			}
-  			Api.car.addCar(jsons).then(res=>{
-  				//var category = "baobaoshu"
-				location.href="#cart?edtDbId="+this.bbs.extraCode+"&category="+bbsSlsectDate.category		
-  			},err=>{
-  				Toast('添加购物车出错');
-  			})
-  			
-  				
+  			var category = "baobaoshu"
+			location.href="#cart?edtDbId="+this.bbs.extraCode+"&category="+category			
   		},
   		ContinueEdit(){//继续编辑
   			$(this.$el).find(".editImg").show();
@@ -415,17 +389,11 @@ export default{
   			//editImg 图片编辑功能
   			if ($(params.event.target).hasClass("editImg")) { 
   				//拿到编辑的图片地址
-  				var oImg = $(params.event.target).prev("img");
-
-  				this.bbs.imgEdit.oSrc = oImg.attr("src");
-  				this.bbs.imgEdit.ow = oImg.parent(".myImgBox").width();
-  				this.bbs.imgEdit.oH = oImg.parent(".myImgBox").height();
-//				console.log(this.bbs.imgEdit)
-  				this.editorImage(this.bbs.imgEdit)
+  				var editImgs = $(params.event.target).prev("img").attr("src");	
 				//给地址存入vuex和浏览器
-//				this.$store.state.mutations.editImg = editImgs;
-//				localStorage.setItem("editImg",editImgs)
-//				location.href="#/editImg"
+  				this.$store.state.mutations.editImg = editImgs;
+  				localStorage.setItem("editImg",editImgs)
+  				location.href="#/editImg"
   			}
   			//点击弹出文本输入框
   			if ($(params.event.target).hasClass("classP")) {
@@ -456,8 +424,7 @@ export default{
   			//重新定义文本框内容
 			this.bbs.textTextarea = $(".textErea").text();
   		},
-        editorImage(jsons){
-        		console.log(jsons)
+        editorImage(){
             this.$store.commit(
                 'showEditor',
                 {
@@ -477,19 +444,6 @@ export default{
 //		Api.ajax("url22",function(fns){
 //			console.log(fns)
 //		})
-<<<<<<< HEAD
-	  
-//	  console.log()
-//	  $(this.$el).find("")
-	  
-	  Api.work.unfinishedWork("artup-build/builder/cors/edit/queryOne.do",this.$route.query.edtDbid).then((res)=>{
-			console.log(JSON.parse(res.data.data.editPicture))
-	  })
-
-	 
-
-
-=======
 		var oThis = this;
 		console.log()
 	  //继续编辑初始化的数据
@@ -518,7 +472,6 @@ export default{
 	 	 })
 	  }
 	  
->>>>>>> efaf3b50f2e7d2f116b2d4a3522c53df34615ff3
 		//素材库地址图片
 		Api.Material.MaterialData("artup-build/service/picture/page.do").then((res)=>{
 			 this.bbs.Material = res.data.results;
