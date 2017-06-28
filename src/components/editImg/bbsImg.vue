@@ -32,7 +32,7 @@
 					<div class="bs">
 						<div class="bsLeft imgBox">
 							<div class="bstp bstpfm">
-								<div class="bbs03  fmPage"></div>
+								<div class="bbs03  fmPage" @click="editorImage"></div>
 							</div>
 						</div>
 						<div class="fmFont">封面</div>
@@ -147,6 +147,7 @@
 				</div>
 		  	</div>
 		</mt-popup>
+		<edit-img @selectPreview="selectPreview" @editFinish="editFinish"></edit-img>
 	</div>
 </template>
 <script>
@@ -422,7 +423,22 @@ export default{
   			this.textareaTexts=false;
   			//重新定义文本框内容
 			this.bbs.textTextarea = $(".textErea").text();
-  		}
+  		},
+        editorImage(){
+            this.$store.commit(
+                'showEditor',
+                {
+                    imgSrc: '../../../src/assets/img/bbs.png',
+                    imgSize: {width: 100, height: 100}
+                }
+            )
+        },
+        editFinish(imgData){
+            console.log('编辑完毕', imgData);
+        },
+        selectPreview(){
+            console.log('点击')
+        }
   	}, 
   	mounted(){
 //		Api.ajax("url22",function(fns){

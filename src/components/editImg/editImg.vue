@@ -7,9 +7,9 @@
 		  <router-link to="/" slot="right">
 		    <mt-button>保存</mt-button>
 		  </router-link>
-		</mt-header>	
-		
-		<editimg></editimg>
+		</mt-header>
+
+		<loading></loading>
 		
 	</div>
 	

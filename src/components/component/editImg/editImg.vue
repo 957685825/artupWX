@@ -110,6 +110,7 @@
         width: 100%;
         background: #fff;
         top: 0;
-        left: 0
+        left: 0;
+        z-index:9999
     }
 </style>
