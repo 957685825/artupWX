@@ -82,7 +82,7 @@
 					console.log(dataCode2)
 					//组装后端需要的数据暂存浏览器
 					this.bbsSlsectDate.name = this.bbs.name+'.'+dataCode2;
-					this.bbsSlsectDate.category = "baobaoshu"; //类型
+					this.bbsSlsectDate.category = "baobaoshu"; //类型字段
 				 	//请求价格:			
 					Api.baobaoshu.bbsPrice(`artup-build/builder/price.do?format=json&ignore=true&category=baobaoshu&parameter=${dataCode}`).then((res)=>{
 						//价格计算
