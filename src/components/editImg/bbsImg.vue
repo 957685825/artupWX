@@ -477,8 +477,7 @@ export default{
 //		Api.ajax("url22",function(fns){
 //			console.log(fns)
 //		})
-<<<<<<< HEAD
-	  
+
 //	  console.log()
 //	  $(this.$el).find("")
 	  
@@ -486,10 +485,6 @@ export default{
 			console.log(JSON.parse(res.data.data.editPicture))
 	  })
 
-	 
-
-
-=======
 		var oThis = this;
 		console.log()
 	  //继续编辑初始化的数据
@@ -518,7 +513,6 @@ export default{
 	 	 })
 	  }
 	  
->>>>>>> efaf3b50f2e7d2f116b2d4a3522c53df34615ff3
 		//素材库地址图片
 		Api.Material.MaterialData("artup-build/service/picture/page.do").then((res)=>{
 			 this.bbs.Material = res.data.results;
