@@ -30,7 +30,7 @@
         methods: {
             ...mapMutations(['selectPreview']),
             cropitImg(option){
-                if (option) {
+                if (option&&option.scale&&option.rotate&&option.x&&option.y) {
                     //设置图像的加载缩放
                     imageCropper.cropit('zoom', option.scale);
                     //旋转角度
