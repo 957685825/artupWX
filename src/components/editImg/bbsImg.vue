@@ -169,6 +169,7 @@ export default{
 		      previewPage:false, //预览页面切换
 		      bbs:{
 		      	index2:0,
+		      	templateCode : "baobaoshu_170-235_24",
 		      	imgUploadNumber:0,
 		      	textTextarea:'', //弹出框文本字段
 		      	Material:[], //素材库图片
@@ -316,6 +317,10 @@ export default{
   			})			
   		},
   		okQuery(){//弹出框确认选中图片操作
+  			
+  			//后台需要的请求dpi对象的参数json
+  			var jsonDpi = {}
+  			
   			var thumbnailUrl = this.bbs.Material[this.bbs.MaterialImgIndex].thumbnailUrl;  			
   			//确认回显图片到页面
 //			$(".OnlyOne").attr("src",thumbnailUrl);
@@ -326,31 +331,51 @@ export default{
 				$(".OnlyOne").remove(); //清空触发弹出上传框的节点,防止vue事件委派兼容
 			},100)
   			var oData = this.bbs.Material[this.bbs.MaterialImgIndex];
-  			console.log(oData)
   			console.log(this.bbs)
-  			//组装后端需要的数据
-  			//图片操作的json值
-			var cropitData = {"x":200.21,"y":400.32,"width":100,"height":300,"rotate":0,"thumbnailScale":1};
+  			
+  			console.log(oData)
+  			jsonDpi.client = oData.client;
+  			jsonDpi.channel = oData.channel;
+  			jsonDpi.category = oData.category;
+  			jsonDpi.pictureDbId = oData.dbId;
+			jsonDpi.templateCode= this.bbs.templateCode;
+			jsonDpi.editCnfName= this.bbs.editCnfName;
+  			jsonDpi.picNum = this.bbs.num;
+  			jsonDpi.picPage = this.bbs.page;
+  			jsonDpi.styleType = this.bbs.styleType;
+  			
+  			console.log(jsonDpi)
+			//素材库dpi成功
+  			Api.work.checkDPI(jsonDpi).then(res=>{
+				//res.data.thumbnailScale  缩放比
+  				var constName = this.bbs.page+'_'+this.bbs.num; //几页加第几张图
+				if (constName=="1_1") {//如果有第一张图
+					this.bbs.workEdit.thumbnailImageUrl=thumbnailUrl;
+				}			
+				var picObj = {"constName":constName,"picDbId" : oData.dbId, "page" : this.bbs.page, "editCnfIndex" : this.bbs.styleType, "num" : this.bbs.num, actions : {thumbnailScale:res.data.thumbnailScale},
+				"thumbnailImageUrl":oData.thumbnailUrl, "previewThumbnailImageUrl" :oData.previewThumbnailImageUrl, "crop" : "false","editCnfName" : this.bbs.editCnfName};
+				if (this.bbs.editCnfName=="baobaoshu_lomo") { //判断是lomo卡的东西
+						this.editData.lomHashMap.putvalue(constName,picObj);//存入lomo卡的对象
+						Indicator.close();//关闭弹出框
+						this.sheetVisible = false;
+	  					this.popupVisible = false;
+						return;
+				}			
+				//存入图片ImgHashMap
+				this.editData.ImgHashMap.putvalue(constName,picObj);
+				console.log(this.editData.ImgHashMap.getvalue('1_1'))
+	  			//隐藏两个弹窗
+	  			this.sheetVisible = false;
+	  			this.popupVisible = false;  				
+  			})
+  			
+  			
+  			
+  			//组装后端需要的数据thumbnailScale
+  			//图片操作的json对象  ==>  actions
+
 			
-			var constName = this.bbs.page+'_'+this.bbs.num; //几页加第几张图
-			if (constName=="1_1") {//如果有第一张图
-				this.bbs.workEdit.thumbnailImageUrl=thumbnailUrl;
-			}			
-			var picObj = {"constName":constName,"picDbId" : oData.dbId, "page" : this.bbs.page, "editCnfIndex" : this.bbs.styleType, "num" : this.bbs.num, "actions" : cropitData,
-			"thumbnailImageUrl":oData.thumbnailUrl, "previewThumbnailImageUrl" :oData.previewThumbnailImageUrl, "crop" : "false","editCnfName" : this.bbs.editCnfName};
-			if (this.bbs.editCnfName=="baobaoshu_lomo") { //判断是lomo卡的东西
-					this.editData.lomHashMap.putvalue(constName,picObj);//存入lomo卡的对象
-					Indicator.close();//关闭弹出框
-					this.sheetVisible = false;
-  					this.popupVisible = false;
-					return;
-			}			
-			//存入图片ImgHashMap
-			this.editData.ImgHashMap.putvalue(constName,picObj);
-			console.log(this.editData.ImgHashMap.getvalue('1_1'))
-  			//隐藏两个弹窗
-  			this.sheetVisible = false;
-  			this.popupVisible = false;			
+						
   		},
   		editWork(){//保存作品
   			console.log(this.editData)
@@ -421,8 +446,13 @@ export default{
   				this.bbs.imgEdit.oW = oImg.parent(".myImgBox").width();
   				this.bbs.imgEdit.oH = oImg.parent(".myImgBox").height();
   				this.bbs.imgEdit.editCnfName = '';
+  				
   				if ($(params.event.target).attr("editCnfName")) {
   					this.bbs.imgEdit.editCnfName = $(params.event.target).attr("editCnfName");
+  					this.bbs.imgEdit.thumbnailScale = this.editData.lomHashMap.getvalue(costName).actions.thumbnailScale
+  				}else{
+
+  					this.bbs.imgEdit.thumbnailScale = this.editData.ImgHashMap.getvalue(costName).actions.thumbnailScale	
   				}
 				console.log(this.bbs.imgEdit)
 				this.editorImage(this.bbs.imgEdit)
@@ -500,13 +530,13 @@ export default{
 
 //	  console.log()
 //	  $(this.$el).find("")
-	  setTimeout(function(){
-	  	//动态添加图片
-		$("#bbsImg").find(".listBox .bbsClass >img").each(function(i,el){
-			var page = $(this).parents(".bstp").next(".bbsBtn").find("ul li p >span").text();				 
-			$(this).attr("PageNumber",page+'_'+$(el).attr("nm"))
-		})
-	  },3000)
+//	  setTimeout(function(){
+//	  	//动态添加图片
+//		$("#bbsImg").find(".listBox .bbsClass >img").each(function(i,el){
+//			var page = $(this).parents(".bstp").next(".bbsBtn").find("ul li p >span").text();				 
+//			$(this).attr("PageNumber",page+'_'+$(el).attr("nm"))
+//		})
+//	  },3000)
 	  
 	  
 	  
@@ -519,7 +549,7 @@ export default{
 	  //继续编辑初始化的数据
 	  if (this.$route.query.edtDbid) {
 	  	Api.work.unfinishedWork("artup-build/builder/cors/edit/queryOne.do",this.$route.query.edtDbid).then((res)=>{
-	  			console.log(res)
+//	  			console.log(res)
 			var oImgData = JSON.parse(res.data.data.editPicture);
 			//动态添加图片
 			$("#bbsImg").find(".listBox .bbsClass >img").each(function(i,el){
@@ -538,8 +568,7 @@ export default{
 				$("#"+pageNum).remove();
 			}
 	 	 })
-	  }
-	  
+	  }	  
 		//素材库地址图片
 		Api.Material.MaterialData("artup-build/service/picture/page.do").then((res)=>{
 			 this.bbs.Material = res.data.results;
@@ -568,7 +597,7 @@ export default{
 		this.editData.textMap = new HashMap();// 文本框
 		
 		
-  		//图片上传时提交的参数 templateCode
+  		//图片上传时提交的参数
 		var extraPostData = {};
   		console.log(document.getElementById('browseButton'));
   		//初始化的时候默认宝宝书和lomo卡的html渲染模版
@@ -578,7 +607,7 @@ export default{
   		console.log(typeHtmlLome)
 		
   		/* 文件上传init */
-		var uploadUrl = 'http://image2.artup.com/artup-build/builder/cors/picture/baobaoshu/upload.do?format=json&sessionId=2141731';
+		var uploadUrl = 'http://image2.artup.com/artup-build/builder/cors/picture/upload.do?format=json&sessionId=2141731&category=baobaoshu';
      	uploadInitializer($, uploadUrl, onUploadComplete);     	
 		// //文件上传事件	
      	function onUploadComplete($, r){
@@ -617,18 +646,17 @@ export default{
 					dragThumb($(".OnlyOne").prev(".myImgBox").find("img"),$(".OnlyOne").prev(".myImgBox"));
 					$(".OnlyOne").remove(); //清空触发弹出上传框的节点,防止vue事件委派兼容
 				},100)
-				console.log(responseText)	
+
 				
 				//组装后端需要的数据
 				var constName = responseText.picPage+'_'+responseText.picNum; //几页加第几张图
 				if (constName=="1_1"){//如果有第一页存入预览图
 					oThis.bbs.workEdit.thumbnailImageUrl=responseText.thumbnailUrl;
 				}
-				var picObj = {"constName":constName,"picDbId" : responseText.pictureDbId, "page" : responseText.picPage, "editCnfIndex" : responseText.styleType, "num" : responseText.picNum, "actions" : cropitData,
+				var picObj = {"constName":constName,"picDbId" : responseText.pictureDbId, "page" : responseText.picPage, "editCnfIndex" : responseText.styleType, "num" : responseText.picNum, "actions" : {thumbnailScale:responseText.thumbnailScale},
 				"thumbnailImageUrl":responseText.thumbnailUrl, "previewThumbnailImageUrl" :responseText.previewThumbnailImageUrl, "crop" : "false","editCnfName" : responseText.editCnfName};
 				
 				//根据后端返回的类型组装数据,判断结尾标识符是不是lomo卡
-//				console.log(responseText.editCnfName.substr(responseText.editCnfName.length-1,5))
 				if (responseText.editCnfName=="baobaoshu_lomo") { //上传的是宝宝书的东西
 					oThis.editData.lomHashMap.putvalue(constName,picObj);//存入lomo卡的对象
 					console.log(oThis.editData.lomHashMap.getvalue("1_1"))
