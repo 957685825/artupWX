@@ -109,6 +109,7 @@ export default {
 			/*跳转到结算页面*/
 			gotoPayOrder(){
 				var cars = [];
+				var switchBool = false;
 				this.dataList.forEach(function(el,n){
 					if(el.isOK){
 						var obj={
@@ -117,17 +118,29 @@ export default {
 							price:el.total
 						}
 						cars.push(obj);
+						switchBool = true;
 					}
 				})
-				var jsons = {
-					userDbId:localStorage.getItem("sessionId"),
-					cars:JSON.stringify(cars)
+				if(cars.length < 1){
+					Toast('请选择结算产品');
 				}
-				Api.car.createOrder(jsons).then(res=>{
-					console.log(res);
-				},err=>{
-					Toast('请求错误');
-				})
+				if(switchBool == true){
+					var jsons = {
+						userDbId:localStorage.getItem("sessionId"),
+						cars:JSON.stringify(cars)
+					}
+					Api.car.createOrder(jsons).then(res=>{
+						if(res.data.code == 'success'){
+							location.href="#payOrder?openId="+res.data.openId+"&orderDbId="+res.data.orderDbId+"&userDbId="+localStorage.getItem("sessionId");
+						}
+						console.log(res);
+					},err=>{
+						Toast('请求错误');
+					})
+				}else{
+					return
+				}
+				
 			}
 		},	
 		mounted(){

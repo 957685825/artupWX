@@ -20,15 +20,17 @@ const CAR_LIST = `${HOST}artup-build/builder/cors/car/queryByPage.do?format=json
 /*收货地址*/
 const ADDRESS = `${HOST}artup-build/builder/address/queryByPage.do?format=json&ignore=true`
 /*删除收货地址*/
-const DELETE_ADDRESS = `${HOST}/artup-build/builder/address/delete/command.do?format=json&ignore=true`
+const DELETE_ADDRESS = `${HOST}artup-build/builder/address/delete/command.do?format=json&ignore=true`
 /*新增收货地址*/
-const NEW_ADDRESS = `${HOST}/artup-build/builder/address/add/command.do?format=json&ignore=true`
+const NEW_ADDRESS = `${HOST}artup-build/builder/address/add/command.do?format=json&ignore=true`
 /*编辑地址  提交*/
-const UPDATE_ADDRESS = `${HOST}/artup-build/builder/address/update/command.do?format=json&ignore=true`
+const UPDATE_ADDRESS = `${HOST}artup-build/builder/address/update/command.do?format=json&ignore=true`
 /*编辑地址*/
-const EDITOR_ADDRESS = `${HOST}/artup-build/builder/address/queryById.do?format=json&ignore=true`
+const EDITOR_ADDRESS = `${HOST}artup-build/builder/address/queryById.do?format=json&ignore=true`
 /*创建订单*/
-const CREATE_ORDER = `${HOST}/artup-build/builder/order/createOrder.do?format=json&ignore=true`
+const CREATE_ORDER = `${HOST}artup-build/builder/order/createOrder.do?format=json&ignore=true`
+/*获取订单*/
+const QUERY_ORDER = `${HOST}artup-build/builder/order/queryOrders.do?format=json&ignore=true`
 
 
 /*素材dpi是否合格*/
@@ -63,6 +65,9 @@ export default {
 	   		return VueHttp.$http.post(CREATE_ORDER,
 	   	 			qs.stringify(jsons)   	 				   	 		
 	   	 )
+	   	},
+	   	queryOrder:(jsons)=>{//购物车列表
+	   		return VueHttp.$http.get(QUERY_ORDER,jsons)
 	   	}
 	  
 	   },

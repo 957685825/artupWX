@@ -66,6 +66,31 @@
 </template>
 
 <script>
+   import { Toast ,Actionsheet,Popup,Indicator} from 'mint-ui';	
+   import Api from '../../API.js'
+    export default {
+        data() {
+            return {
+              
+            }
+        },
+        methods: {
+         
+        },
+        mounted() {
+        	var jsons = {
+        		orderDbId:this.$route.query.orderDbId,
+        		openId:this.$route.query.openId,
+        		userDbId:this.$route.query.userDbId,
+        		sessionId:localStorage.getItem("sessionId")
+        	}
+           Api.car.queryOrder(jsons).then(res=>{
+           		console.log(res)
+           },err=>{
+           	
+           })
+        }
+    }
 </script>
 
 <style>
