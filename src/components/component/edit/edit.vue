@@ -18,6 +18,7 @@
 </template>
 
 <script>
+    import {mapState, mapMutations} from 'vuex';
     let imageCropper;
     export default {
         data() {
@@ -26,18 +27,27 @@
                 number2: ''//test
             }
         },
-        props: ['imgSrc', 'editFinish', 'imgSize'],
-        methods: {
-            selectPreview(){
-                this.$store.commit('selectPreview');
-            }
-        },
+        methods: mapMutations(['selectPreview']),
+        /*methods: {
+         selectPreview(){
+         this.$store.commit('selectPreview');
+         }
+         },*/
+        computed: mapState({
+            imgSrc: ({editImgModule}) => editImgModule.imgSrc,
+            imgSize: ({editImgModule}) => editImgModule.imgSize,
+            initialCrop: ({editImgModule}) => editImgModule.initialCrop
+        }),
         watch: {
             imgSrc(val, oldVal) {
                 if (val) {
-                    console.log('更新', this.imgSize);
-                    if(this.imgSize.width&&this.imgSize.height){
-                        imageCropper.cropit('previewSize', this.imgSize);
+                    const {
+                        imgSize,
+                        initialCrop
+                    } = this;
+                    console.log('更新', imgSize);
+                    if (imgSize.width && imgSize.height) {
+                        imageCropper.cropit('previewSize', imgSize);
                     }
                     imageCropper.cropit('imageSrc', val);
                 }
@@ -56,14 +66,32 @@
 
             //$(function () {
 
+            const vm=this;
             //图片裁切
             imageCropper = $('#image-cropper').cropit({
                 freeMove: false,
                 exportZoom: 1,
                 imageBackground: true,
                 imageBackgroundBorderWidth: 0,
-                width:200,
-                height:200
+                width: 200,
+                height: 200,
+                onImageLoaded(){
+                    let { initialCrop }=vm;
+                    if (initialCrop) {
+                        //设置图像的加载缩放
+                        imageCropper.cropit('zoom', initialCrop.scale);
+                        //旋转角度
+                        for (var i = 0; i < (initialCrop.rotate / 90); i++) {
+                            imageCropper.cropit("rotateCW");
+                        }
+                        //重新换算位置
+                        //alert(0)
+                        imageCropper.cropit('offset', {
+                            x: -initialCrop.x * initialCrop.scale,
+                            y: -initialCrop.y * initialCrop.scale
+                        });
+                    }
+                }
             });
 
 
