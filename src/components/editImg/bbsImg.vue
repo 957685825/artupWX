@@ -578,14 +578,14 @@ export default{
 				var pageNum = oImgData[i].page+'_'+oImgData[i].num+'_'+oImgData[i].editCnfName;
 				$("#"+pageNum).prev(".myImgBox").show().find("img").attr("src",oImgData[i].previewThumbnailImageUrl)
 				//让图片剧中裁切隐藏	
-				setTimeout(function(){
-					$("#"+pageNum).prev(".myImgBox").find("img").css("width","100%").css("height","100%")
-
-//					dragThumb($("#"+pageNum).prev(".myImgBox").find("img"),$("#"+pageNum).prev(".myImgBox"));
-					$("#"+pageNum).remove(); //清空触发弹出上传框的节点,防止vue事件委派兼容
-
-				},200)
-
+//				setTimeout(function(){
+//					$("#"+pageNum).prev(".myImgBox").find("img").css("width","100%").css("height","100%")
+//
+////					dragThumb($("#"+pageNum).prev(".myImgBox").find("img"),$("#"+pageNum).prev(".myImgBox"));
+//					 //清空触发弹出上传框的节点,防止vue事件委派兼容
+//
+//				},200)
+				$("#"+pageNum).remove();
 				
 			}
 	 	 })
