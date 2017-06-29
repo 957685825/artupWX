@@ -51,7 +51,7 @@
 
                 console.log(JSON.stringify(postData));
                 commit('hideEditor');
-            }
+            },
         },
 
         beforeCreate(){

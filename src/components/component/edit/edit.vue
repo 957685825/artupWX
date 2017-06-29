@@ -27,12 +27,25 @@
                 number2: ''//test
             }
         },
-        methods: mapMutations(['selectPreview']),
-        /*methods: {
-         selectPreview(){
-         this.$store.commit('selectPreview');
-         }
-         },*/
+        methods: {
+            ...mapMutations(['selectPreview']),
+            cropitImg(option){
+                if (option) {
+                    //设置图像的加载缩放
+                    imageCropper.cropit('zoom', option.scale);
+                    //旋转角度
+                    for (var i = 0; i < (option.rotate / 90); i++) {
+                        imageCropper.cropit("rotateCW");
+                    }
+                    //重新换算位置
+                    //alert(0)
+                    imageCropper.cropit('offset', {
+                        x: -option.x * option.scale,
+                        y: -option.y * option.scale
+                    });
+                }
+            }
+        },
         computed: mapState({
             imgSrc: ({editImgModule}) => editImgModule.imgSrc,
             imgSize: ({editImgModule}) => editImgModule.imgSize,
@@ -45,7 +58,6 @@
                         imgSize,
                         initialCrop
                     } = this;
-                    console.log('更新', imgSize);
                     if (imgSize.width && imgSize.height) {
                         imageCropper.cropit('previewSize', imgSize);
                     }
@@ -54,19 +66,11 @@
             }
         },
         mounted() {
-            //console.log('插件',this.state)
-            //console.log(this.$store.state.mutations)
-            //console.log(localStorage.getItem("editImg"))
             var rotationalp = 90;
             var reg = 0;
             var angu = 0;
-            //生成pdf时，需要post的数据
-            var postData = {};
-            var extraPostData = {"size": "500*500", "type": "kuanghua"};
 
-            //$(function () {
-
-            const vm=this;
+            const vm = this;
             //图片裁切
             imageCropper = $('#image-cropper').cropit({
                 freeMove: false,
@@ -76,21 +80,8 @@
                 width: 200,
                 height: 200,
                 onImageLoaded(){
-                    let { initialCrop }=vm;
-                    if (initialCrop) {
-                        //设置图像的加载缩放
-                        imageCropper.cropit('zoom', initialCrop.scale);
-                        //旋转角度
-                        for (var i = 0; i < (initialCrop.rotate / 90); i++) {
-                            imageCropper.cropit("rotateCW");
-                        }
-                        //重新换算位置
-                        //alert(0)
-                        imageCropper.cropit('offset', {
-                            x: -initialCrop.x * initialCrop.scale,
-                            y: -initialCrop.y * initialCrop.scale
-                        });
-                    }
+                    let {initialCrop} = vm;
+                    vm.cropitImg(initialCrop);
                 }
             });
 
@@ -115,35 +106,6 @@
                     reg = 0;
                 }
             });
-
-            //获取最后结果
-            /*$('.export').click(function () {
-             var cropitData = build();
-             for (var cpData in cropitData) {//遍历json对象的每个key/value对,p为key
-             postData[cpData] = cropitData[cpData];
-             }
-             for (var extraData in extraPostData) {//遍历json对象的每个key/value对,p为key
-             postData[extraData] = extraPostData[extraData];
-             }
-
-             console.log('---------post datas --------------');
-             console.log(postData);
-
-             /!*$.ajax({
-             url : Mars.Utils.getContextPath() + '/service/pdf/creator.do?format=json',
-             dataType:'json',
-             type : "POST",
-             data: postData,
-             cache : false,
-             success:function(d){
-             alert(d.pdfFilePath);
-             console.log(d);
-             }
-             }); *!/
-             });*/
-
-
-            //})
 
         }
     }
