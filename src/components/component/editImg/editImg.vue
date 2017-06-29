@@ -25,6 +25,7 @@
 
         computed: mapState({
             isShow: ({editImgModule}) => editImgModule.isShow,
+            customParams: ({editImgModule}) => editImgModule.customParams,
         }),
 
         props: [],
@@ -36,7 +37,7 @@
                 } = this.$store;
 
                 var cropitData = build(),
-                    postData = {},
+                    postData = {...this.customParams},
                     extraPostData = {"size": "500*500", "type": "kuanghua"};
                 ;
                 for (var cpData in cropitData) {//遍历json对象的每个key/value对,p为key
@@ -66,7 +67,8 @@
                             width: 200,
                             height: 200
                         },
-                        initialCrop:false
+                        initialCrop:false,
+                        customParams:false
                     },
                     mutations: {
                         showEditor(state, payload){

@@ -511,7 +511,11 @@ export default{
                 'showEditor',
                 {
                     imgSrc: jsons.oSrc,
-                    imgSize: {width: jsons.oW, height: jsons.oH}					
+                    imgSize: {width: jsons.oW, height: jsons.oH},
+					initialCrop:{},
+					customParams:{
+                       diy:jsons.thumbnailScale
+					}
                 }
             )
         },
