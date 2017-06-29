@@ -16,7 +16,7 @@ var category = 'baobaoshu'
 const ADD_CAR = `${HOST}artup-build/builder/cors/car/add/command.do?format=json&ignore=true`
 /*购物车列表*/
 const CAR_LIST = `${HOST}artup-build/builder/cors/car/queryByPage.do?format=json&ignore=true`
-<<<<<<< HEAD
+
 /*收货地址*/
 const ADDRESS = `${HOST}artup-build/builder/address/queryByPage.do?format=json&ignore=true`
 /*删除收货地址*/
@@ -29,11 +29,11 @@ const UPDATE_ADDRESS = `${HOST}/artup-build/builder/address/update/command.do?fo
 const EDITOR_ADDRESS = `${HOST}/artup-build/builder/address/queryById.do?format=json&ignore=true`
 /*创建订单*/
 const CREATE_ORDER = `${HOST}/artup-build/builder/order/createOrder.do?format=json&ignore=true`
-=======
+
 
 /*素材dpi是否合格*/
 const MATER_DPI = `${HOST}artup-build/builder/cors/picture/validate.do?format=json&ignore=true&userDbId=${sessionIds}&sessionId=${sessionIds}`
->>>>>>> 2f6609a8e2684bf377c434aa47d92fc9c30fff55
+
 ////只要访问ajax的时候，没有这个用户信息，就跳到首页去登录获取用户信息
 //if (!sessionIds) {
 //	alert('用户信息不存在!');  
