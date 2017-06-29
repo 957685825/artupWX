@@ -18,6 +18,7 @@
 </template>
 
 <script>
+    import {mapState, mapMutations} from 'vuex';
     let imageCropper;
     export default {
         data() {
@@ -26,43 +27,61 @@
                 number2: ''//test
             }
         },
-        props: ['imgSrc', 'editFinish', 'imgSize'],
         methods: {
-            selectPreview(){
-                this.$store.commit('selectPreview');
+            ...mapMutations(['selectPreview']),
+            cropitImg(option){
+                if (option&&option.scale&&option.rotate&&option.x&&option.y) {
+                    //设置图像的加载缩放
+                    imageCropper.cropit('zoom', option.scale);
+                    //旋转角度
+                    for (var i = 0; i < (option.rotate / 90); i++) {
+                        imageCropper.cropit("rotateCW");
+                    }
+                    //重新换算位置
+                    //alert(0)
+                    imageCropper.cropit('offset', {
+                        x: -option.x * option.scale,
+                        y: -option.y * option.scale
+                    });
+                }
             }
         },
+        computed: mapState({
+            imgSrc: ({editImgModule}) => editImgModule.imgSrc,
+            imgSize: ({editImgModule}) => editImgModule.imgSize,
+            initialCrop: ({editImgModule}) => editImgModule.initialCrop
+        }),
         watch: {
             imgSrc(val, oldVal) {
                 if (val) {
-                    console.log('更新', this.imgSize);
-                    imageCropper.cropit('previewSize', this.imgSize);
-                    imageCropper.cropit('imageSrc', val)
+                    const {
+                        imgSize,
+                        initialCrop
+                    } = this;
+                    if (imgSize.width && imgSize.height) {
+                        imageCropper.cropit('previewSize', imgSize);
+                    }
+                    imageCropper.cropit('imageSrc', val);
                 }
             }
         },
         mounted() {
-            //console.log('插件',this.state)
-            //console.log(this.$store.state.mutations)
-            //console.log(localStorage.getItem("editImg"))
             var rotationalp = 90;
             var reg = 0;
             var angu = 0;
-            //生成pdf时，需要post的数据
-            var postData = {};
-            var extraPostData = {"size": "500*500", "type": "kuanghua"};
 
-            //$(function () {
-
+            const vm = this;
             //图片裁切
             imageCropper = $('#image-cropper').cropit({
                 freeMove: false,
                 exportZoom: 1,
                 imageBackground: true,
                 imageBackgroundBorderWidth: 0,
-                imageState: {
-                    //				src : '${ctx}/upload/bees-1.png',
-                    //src: '../../../src/assets/img/bbs.png'
+                width: 200,
+                height: 200,
+                onImageLoaded(){
+                    let {initialCrop} = vm;
+                    vm.cropitImg(initialCrop);
                 }
             });
 
@@ -87,35 +106,6 @@
                     reg = 0;
                 }
             });
-
-            //获取最后结果
-            /*$('.export').click(function () {
-             var cropitData = build();
-             for (var cpData in cropitData) {//遍历json对象的每个key/value对,p为key
-             postData[cpData] = cropitData[cpData];
-             }
-             for (var extraData in extraPostData) {//遍历json对象的每个key/value对,p为key
-             postData[extraData] = extraPostData[extraData];
-             }
-
-             console.log('---------post datas --------------');
-             console.log(postData);
-
-             /!*$.ajax({
-             url : Mars.Utils.getContextPath() + '/service/pdf/creator.do?format=json',
-             dataType:'json',
-             type : "POST",
-             data: postData,
-             cache : false,
-             success:function(d){
-             alert(d.pdfFilePath);
-             console.log(d);
-             }
-             }); *!/
-             });*/
-
-
-            //})
 
         }
     }

@@ -1,0 +1,5 @@
+{
+  "plugins": [],
+  "ignore": ["node_modules"],
+  "presets": ["es2017","stage-0"]
+}

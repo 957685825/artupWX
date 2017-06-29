@@ -1,18 +1,19 @@
 <template>
-    <div id="editImg" class="editImg-wrap" :style="{height:editorHeight+'px'}" v-show="isShow">
-        <mt-header title="图片编辑">
-            <router-link to="/" slot="left">
-                <mt-button>撤销</mt-button>
-            </router-link>
-            <div to="/" slot="right">
-                <mt-button @click="save">保存</mt-button>
-            </div>
-        </mt-header>
+    <transition name="fade">
+        <div id="editImg" class="editImg-wrap" :style="{height:`${editorHeight}px`}" v-show="isShow">
+            <mt-header title="图片编辑">
+                <router-link to="/" slot="left">
+                    <mt-button>撤销</mt-button>
+                </router-link>
+                <div to="/" slot="right">
+                    <mt-button @click="save">保存</mt-button>
+                </div>
+            </mt-header>
 
-        <loading :img-src="imgSrc" :img-size="imgSize"></loading>
+            <loading></loading>
 
-    </div>
-
+        </div>
+    </transition>
 </template>
 
 <script>
@@ -24,8 +25,7 @@
 
         computed: mapState({
             isShow: ({editImgModule}) => editImgModule.isShow,
-            imgSrc: ({editImgModule}) => editImgModule.imgSrc,
-            imgSize: ({editImgModule}) => editImgModule.imgSize
+            customParams: ({editImgModule}) => editImgModule.customParams,
         }),
 
         props: [],
@@ -37,7 +37,7 @@
                 } = this.$store;
 
                 var cropitData = build(),
-                    postData = {},
+                    postData = {...this.customParams},
                     extraPostData = {"size": "500*500", "type": "kuanghua"};
                 ;
                 for (var cpData in cropitData) {//遍历json对象的每个key/value对,p为key
@@ -47,11 +47,12 @@
                     postData[extraData] = extraPostData[extraData];
                 }
 
+
                 this.$emit('editFinish', {postData, imgData: $('#image-cropper').cropit('export')});
 
-                //commit('clearImgSrc');
+                console.log(JSON.stringify(postData));
                 commit('hideEditor');
-            }
+            },
         },
 
         beforeCreate(){
@@ -65,7 +66,9 @@
                         imgSize: {
                             width: 200,
                             height: 200
-                        }
+                        },
+                        initialCrop:false,
+                        customParams:false
                     },
                     mutations: {
                         showEditor(state, payload){
