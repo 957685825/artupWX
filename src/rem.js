@@ -198,3 +198,74 @@ function checkColor(shupi,dom1,dom2,dom3){
 			break;				
 		}
 }
+Array.prototype.removeItem = function(item){
+	if(this.length == 0)　 
+		return this;
+	else if(item) {
+		var len = this.length;
+		for(var i=0,n=0;i<this.length;i++)
+		{ 
+			if(this[i] && this[i] != ''){
+				//alert("this[i]="+this[i]+"=item="+item);
+				if(this[i] != item)
+				{ 
+				　　this[n++]=this[i];
+			　　} 
+				else{
+					len --
+				}
+			} else {
+				len--;
+			}
+			
+		}
+		this.length=len;
+	} 
+}
+Array.prototype.del=function(n) {　//n表示第几项，从0开始算起。
+	//prototype为对象原型，注意这里为对象增加自定义方法的方法。
+	　if(n<0)　//如果n<0，则不进行任何操作。
+	　　return this;
+	　else
+	　　return this.slice(0,n).concat(this.slice(n+1,this.length));
+	　　/*
+	　　　concat方法：返回一个新数组，这个新数组是由两个或更多数组组合而成的。
+	　　　　　　　　　这里就是返回this.slice(0,n)/this.slice(n+1,this.length)
+	　　 　　　　　　组成的新数组，这中间，刚好少了第n项。
+	　　　slice方法： 返回一个数组的一段，两个参数，分别指定开始和结束的位置。
+	　　*/
+	}
+/*校验文本框输入是否有表情*/
+function isEmojiCharacter(substring) {  
+    for ( var i = 0; i < substring.length; i++) {  
+        var hs = substring.charCodeAt(i);  
+        if (0xd800 <= hs && hs <= 0xdbff) {  
+            if (substring.length > 1) {  
+                var ls = substring.charCodeAt(i + 1);  
+                var uc = ((hs - 0xd800) * 0x400) + (ls - 0xdc00) + 0x10000;  
+                if (0x1d000 <= uc && uc <= 0x1f77f) {  
+                    return true;  
+                }  
+            }  
+        } else if (substring.length > 1) {  
+            var ls = substring.charCodeAt(i + 1);  
+            if (ls == 0x20e3) {  
+                return true;  
+            }  
+        } else {  
+            if (0x2100 <= hs && hs <= 0x27ff) {  
+                return true;  
+            } else if (0x2B05 <= hs && hs <= 0x2b07) {  
+                return true;  
+            } else if (0x2934 <= hs && hs <= 0x2935) {  
+                return true;  
+            } else if (0x3297 <= hs && hs <= 0x3299) {  
+                return true;  
+            } else if (hs == 0xa9 || hs == 0xae || hs == 0x303d || hs == 0x3030  
+                    || hs == 0x2b55 || hs == 0x2b1c || hs == 0x2b1b  
+                    || hs == 0x2b50) {  
+                return true;  
+            }  
+        }  
+    }  
+}

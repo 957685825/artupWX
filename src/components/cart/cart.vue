@@ -10,8 +10,8 @@
 		<!--购物车列表-->
 		<ul class="cartList">
 			<li v-for="(itme,indexs) in dataList">
-				<div class="div_select">
-					<b v-tap='{methods:updateCheck,index:indexs}'  ><i class="icon iconfont">&#xe672;</i></b>
+				<div class="div_select" >
+					<b  :class="itme.isOK ? 'activeSelect':'' "  v-tap='{methods:updateCheck,index:indexs}'  ><i class="icon iconfont">&#xe672;</i></b>
 				</div>
 				<div class="div_comenter">
 					<div class="img_cart">
@@ -38,13 +38,13 @@
 		<i style="height: 2.9375rem;display: block;width: 100%;"></i>
 		<div class="cart_btn">
 			<div class="all_select">
-				<b><i></i></b> 
+				<b v-tap='{methods:checkAll}'><i></i></b> 
 				<span>全选</span>
 			</div>
 			<div class="price">
 				合计<span><b>¥</b> {{allPic}}</span>
 			</div>
-			<div class="crectOrder">
+			<div v-tap="{methods:gotoPayOrder}" class="crectOrder">
 				结算
 			</div>
 		</div>
@@ -54,6 +54,7 @@
 <script>
 	
 import  Api   from '../../API.js'
+import { Toast ,Actionsheet,Popup,Indicator} from 'mint-ui';	
 export default {
 
 	  data () {
@@ -73,47 +74,64 @@ export default {
 		methods:{
 			/*添加数量*/
 			add(params){
-				var num = params.num+=1;
-				this.dataList[params.index].num = num;
-				var that = this;
-				setTimeout(function(){
-					this.oPrice();
-				},500)
+				++this.dataList[params.index].num;
+				this.oPrice();
+
 			},
 			/*减少数量*/
 			reduce(params){
 				if( params.num > 1){
-					
-					var num = params.num-=1;
-					this.dataList[params.index].num = num;
+					--this.dataList[params.index].num;
 					this.oPrice();
 				}
 			},
-			oPrice(){
+			oPrice(){//计算价格
 				var arr = 0;
-				$('.cartList li').each(function(n,el){
-					if($(el).hasClass('xz')){
-						var pic = parseFloat($(el).find('.div_comenter .img_msg .pic').text().substring(1));
-						console.log($(el).find('.div_comenter .img_msg .pic').text())
-						arr+=pic;
-					}
-				})
+				for (var i = 0; i < this.dataList.length; i++) {
+					if (this.dataList[i].isOK) {
+						arr+=this.dataList[i].total *this.dataList[i].num;
+					}					
+				}
 				this.allPic = arr;
 			},
 			/*设置选中状态*/
 			updateCheck(params){
-				if($(params.event.target).parent('b').hasClass("activeSelect")){
-					$(params.event.target).parent('b').removeClass('activeSelect');
-					$(".cartList >li:nth-child("+(params.index+1)+")").removeClass('xz')
-					//this.oPrice("yc",params.index)
-				}else{
-					$(params.event.target).parent('b').addClass('activeSelect');
-					$(".cartList >li:nth-child("+(params.index+1)+")").addClass('xz')
-				}
+				this.dataList[params.index].isOK = !this.dataList[params.index].isOK;
 				this.oPrice();
+			},
+			/*全选*/
+			checkAll(){
+				this.dataList.forEach(function(el,n){
+					el.isOK = !el.isOK;
+				})
+				this.oPrice();
+			},
+			/*跳转到结算页面*/
+			gotoPayOrder(){
+				var cars = [];
+				this.dataList.forEach(function(el,n){
+					if(el.isOK){
+						var obj={
+							dbId:el.dbId,
+							num:el.num,
+							price:el.total
+						}
+						cars.push(obj);
+					}
+				})
+				var jsons = {
+					userDbId:localStorage.getItem("sessionId"),
+					cars:JSON.stringify(cars)
+				}
+				Api.car.createOrder(jsons).then(res=>{
+					console.log(res);
+				},err=>{
+					Toast('请求错误');
+				})
 			}
 		},	
 		mounted(){
+			
 			var jsons = {
 				sessionId:localStorage.getItem("sessionId"),
 	  			userDbId:localStorage.getItem("sessionId"),
@@ -125,14 +143,16 @@ export default {
 			}
 			Api.car.carList(jsons).then(res=>{
 				this.dataList = res.data.results;
-				
+				for (var i = 0; i < this.dataList.length; i++) {
+					this.dataList[i].isOK = false;
+				}
+				this.oPrice();
 				console.log(res)
 			},err=>{
-				
+				Toast('数据请求错误');
 			})
 			
 			console.log(this.$route.query)
-	//		GetQueryString("category")
 		}
 	}
 	

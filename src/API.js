@@ -16,7 +16,18 @@ const sessionIds = localStorage.getItem("sessionId");
 const ADD_CAR = `${HOST}artup-build/builder/cors/car/add/command.do?format=json&ignore=true`
 /*购物车列表*/
 const CAR_LIST = `${HOST}artup-build/builder/cors/car/queryByPage.do?format=json&ignore=true`
-
+/*收货地址*/
+const ADDRESS = `${HOST}artup-build/builder/address/queryByPage.do?format=json&ignore=true`
+/*删除收货地址*/
+const DELETE_ADDRESS = `${HOST}/artup-build/builder/address/delete/command.do?format=json&ignore=true`
+/*新增收货地址*/
+const NEW_ADDRESS = `${HOST}/artup-build/builder/address/add/command.do?format=json&ignore=true`
+/*编辑地址  提交*/
+const UPDATE_ADDRESS = `${HOST}/artup-build/builder/address/update/command.do?format=json&ignore=true`
+/*编辑地址*/
+const EDITOR_ADDRESS = `${HOST}/artup-build/builder/address/queryById.do?format=json&ignore=true`
+/*创建订单*/
+const CREATE_ORDER = `${HOST}/artup-build/builder/order/createOrder.do?format=json&ignore=true`
 ////只要访问ajax的时候，没有这个用户信息，就跳到首页去登录获取用户信息
 //if (!sessionIds) {
 //	alert('用户信息不存在!');  
@@ -38,9 +49,44 @@ export default {
 	   	 			qs.stringify(jsons)   	 				   	 		
 	   	 	)
 	   	},
-	   	carList:(jsons)=>{
+	   	carList:(jsons)=>{//购物车列表
 	   		return VueHttp.$http.get(CAR_LIST,jsons)
+	   	},
+	   	createOrder:(jsons)=>{//创建订单
+	   		return VueHttp.$http.post(CREATE_ORDER,
+	   	 			qs.stringify(jsons)   	 				   	 		
+	   	 )
 	   	}
+	  
+	   },
+	   address:{
+		   	addressList:(jsons)=>{
+		   		return VueHttp.$http.get(ADDRESS,jsons)
+		   	},
+		   	deleteAddress:(jsons)=>{
+		   		return VueHttp.$http.post(DELETE_ADDRESS,
+	   	 			qs.stringify(jsons)   	 				   	 		
+	   	 	)
+		   		//return VueHttp.$http.get(DELETE_ADDRESS,jsons)
+		   	},
+		   	newAddress:(jsons)=>{
+		   		return VueHttp.$http.post(NEW_ADDRESS,
+	   	 			qs.stringify(jsons)   	 				   	 		
+	   	 	)
+		   		//return VueHttp.$http.get(DELETE_ADDRESS,jsons)
+		   	},
+		    updateAddress:(jsons)=>{
+		   		return VueHttp.$http.post(UPDATE_ADDRESS,
+	   	 			qs.stringify(jsons)   	 				   	 		
+	   	 	)
+		   		//return VueHttp.$http.get(DELETE_ADDRESS,jsons)
+		   	},
+		   	editorAddress:(jsons)=>{
+		   		return VueHttp.$http.post(EDITOR_ADDRESS,
+	   	 			qs.stringify(jsons)   	 				   	 		
+	   	 	)
+		   		//return VueHttp.$http.get(DELETE_ADDRESS,jsons)
+		   	}
 	   },
 	   baobaoshu:{ //宝宝书
 	   	//artup-build/builder/service/baobaoshu/attributes.do?format=json&ignore=true

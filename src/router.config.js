@@ -4,8 +4,10 @@ import User from './components/user/userInfo.vue'
 import NewAddress from './components/user/newAddress.vue'
 import Address from './components/user/address.vue'
 import OrderList from './components/user/orderList.vue'
-
+/*购物车列表*/
 import Cart from './components/cart/cart.vue'
+/*购物车列表*/
+import payOrder from './components/cart/payOrder.vue'
 //宝宝书选择
 import bbsSelect from './components/product/bbs/bbsSelect.vue'
 //图片编辑
@@ -46,6 +48,9 @@ export default{
 		},
 		{
 			path:'/cart', component:Cart //购物车
+		},
+		{
+			path:'/payOrder', component:payOrder //购物车
 		},
 		{
 			path:'/bbsSelect', component:bbsSelect //宝宝书选择
