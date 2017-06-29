@@ -243,8 +243,11 @@ export default{
   			var arrMap = []; //宝宝书图片的
 			var textArrMap = [];//文字的
 			var lomArrMap = []; //lomo卡的
+			
 			for (var i = 0; i < this.editData.ImgHashMap.keys().length; i++) {
+				console.log((this.editData.ImgHashMap.getvalue(this.editData.ImgHashMap.keys()[i])))
 				if (this.editData.ImgHashMap.getvalue(this.editData.ImgHashMap.keys()[i])) {
+					
 					arrMap.push(this.editData.ImgHashMap.getvalue(this.editData.ImgHashMap.keys()[i]));
 				}				
 			}
@@ -258,13 +261,18 @@ export default{
 					textArrMap.push(this.editData.textMap.getvalue(this.editData.textMap.keys()[i]));	
 				}
 			}
+			console.log(arrMap)
 			//字符串转换数组存储到对象里面
 			this.bbs.workEdit.editPicture = JSON.stringify(arrMap);
 			this.bbs.workEdit.editTxt = JSON.stringify(textArrMap);
 			this.bbs.workEdit.lomo = JSON.stringify(lomArrMap);
-			
+			console.log(this.bbs.workEdit)
 			//保存函数
-			Api.work.workEdit("artup-build/builder/cors/edit/add/command.do",this.bbs.workEdit).then((res)=>{				 
+			Api.work.workEdit("artup-build/builder/cors/edit/add/command.do",this.bbs.workEdit).then((res)=>{	
+//				console.log(window.location.search)		
+				console.log(res)
+				this.bbs.workEdit.edtDbId = res.data.extraCode
+//				console.log(this.$route.query.edtDbid)
 				var oThis = this;
 				if (res.data.code=="success") { //保存成功
 					this.bbs.extraCode= res.data.extraCode;
@@ -302,8 +310,8 @@ export default{
 					Toast('保存成功 !');
 				}
 			})
-//			console.log(this.bbs.nextPageTrue)
-//			console.log(this.bbs.workEdit)
+			console.log(this.bbs.nextPageTrue)
+			console.log(this.bbs.workEdit)
 
   		},
   		slectUpload(){ //素材库倒入的操作
@@ -354,6 +362,7 @@ export default{
 				}			
 				var picObj = {"constName":constName,"picDbId" : oData.dbId, "page" : this.bbs.page, "editCnfIndex" : this.bbs.styleType, "num" : this.bbs.num, actions : {thumbnailScale:res.data.thumbnailScale},
 				"thumbnailImageUrl":oData.thumbnailUrl, "previewThumbnailImageUrl" :oData.previewThumbnailImageUrl, "crop" : "false","editCnfName" : this.bbs.editCnfName};
+				
 				if (this.bbs.editCnfName=="baobaoshu_lomo") { //判断是lomo卡的东西
 						this.editData.lomHashMap.putvalue(constName,picObj);//存入lomo卡的对象
 						Indicator.close();//关闭弹出框
@@ -502,7 +511,8 @@ export default{
                 'showEditor',
                 {
                     imgSrc: jsons.oSrc,
-                    imgSize: {width: jsons.oW, height: jsons.oH}
+                    imgSize: {width: jsons.oW, height: jsons.oH},
+					initialCrop:{"x":"105.50","y":"70.50","width":"170.00","height":"145.00","rotate":90,"scale":1,"size":"500*500","type":"kuanghua"}
                 }
             )
         },
@@ -545,9 +555,10 @@ export default{
 	  })
 
 		var oThis = this;
-		console.log()
+
 	  //继续编辑初始化的数据
 	  if (this.$route.query.edtDbid) {
+	  	this.bbs.workEdit.edtDbId = this.$route.query.edtDbid;
 	  	Api.work.unfinishedWork("artup-build/builder/cors/edit/queryOne.do",this.$route.query.edtDbid).then((res)=>{
 //	  			console.log(res)
 			var oImgData = JSON.parse(res.data.data.editPicture);
@@ -556,6 +567,7 @@ export default{
 				var page = $(this).parents(".bstp").next(".bbsBtn").find("ul li p >span").text();				 
 				$(this).attr("id",page+'_'+$(el).attr("nm")+'_'+$(this).attr("editcnfname"))
 			})
+			console.log(oImgData.length)
 			//图片回显到页面
 			for (var i = 0; i < oImgData.length; i++) {
 				var constName = oImgData[i].page+'_'+oImgData[i].num;
@@ -565,7 +577,16 @@ export default{
 				oThis.editData.ImgHashMap.putvalue(constName,picObj);
 				var pageNum = oImgData[i].page+'_'+oImgData[i].num+'_'+oImgData[i].editCnfName;
 				$("#"+pageNum).prev(".myImgBox").show().find("img").attr("src",oImgData[i].previewThumbnailImageUrl)
-				$("#"+pageNum).remove();
+				//让图片剧中裁切隐藏	
+				setTimeout(function(){
+					$("#"+pageNum).prev(".myImgBox").find("img").css("width","100%").css("height","100%")
+
+//					dragThumb($("#"+pageNum).prev(".myImgBox").find("img"),$("#"+pageNum).prev(".myImgBox"));
+					$("#"+pageNum).remove(); //清空触发弹出上传框的节点,防止vue事件委派兼容
+
+				},200)
+
+				
 			}
 	 	 })
 	  }	  
@@ -645,7 +666,7 @@ export default{
 				setTimeout(function(){
 					dragThumb($(".OnlyOne").prev(".myImgBox").find("img"),$(".OnlyOne").prev(".myImgBox"));
 					$(".OnlyOne").remove(); //清空触发弹出上传框的节点,防止vue事件委派兼容
-				},100)
+				},200)
 
 				
 				//组装后端需要的数据
@@ -656,6 +677,8 @@ export default{
 				var picObj = {"constName":constName,"picDbId" : responseText.pictureDbId, "page" : responseText.picPage, "editCnfIndex" : responseText.styleType, "num" : responseText.picNum, "actions" : {thumbnailScale:responseText.thumbnailScale},
 				"thumbnailImageUrl":responseText.thumbnailUrl, "previewThumbnailImageUrl" :responseText.previewThumbnailImageUrl, "crop" : "false","editCnfName" : responseText.editCnfName};
 				
+				console.log(responseText)
+				console.log(picObj)
 				//根据后端返回的类型组装数据,判断结尾标识符是不是lomo卡
 				if (responseText.editCnfName=="baobaoshu_lomo") { //上传的是宝宝书的东西
 					oThis.editData.lomHashMap.putvalue(constName,picObj);//存入lomo卡的对象

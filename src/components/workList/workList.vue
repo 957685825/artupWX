@@ -103,6 +103,7 @@
 			},
 			continueEdit(params){ //继续编辑
 				//存入继续编辑页面的id
+				console.log(this.worklist[params.index].dbId)
 				location.href = "#BbsImg?edtDbid="+this.worklist[params.index].dbId;
 				
 			}
