@@ -241,6 +241,7 @@ export default{
   			this.assembleData();
   		},
   		assembleData(){//组装数据的函数保存数据和
+  			Indicator.open({text: '作品保存中...',spinnerType: 'fading-circle'});
   			var arrMap = []; //宝宝书图片的
 			var textArrMap = [];//文字的
 			var lomArrMap = []; //lomo卡的
@@ -268,14 +269,17 @@ export default{
 			this.bbs.workEdit.editTxt = JSON.stringify(textArrMap);
 			this.bbs.workEdit.lomo = JSON.stringify(lomArrMap);
 			console.log(this.bbs.workEdit)
+			
 			//保存函数
 			Api.work.workEdit("artup-build/builder/cors/edit/add/command.do",this.bbs.workEdit).then((res)=>{	
-//				console.log(window.location.search)		
-				console.log(res)
+//				console.log(window.location.search)	
+
+				
 				this.bbs.workEdit.edtDbId = res.data.extraCode
 //				console.log(this.$route.query.edtDbid)
 				var oThis = this;
 				if (res.data.code=="success") { //保存成功
+					Indicator.close();
 					this.bbs.extraCode= res.data.extraCode;
 					var isOK = true;
 					if(this.bbs.nextPageTrue){//如果是点击了下一步的操作
@@ -304,11 +308,16 @@ export default{
 						if (isOK) {
 							$(this.$el).find(".editImg").hide();
 							$(this.$el).find(".switchBs").hide();
+							Toast("作品制作成功，预览后请加入购物车 !")
 							this.previewPage = true;
 						}
 						return;
+					}else{
+						Indicator.close();
+						Toast("保存成功")
 					}
-					Toast('保存成功 !');
+					
+					
 				}
 			})
 			console.log(this.bbs.nextPageTrue)
@@ -509,12 +518,6 @@ export default{
   			//重新定义文本框内容
 			this.bbs.textTextarea = $(".textErea").text();
   		},
-  		DomDongTai(){
-//	  		$("#bbsImg").find(".listBox .bbsClass >img").each(function(i,el){
-//				var page = $(this).parents(".bstp").next(".bbsBtn").find("ul li p >span").text();				 
-//				$(this).attr("PageNumber",page+'_'+$(el).attr("nm"))
-//			})	
-  		},
         editorImage(jsons){      		
         		console.log('宽高',jsons)        		
             this.$store.commit(
@@ -551,21 +554,9 @@ export default{
 //			console.log(fns)
 //		})
 
-//	  console.log()
-//	  $(this.$el).find("")
-//	  setTimeout(function(){
-//	  	//动态添加图片
-//		$("#bbsImg").find(".listBox .bbsClass >img").each(function(i,el){
-//			var page = $(this).parents(".bstp").next(".bbsBtn").find("ul li p >span").text();				 
-//			$(this).attr("PageNumber",page+'_'+$(el).attr("nm"))
-//		})
-//	  },3000)
-	  
-	  
-	  
-	  Api.work.unfinishedWork("artup-build/builder/cors/edit/queryOne.do",this.$route.query.edtDbid).then((res)=>{
-			console.log(JSON.parse(res.data.data.editPicture))
-	  })
+//	  Api.work.unfinishedWork("artup-build/builder/cors/edit/queryOne.do",this.$route.query.edtDbid).then((res)=>{
+//			console.log(JSON.parse(res.data.data.editPicture))
+//	  })
 
 		var oThis = this;
 
@@ -582,25 +573,20 @@ export default{
 			})
 			console.log(oImgData.length)
 			//图片回显到页面
-			for (var i = 0; i < oImgData.length; i++) {
-				var constName = oImgData[i].page+'_'+oImgData[i].num;
-				//map生成变量
-				var picObj = {"constName":constName,"picDbId" : oImgData[i].picDbId, "page" : oImgData[i].page, "editCnfIndex" : oImgData[i].editCnfIndex, "num" : oImgData[i].num, "actions" : {},
-				"thumbnailImageUrl":oImgData[i].thumbnailImageUrl, "previewThumbnailImageUrl" :oImgData[i].previewThumbnailImageUrl, "crop" : oImgData[i].crop,"editCnfName" : oImgData[i].editCnfName};
-				oThis.editData.ImgHashMap.putvalue(constName,picObj);
-				var pageNum = oImgData[i].page+'_'+oImgData[i].num+'_'+oImgData[i].editCnfName;
-				$("#"+pageNum).prev(".myImgBox").show().find("img").attr("src",oImgData[i].previewThumbnailImageUrl)
-				//让图片剧中裁切隐藏	
-//				setTimeout(function(){
-//					$("#"+pageNum).prev(".myImgBox").find("img").css("width","100%").css("height","100%")
-//
-////					dragThumb($("#"+pageNum).prev(".myImgBox").find("img"),$("#"+pageNum).prev(".myImgBox"));
-//					 //清空触发弹出上传框的节点,防止vue事件委派兼容
-//
-//				},200)
-				$("#"+pageNum).remove();
-				
-			}
+			setTimeout(function(){
+				for (var i = 0; i < oImgData.length; i++) {
+					var constName = oImgData[i].page+'_'+oImgData[i].num;
+					//map生成变量
+					var picObj = {"constName":constName,"picDbId" : oImgData[i].picDbId, "page" : oImgData[i].page, "editCnfIndex" : oImgData[i].editCnfIndex, "num" : oImgData[i].num, "actions" : {},
+					"thumbnailImageUrl":oImgData[i].thumbnailImageUrl, "previewThumbnailImageUrl" :oImgData[i].previewThumbnailImageUrl, "crop" : oImgData[i].crop,"editCnfName" : oImgData[i].editCnfName};
+					oThis.editData.ImgHashMap.putvalue(constName,picObj);
+					var pageNum = oImgData[i].page+'_'+oImgData[i].num+'_'+oImgData[i].editCnfName;
+					$("#"+pageNum).prev(".myImgBox").show().find("img").attr("src",oImgData[i].previewThumbnailImageUrl)
+					//让图片剧中裁切隐藏	
+					dragThumb($("#"+pageNum).prev(".myImgBox").find("img"),$("#"+pageNum).prev(".myImgBox"));
+					$("#"+pageNum).remove();
+				}
+			},200)
 	 	 })
 	  }	  
 		//素材库地址图片
