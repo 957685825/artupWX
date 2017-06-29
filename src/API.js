@@ -16,21 +16,15 @@ var category = 'baobaoshu'
 const ADD_CAR = `${HOST}artup-build/builder/cors/car/add/command.do?format=json&ignore=true`
 /*购物车列表*/
 const CAR_LIST = `${HOST}artup-build/builder/cors/car/queryByPage.do?format=json&ignore=true`
-<<<<<<< HEAD
+
 /*素材dpi是否合格*/
 const MATER_DPI = `${HOST}artup-build/builder/cors/picture/validate.do?format=json&ignore=true&userDbId=${sessionIds}&sessionId=${sessionIds}`
 ////只要访问ajax的时候，没有这个用户信息，就跳到首页去登录获取用户信息
 //if (!sessionIds) {
 //	alert('用户信息不存在!');  
 //	location.href='#/'
-=======
 
-////只要访问ajax的时候，没有这个用户信息，就跳到首页去登录获取用户信息
-//if (!sessionIds) {
-//	alert('用户信息不存在!');  
-//	location.href='#/'
->>>>>>> 05c421158a4b5c3931e797a3e9adbd4320ca247e
-//}
+
 
 
 const VueHttp = new Vue();
