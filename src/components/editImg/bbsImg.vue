@@ -168,6 +168,7 @@ export default{
 		      textareaTexts:false,//文本弹出框编辑
 		      previewPage:false, //预览页面切换
 		      bbs:{
+		      	attrImg:true,//图片编辑存储的临时变量
 		      	index2:0,
 		      	templateCode : "baobaoshu_170-235_24",
 		      	imgUploadNumber:0,
@@ -441,16 +442,23 @@ export default{
   				this.bbs.styleType = $(params.event.target).attr("type"); //板式
   				this.bbs.editCnfName = $(params.event.target).attr("editCnfName"); //是宝宝书还是lomok
   			}
+  			
   			//editImg 图片编辑功能
   			if ($(params.event.target).hasClass("editImg")) { 
   				//编辑时候添加1个图片回显唯一标识符
   				$(".OnlyOne").removeClass("OnlyOneEditImg");
-  				$(params.event.target).addClass("OnlyOneEditImg");
+  				$(params.event.target).addClass("OnlyOneEditImg"); 				
   				
-  				//拿到编辑的图片地址
   				var oImg = $(params.event.target).prev("img");
+  				//拿到编辑的图片地址.原图缓存到页面 属性 attrImg
+  				if (this.bbs.attrImg) {
+  					oImg.attr("attrImg",oImg.attr("src"));
+  					this.bbs.attrImg=false;
+  				}
+  				 
+			   //costName  map 索引				
 				var costName = params.index+1+'_'+$(params.event.target).attr("nm");
-  				this.bbs.imgEdit.oSrc = oImg.attr("src");
+  				this.bbs.imgEdit.oSrc = oImg.attr("attrImg");
   				this.bbs.imgEdit.imgEditIndex = costName;				
   				this.bbs.imgEdit.oW = oImg.parent(".myImgBox").width();
   				this.bbs.imgEdit.oH = oImg.parent(".myImgBox").height();
@@ -459,10 +467,12 @@ export default{
   				if ($(params.event.target).attr("editCnfName")) {
   					this.bbs.imgEdit.editCnfName = $(params.event.target).attr("editCnfName");
   					this.bbs.imgEdit.thumbnailScale = this.editData.lomHashMap.getvalue(costName).actions.thumbnailScale
+  					this.bbs.imgEdit.actions = this.editData.lomHashMap.getvalue(costName).actions 					
   				}else{
-
   					this.bbs.imgEdit.thumbnailScale = this.editData.ImgHashMap.getvalue(costName).actions.thumbnailScale	
+  					this.bbs.imgEdit.actions = this.editData.ImgHashMap.getvalue(costName).actions	
   				}
+  				
 				console.log(this.bbs.imgEdit)
 				this.editorImage(this.bbs.imgEdit)
 				//给地址存入vuex和浏览器
@@ -512,9 +522,9 @@ export default{
                 {
                     imgSrc: jsons.oSrc,
                     imgSize: {width: jsons.oW, height: jsons.oH},
-					initialCrop:{},
+					initialCrop:jsons.actions,
 					customParams:{
-                       diy:jsons.thumbnailScale
+                       thumbnailScale:jsons.thumbnailScale
 					}
                 }
             )
