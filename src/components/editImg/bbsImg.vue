@@ -511,8 +511,7 @@ export default{
                 'showEditor',
                 {
                     imgSrc: jsons.oSrc,
-                    imgSize: {width: jsons.oW, height: jsons.oH},
-					initialCrop:{"x":"105.50","y":"70.50","width":"170.00","height":"145.00","rotate":90,"scale":1,"size":"500*500","type":"kuanghua"}
+                    imgSize: {width: jsons.oW, height: jsons.oH}					
                 }
             )
         },
