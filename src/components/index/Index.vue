@@ -7,9 +7,9 @@
 			  <mt-swipe-item style="background: orange;">3</mt-swipe-item>
 			</mt-swipe>
 		</div>
-		<div class="btn_btn">
+		<div v-DomHeight class="btn_btn">
 			<ul class="btn_ul">
-				<li><a href="">
+				<li><a href="#bbsMsg?category=baobaoshu">
 					宝宝书
 				</a></li>
 				<li><a href="">
@@ -30,6 +30,9 @@
 </template>
 
 <script>
+import Api from '../../API.js'	
+import dd  from '../../directive.js'	
+console.log(dd)
 import { Swipe, SwipeItem } from 'mint-ui';
 export default {
   data () {
@@ -52,7 +55,10 @@ export default {
 //	    ])
     },
     mounted(){
-		
+    	//http://localhost:8081/#/?a=b&c=d 参数的形式
+		if (this.$route.query) {
+			sessionStorage.setItem('urlQuery',JSON.stringify(this.$route.query))
+		}
 	}
 }
 </script>

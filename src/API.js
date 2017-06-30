@@ -5,6 +5,7 @@ console.log(qs)
 Vue.prototype.$http = axios
 // 常量 API 接口地址
 const HOST = 'http://image2.artup.com/'
+var urlQuery = sessionStorage.getItem('urlQuery');
 
 //用户名全局变量获取
 

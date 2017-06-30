@@ -11,6 +11,7 @@ import Cart from './components/cart/cart.vue'
 import payOrder from './components/cart/payOrder.vue'
 //宝宝书选择
 import bbsSelect from './components/product/bbs/bbsSelect.vue'
+import bbsMsg from './components/product/bbs/bbsMsg.vue'
 //图片编辑
 import editImg from './components/editImg/editImg.vue'
 
@@ -55,6 +56,9 @@ export default{
 		},
 		{
 			path:'/bbsSelect', component:bbsSelect //宝宝书选择
+		},
+		{
+			path:'/bbsMsg', component:bbsMsg //宝宝书介绍
 		},
 		{
 			path:'/editImg', component:editImg //图片编辑
