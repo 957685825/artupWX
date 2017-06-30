@@ -1,5 +1,5 @@
 <template>
-    <div id="editImg">
+    <div id="editImg" v-once>
         <div id="dropBox" class="resumable-drop">
         </div>
         <div id="image-cropper">
@@ -10,8 +10,8 @@
             </div>
             <!--旋转90度-->
             <div class="rotate_90">
-                <div class="rotate-ccw">左旋转<i>90°</i></div>
-                <div class="rotate-cw">右旋转<i>90°</i></div>
+                <div class="rotate-ccw" @click="rotateCW">左旋转<i>90°</i></div>
+                <div class="rotate-cw" @click="rotateCCW">右旋转<i>90°</i></div>
             </div>
         </div>
     </div>
@@ -21,14 +21,18 @@
     import {mapState, mapMutations} from 'vuex';
     import getCropitData from '../../../service/getCropitData.js';
     let imageCropper,
-        imgIsChanged=false
+        imgIsChanged=false,
+        restoreData,
+        rotationalp = 90,
+        reg = 0,
+        angu = 0
     ;
+
     export default {
         data() {
             return {
                 NavMenu: [], //左侧的菜单栏
                 number2: '',//test
-                restoreData: ''
             }
         },
         methods: {
@@ -61,13 +65,13 @@
                 }
             },
             restore(){
-                this.cropitImg(this.restoreData);
+                this.cropitImg(restoreData);
             },
             getRestoreData(){
                 if (this.initialCrop && this.initialCrop.x) {
-                    this.restoreData = this.initialCrop;
+                    restoreData = this.initialCrop;
                 } else {
-                    this.restoreData = getCropitData();
+                    restoreData = getCropitData();
                 }
             },
             imgChanged(){
@@ -75,6 +79,24 @@
                     this.$emit('imgChanged');
                     imgIsChanged=true;
                 }
+            },
+            rotateCW(){
+                angu = reg += rotationalp;
+                if (angu == 360) {
+                    angu = 0;
+                    reg = 0;
+                }
+                imageCropper.cropit('rotateCW');
+                this.imgChanged();
+            },
+            rotateCCW(){
+                imageCropper.cropit('rotateCCW');
+                angu = reg -= rotationalp;
+                if (angu == -360) {
+                    angu = 0;
+                    reg = 0;
+                }
+                this.imgChanged();
             }
         },
         computed: mapState({
@@ -96,9 +118,6 @@
             }
         },
         mounted() {
-            var rotationalp = 90;
-            var reg = 0;
-            var angu = 0;
 
             const vm = this;
             //图片裁切
@@ -123,28 +142,7 @@
                 }
             });
 
-
-            //顺时针旋转图片
-            $('.rotate-cw').click(function () {
-                angu = reg += rotationalp;
-                if (angu == 360) {
-                    angu = 0;
-                    reg = 0;
-                }
-                imageCropper.cropit('rotateCW');
-                vm.imgChanged();
-            });
-
-            //逆时针旋转图片
-            $('.rotate-ccw').click(function () {
-                imageCropper.cropit('rotateCCW');
-                angu = reg -= rotationalp;
-                if (angu == -360) {
-                    angu = 0;
-                    reg = 0;
-                }
-                vm.imgChanged();
-            });
+            　this.$emit('getImageCropper',imageCropper);
 
         }
     }

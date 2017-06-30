@@ -32,8 +32,9 @@
 							wxpay(d,callback); 
 						}
 					} else {
-						alert('支付失败');
-						window.history.go(-1);
+						Toast('支付失败');
+        				location.href="#orderList"
+						
 					}
         	},err=>{
         		

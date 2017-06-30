@@ -32,7 +32,7 @@
 					<div class="bs">
 						<div class="bsLeft imgBox">
 							<div class="bstp bstpfm">
-								<div class="bbs03  fmPage" @click="editorImage"></div>
+								<div class="bbs03 fmPage"></div>
 							</div>
 						</div>
 						<div class="fmFont">封面</div>
