@@ -42,6 +42,16 @@ const MATER_DPI = `${HOST}artup-build/builder/cors/picture/validate.do?format=js
 /*订单支付*/
 const ORDER_PAY = `${HOST}artup-build/builder/orderPayment/payment.do?format=json&ignore=true`
 
+/*修改订单状态*/
+const UPDATA_ORDER_STATUS = `${HOST}artup-build/builder/order/update/command.do?format=json&ignore=true&status=1`
+
+/*获取订单列表*/
+const ORDER_LIST_STATUS = `${HOST}artup-build/builder/order/queryByPage.do?format=json&ignore=true&pageSize=150&sort=createdDt&order=desc`
+
+/*取消订单*/
+const CANCLE_ORDER_STATUS = `${HOST}artup-build/builder/order/update/command.do?format=json&ignore=true&status=-1`
+
+
 ////只要访问ajax的时候，没有这个用户信息，就跳到首页去登录获取用户信息
 //if (!sessionIds) {
 //	alert('用户信息不存在!');  
@@ -80,6 +90,15 @@ export default {
 	   	queryOrder:(jsons)=>{//订单详情
 	   	
 	   		return VueHttp.$http.get(QUERY_ORDER,{params:jsons})
+	   	},
+	   	updataOrderStatus:(jsons)=>{//改变订单状态
+	   		return VueHttp.$http.get(UPDATA_ORDER_STATUS,{params:jsons})
+	   	},
+	   	cancleOrder:(jsons)=>{//取消订单
+	   		return VueHttp.$http.get(CANCLE_ORDER_STATUS,{params:jsons})
+	   	},
+	   	orderListStatus:(jsons)=>{
+	   		return VueHttp.$http.get(ORDER_LIST_STATUS,{params:jsons})
 	   	}
 	   },
 	   address:{

@@ -58,7 +58,7 @@
 		</div>
 		<div class="bottomBar">
 			<ul>
-				<li>合计<span>￥88.0</span></li>
+				<li>合计<span>￥{{dataList.total}}</span></li>
 				<li><span v-tap="{methods:gotoOrderPay}">订单提交</span></li>
 			</ul>
 		</div>
