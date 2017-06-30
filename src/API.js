@@ -171,7 +171,7 @@ export default {
 				   	  		userDbId:sessionIds,
 				   	  		status:1,
 				   	  		pageNum:0,
-				   	  		pageSize:150,
+				   	  		pageSize:50,
 				   	  		sort:"uploadDt",
 				   	  		order:"desc",
 				   	  		category:''

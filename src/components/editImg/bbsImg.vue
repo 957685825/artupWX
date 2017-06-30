@@ -90,7 +90,7 @@
 		</div>
 		<div class="cart_btn">
 			<div class="price">
-				合计<span><b>¥</b>88.00</span></div>
+				合计<span><b>¥</b>{{bbs.oPrice}}</span></div>
 			<div v-if="!previewPage" v-tap="{methods : editWork}" class="crectOrder">
 				保存作品
 			</div>
@@ -168,6 +168,7 @@
                 textareaTexts:false,//文本弹出框编辑
                 previewPage:false, //预览页面切换
                 bbs:{
+                		oPrice:JSON.parse(localStorage.getItem("bbsSlsectDate")).price,//产品的价格
                     attrImg:true,//图片编辑存储的临时变量
                     index2:0,
                     templateCode : "baobaoshu_170-235_24",
