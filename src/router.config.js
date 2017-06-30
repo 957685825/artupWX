@@ -1,5 +1,6 @@
 //import Home from './components/Home.vue'
 import Login from './components/Login.vue'
+import Index from './components/index/Index.vue'
 import User from './components/user/userInfo.vue'
 import NewAddress from './components/user/newAddress.vue'
 import Address from './components/user/address.vue'
@@ -22,7 +23,7 @@ import workList from './components/workList/workList.vue'
 export default{
 	routes:[
 	 	{ 
-	 		path: '/', component: User	 		
+	 		path: '/', component: Index	 		
 	 	},
 //		{
 //			path:'/', component:Home, //首页 home

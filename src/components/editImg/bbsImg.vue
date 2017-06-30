@@ -573,20 +573,20 @@ export default{
 			})
 			console.log(oImgData.length)
 			//图片回显到页面
-			setTimeout(function(){
-				for (var i = 0; i < oImgData.length; i++) {
-					var constName = oImgData[i].page+'_'+oImgData[i].num;
-					//map生成变量
-					var picObj = {"constName":constName,"picDbId" : oImgData[i].picDbId, "page" : oImgData[i].page, "editCnfIndex" : oImgData[i].editCnfIndex, "num" : oImgData[i].num, "actions" : {},
-					"thumbnailImageUrl":oImgData[i].thumbnailImageUrl, "previewThumbnailImageUrl" :oImgData[i].previewThumbnailImageUrl, "crop" : oImgData[i].crop,"editCnfName" : oImgData[i].editCnfName};
-					oThis.editData.ImgHashMap.putvalue(constName,picObj);
-					var pageNum = oImgData[i].page+'_'+oImgData[i].num+'_'+oImgData[i].editCnfName;
-					$("#"+pageNum).prev(".myImgBox").show().find("img").attr("src",oImgData[i].previewThumbnailImageUrl)
-					//让图片剧中裁切隐藏	
-					dragThumb($("#"+pageNum).prev(".myImgBox").find("img"),$("#"+pageNum).prev(".myImgBox"));
-					$("#"+pageNum).remove();
-				}
-			},200)
+
+			for (var i = 0; i < oImgData.length; i++) {
+				var constName = oImgData[i].page+'_'+oImgData[i].num;
+				//map生成变量
+				var picObj = {"constName":constName,"picDbId" : oImgData[i].picDbId, "page" : oImgData[i].page, "editCnfIndex" : oImgData[i].editCnfIndex, "num" : oImgData[i].num, "actions" : {},
+				"thumbnailImageUrl":oImgData[i].thumbnailImageUrl, "previewThumbnailImageUrl" :oImgData[i].previewThumbnailImageUrl, "crop" : oImgData[i].crop,"editCnfName" : oImgData[i].editCnfName};
+				oThis.editData.ImgHashMap.putvalue(constName,picObj);
+				var pageNum = oImgData[i].page+'_'+oImgData[i].num+'_'+oImgData[i].editCnfName;
+				$("#"+pageNum).prev(".myImgBox").show().find("img").attr("src",oImgData[i].previewThumbnailImageUrl)
+//				$("#"+pageNum).css("width","100%").css("height","100%");
+				//让图片剧中裁切隐藏	
+				dragThumb($("#"+pageNum).prev(".myImgBox").find("img"),$("#"+pageNum).prev(".myImgBox"));
+				$("#"+pageNum).remove();
+			}
 	 	 })
 	  }	  
 		//素材库地址图片
