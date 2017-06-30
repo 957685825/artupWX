@@ -20,7 +20,9 @@
 <script>
     import {mapState, mapMutations} from 'vuex';
     import getCropitData from '../../../service/getCropitData.js';
-    let imageCropper;
+    let imageCropper,
+        imgIsChanged=false
+    ;
     export default {
         data() {
             return {
@@ -67,6 +69,12 @@
                 } else {
                     this.restoreData = getCropitData();
                 }
+            },
+            imgChanged(){
+                if(!imgIsChanged){
+                    this.$emit('imgChanged');
+                    imgIsChanged=true;
+                }
             }
         },
         computed: mapState({
@@ -106,6 +114,12 @@
                     vm.cropitImg(initialCrop);
 
                     vm.getRestoreData();
+                },
+                onOffsetChange(){
+                    vm.imgChanged();
+                },
+                onZoomChange(){
+                    vm.imgChanged();
                 }
             });
 
@@ -118,7 +132,7 @@
                     reg = 0;
                 }
                 imageCropper.cropit('rotateCW');
-
+                vm.imgChanged();
             });
 
             //逆时针旋转图片
@@ -129,6 +143,7 @@
                     angu = 0;
                     reg = 0;
                 }
+                vm.imgChanged();
             });
 
         }

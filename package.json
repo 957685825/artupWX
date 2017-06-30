@@ -5,7 +5,7 @@
   "author": "pengjin0 <827879040@qq.com>",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot --color --debug",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
     "builds": "webpack --color --progress"
   },

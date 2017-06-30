@@ -10,7 +10,7 @@
                 </div>
             </mt-header>
 
-            <loading ref="editInstance"></loading>
+            <loading ref="editInstance" @imgChanged="imgChanged"></loading>
 
         </div>
     </transition>
@@ -22,7 +22,8 @@
 
     export default {
         data: () => ({
-            editorHeight: window.innerHeight
+            editorHeight: window.innerHeight,
+            imgIsChanged: false
         }),
 
         computed: mapState({
@@ -35,10 +36,13 @@
         methods: {
             save(){
                 let {
-                    commit
-                } = this.$store;
+                    imgIsChanged:cropit,
+                    $store:{
+                        commit
+                    }
+                } = this;
 
-                let postData = getCropitData({"size": "500*500", "type": "kuanghua"}, this.customParams);
+                let postData = getCropitData({"size": "500*500", "type": "kuanghua",cropit}, this.customParams);
 
                 this.$emit('editFinish', {postData, imgData: $('#image-cropper').cropit('export')});
 
@@ -46,6 +50,9 @@
             },
             restoreImg(){
                 this.$refs.editInstance.restore()
+            },
+            imgChanged(){
+                this.imgIsChanged=true;
             }
         },
 
