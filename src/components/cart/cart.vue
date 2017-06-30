@@ -15,8 +15,7 @@
 				</div>
 				<div class="div_comenter">
 					<div class="img_cart">
-						<img v-bind:src="itme.thumbnailImageUrl" alt="" />
-						
+						<img v-bind:src="itme.thumbnailImageUrl" alt="" />						
 					</div>
 					<ol class="img_msg">
 						<li>{{itme.sku | splitSku}}</li>
@@ -27,9 +26,13 @@
 				</div>
 				<div class="div_number">
 					<ol>
-						<li v-tap='{methods : reduce,num:itme.num,index:indexs}'>减</li>
+						<li v-tap='{methods : reduce,num:itme.num,index:indexs}'>
+							<i class="icon iconfont">&#xe638;</i>
+						</li>
 						<li v-model="itme.num">{{itme.num}}</li>
-						<li v-tap='{methods : add,num:itme.num,index:indexs}'>加</li>
+						<li v-tap='{methods : add,num:itme.num,index:indexs}'>
+							<i class="icon iconfont">&#xe671;</i>
+						</li>
 					</ol>
 				</div>
 			</li>			
