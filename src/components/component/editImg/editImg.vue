@@ -1,7 +1,7 @@
 <template>
     <transition name="fade">
         <div id="editImg" class="editImg-wrap" :style="{height:`${editorHeight}px`}" v-show="isShow">
-            <mt-header title="图片编辑">
+            <mt-header title="图片编辑" v-once>
                 <div slot="left">
                     <mt-button @click="restoreImg">撤销</mt-button>
                 </div>
@@ -10,25 +10,24 @@
                 </div>
             </mt-header>
 
-            <loading ref="editInstance" @imgChanged="imgChanged"></loading>
+            <loading ref="editInstance" @imgChanged="imgChanged" @getImageCropper="getImageCropper"></loading>
 
         </div>
     </transition>
 </template>
 
 <script>
-    import {mapState, mapMutations} from 'vuex';
+    import {mapMutations} from 'vuex';
     import getCropitData from '../../../service/getCropitData.js';
+
+    let imageCropper,
+        imgIsChanged
+    ;
 
     export default {
         data: () => ({
             editorHeight: window.innerHeight,
-            imgIsChanged: false
-        }),
-
-        computed: mapState({
-            isShow: ({editImgModule}) => editImgModule.isShow,
-            customParams: ({editImgModule}) => editImgModule.customParams,
+            isShow: false
         }),
 
         props: [],
@@ -36,15 +35,20 @@
         methods: {
             save(){
                 let {
-                    imgIsChanged:cropit,
-                    $store:{
-                        commit
-                    }
+                    $store: {
+                        commit,
+                        state
+                    },
+                    $emit
                 } = this;
 
-                let postData = getCropitData({"size": "500*500", "type": "kuanghua",cropit}, this.customParams);
+                let postData = getCropitData({
+                    "size": "500*500",
+                    "type": "kuanghua",
+                    cropit: imgIsChanged
+                }, state.editImgModule.customParams);
 
-                this.$emit('editFinish', {postData, imgData: $('#image-cropper').cropit('export')});
+                this::$emit('editFinish', {postData, imgData: imageCropper.cropit('export')});
 
                 commit('hideEditor');
             },
@@ -52,7 +56,10 @@
                 this.$refs.editInstance.restore()
             },
             imgChanged(){
-                this.imgIsChanged=true;
+                imgIsChanged = true;
+            },
+            getImageCropper(ele){
+                imageCropper = ele;
             }
         },
 
@@ -62,7 +69,6 @@
                 'editImgModule',
                 {
                     state: {
-                        isShow: false,
                         imgSrc: '',
                         imgSize: {
                             width: 200,
@@ -73,11 +79,12 @@
                     },
                     mutations: {
                         showEditor(state, payload){
-                            Object.assign(state, payload, {isShow: true});
+                            Object.assign(state, payload);
+                            vm.isShow = true;
                         },
                         hideEditor(state){
                             state.imgSrc = '';
-                            state.isShow = false;
+                            vm.isShow = false;
                         },
                         clearImgSrc(state){
                             state.imgSrc = '';
