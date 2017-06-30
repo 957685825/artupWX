@@ -22,13 +22,8 @@
 			}
 		</style>
 		<script type="text/javascript">
-			var str = 'dddfdfdffd';
-			function GetQueryString(name) { 
-			var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); 
-			var r = window.location.search.substr(1).match(reg); 
-			if (r != null) return unescape(r[2]); return null; 
-			}
-			console.log(GetQueryString("edtDbId"))
+			var str = 'translate(-11.3333px, 0px) scale(0.676329) rotate(40deg)';
+			console.log(str.match(/rotate\((\S*)deg/)[1])
 		</script>
 	</head>
 	<body>

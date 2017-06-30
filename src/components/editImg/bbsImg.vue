@@ -460,7 +460,7 @@
 
                     var oImg = $(params.event.target).prev("img");
                     //拿到编辑的图片地址.原图缓存到页面 属性 attrImg
-                    if (this.bbs.attrImg) {
+                    if (this.bbs.attrImg && !oImg.attr("attrImg")) {
                         oImg.attr("attrImg",oImg.attr("src"));
                         this.bbs.attrImg=false;
                     }
@@ -553,14 +553,8 @@
 //		Api.ajax("url22",function(fns){
 //			console.log(fns)
 //		})
+      var oThis = this;
 
-//	  Api.work.unfinishedWork("artup-build/builder/cors/edit/queryOne.do",this.$route.query.edtDbid).then((res)=>{
-//			console.log(JSON.parse(res.data.data.editPicture))
-//	  })
-
-            var oThis = this;
-
-<<<<<<< HEAD
 	  //继续编辑初始化的数据
 	  if (this.$route.query.edtDbid) {
 	  	this.bbs.workEdit.edtDbId = this.$route.query.edtDbid;
@@ -572,7 +566,7 @@
 				var page = $(this).parents(".bstp").next(".bbsBtn").find("ul li p >span").text();				 
 				$(this).attr("id",page+'_'+$(el).attr("nm")+'_'+$(this).attr("editcnfname"))
 			})
-			console.log(oImgData.length)
+			console.log(oImgData)
 			//图片回显到页面
 
 			for (var i = 0; i < oImgData.length; i++) {
@@ -582,34 +576,10 @@
 				"thumbnailImageUrl":oImgData[i].thumbnailImageUrl, "previewThumbnailImageUrl" :oImgData[i].previewThumbnailImageUrl, "crop" : oImgData[i].crop,"editCnfName" : oImgData[i].editCnfName};
 				oThis.editData.ImgHashMap.putvalue(constName,picObj);
 				var pageNum = oImgData[i].page+'_'+oImgData[i].num+'_'+oImgData[i].editCnfName;
-				$("#"+pageNum).prev(".myImgBox").show().find("img").attr("src",oImgData[i].previewThumbnailImageUrl)
-=======
-            //继续编辑初始化的数据
-            if (this.$route.query.edtDbid) {
-                this.bbs.workEdit.edtDbId = this.$route.query.edtDbid;
-                Api.work.unfinishedWork("artup-build/builder/cors/edit/queryOne.do",this.$route.query.edtDbid).then((res)=>{
-//	  			console.log(res)
-                    var oImgData = JSON.parse(res.data.data.editPicture);
-                    //动态添加图片
-                    $("#bbsImg").find(".listBox .bbsClass >img").each(function(i,el){
-                        var page = $(this).parents(".bstp").next(".bbsBtn").find("ul li p >span").text();
-                        $(this).attr("id",page+'_'+$(el).attr("nm")+'_'+$(this).attr("editcnfname"))
-                    })
-                    console.log(oImgData.length)
-                    //图片回显到页面
+				$("#"+pageNum).prev(".myImgBox").show().find("img").css("width","100%").attr("src",oImgData[i].previewThumbnailImageUrl).attr("attrImg",oImgData[i].thumbnailImageUrl);
 
-                    for (var i = 0; i < oImgData.length; i++) {
-                        var constName = oImgData[i].page+'_'+oImgData[i].num;
-                        //map生成变量
-                        var picObj = {"constName":constName,"picDbId" : oImgData[i].picDbId, "page" : oImgData[i].page, "editCnfIndex" : oImgData[i].editCnfIndex, "num" : oImgData[i].num, "actions" : {},
-                            "thumbnailImageUrl":oImgData[i].thumbnailImageUrl, "previewThumbnailImageUrl" :oImgData[i].previewThumbnailImageUrl, "crop" : oImgData[i].crop,"editCnfName" : oImgData[i].editCnfName};
-                        oThis.editData.ImgHashMap.putvalue(constName,picObj);
-                        var pageNum = oImgData[i].page+'_'+oImgData[i].num+'_'+oImgData[i].editCnfName;
-                        $("#"+pageNum).prev(".myImgBox").show().find("img").attr("src",oImgData[i].previewThumbnailImageUrl)
->>>>>>> 6196a42ce6a974212a3d463f569bc361a77c78a4
-//				$("#"+pageNum).css("width","100%").css("height","100%");
                         //让图片剧中裁切隐藏
-                        dragThumb($("#"+pageNum).prev(".myImgBox").find("img"),$("#"+pageNum).prev(".myImgBox"));
+//                      dragThumb($("#"+pageNum).prev(".myImgBox").find("img"),$("#"+pageNum).prev(".myImgBox"));
                         $("#"+pageNum).remove();
                     }
                 })
