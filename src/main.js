@@ -3,11 +3,8 @@ import Vue from 'vue'
 //引入路由和ajax库
 import VueRouter from 'vue-router'
 import axios from 'axios'
-//import VueTouch from 'vue-touch'
-
 //vuex 具体东西
 import store from './store/'
-
 //引入mint-ui
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
@@ -16,13 +13,17 @@ import routerConfig from './router.config.js'
 import App from './App.vue'
 //移动端tap事件
 import vueTap from 'v-tap';
+//引入vue指令暴露出去的全局指令
 import {DomHeight} from './directive.js';
+//引入一个自定义的util函数，里面定义的是全局公用的方法
+import utils from './components/component/util';
 
 import loading from './components/component/edit'
 import editimg from './components/component/editImg';
 
 
 Vue.use(loading)
+Vue.use(utils)
 Vue.use(editimg);
 Vue.use(vueTap)
 //使用use 引入插件

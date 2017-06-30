@@ -342,7 +342,7 @@
                 var thumbnailUrl = this.bbs.Material[this.bbs.MaterialImgIndex].thumbnailUrl;
                 //确认回显图片到页面
 //			$(".OnlyOne").attr("src",thumbnailUrl);
-                $(".OnlyOne").prev(".myImgBox").show().find("img").attr("src",thumbnailUrl);
+                $(".OnlyOne").prev(".myImgBox").show().find("img").attr("src",thumbnailUrl).attr("attrImg",thumbnailUrl);
                 //让图片剧中裁切隐藏
                 setTimeout(function(){
                     dragThumb($(".OnlyOne").prev(".myImgBox").find("img"),$(".OnlyOne").prev(".myImgBox"));
@@ -464,7 +464,6 @@
                         oImg.attr("attrImg",oImg.attr("src"));
                         this.bbs.attrImg=false;
                     }
-
                     //costName  map 索引
                     var costName = params.index+1+'_'+$(params.event.target).attr("nm");
                     this.bbs.imgEdit.oSrc = oImg.attr("attrImg");
@@ -575,9 +574,8 @@
 				oThis.editData.ImgHashMap.putvalue(constName,picObj);
 				var pageNum = oImgData[i].page+'_'+oImgData[i].num+'_'+oImgData[i].editCnfName;
 				$("#"+pageNum).prev(".myImgBox").show().find("img").css("width","100%").attr("src",oImgData[i].previewThumbnailImageUrl).attr("attrImg",oImgData[i].thumbnailImageUrl);
-
-                        $("#"+pageNum).remove();
-                    }
+					 $("#"+pageNum).remove();
+                   }
                 })
             }
             //素材库地址图片
@@ -651,7 +649,7 @@
                 //上传成功
                 r.on('fileSuccess', function(file, message){
                     var responseText = $.parseJSON(message);
-                    $(".OnlyOne").prev(".myImgBox").show().find("img").attr("src",responseText.thumbnailUrl);
+                    $(".OnlyOne").prev(".myImgBox").show().find("img").attr("src",responseText.thumbnailUrl).attr("attrImg",responseText.thumbnailUrl);
                     //让图片剧中裁切隐藏
                     setTimeout(function(){
                         dragThumb($(".OnlyOne").prev(".myImgBox").find("img"),$(".OnlyOne").prev(".myImgBox"));
