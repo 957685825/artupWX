@@ -131,6 +131,7 @@ export default {
 					}
 					Api.car.createOrder(jsons).then(res=>{
 						if(res.data.code == 'success'){
+							//alert(res.data.orderDbId)
 							location.href="#payOrder?openId="+res.data.openId+"&orderDbId="+res.data.orderDbId+"&userDbId="+localStorage.getItem("sessionId");
 						}
 						console.log(res);
