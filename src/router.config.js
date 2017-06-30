@@ -5,6 +5,8 @@ import User from './components/user/userInfo.vue'
 import NewAddress from './components/user/newAddress.vue'
 import Address from './components/user/address.vue'
 import OrderList from './components/user/orderList.vue'
+
+import OrderStatus from './components/user/orderStatus.vue'
 /*购物车列表*/
 import Cart from './components/cart/cart.vue'
 /*购物车列表*/
@@ -47,6 +49,9 @@ export default{
 		},
 		{
 			path:'/OrderList', component:OrderList //订单列表
+		},
+		{
+			path:'/OrderStatus', component:OrderStatus //订单列表
 		},
 		{
 			path:'/cart', component:Cart //购物车

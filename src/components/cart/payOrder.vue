@@ -7,29 +7,29 @@
 		  </router-link>
 		  <mt-button icon=""  slot="right"></mt-button>
 		</mt-header>
-		<div class="address">
+		<div v-bind:hidden="addresBool" class="address">
 			<span>+</span>&nbsp;请添加收货地址
 		</div>
-		<div class="addressContet">
+		<div class="addressContet" v-bind:hidden="!addresBool">
 			<ul>
-				<li><span>收件人姓名</span><span>彭进</span></li>
-				<li>北京顺义雅昌艺术中心</li>
+				<li><span>收件人姓名</span><span>{{addressData.name}}({{addressData.mobile}})</span></li>
+				<li>{{addressData.province}}{{addressData.address}}</li>
 				<i>&#xe65f;</i>
 			</ul>
 		</div>
 		<div class="content">
 			<div class="contentList clearfix">
 				<ul>
-					<li>
+					<li v-for="(itmes,index) in dataList.cars">
 						<div class="leftBox">
-							<img src="../../../dist/bbs.png"/>
+							<img :src="itmes.thumbnailImageUrl"/>
 						</div>
 						<div class="rightBox">
 							<ul>
-								<li>宝宝书  智慧蓝 24页</li>
-								<li>170mm*235mm</li>
-								<li>2017-06-09  13:32</li>
-								<li><span>¥100.01</span><span>×1</span></li>
+								<li>{{itmes.sku | splitSku}}</li>
+								<li>{{itmes.sku | splitSkuLast}}</li>
+								<li>{{itmes.createdDt}}</li>
+								<li><span>¥{{itmes.price}}</span><span>×{{itmes.num}}</span></li>
 							</ul>
 						</div>
 					</li>
@@ -42,7 +42,7 @@
 						</li>
 						<li>
 							<span>商品金额</span>
-							<span>￥88</span>
+							<span>￥{{dataList.total}}</span>
 						</li>
 						<li>
 							<span>运费</span>
@@ -59,7 +59,7 @@
 		<div class="bottomBar">
 			<ul>
 				<li>合计<span>￥88.0</span></li>
-				<li><span>订单提交</span></li>
+				<li><span v-tap="{methods:gotoOrderPay}">订单提交</span></li>
 			</ul>
 		</div>
 	</div>
@@ -71,10 +71,17 @@
     export default {
         data() {
             return {
-              
+              dataList:[],
+              addressData:[],
+              addresBool :false
             }
         },
         methods: {
+        	gotoOrderPay(){
+        		
+        		location.href="#orderStatus?paymentType=WX&addressId="+this.addressData.dbId+"&dbId="+this.dataList.dbId+"&userDbId="+this.$route.query.userDbId+"&openId="+this.$route.query.openId;
+				
+        	}
          
         },
         mounted() {
@@ -85,9 +92,26 @@
         		sessionId:localStorage.getItem("sessionId")
         	}
            Api.car.queryOrder(jsons).then(res=>{
+           	if(res.data.length > 0){
+           		this.dataList = res.data[0];
+           	}
+           		console.log(res.data)
+           },err=>{
+           		Toast('数据请求错误');
+           })
+           var addJsons= {
+           		userDbId:this.$route.query.userDbId,
+           		sessionId:localStorage.getItem("sessionId")
+           }
+           Api.address.defaultAddress(addJsons).then(res=>{
+           		if(res.data.length > 0){
+           			this.addressData = res.data[0];
+           			this.addresBool = true;
+           		}
+           		
            		console.log(res)
            },err=>{
-           	
+            	Toast('数据请求错误');
            })
         }
     }

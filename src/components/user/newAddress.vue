@@ -116,7 +116,8 @@
 						province:this.datas.province,
 						address:this.datas.address,
 						dbId:this.$route.query.dbId,
-						mainAddr:this.datas.mainAddr
+						mainAddr:this.datas.mainAddr,
+						userDbId:localStorage.getItem("sessionId")
 						
 					}
 					/*确认提交*/
@@ -132,13 +133,17 @@
 						mobile:this.datas.mobile,
 						province:this.datas.province,
 						address:this.datas.address,
-						mainAddr:this.datas.mainAddr
+						mainAddr:this.datas.mainAddr,
+						userDbId:localStorage.getItem("sessionId")
+						
 						
 						
 					}
 					Api.address.newAddress(jsons).then(res=>{
 						console.log(res);
-						location.href="#address";
+						if(res.data.code == 'success'){
+							location.href="#address";
+						}
 					},err=>{
 						Toast('数据请求错误');
 					})

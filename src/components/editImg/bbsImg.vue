@@ -554,7 +554,6 @@
 //			console.log(fns)
 //		})
       var oThis = this;
-
 	  //继续编辑初始化的数据
 	  if (this.$route.query.edtDbid) {
 	  	this.bbs.workEdit.edtDbId = this.$route.query.edtDbid;
@@ -568,7 +567,6 @@
 			})
 			console.log(oImgData)
 			//图片回显到页面
-
 			for (var i = 0; i < oImgData.length; i++) {
 				var constName = oImgData[i].page+'_'+oImgData[i].num;
 				//map生成变量
@@ -578,8 +576,6 @@
 				var pageNum = oImgData[i].page+'_'+oImgData[i].num+'_'+oImgData[i].editCnfName;
 				$("#"+pageNum).prev(".myImgBox").show().find("img").css("width","100%").attr("src",oImgData[i].previewThumbnailImageUrl).attr("attrImg",oImgData[i].thumbnailImageUrl);
 
-                        //让图片剧中裁切隐藏
-//                      dragThumb($("#"+pageNum).prev(".myImgBox").find("img"),$("#"+pageNum).prev(".myImgBox"));
                         $("#"+pageNum).remove();
                     }
                 })
