@@ -455,7 +455,7 @@
                 //editImg 图片编辑功能
                 if ($(params.event.target).hasClass("editImg")) {
                     //编辑时候添加1个图片回显唯一标识符
-                    $(".OnlyOne").removeClass("OnlyOneEditImg");
+                    $(".OnlyOneEditImg").removeClass("OnlyOneEditImg");
                     $(params.event.target).addClass("OnlyOneEditImg");
 
                     var oImg = $(params.event.target).prev("img");
