@@ -188,7 +188,7 @@
                         edtDbId:'',// 新生成的产品才有的字段
                         tplCode:"baobaoshu_170-235_24", //暂时写死
                         sessionId:localStorage.getItem("sessionId"),
-                        userDbId:localStorage.getItem("sessionId"),
+                        userDbId:localStorage.getItem('userDbId'),
                         client:"mobile",//渠道前端传递，暂时写死
                         category:"baobaoshu",//产品类型这里是宝宝书,暂时写死
                         defDbId:"7ad740df-0b81-418f-b4b5-c078ef580b47", //tplCode 模版暂时写死
@@ -617,7 +617,8 @@
             console.log(typeHtmlLome)
 
 			/* 文件上传init */
-            var uploadUrl = 'http://image2.artup.com/artup-build/builder/cors/picture/upload.do?format=json&sessionId=2141731&category=baobaoshu';
+//          var uploadUrl = 'http://image2.artup.com/artup-build/builder/cors/picture/upload.do?format=json&sessionId=2141731&category=baobaoshu';
+            var uploadUrl = Api.UPLOAD_URL;
             uploadInitializer($, uploadUrl, onUploadComplete);
             // //文件上传事件
             function onUploadComplete($, r){
@@ -633,7 +634,7 @@
                 //开始上传
                 r.on('uploadStart', function(){
                     //组装后端需要的数据
-                    extraPostData  = {"templateCode" : templateCode, "userDbId" : "2141731", "client" : client, "channel" : channel,"picPage":oThis.bbs.page,"picNum":oThis.bbs.num,"styleType":oThis.bbs.styleType,"editCnfName":oThis.bbs.editCnfName}
+                    extraPostData  = {"templateCode" : templateCode, "userDbId" : localStorage.getItem('userDbId'), "client" : client, "channel" : channel,"picPage":oThis.bbs.page,"picNum":oThis.bbs.num,"styleType":oThis.bbs.styleType,"editCnfName":oThis.bbs.editCnfName}
                     r.opts.query = extraPostData;
                     //打开进度框
                     Indicator.open({text: '图片上传中...',spinnerType: 'fading-circle'});

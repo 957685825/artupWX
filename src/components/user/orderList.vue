@@ -66,7 +66,7 @@
         },
         methods: {
         	gotoOrderPay(params){
-				location.href="#payOrder?openId=&orderDbId="+params.dbId+"&userDbId="+localStorage.getItem("sessionId");
+				location.href="#payOrder?openId=&orderDbId="+params.dbId+"&userDbId="+localStorage.getItem("userDbId");
         	},
         	cancleOrder(params){
         		Api.car.cancleOrder({dbId:params.dbId}).then(res=>{
@@ -79,7 +79,7 @@
         	}
         },
         mounted() {
-        	Api.car.orderListStatus({userDbId:localStorage.getItem("sessionId")}).then(res=>{
+        	Api.car.orderListStatus({userDbId:localStorage.getItem("userDbId")}).then(res=>{
         		this.dataList = res.data.results;
         		console.log(res)
         	},err=>{

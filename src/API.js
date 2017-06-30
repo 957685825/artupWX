@@ -9,10 +9,15 @@ var urlQuery = sessionStorage.getItem('urlQuery');
 
 //用户名全局变量获取
 
-localStorage.setItem("sessionId","2141731");
-const sessionIds = localStorage.getItem("sessionId");
-
+//localStorage.setItem("sessionId","2141731");
+if (localStorage.getItem('userDbId')) {
+	var  sessionIds = localStorage.getItem('userDbId');
+}else{
+	var  sessionIds = "2141731"
+}
 var category = 'baobaoshu'
+
+const  UPLOAD_URL = `${HOST}artup-build/builder/cors/picture/upload.do?format=json&sessionId=${sessionIds}&category=${category}`;
 /*添加购物车*/
 const ADD_CAR = `${HOST}artup-build/builder/cors/car/add/command.do?format=json&ignore=true`
 /*购物车列表*/
@@ -198,6 +203,8 @@ export default {
 				})
 	   	 }	   	 
 	   },
+	   UPLOAD_URL:UPLOAD_URL,
+	   
 	   ajax(url,callback){
 	   	 console.log(arguments.length)
 	   	 if (arguments.length>2) {
