@@ -19,30 +19,61 @@
 
 <script>
     import {mapState, mapMutations} from 'vuex';
-    let imageCropper;
+    import getCropitData from '../../../service/getCropitData.js';
+    let imageCropper,
+        imgIsChanged=false
+    ;
     export default {
         data() {
             return {
                 NavMenu: [], //左侧的菜单栏
-                number2: ''//test
+                number2: '',//test
+                restoreData: ''
             }
         },
         methods: {
             ...mapMutations(['selectPreview']),
-            cropitImg(option){
-                if (option&&option.scale&&option.rotate&&option.x&&option.y) {
+            cropitImg({scale, rotate, x, y}){
+
+                let image = document.querySelector(".cropit-preview-image"),
+                    transform = image.style.transform,
+                    currentDeg = +transform.match(/rotate\((\d+)deg\)/)[1]
+                ;
+                if (scale !== undefined && rotate !== undefined && x !== undefined && y !== undefined) {
                     //设置图像的加载缩放
-                    imageCropper.cropit('zoom', option.scale);
+                    imageCropper.cropit('zoom', scale);
                     //旋转角度
-                    for (var i = 0; i < (option.rotate / 90); i++) {
-                        imageCropper.cropit("rotateCW");
+                    while (currentDeg !== rotate) {
+                        if (currentDeg < rotate) {
+                            imageCropper.cropit("rotateCW");
+                        } else {
+                            imageCropper.cropit("rotateCCW");
+                        }
+                        transform = image.style.transform;
+                        currentDeg = +transform.match(/rotate\((\d+)deg\)/)[1];
                     }
                     //重新换算位置
                     //alert(0)
                     imageCropper.cropit('offset', {
-                        x: -option.x * option.scale,
-                        y: -option.y * option.scale
+                        x: -x * scale,
+                        y: -y * scale
                     });
+                }
+            },
+            restore(){
+                this.cropitImg(this.restoreData);
+            },
+            getRestoreData(){
+                if (this.initialCrop && this.initialCrop.x) {
+                    this.restoreData = this.initialCrop;
+                } else {
+                    this.restoreData = getCropitData();
+                }
+            },
+            imgChanged(){
+                if(!imgIsChanged){
+                    this.$emit('imgChanged');
+                    imgIsChanged=true;
                 }
             }
         },
@@ -55,8 +86,7 @@
             imgSrc(val, oldVal) {
                 if (val) {
                     const {
-                        imgSize,
-                        initialCrop
+                        imgSize
                     } = this;
                     if (imgSize.width && imgSize.height) {
                         imageCropper.cropit('previewSize', imgSize);
@@ -82,6 +112,14 @@
                 onImageLoaded(){
                     let {initialCrop} = vm;
                     vm.cropitImg(initialCrop);
+
+                    vm.getRestoreData();
+                },
+                onOffsetChange(){
+                    vm.imgChanged();
+                },
+                onZoomChange(){
+                    vm.imgChanged();
                 }
             });
 
@@ -94,7 +132,7 @@
                     reg = 0;
                 }
                 imageCropper.cropit('rotateCW');
-
+                vm.imgChanged();
             });
 
             //逆时针旋转图片
@@ -105,6 +143,7 @@
                     angu = 0;
                     reg = 0;
                 }
+                vm.imgChanged();
             });
 
         }

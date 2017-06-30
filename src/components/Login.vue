@@ -6,8 +6,7 @@
 		    <mt-button>关闭</mt-button>
 		  </router-link>
 		  <mt-button icon="more" slot="right"></mt-button>
-		</mt-header>
-		 
+		</mt-header>		 
 		 	<h3>welcome vuex-demo</h3>
 		    <input type="button" value="增加" @click="add">
 		    <div>

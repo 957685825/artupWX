@@ -2,15 +2,15 @@
     <transition name="fade">
         <div id="editImg" class="editImg-wrap" :style="{height:`${editorHeight}px`}" v-show="isShow">
             <mt-header title="图片编辑">
-                <router-link to="/" slot="left">
-                    <mt-button>撤销</mt-button>
-                </router-link>
-                <div to="/" slot="right">
+                <div slot="left">
+                    <mt-button @click="restoreImg">撤销</mt-button>
+                </div>
+                <div slot="right">
                     <mt-button @click="save">保存</mt-button>
                 </div>
             </mt-header>
 
-            <loading></loading>
+            <loading ref="editInstance" @imgChanged="imgChanged"></loading>
 
         </div>
     </transition>
@@ -18,9 +18,12 @@
 
 <script>
     import {mapState, mapMutations} from 'vuex';
+    import getCropitData from '../../../service/getCropitData.js';
+
     export default {
         data: () => ({
-            editorHeight: window.innerHeight
+            editorHeight: window.innerHeight,
+            imgIsChanged: false
         }),
 
         computed: mapState({
@@ -33,26 +36,24 @@
         methods: {
             save(){
                 let {
-                    commit
-                } = this.$store;
+                    imgIsChanged:cropit,
+                    $store:{
+                        commit
+                    }
+                } = this;
 
-                var cropitData = build(),
-                    postData = {...this.customParams},
-                    extraPostData = {"size": "500*500", "type": "kuanghua"};
-                ;
-                for (var cpData in cropitData) {//遍历json对象的每个key/value对,p为key
-                    postData[cpData] = cropitData[cpData];
-                }
-                for (var extraData in extraPostData) {//遍历json对象的每个key/value对,p为key
-                    postData[extraData] = extraPostData[extraData];
-                }
-
+                let postData = getCropitData({"size": "500*500", "type": "kuanghua",cropit}, this.customParams);
 
                 this.$emit('editFinish', {postData, imgData: $('#image-cropper').cropit('export')});
 
-                console.log(JSON.stringify(postData));
                 commit('hideEditor');
             },
+            restoreImg(){
+                this.$refs.editInstance.restore()
+            },
+            imgChanged(){
+                this.imgIsChanged=true;
+            }
         },
 
         beforeCreate(){
@@ -67,8 +68,8 @@
                             width: 200,
                             height: 200
                         },
-                        initialCrop:false,
-                        customParams:false
+                        initialCrop: false,
+                        customParams: false
                     },
                     mutations: {
                         showEditor(state, payload){
