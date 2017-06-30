@@ -7,7 +7,7 @@
 		  </router-link>
 		  <mt-button icon="more" slot="right"></mt-button>
 		</mt-header>
-		<span>宝宝书介绍</span>
+		<span><a href="#bbsSelect">宝宝书介绍</a></span>
 	</div>
 </template>
 

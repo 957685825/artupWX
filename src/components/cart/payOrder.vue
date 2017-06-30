@@ -78,9 +78,9 @@
         },
         methods: {
         	gotoOrderPay(){
-        		
         		location.href="#orderStatus?paymentType=WX&addressId="+this.addressData.dbId+"&dbId="+this.dataList.dbId+"&userDbId="+this.$route.query.userDbId+"&openId="+this.$route.query.openId;
-				
+				//alert(0)
+				//location.href="wxPay.html?paymentType=WX&addressId="+this.addressData.dbId+"&dbId="+this.dataList.dbId+"&userDbId="+this.$route.query.userDbId+"&openId="+this.$route.query.openId;
         	}
          
         },
