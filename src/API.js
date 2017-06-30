@@ -32,9 +32,14 @@ const CREATE_ORDER = `${HOST}artup-build/builder/order/createOrder.do?format=jso
 /*获取订单*/
 const QUERY_ORDER = `${HOST}artup-build/builder/order/queryOrders.do?format=json&ignore=true`
 
+/*查询默认地址*/
+const DEFAULT_ADDRESS = `${HOST}artup-build/builder/address/queryAll.do?format=json&ignore=true&status=1&mainAddr=Y`
 
 /*素材dpi是否合格*/
 const MATER_DPI = `${HOST}artup-build/builder/cors/picture/validate.do?format=json&ignore=true&userDbId=${sessionIds}&sessionId=${sessionIds}`
+
+/*订单支付*/
+const ORDER_PAY = `${HOST}artup-build/builder/orderPayment/payment.do?format=json&ignore=true`
 
 ////只要访问ajax的时候，没有这个用户信息，就跳到首页去登录获取用户信息
 //if (!sessionIds) {
@@ -58,22 +63,27 @@ export default {
 	   	 			qs.stringify(jsons)   	 				   	 		
 	   	 	)
 	   	},
+	   	orderPay:(jsons)=>{
+	   		return VueHttp.$http.post(ORDER_PAY,
+	   	 			qs.stringify(jsons)   	 				   	 		
+	   	 )
+	   	},
 	   	carList:(jsons)=>{//购物车列表
-	   		return VueHttp.$http.get(CAR_LIST,jsons)
+	   		return VueHttp.$http.get(CAR_LIST,{params:jsons})
 	   	},
 	   	createOrder:(jsons)=>{//创建订单
 	   		return VueHttp.$http.post(CREATE_ORDER,
 	   	 			qs.stringify(jsons)   	 				   	 		
 	   	 )
 	   	},
-	   	queryOrder:(jsons)=>{//购物车列表
-	   		return VueHttp.$http.get(QUERY_ORDER,jsons)
+	   	queryOrder:(jsons)=>{//订单详情
+	   	
+	   		return VueHttp.$http.get(QUERY_ORDER,{params:jsons})
 	   	}
-	  
 	   },
 	   address:{
 		   	addressList:(jsons)=>{
-		   		return VueHttp.$http.get(ADDRESS,jsons)
+		   		return VueHttp.$http.get(ADDRESS,{params:jsons})
 		   	},
 		   	deleteAddress:(jsons)=>{
 		   		return VueHttp.$http.post(DELETE_ADDRESS,
@@ -97,8 +107,12 @@ export default {
 		   		return VueHttp.$http.post(EDITOR_ADDRESS,
 	   	 			qs.stringify(jsons)   	 				   	 		
 	   	 	)
-		   		//return VueHttp.$http.get(DELETE_ADDRESS,jsons)
-		   	}
+		   	},
+		   	defaultAddress:(jsons)=>{
+	   	 		
+	   			return VueHttp.$http.get(DEFAULT_ADDRESS,{params:jsons})
+	   	 		
+	   	 	}
 	   },
 	   baobaoshu:{ //宝宝书
 	   	//artup-build/builder/service/baobaoshu/attributes.do?format=json&ignore=true
