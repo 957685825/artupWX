@@ -561,7 +561,6 @@
             var oThis = this;
 
 
-            //继续编辑初始化的数据
             if (this.$route.query.edtDbid) {
                 this.bbs.workEdit.edtDbId = this.$route.query.edtDbid;
                 Api.work.unfinishedWork("artup-build/builder/cors/edit/queryOne.do",this.$route.query.edtDbid).then((res)=>{
