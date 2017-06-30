@@ -1,6 +1,6 @@
 <template>
 	<div id="index" style="width: 100%;">
-		<div class="" style="width: 100%;height: 400px;background: #ccc;">
+		<div class="swipeDiv" style="width: 100%;height: 400px;background: #ccc;">
 			<mt-swipe  :auto="4000">
 			  <mt-swipe-item style="background: #ccc;">1</mt-swipe-item>
 			  <mt-swipe-item style="background: orchid;">2</mt-swipe-item>
@@ -30,9 +30,7 @@
 </template>
 
 <script>
-import Api from '../../API.js'	
-import dd  from '../../directive.js'	
-console.log(dd)
+import Api from '../../API.js'
 import { Swipe, SwipeItem } from 'mint-ui';
 export default {
   data () {

@@ -564,7 +564,7 @@ export default{
 	  if (this.$route.query.edtDbid) {
 	  	this.bbs.workEdit.edtDbId = this.$route.query.edtDbid;
 	  	Api.work.unfinishedWork("artup-build/builder/cors/edit/queryOne.do",this.$route.query.edtDbid).then((res)=>{
-//	  			console.log(res)
+	  			console.log(res)
 			var oImgData = JSON.parse(res.data.data.editPicture);
 			//动态添加图片
 			$("#bbsImg").find(".listBox .bbsClass >img").each(function(i,el){

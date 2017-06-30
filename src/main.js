@@ -16,11 +16,11 @@ import routerConfig from './router.config.js'
 import App from './App.vue'
 //移动端tap事件
 import vueTap from 'v-tap';
-
-console.log(vueTap)
+import {DomHeight} from './directive.js';
 
 import loading from './components/component/edit'
 import editimg from './components/component/editImg';
+
 
 Vue.use(loading)
 Vue.use(editimg);
