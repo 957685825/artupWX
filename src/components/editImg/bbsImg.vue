@@ -637,7 +637,7 @@
                 //开始上传
                 r.on('uploadStart', function(){
                     //组装后端需要的数据
-                    extraPostData  = {"templateCode" : templateCode, "userDbId" : localStorage.getItem('userDbId'), "client" : client, "channel" : channel,"picPage":oThis.bbs.page,"picNum":oThis.bbs.num,"styleType":oThis.bbs.styleType,"editCnfName":oThis.bbs.editCnfName}
+                    extraPostData  = {"templateCode" : templateCode, "client" : client, "channel" : channel,"picPage":oThis.bbs.page,"picNum":oThis.bbs.num,"styleType":oThis.bbs.styleType,"editCnfName":oThis.bbs.editCnfName}
                     r.opts.query = extraPostData;
                     //打开进度框
                     Indicator.open({text: '图片上传中...',spinnerType: 'fading-circle'});

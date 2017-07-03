@@ -8,16 +8,9 @@ const HOST = 'http://image2.artup.com/'
 var urlQuery = sessionStorage.getItem('urlQuery');
 const VueHttp = new Vue();
 //用户名全局变量获取
-
 //localStorage.setItem("sessionId","2141731");
-if (localStorage.getItem('userDbId')) {
-	var  userDbIds = localStorage.getItem('userDbId');
-	
-}else{
-	var  userDbIds = "2141731"
-}
+var  userDbIds = localStorage.getItem('userDbId');	
 var  sessionIds = "";
-//var category = VueHttp.getFromSession("category")
 
 const  UPLOAD_URL = `${HOST}artup-build/builder/cors/picture/upload.do?format=json&userDbId=${userDbIds}`;
 /*添加购物车*/
@@ -57,6 +50,10 @@ const ORDER_LIST_STATUS = `${HOST}artup-build/builder/order/queryByPage.do?forma
 
 /*取消订单*/
 const CANCLE_ORDER_STATUS = `${HOST}artup-build/builder/order/update/command.do?format=json&ignore=true&status=-1`
+
+/*重新登录函数*/
+const GER_USERDBID = `${HOST}artup-build/builder/service/tokenUrl.do?format=json`
+
 
 
 ////只要访问ajax的时候，没有这个用户信息，就跳到首页去登录获取用户信息
@@ -191,6 +188,11 @@ export default {
 	   	 		qs.stringify(jsons)
 	   	 	)
 	   	 }
+	   },
+	   user:{
+	   	getUserDbId:()=>{  
+	   		return VueHttp.$http.post(GER_USERDBID)
+	   	}
 	   },
 	   Material:{
 	   		MaterialData:(inter)=>{//素材数据

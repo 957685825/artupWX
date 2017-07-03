@@ -54,15 +54,20 @@ export default {
     },
     mounted(){
     	//http://localhost:8081/#/?a=b&c=d 参数的形式
-		if (this.$route.query) {
+		if (JSON.stringify(this.$route.query)!="{}") {
 			console.log(this.$route.query)
 			sessionStorage.setItem('urlQuery',JSON.stringify(this.$route.query))
 			if (this.$route.query.userDbId) {
 				localStorage.setItem('userDbId',this.$route.query.userDbId)
 			}			
 		}else{
-			if (!localStorage.setItem('userDbId')) {
-				//请求接口
+
+			if (!localStorage.getItem('userDbId')) {
+				//请求接口 //重新登录函数
+				Api.user.getUserDbId().then(res=>{
+					//请求微信授权
+					location.href=res.data.tokenUrl
+				})				
 			}
 		}
 	}
