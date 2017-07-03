@@ -424,7 +424,8 @@
             },
             nextBS(){//板式选择完毕的下一步
                 this.selectBS = false;
-                var oIndexs = 'bbs0'+(this.bbs.index2+1)
+                var oIndexs = 'bbs'+(this.bbs.index2+1)
+//              var oIndexs = 'bbs0'+(this.bbs.index2+1)
                 //动态修改模版的板式
                 this.typeHtml[this.bbs.index1] = htmlData[oIndexs];
                 this.goAnchor("#offsetId");//跳转锚点
@@ -553,6 +554,10 @@
 //		Api.ajax("url22",function(fns){
 //			console.log(fns)
 //		})
+	 //初始化的时候默认宝宝书和lomo卡的html渲染模版
+     this.typeHtml = typeHtml;
+     this.lomok = typeHtmlLome;	
+
       var oThis = this;
 	  //继续编辑初始化的数据
 	  if (this.$route.query.edtDbid) {
@@ -565,9 +570,22 @@
 				var page = $(this).parents(".bstp").next(".bbsBtn").find("ul li p >span").text();				 
 				$(this).attr("id",page+'_'+$(el).attr("nm")+'_'+$(this).attr("editcnfname"))
 			})
-			console.log(oImgData)
-			//图片回显到页面
+
+			var strbbs = 'bbs'
+//			var old = oThis.typeHtml;
+			//先加载板式让图片回显到页面
 			for (var i = 0; i < oImgData.length; i++) {
+				console.log(oImgData[i])
+				var strbb = strbbs+oImgData[i].editCnfIndex;
+//				console.log(htmlData[strbb])	
+				 //动态修改模版的板式
+				 
+                oThis.typeHtml[oImgData[i].page-1] = htmlData[strbb];
+                
+//              oThis.$set(oThis,old,news)
+				oThis.$nextTick();//手动更新下dom
+				
+				
 				var constName = oImgData[i].page+'_'+oImgData[i].num;
 				//map生成变量
 				var picObj = {"constName":constName,"picDbId" : oImgData[i].picDbId, "page" : oImgData[i].page, "editCnfIndex" : oImgData[i].editCnfIndex, "num" : oImgData[i].num, "actions" : {},
@@ -610,10 +628,7 @@
             //图片上传时提交的参数
             var extraPostData = {};
             console.log(document.getElementById('browseButton'));
-            //初始化的时候默认宝宝书和lomo卡的html渲染模版
-            this.typeHtml = typeHtml;
-
-            this.lomok = typeHtmlLome;
+           
             console.log(typeHtmlLome)
 
 			/* 文件上传init */

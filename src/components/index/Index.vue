@@ -66,7 +66,7 @@ export default {
 				//请求接口 //重新登录函数
 				Api.user.getUserDbId().then(res=>{
 					//请求微信授权
-					location.href=res.data.tokenUrl
+//					location.href=res.data.tokenUrl
 				})				
 			}
 		}
