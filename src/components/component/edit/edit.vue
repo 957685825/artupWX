@@ -20,8 +20,10 @@
 <script>
     import {mapState, mapMutations} from 'vuex';
     import getCropitData from '../../../service/getCropitData.js';
+    import { Indicator } from 'mint-ui';
+
     let imageCropper,
-        imgIsChanged=false,
+        imgIsChanged = false,
         restoreData,
         rotationalp = 90,
         reg = 0,
@@ -75,9 +77,9 @@
                 }
             },
             imgChanged(){
-                if(!imgIsChanged){
+                if (!imgIsChanged) {
                     this.$emit('imgChanged');
-                    imgIsChanged=true;
+                    imgIsChanged = true;
                 }
             },
             rotateCW(){
@@ -107,6 +109,7 @@
         watch: {
             imgSrc(val, oldVal) {
                 if (val) {
+                    Indicator.open();
                     const {
                         imgSize
                     } = this;
@@ -129,10 +132,13 @@
                 width: 200,
                 height: 200,
                 onImageLoaded(){
+                    Indicator.close();
                     let {initialCrop} = vm;
                     vm.cropitImg(initialCrop);
 
                     vm.getRestoreData();
+
+                    imgIsChanged = false;
                 },
                 onOffsetChange(){
                     vm.imgChanged();
@@ -142,7 +148,7 @@
                 }
             });
 
-            　this.$emit('getImageCropper',imageCropper);
+            this.$emit('getImageCropper', imageCropper);
 
         }
     }

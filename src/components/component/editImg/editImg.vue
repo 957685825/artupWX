@@ -43,10 +43,9 @@
                 } = this;
 
                 let postData = getCropitData({
-                    "size": "500*500",
-                    "type": "kuanghua",
-                    cropit: imgIsChanged
-                }, state.editImgModule.customParams);
+                    cropit: imgIsChanged,
+                    ...state.editImgModule.customParams
+                });
 
                 this::$emit('editFinish', {postData, imgData: imageCropper.cropit('export')});
 
