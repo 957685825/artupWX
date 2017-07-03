@@ -7,6 +7,7 @@
 		  <mt-button icon="more" slot="right"></mt-button>
 		</mt-header>
 		<span><a href="#bbsSelect">宝宝书介绍</a></span>
+		<p @click="fn">test</p>
 	</div>
 </template>
 
@@ -20,11 +21,12 @@ export default {
 	  },
     methods:{
 		fn(){
-			this.getData()
+			
 		}
     },
     mounted(){
-		
+    	    //更改session
+    		this.addToSession();
 	}
 }
 </script>

@@ -11,15 +11,13 @@ const VueHttp = new Vue();
 
 //localStorage.setItem("sessionId","2141731");
 if (localStorage.getItem('userDbId')) {
-	var  userDbIds = localStorage.getItem('userDbId');
-	
+	var  sessionIds = localStorage.getItem('userDbId');
 }else{
-	var  userDbIds = "2141731"
+	var  sessionIds = "2141731"
 }
-var  sessionIds = "";
-//var category = VueHttp.getFromSession("category")
+var category = VueHttp.getFromSession("category")
 
-const  UPLOAD_URL = `${HOST}artup-build/builder/cors/picture/upload.do?format=json&userDbId=${userDbIds}`;
+const  UPLOAD_URL = `${HOST}artup-build/builder/cors/picture/upload.do?format=json&sessionId=${sessionIds}&category=${category}`;
 /*添加购物车*/
 const ADD_CAR = `${HOST}artup-build/builder/cors/car/add/command.do?format=json&ignore=true`
 /*购物车列表*/
@@ -44,7 +42,7 @@ const QUERY_ORDER = `${HOST}artup-build/builder/order/queryOrders.do?format=json
 const DEFAULT_ADDRESS = `${HOST}artup-build/builder/address/queryAll.do?format=json&ignore=true&status=1&mainAddr=Y`
 
 /*素材dpi是否合格*/
-const MATER_DPI = `${HOST}artup-build/builder/cors/picture/validate.do?format=json&ignore=true&userDbId=${userDbIds}`
+const MATER_DPI = `${HOST}artup-build/builder/cors/picture/validate.do?format=json&ignore=true&userDbId=${sessionIds}&sessionId=${sessionIds}`
 
 /*订单支付*/
 const ORDER_PAY = `${HOST}artup-build/builder/orderPayment/payment.do?format=json&ignore=true`
@@ -69,8 +67,6 @@ const CANCLE_ORDER_STATUS = `${HOST}artup-build/builder/order/update/command.do?
 
 
 export default {	
-	
-	
 		testBaidu:{
 	  		test:(inter)=>{
 	  			return  VueHttp.$http.get(HOST+inter)   
@@ -164,7 +160,7 @@ export default {
 						params: {
 				   	  		format:"json",
 				   	  		ignore:"true",
-				   	  		userDbId:userDbIds,
+				   	  		userDbId:sessionIds,
 				   	  		sessionId:sessionIds,
 				   	  		status:status, //未完成1，已经完成2 
 				   	  		sortField:"createdDt",
@@ -180,7 +176,7 @@ export default {
 	   	 			params: {
 			   	  		format:"json",
 			   	  		ignore:"true",
-			   	  		userDbId:userDbIds,
+			   	  		userDbId:sessionIds,
 			   	  		sessionId:sessionIds,
 			   	  		edtDbId:edtDbId				   	  		
 				   	}
@@ -197,7 +193,7 @@ export default {
 		   	  	return VueHttp.$http.get(HOST+inter, {
 						params: {
 				   	  		format:"json",
-				   	  		userDbId:userDbIds,
+				   	  		userDbId:sessionIds,
 				   	  		status:1,
 				   	  		pageNum:0,
 				   	  		pageSize:50,

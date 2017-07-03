@@ -82,9 +82,9 @@
 					console.log(dataCode2)
 					//组装后端需要的数据暂存浏览器
 					this.bbsSlsectDate.name = this.bbs.name+'.'+dataCode2;
-					this.bbsSlsectDate.category = "baobaoshu"; //类型字段
+					this.bbsSlsectDate.category =this.getFromSession("category"); //类型字段
 				 	//请求价格:			
-					Api.baobaoshu.bbsPrice(`artup-build/builder/price.do?format=json&ignore=true&category=baobaoshu&parameter=${dataCode}`).then((res)=>{
+					Api.baobaoshu.bbsPrice(`artup-build/builder/price.do?format=json&ignore=true&category=${this.bbsSlsectDate.category}&parameter=${dataCode}`).then((res)=>{
 						//价格计算
 						 this.price = res.data.price;
 						 this.bbsSlsectDate.price = res.data.price;
@@ -109,8 +109,8 @@
 				 },100)	 
 			});	
 			//开始默认的时候，去拿我的作品列表判断是否有未完成的作品
-			var category = 'baobaoshu'
-			Api.work.workList("artup-build/builder/cors/edit/queryAll.do",1,0,category).then((res)=>{
+			this.bbsSlsectDate.category =this.getFromSession("category"); //类型字段
+			Api.work.workList("artup-build/builder/cors/edit/queryAll.do",1,0,this.bbsSlsectDate.category).then((res)=>{
 				if (res.data.length>0) {
 					MessageBox({
 					  title: '我的作品',

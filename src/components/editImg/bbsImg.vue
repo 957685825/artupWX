@@ -187,10 +187,10 @@
                         operator:"add",
                         edtDbId:'',// 新生成的产品才有的字段
                         tplCode:"baobaoshu_170-235_24", //暂时写死
-                        sessionId:localStorage.getItem("sessionId"),
+//                      sessionId:localStorage.getItem("sessionId"),
                         userDbId:localStorage.getItem('userDbId'),
-                        client:"mobile",//渠道前端传递，暂时写死
-                        category:"baobaoshu",//产品类型这里是宝宝书,暂时写死
+//                      client:"mobile",//渠道前端传递，暂时写死
+                        category:this.getFromSession("category"),//产品类型这里是宝宝书
                         defDbId:"7ad740df-0b81-418f-b4b5-c078ef580b47", //tplCode 模版暂时写死
                         channelCode:"zc",//暂时写死
                         sku:JSON.parse(localStorage.getItem("bbsSlsectDate")).name,
@@ -210,8 +210,8 @@
                 console.log(bbsSlsectDate)
                 var jsons = {
                     operator:"add",
-                    sessionId:localStorage.getItem("sessionId"),
-                    userDbId:localStorage.getItem("sessionId"),
+//                  sessionId:localStorage.getItem("sessionId"),
+                    userDbId:localStorage.getItem("userDbId"),
                     client:"mobile",//渠道前端传递，暂时写死
                     category:bbsSlsectDate.category,//产品类型这里是宝宝书,暂时写死
                     edtDbId:this.bbs.extraCode,
@@ -618,7 +618,10 @@
 
 			/* 文件上传init */
 //          var uploadUrl = 'http://image2.artup.com/artup-build/builder/cors/picture/upload.do?format=json&sessionId=2141731&category=baobaoshu';
-            var uploadUrl = Api.UPLOAD_URL;
+//          var uploadUrl = Api.UPLOAD_URL;
+            var uploadUrl = Api.UPLOAD_URL+'&category='+this.getFromSession("category");
+            console.log(uploadUrl)
+            
             uploadInitializer($, uploadUrl, onUploadComplete);
             // //文件上传事件
             function onUploadComplete($, r){

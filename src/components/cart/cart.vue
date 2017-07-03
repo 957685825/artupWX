@@ -143,12 +143,10 @@ export default {
 					})
 				}else{
 					return
-				}
-				
+				}				
 			}
 		},	
-		mounted(){
-			
+		mounted(){			
 			var jsons = {
 				sessionId:localStorage.getItem("sessionId"),
 	  			userDbId:localStorage.getItem("userDbId"),

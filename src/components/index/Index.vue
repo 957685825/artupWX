@@ -55,6 +55,7 @@ export default {
     mounted(){
     	//http://localhost:8081/#/?a=b&c=d 参数的形式
 		if (this.$route.query) {
+			console.log(this.$route.query)
 			sessionStorage.setItem('urlQuery',JSON.stringify(this.$route.query))
 			if (this.$route.query.userDbId) {
 				localStorage.setItem('userDbId',this.$route.query.userDbId)
