@@ -565,36 +565,75 @@
 	  	Api.work.unfinishedWork("artup-build/builder/cors/edit/queryOne.do",this.$route.query.edtDbid).then((res)=>{
 	  			console.log(res)
 			var oImgData = JSON.parse(res.data.data.editPicture);
-			//动态添加图片
-			$("#bbsImg").find(".listBox .bbsClass >img").each(function(i,el){
-				var page = $(this).parents(".bstp").next(".bbsBtn").find("ul li p >span").text();				 
-				$(this).attr("id",page+'_'+$(el).attr("nm")+'_'+$(this).attr("editcnfname"))
-			})
+			
 
 			var strbbs = 'bbs'
 //			var old = oThis.typeHtml;
-			//先加载板式让图片回显到页面
-			for (var i = 0; i < oImgData.length; i++) {
-				console.log(oImgData[i])
-				var strbb = strbbs+oImgData[i].editCnfIndex;
-//				console.log(htmlData[strbb])	
-				 //动态修改模版的板式
-				 
-                oThis.typeHtml[oImgData[i].page-1] = htmlData[strbb];
-                
-//              oThis.$set(oThis,old,news)
-				oThis.$nextTick();//手动更新下dom
-				
-				
-				var constName = oImgData[i].page+'_'+oImgData[i].num;
-				//map生成变量
-				var picObj = {"constName":constName,"picDbId" : oImgData[i].picDbId, "page" : oImgData[i].page, "editCnfIndex" : oImgData[i].editCnfIndex, "num" : oImgData[i].num, "actions" : {},
-				"thumbnailImageUrl":oImgData[i].thumbnailImageUrl, "previewThumbnailImageUrl" :oImgData[i].previewThumbnailImageUrl, "crop" : oImgData[i].crop,"editCnfName" : oImgData[i].editCnfName};
-				oThis.editData.ImgHashMap.putvalue(constName,picObj);
-				var pageNum = oImgData[i].page+'_'+oImgData[i].num+'_'+oImgData[i].editCnfName;
-				$("#"+pageNum).prev(".myImgBox").show().find("img").css("width","100%").attr("src",oImgData[i].previewThumbnailImageUrl).attr("attrImg",oImgData[i].thumbnailImageUrl);
-					 $("#"+pageNum).remove();
-                   }
+			    //先加载板式让图片回显到页面
+				 for (var i = 0; i < oImgData.length; i++) {
+						console.log(oImgData[i])
+						var strbb = strbbs+oImgData[i].editCnfIndex;
+						 //动态修改模版的板式
+//		                oThis.typeHtml[oImgData[i].page-1] = htmlData[strbb];
+		                oThis.typeHtml.splice(oImgData[i].page-1,1,htmlData[strbb]) 						
+	              }	
+	            //动态添加id节点
+				setTimeout(function(){
+					$(oThis.$el).find(".listBox .bbsClass >img").each(function(i,el){
+						var page = $(this).parents(".bstp").next(".bbsBtn").find("ul li p >span").text();				 
+						$(this).attr("id",page+'_'+$(el).attr("nm")+'_'+$(this).attr("editcnfname"))
+					})
+				},500)
+				 //动态添加图片
+				setTimeout(function(){					
+					for (var i = 0; i < oImgData.length; i++) {						
+						var constName = oImgData[i].page+'_'+oImgData[i].num;
+						//map生成变量
+						var picObj = {"constName":constName,"picDbId" : oImgData[i].picDbId, "page" : oImgData[i].page, "editCnfIndex" : oImgData[i].editCnfIndex, "num" : oImgData[i].num, "actions" : {},
+						"thumbnailImageUrl":oImgData[i].thumbnailImageUrl, "previewThumbnailImageUrl" :oImgData[i].previewThumbnailImageUrl, "crop" : oImgData[i].crop,"editCnfName" : oImgData[i].editCnfName};
+						oThis.editData.ImgHashMap.putvalue(constName,picObj);
+						var pageNum = oImgData[i].page+'_'+oImgData[i].num+'_'+oImgData[i].editCnfName;
+						$("#"+pageNum).prev(".myImgBox").show().find("img").css("width","100%").css("height","100%").attr("src",oImgData[i].previewThumbnailImageUrl).attr("attrImg",oImgData[i].thumbnailImageUrl);
+						console.log('xx','_____')
+						$("#"+pageNum).remove();						
+	              }						
+				},1000)
+	               
+	               
+	               
+//	                iterator(0);
+//			        //迭代器
+//			        function iterator(i) {
+//			            if (i == oImgData.length) {//完成所有的遍历之后要做的
+//			                //在这里书写请求完毕之后做的事情
+//			                return;  //不用继续迭代了
+//			            }
+//			            var strbb = strbbs+oImgData[i].editCnfIndex;
+//			            console.log(oImgData[i])
+//			            oThis.typeHtml[oImgData[i].page-1] = htmlData[strbb];
+////			            oThis.typeHtml.splice(oImgData[i].page-1,1,htmlData[strbb])
+//						var constName = oImgData[i].page+'_'+oImgData[i].num;
+//						//map生成变量
+//						var picObj = {"constName":constName,"picDbId" : oImgData[i].picDbId, "page" : oImgData[i].page, "editCnfIndex" : oImgData[i].editCnfIndex, "num" : oImgData[i].num, "actions" : {},
+//						"thumbnailImageUrl":oImgData[i].thumbnailImageUrl, "previewThumbnailImageUrl" :oImgData[i].previewThumbnailImageUrl, "crop" : oImgData[i].crop,"editCnfName" : oImgData[i].editCnfName};
+//						oThis.editData.ImgHashMap.putvalue(constName,picObj);
+//						var pageNum = oImgData[i].page+'_'+oImgData[i].num+'_'+oImgData[i].editCnfName;
+//
+//						$(oThis.$el).find("#"+pageNum).prev(".myImgBox").show().find("img").css("width","100%").attr("src",oImgData[i].previewThumbnailImageUrl).attr("attrImg",oImgData[i].thumbnailImageUrl);
+//						
+////						$("#"+pageNum).remove();
+//
+//							
+//							console.log($(oThis.$el).find("#"+pageNum).size())
+//							iterator(i+1)
+//
+//						
+//			        }
+	               
+	               
+	               
+	               
+	              
                 })
             }
             //素材库地址图片
