@@ -6,120 +6,47 @@
 		  </router-link>
 		  <mt-button icon="more" slot="right"></mt-button>
 		</mt-header>
-		<div class="order">
+		<div class="order" v-for="(itmes,indexs) in dataList">
 			<ul>
 				<li>
 					<span>订单号</span>
-					<span>875264405426667520</span>
+					<span>{{itmes.code}}</span>
 					<span><i class="icon iconfont">&#xe68a;</i></span>
 				</li>
 				<li>
 					<span>状态</span>
-					<span>代付款</span>
+					<span>{{itmes.orderState}}</span>
 				</li>
-				<li class="ordersContent">
+				<li class="ordersContent" v-for="(order,index) in itmes.cars">
 					<div class="orderContent">
 						<ul>
 							<li>
-								<img src="../../assets/img/图层 3.png"/>
+								<img :src="order.thumbnailImageUrl"/>
 							</li>
 							<li>
 								<ul>
 									<li>
-										<span>宝宝书</span>
-										<span>智慧蓝</span>
-										<span>24页</span>
+										<span>{{order.sku | splitSku}}</span>
 									</li>
-									<li>170mm*235mm</li>
-									<li>¥100.01</li>
+									<li>{{order.sku | splitSkuLast}}</li>
+									<li>¥{{order.price}}</li>
 								</ul>
 							</li>
 							<li>
-								<span>X1</span>
+								<span>X{{order.num}}</span>
 							</li>
 						</ul>
 					</div>
 				</li>
 				<li>
 					<p>2017-06-09  13:32</p>
-					<p>共1件商品</p>
-					<p>合计：<span>¥100.01</span></p>
+					<p>共{{itmes.num}}件商品</p>
+					<p>合计：<span>¥{{itmes.total}}</span></p>
 				</li>
 				<li>
 					<div>
-						<p>取消订单</p>
-						<p class="active">立即支付</p>
-					</div>
-				</li>
-			</ul>
-		</div>
-		<!--订单-->
-		<div class="order">
-			<ul>
-				<li>
-					<span>订单号</span>
-					<span>875264405426667520</span>
-					<span><i class="icon iconfont">&#xe68a;</i></span>
-				</li>
-				<li>
-					<span>状态</span>
-					<span>代付款</span>
-				</li>
-				<li class="ordersContent">
-					<div class="orderContent">
-						<ul>
-							<li>
-								<img src="../../assets/img/图层 3.png"/>
-							</li>
-							<li>
-								<ul>
-									<li>
-										<span>宝宝书</span>
-										<span>智慧蓝</span>
-										<span>24页</span>
-									</li>
-									<li>170mm*235mm</li>
-									<li>¥100.01</li>
-								</ul>
-							</li>
-							<li>
-								<span>X1</span>
-							</li>
-						</ul>
-					</div>
-				</li>
-				<li class="ordersContent">
-					<div class="orderContent">
-						<ul>
-							<li>
-								<img src="../../assets/img/图层 3.png"/>
-							</li>
-							<li>
-								<ul>
-									<li>
-										<span>宝宝书</span>
-										<span>智慧蓝</span>
-										<span>24页</span>
-									</li>
-									<li>170mm*235mm</li>
-									<li>¥100.01</li>
-								</ul>
-							</li>
-							<li>
-								<span>X1</span>
-							</li>
-						</ul>
-					</div>
-				</li>
-				<li>
-					<p>2017-06-09  13:32</p>
-					<p>共1件商品</p>
-					<p>合计：<span>¥100.01</span></p>
-				</li>
-				<li>
-					<div>
-						<p>取消订单</p>
-						<p class="active">立即支付</p>
+						<p v-bind:hidden="itmes.status != 1" v-tap="{methods:cancleOrder,dbId:itmes.dbId,index:indexs}"> 取消订单</p>
+						<p v-bind:hidden="itmes.status != 1" class="active" v-tap="{methods:gotoOrderPay,dbId:itmes.dbId}">立即支付</p>
 					</div>
 				</li>
 			</ul>
@@ -129,4 +56,38 @@
 </template>
 
 <script>
+   import { Toast ,Actionsheet,Popup,Indicator} from 'mint-ui';	
+   import Api from '../../API.js'
+    export default {
+        data() {
+            return {
+             	dataList:[]
+            }
+        },
+        methods: {
+        	gotoOrderPay(params){
+				location.href="#payOrder?openId=&orderDbId="+params.dbId+"&userDbId="+localStorage.getItem("userDbId");
+        	},
+        	cancleOrder(params){
+        		Api.car.cancleOrder({dbId:params.dbId}).then(res=>{
+        			this.dataList[params.index].status = -1;
+        			this.dataList[params.index].orderState = '已取消';
+        			//console.log(res)
+        		},err=>{
+        			
+        		})
+        	}
+        },
+        mounted() {
+        	Api.car.orderListStatus({userDbId:localStorage.getItem("userDbId")}).then(res=>{
+        		this.dataList = res.data.results;
+        		console.log(res)
+        	},err=>{
+        		
+        	})
+        }
+    }
 </script>
+
+<style>
+</style>

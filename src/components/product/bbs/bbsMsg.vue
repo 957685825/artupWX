@@ -1,9 +1,8 @@
 <template>
 	<div id="bbsMsg">
 		<mt-header title="宝宝书介绍">
-		 <router-link to="" slot="left">
+		 <router-link to="" @click.native="fn"  slot="left">
 		    <mt-button icon="back">返回</mt-button>
-		    <mt-button>关闭</mt-button>
 		  </router-link>
 		  <mt-button icon="more" slot="right"></mt-button>
 		</mt-header>
@@ -20,7 +19,9 @@ export default {
 	    }
 	  },
     methods:{
-
+		fn(){
+			this.getData()
+		}
     },
     mounted(){
 		

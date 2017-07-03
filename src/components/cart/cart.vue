@@ -15,8 +15,7 @@
 				</div>
 				<div class="div_comenter">
 					<div class="img_cart">
-						<img v-bind:src="itme.thumbnailImageUrl" alt="" />
-						
+						<img v-bind:src="itme.thumbnailImageUrl" alt="" />						
 					</div>
 					<ol class="img_msg">
 						<li>{{itme.sku | splitSku}}</li>
@@ -27,9 +26,13 @@
 				</div>
 				<div class="div_number">
 					<ol>
-						<li v-tap='{methods : reduce,num:itme.num,index:indexs}'>减</li>
+						<li v-tap='{methods : reduce,num:itme.num,index:indexs}'>
+							<i class="icon iconfont">&#xe638;</i>
+						</li>
 						<li v-model="itme.num">{{itme.num}}</li>
-						<li v-tap='{methods : add,num:itme.num,index:indexs}'>加</li>
+						<li v-tap='{methods : add,num:itme.num,index:indexs}'>
+							<i class="icon iconfont">&#xe671;</i>
+						</li>
 					</ol>
 				</div>
 			</li>			
@@ -126,13 +129,13 @@ export default {
 				}
 				if(switchBool == true){
 					var jsons = {
-						userDbId:localStorage.getItem("sessionId"),
+						userDbId:localStorage.getItem("userDbId"),
 						cars:JSON.stringify(cars)
 					}
 					Api.car.createOrder(jsons).then(res=>{
 						if(res.data.code == 'success'){
 							//alert(res.data.orderDbId)
-							location.href="#payOrder?openId="+res.data.openId+"&orderDbId="+res.data.orderDbId+"&userDbId="+localStorage.getItem("sessionId");
+							location.href="#payOrder?openId="+res.data.openId+"&orderDbId="+res.data.orderDbId+"&userDbId="+localStorage.getItem("userDbId");
 						}
 						console.log(res);
 					},err=>{
@@ -148,7 +151,7 @@ export default {
 			
 			var jsons = {
 				sessionId:localStorage.getItem("sessionId"),
-	  			userDbId:localStorage.getItem("sessionId"),
+	  			userDbId:localStorage.getItem("userDbId"),
 	  			status:1,
 	  			pageNum:0,
 	  			pageSize:15,

@@ -14,7 +14,7 @@
 			<ul>
 				<li><span>收件人姓名</span><span>{{addressData.name}}({{addressData.mobile}})</span></li>
 				<li>{{addressData.province}}{{addressData.address}}</li>
-				<i>&#xe65f;</i>
+				<i class="icon iconfont">&#xe65f;</i>
 			</ul>
 		</div>
 		<div class="content">
@@ -38,7 +38,7 @@
 					<ul>
 						<li>
 							<span>支付方式</span>
-							<span>微信支付</span>
+							<span><i class="icon iconfont">&#xe605;</i>微信支付</span>
 						</li>
 						<li>
 							<span>商品金额</span>
@@ -58,7 +58,7 @@
 		</div>
 		<div class="bottomBar">
 			<ul>
-				<li>合计<span>￥88.0</span></li>
+				<li>合计<span>￥{{dataList.total}}</span></li>
 				<li><span v-tap="{methods:gotoOrderPay}">订单提交</span></li>
 			</ul>
 		</div>

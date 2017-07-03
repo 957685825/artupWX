@@ -117,7 +117,7 @@
 						address:this.datas.address,
 						dbId:this.$route.query.dbId,
 						mainAddr:this.datas.mainAddr,
-						userDbId:localStorage.getItem("sessionId")
+						userDbId:localStorage.getItem("userDbId")
 						
 					}
 					/*确认提交*/
@@ -134,7 +134,7 @@
 						province:this.datas.province,
 						address:this.datas.address,
 						mainAddr:this.datas.mainAddr,
-						userDbId:localStorage.getItem("sessionId")
+						userDbId:localStorage.getItem("userDbId")
 						
 						
 						
