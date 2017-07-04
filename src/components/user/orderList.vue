@@ -11,7 +11,7 @@
 				<li>
 					<span>订单号</span>
 					<span>{{itmes.code}}</span>
-					<span><i class="icon iconfont">&#xe68a;</i></span>
+					<span v-tap="{methods:delectFn,index:indexs,dbid:itmes.dbId}"><i class="icon iconfont">&#xe68a;</i></span>
 				</li>
 				<li>
 					<span>状态</span>
@@ -56,7 +56,7 @@
 </template>
 
 <script>
-   import { Toast ,Actionsheet,Popup,Indicator} from 'mint-ui';	
+   import { Toast ,Actionsheet,Popup,Indicator,MessageBox} from 'mint-ui';	
    import Api from '../../API.js'
     export default {
         data() {
@@ -76,14 +76,55 @@
         		},err=>{
         			
         		})
+        	},
+        	delectFn(params){
+        		
+        		
+        		var jsons = {
+        			sessionId:localStorage.getItem("sessionId"),
+        			dbId:params.dbid
+        		}
+        		var that = this;
+        		
+        		MessageBox({
+					  title: '我的订单',
+					  message: '您确认删除此条订单吗?',
+					  showCancelButton: true
+					}).then((res)=>{
+						if(res=="confirm"){
+							that.dataList.splice(params.index,1);
+							Api.car.deleteOrder(jsons).then(res=>{
+								console.log(res)
+		        				if(res.data.code == 'success'){
+									Toast('订单删除成功');
+									if(this.dataList.length < 1){
+										MessageBox.alert('您当前没有任何订单请去创建').then(action => {
+					        				location.href="/"		
+										});
+									}
+									
+								}
+			        		},err=>{
+									Toast('数据请求错误');
+			        			
+			        		})
+						}
+									
+					})
         	}
         },
         mounted() {
         	Api.car.orderListStatus({userDbId:localStorage.getItem("sessionId")}).then(res=>{
         		this.dataList = res.data.results;
-        		console.log(res)
+        		if(this.dataList.length < 1){
+        			
+        			MessageBox.alert('您当前没有任何订单请去创建').then(action => {
+        				location.href="/"		
+					});
+        				
+        		}
         	},err=>{
-        		
+				Toast('数据请求错误');
         	})
         }
     }

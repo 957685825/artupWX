@@ -269,6 +269,7 @@ function isEmojiCharacter(substring) {
         }  
     }  
 }
+
 /*微信支付*/
 function wxpay(d,callback){
 	wx.config({

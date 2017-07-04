@@ -32,6 +32,8 @@ const EDITOR_ADDRESS = `${HOST}artup-build/builder/address/queryById.do?format=j
 const CREATE_ORDER = `${HOST}artup-build/builder/order/createOrder.do?format=json&ignore=true`
 /*获取订单*/
 const QUERY_ORDER = `${HOST}artup-build/builder/order/queryOrders.do?format=json&ignore=true`
+/*获取订单*/
+const DELETE_ORDER = `${HOST}artup-build/builder/order/update/command.do?format=json&ignore=true&status=-2`
 
 /*查询默认地址*/
 const DEFAULT_ADDRESS = `${HOST}artup-build/builder/address/queryAll.do?format=json&ignore=true&status=1&mainAddr=Y`
@@ -50,6 +52,9 @@ const ORDER_LIST_STATUS = `${HOST}artup-build/builder/order/queryByPage.do?forma
 
 /*取消订单*/
 const CANCLE_ORDER_STATUS = `${HOST}artup-build/builder/order/update/command.do?format=json&ignore=true&status=-1`
+
+/*设置默认收货地址*/
+const SET_DEFAULT_ADDRESS = `${HOST}/artup-build/builder/address/mainAddress.do?format=json&ignore=true`
 
 
 ////只要访问ajax的时候，没有这个用户信息，就跳到首页去登录获取用户信息
@@ -99,6 +104,9 @@ export default {
 	   	},
 	   	orderListStatus:(jsons)=>{
 	   		return VueHttp.$http.get(ORDER_LIST_STATUS,{params:jsons})
+	   	},
+	   	deleteOrder:(jsons)=>{
+	   		return VueHttp.$http.get(DELETE_ORDER,{params:jsons})
 	   	}
 	   },
 	   address:{
@@ -117,13 +125,13 @@ export default {
 	   	 	)
 		   		//return VueHttp.$http.get(DELETE_ADDRESS,jsons)
 		   	},
-		    updateAddress:(jsons)=>{
+		    updateAddress:(jsons)=>{//更新地址
 		   		return VueHttp.$http.post(UPDATE_ADDRESS,
 	   	 			qs.stringify(jsons)   	 				   	 		
 	   	 	)
 		   		//return VueHttp.$http.get(DELETE_ADDRESS,jsons)
 		   	},
-		   	editorAddress:(jsons)=>{
+		   	editorAddress:(jsons)=>{//编辑地址
 		   		return VueHttp.$http.post(EDITOR_ADDRESS,
 	   	 			qs.stringify(jsons)   	 				   	 		
 	   	 	)
@@ -132,7 +140,10 @@ export default {
 	   	 		
 	   			return VueHttp.$http.get(DEFAULT_ADDRESS,{params:jsons})
 	   	 		
-	   	 	}
+	   	 },
+	   	 setDefaultAddress:(jsons)=>{
+	   	 	return VueHttp.$http.get(SET_DEFAULT_ADDRESS,{params:jsons})
+	   	 }
 	   },
 	   baobaoshu:{ //宝宝书
 	   	//artup-build/builder/service/baobaoshu/attributes.do?format=json&ignore=true

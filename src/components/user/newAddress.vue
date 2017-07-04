@@ -135,14 +135,15 @@
 						address:this.datas.address,
 						mainAddr:this.datas.mainAddr,
 						userDbId:localStorage.getItem("sessionId")
-						
-						
-						
 					}
 					Api.address.newAddress(jsons).then(res=>{
 						console.log(res);
 						if(res.data.code == 'success'){
-							location.href="#address";
+							if(this.$route.query.orderDbId){
+								location.href="#address?openId=&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("sessionId");
+							}else{
+								location.href="#address";
+							}
 						}
 					},err=>{
 						Toast('数据请求错误');
