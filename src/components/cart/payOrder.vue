@@ -82,11 +82,11 @@
 				
         	},
         	updataAddress(){
-        		location.href="#Address?openId=&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("sessionId")
+        		location.href="#Address?openId="+this.$route.query.openId+"&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("sessionId");
         		
         	},
         	addAddress(){
-        		location.href="#newAddress?openId=&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("sessionId")
+        		location.href="#newAddress?openId="+this.$route.query.openId+"&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("sessionId");
         	}
          
         },
@@ -97,7 +97,9 @@
         		userDbId:this.$route.query.userDbId,
         		sessionId:localStorage.getItem("sessionId")
         	}
+        	console.log(jsons)
            Api.car.queryOrder(jsons).then(res=>{
+           	console.log(res)
            	if(res.data.length > 0){
            		this.dataList = res.data[0];
            	}

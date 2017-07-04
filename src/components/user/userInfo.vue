@@ -40,7 +40,7 @@
 				 </router-link>
 			</li>
 			<li>
-				<router-link to="">
+				<router-link to="worklist">
 					<i style="font-size:1.6875rem;" class="icon iconfont">&#xe7ca;</i>
 				 	<p>我的作品库</p>
 				 </router-link>
