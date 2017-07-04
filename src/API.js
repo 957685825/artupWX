@@ -5,7 +5,7 @@ import qs from 'qs'
 Vue.prototype.$http = axios
 
 // 常量 API 接口地址
-const HOST = 'http://localhost:9090/'
+const HOST = 'http://image2.artup.com/'
 
 //图片服务器（静态资源）服务器地址
 const STATIC_SERVER_HOST = 'http://image2.artup.com/'
