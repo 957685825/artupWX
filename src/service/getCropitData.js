@@ -1,7 +1,5 @@
-const getCropitData = function (extraPostData, customParams) {
-    const cropitData = build();
-
-    return {...extraPostData, ...cropitData, ...customParams}
+const getCropitData = function (extraPostData) {
+    return {...build(), ...extraPostData,}
 };
 
 export default getCropitData

@@ -6,13 +6,13 @@ Vue.prototype.$http = axios
 // 常量 API 接口地址
 const HOST = 'http://image2.artup.com/'
 var urlQuery = sessionStorage.getItem('urlQuery');
-
+const VueHttp = new Vue();
 //用户名全局变量获取
+//localStorage.setItem("sessionId","2141731");
+var  userDbIds = localStorage.getItem('userDbId');	
+var  sessionIds = "";
 
-localStorage.setItem("sessionId","2141731");
-const sessionIds = localStorage.getItem("sessionId");
-
-var category = 'baobaoshu'
+const  UPLOAD_URL = `${HOST}artup-build/builder/cors/picture/upload.do?format=json&userDbId=${userDbIds}`;
 /*添加购物车*/
 const ADD_CAR = `${HOST}artup-build/builder/cors/car/add/command.do?format=json&ignore=true`
 /*购物车列表*/
@@ -39,7 +39,7 @@ const DELETE_ORDER = `${HOST}artup-build/builder/order/update/command.do?format=
 const DEFAULT_ADDRESS = `${HOST}artup-build/builder/address/queryAll.do?format=json&ignore=true&status=1&mainAddr=Y`
 
 /*素材dpi是否合格*/
-const MATER_DPI = `${HOST}artup-build/builder/cors/picture/validate.do?format=json&ignore=true&userDbId=${sessionIds}&sessionId=${sessionIds}`
+const MATER_DPI = `${HOST}artup-build/builder/cors/picture/validate.do?format=json&ignore=true&userDbId=${userDbIds}`
 
 /*订单支付*/
 const ORDER_PAY = `${HOST}artup-build/builder/orderPayment/payment.do?format=json&ignore=true`
@@ -53,8 +53,14 @@ const ORDER_LIST_STATUS = `${HOST}artup-build/builder/order/queryByPage.do?forma
 /*取消订单*/
 const CANCLE_ORDER_STATUS = `${HOST}artup-build/builder/order/update/command.do?format=json&ignore=true&status=-1`
 
+
 /*设置默认收货地址*/
 const SET_DEFAULT_ADDRESS = `${HOST}/artup-build/builder/address/mainAddress.do?format=json&ignore=true`
+
+/*重新登录函数*/
+const GER_USERDBID = `${HOST}artup-build/builder/service/tokenUrl.do?format=json`
+
+
 
 
 ////只要访问ajax的时候，没有这个用户信息，就跳到首页去登录获取用户信息
@@ -65,8 +71,10 @@ const SET_DEFAULT_ADDRESS = `${HOST}/artup-build/builder/address/mainAddress.do?
 
 
 
-const VueHttp = new Vue();
+
 export default {	
+	
+	
 		testBaidu:{
 	  		test:(inter)=>{
 	  			return  VueHttp.$http.get(HOST+inter)   
@@ -155,7 +163,8 @@ export default {
 	   	  }
 	   },
 	   work:{ //作品的接口post方法(保存)
-	   	 	workEdit:(inter,jsons)=>{
+	   	 	workEdit:(inter,jsons)=>{	
+				jsons = VueHttp.sourceSession(jsons)
 	   	 		return VueHttp.$http.post(HOST+inter,
 	   	 			qs.stringify(jsons)   	 				   	 		
 	   	 		)
@@ -165,7 +174,7 @@ export default {
 						params: {
 				   	  		format:"json",
 				   	  		ignore:"true",
-				   	  		userDbId:sessionIds,
+				   	  		userDbId:userDbIds,
 				   	  		sessionId:sessionIds,
 				   	  		status:status, //未完成1，已经完成2 
 				   	  		sortField:"createdDt",
@@ -181,7 +190,7 @@ export default {
 	   	 			params: {
 			   	  		format:"json",
 			   	  		ignore:"true",
-			   	  		userDbId:sessionIds,
+			   	  		userDbId:userDbIds,
 			   	  		sessionId:sessionIds,
 			   	  		edtDbId:edtDbId				   	  		
 				   	}
@@ -193,12 +202,17 @@ export default {
 	   	 	)
 	   	 }
 	   },
+	   user:{
+	   	getUserDbId:()=>{  
+	   		return VueHttp.$http.post(GER_USERDBID)
+	   	}
+	   },
 	   Material:{
 	   		MaterialData:(inter)=>{//素材数据
 		   	  	return VueHttp.$http.get(HOST+inter, {
 						params: {
 				   	  		format:"json",
-				   	  		userDbId:sessionIds,
+				   	  		userDbId:userDbIds,
 				   	  		status:1,
 				   	  		pageNum:0,
 				   	  		pageSize:50,
@@ -209,6 +223,8 @@ export default {
 				})
 	   	 }	   	 
 	   },
+	   UPLOAD_URL:UPLOAD_URL,
+	   
 	   ajax(url,callback){
 	   	 console.log(arguments.length)
 	   	 if (arguments.length>2) {

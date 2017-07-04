@@ -187,10 +187,10 @@
                         operator:"add",
                         edtDbId:'',// 新生成的产品才有的字段
                         tplCode:"baobaoshu_170-235_24", //暂时写死
-                        sessionId:localStorage.getItem("sessionId"),
-                        userDbId:localStorage.getItem("sessionId"),
-                        client:"mobile",//渠道前端传递，暂时写死
-                        category:"baobaoshu",//产品类型这里是宝宝书,暂时写死
+//                      sessionId:localStorage.getItem("sessionId"),
+                        userDbId:localStorage.getItem('userDbId'),
+//                      client:"mobile",//渠道前端传递，暂时写死
+                        category:this.getFromSession("category"),//产品类型这里是宝宝书
                         defDbId:"7ad740df-0b81-418f-b4b5-c078ef580b47", //tplCode 模版暂时写死
                         channelCode:"zc",//暂时写死
                         sku:JSON.parse(localStorage.getItem("bbsSlsectDate")).name,
@@ -210,8 +210,8 @@
                 console.log(bbsSlsectDate)
                 var jsons = {
                     operator:"add",
-                    sessionId:localStorage.getItem("sessionId"),
-                    userDbId:localStorage.getItem("sessionId"),
+//                  sessionId:localStorage.getItem("sessionId"),
+                    userDbId:localStorage.getItem("userDbId"),
                     client:"mobile",//渠道前端传递，暂时写死
                     category:bbsSlsectDate.category,//产品类型这里是宝宝书,暂时写死
                     edtDbId:this.bbs.extraCode,
@@ -424,7 +424,8 @@
             },
             nextBS(){//板式选择完毕的下一步
                 this.selectBS = false;
-                var oIndexs = 'bbs0'+(this.bbs.index2+1)
+                var oIndexs = 'bbs'+(this.bbs.index2+1)
+//              var oIndexs = 'bbs0'+(this.bbs.index2+1)
                 //动态修改模版的板式
                 this.typeHtml[this.bbs.index1] = htmlData[oIndexs];
                 this.goAnchor("#offsetId");//跳转锚点
@@ -553,6 +554,10 @@
 //		Api.ajax("url22",function(fns){
 //			console.log(fns)
 //		})
+	 //初始化的时候默认宝宝书和lomo卡的html渲染模版
+     this.typeHtml = typeHtml;
+     this.lomok = typeHtmlLome;	
+
       var oThis = this;
 	  //继续编辑初始化的数据
 	  if (this.$route.query.edtDbid) {
@@ -560,23 +565,75 @@
 	  	Api.work.unfinishedWork("artup-build/builder/cors/edit/queryOne.do",this.$route.query.edtDbid).then((res)=>{
 	  			console.log(res)
 			var oImgData = JSON.parse(res.data.data.editPicture);
-			//动态添加图片
-			$("#bbsImg").find(".listBox .bbsClass >img").each(function(i,el){
-				var page = $(this).parents(".bstp").next(".bbsBtn").find("ul li p >span").text();				 
-				$(this).attr("id",page+'_'+$(el).attr("nm")+'_'+$(this).attr("editcnfname"))
-			})
-			console.log(oImgData)
-			//图片回显到页面
-			for (var i = 0; i < oImgData.length; i++) {
-				var constName = oImgData[i].page+'_'+oImgData[i].num;
-				//map生成变量
-				var picObj = {"constName":constName,"picDbId" : oImgData[i].picDbId, "page" : oImgData[i].page, "editCnfIndex" : oImgData[i].editCnfIndex, "num" : oImgData[i].num, "actions" : {},
-				"thumbnailImageUrl":oImgData[i].thumbnailImageUrl, "previewThumbnailImageUrl" :oImgData[i].previewThumbnailImageUrl, "crop" : oImgData[i].crop,"editCnfName" : oImgData[i].editCnfName};
-				oThis.editData.ImgHashMap.putvalue(constName,picObj);
-				var pageNum = oImgData[i].page+'_'+oImgData[i].num+'_'+oImgData[i].editCnfName;
-				$("#"+pageNum).prev(".myImgBox").show().find("img").css("width","100%").attr("src",oImgData[i].previewThumbnailImageUrl).attr("attrImg",oImgData[i].thumbnailImageUrl);
-					 $("#"+pageNum).remove();
-                   }
+			
+
+			var strbbs = 'bbs'
+//			var old = oThis.typeHtml;
+			    //先加载板式让图片回显到页面
+				 for (var i = 0; i < oImgData.length; i++) {
+						console.log(oImgData[i])
+						var strbb = strbbs+oImgData[i].editCnfIndex;
+						 //动态修改模版的板式
+//		                oThis.typeHtml[oImgData[i].page-1] = htmlData[strbb];
+		                oThis.typeHtml.splice(oImgData[i].page-1,1,htmlData[strbb]) 						
+	              }	
+	            //动态添加id节点
+				setTimeout(function(){
+					$(oThis.$el).find(".listBox .bbsClass >img").each(function(i,el){
+						var page = $(this).parents(".bstp").next(".bbsBtn").find("ul li p >span").text();				 
+						$(this).attr("id",page+'_'+$(el).attr("nm")+'_'+$(this).attr("editcnfname"))
+					})
+				},500)
+				 //动态添加图片
+				setTimeout(function(){					
+					for (var i = 0; i < oImgData.length; i++) {						
+						var constName = oImgData[i].page+'_'+oImgData[i].num;
+						//map生成变量
+						var picObj = {"constName":constName,"picDbId" : oImgData[i].picDbId, "page" : oImgData[i].page, "editCnfIndex" : oImgData[i].editCnfIndex, "num" : oImgData[i].num, "actions" : {},
+						"thumbnailImageUrl":oImgData[i].thumbnailImageUrl, "previewThumbnailImageUrl" :oImgData[i].previewThumbnailImageUrl, "crop" : oImgData[i].crop,"editCnfName" : oImgData[i].editCnfName};
+						oThis.editData.ImgHashMap.putvalue(constName,picObj);
+						var pageNum = oImgData[i].page+'_'+oImgData[i].num+'_'+oImgData[i].editCnfName;
+						$("#"+pageNum).prev(".myImgBox").show().find("img").css("width","100%").css("height","100%").attr("src",oImgData[i].previewThumbnailImageUrl).attr("attrImg",oImgData[i].thumbnailImageUrl);
+						console.log('xx','_____')
+						$("#"+pageNum).remove();						
+	              }						
+				},1000)
+	               
+	               
+	               
+//	                iterator(0);
+//			        //迭代器
+//			        function iterator(i) {
+//			            if (i == oImgData.length) {//完成所有的遍历之后要做的
+//			                //在这里书写请求完毕之后做的事情
+//			                return;  //不用继续迭代了
+//			            }
+//			            var strbb = strbbs+oImgData[i].editCnfIndex;
+//			            console.log(oImgData[i])
+//			            oThis.typeHtml[oImgData[i].page-1] = htmlData[strbb];
+////			            oThis.typeHtml.splice(oImgData[i].page-1,1,htmlData[strbb])
+//						var constName = oImgData[i].page+'_'+oImgData[i].num;
+//						//map生成变量
+//						var picObj = {"constName":constName,"picDbId" : oImgData[i].picDbId, "page" : oImgData[i].page, "editCnfIndex" : oImgData[i].editCnfIndex, "num" : oImgData[i].num, "actions" : {},
+//						"thumbnailImageUrl":oImgData[i].thumbnailImageUrl, "previewThumbnailImageUrl" :oImgData[i].previewThumbnailImageUrl, "crop" : oImgData[i].crop,"editCnfName" : oImgData[i].editCnfName};
+//						oThis.editData.ImgHashMap.putvalue(constName,picObj);
+//						var pageNum = oImgData[i].page+'_'+oImgData[i].num+'_'+oImgData[i].editCnfName;
+//
+//						$(oThis.$el).find("#"+pageNum).prev(".myImgBox").show().find("img").css("width","100%").attr("src",oImgData[i].previewThumbnailImageUrl).attr("attrImg",oImgData[i].thumbnailImageUrl);
+//						
+////						$("#"+pageNum).remove();
+//
+//							
+//							console.log($(oThis.$el).find("#"+pageNum).size())
+//							iterator(i+1)
+//
+//						
+//			        }
+	               
+	               
+	               
+	               
+	              
                 })
             }
             //素材库地址图片
@@ -610,14 +667,15 @@
             //图片上传时提交的参数
             var extraPostData = {};
             console.log(document.getElementById('browseButton'));
-            //初始化的时候默认宝宝书和lomo卡的html渲染模版
-            this.typeHtml = typeHtml;
-
-            this.lomok = typeHtmlLome;
+           
             console.log(typeHtmlLome)
 
 			/* 文件上传init */
-            var uploadUrl = 'http://image2.artup.com/artup-build/builder/cors/picture/upload.do?format=json&sessionId=2141731&category=baobaoshu';
+//          var uploadUrl = 'http://image2.artup.com/artup-build/builder/cors/picture/upload.do?format=json&sessionId=2141731&category=baobaoshu';
+//          var uploadUrl = Api.UPLOAD_URL;
+            var uploadUrl = Api.UPLOAD_URL+'&category='+this.getFromSession("category");
+            console.log(uploadUrl)
+            
             uploadInitializer($, uploadUrl, onUploadComplete);
             // //文件上传事件
             function onUploadComplete($, r){
@@ -633,7 +691,7 @@
                 //开始上传
                 r.on('uploadStart', function(){
                     //组装后端需要的数据
-                    extraPostData  = {"templateCode" : templateCode, "userDbId" : "2141731", "client" : client, "channel" : channel,"picPage":oThis.bbs.page,"picNum":oThis.bbs.num,"styleType":oThis.bbs.styleType,"editCnfName":oThis.bbs.editCnfName}
+                    extraPostData  = {"templateCode" : templateCode, "client" : client, "channel" : channel,"picPage":oThis.bbs.page,"picNum":oThis.bbs.num,"styleType":oThis.bbs.styleType,"editCnfName":oThis.bbs.editCnfName}
                     r.opts.query = extraPostData;
                     //打开进度框
                     Indicator.open({text: '图片上传中...',spinnerType: 'fading-circle'});

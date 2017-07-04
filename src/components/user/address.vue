@@ -105,7 +105,7 @@
 		},
 		mounted(){
 			var jsons = {
-				userDbId:localStorage.getItem("sessionId"),
+				userDbId:localStorage.getItem("userDbId"),
 				status:1,
 				sessionId:localStorage.getItem("sessionId"),
 				pageNum:0,
