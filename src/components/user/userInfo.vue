@@ -1,6 +1,6 @@
 <template>
 	<div id="user">
-		<mt-header title="多个按钮">
+		<mt-header title="个人中心">
 		  <router-link to="/" slot="left">
 		    <mt-button icon="back">返回</mt-button>
 		    <mt-button>关闭</mt-button>
