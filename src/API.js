@@ -61,12 +61,9 @@ const SET_DEFAULT_ADDRESS = `${HOST}/artup-build/builder/address/mainAddress.do?
 const GER_USERDBID = `${HOST}artup-build/builder/service/tokenUrl.do?format=json`
 
 
-<<<<<<< HEAD
 /*首页连接*/
 const INDEX_IMG = `${HOST}artup-build/builder/cors/lunbo/list.do?ignore=true&format=json&client=mobile`
-=======
 
->>>>>>> c27c31a94712c6831f947d0f5a76973d98d81726
 
 ////只要访问ajax的时候，没有这个用户信息，就跳到首页去登录获取用户信息
 //if (!sessionIds) {
