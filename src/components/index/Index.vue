@@ -1,29 +1,24 @@
 <template>
 	<div id="index" style="width: 100%;">
-		<div class="swipeDiv" style="width: 100%;height: 400px;background: #ccc;">
+		<div class="swipeDiv" style="width: 100%;height: 400px;">
 			<mt-swipe  :auto="4000">
-			  <mt-swipe-item style="background: #ccc;">1</mt-swipe-item>
-			  <mt-swipe-item style="background: orchid;">2</mt-swipe-item>
-			  <mt-swipe-item style="background: orange;">3</mt-swipe-item>
+			  <mt-swipe-item v-for="img in indexImg">
+			  	<a class="a_herf" :href="img.link">		  		
+			  		<img :src="img.imgUrl"/>
+			  	</a>
+			  </mt-swipe-item>
+			  <!--<mt-swipe-item style="background: orchid;"></mt-swipe-item>
+			  <mt-swipe-item style="background: orange;">3</mt-swipe-item>-->
 			</mt-swipe>
 		</div>
 		<div v-DomHeight class="btn_btn">
 			<ul class="btn_ul">
-				<li><a href="#bbsMsg?category=baobaoshu">
-					宝宝书
-				</a></li>
-				<li><a href="">
-					画册
-				</a></li>
-				<li><a href="">
-					台历
-				</a></li>
-				
-				<li><a href="">
-					框画
-				</a></li>
-				<li><a href="">其他产品</a></li>
-				<li><a href="">个人中心</a></li>
+				<li> <router-link to="bbsMsg?category=baobaoshu">宝宝书</router-link></li>
+				<li> <router-link to="">画册</router-link></li>
+				<li> <router-link to="">台历</router-link></li>
+				<li> <router-link to="">框画</router-link></li>
+				<li> <router-link to="">其他产品</router-link></li>				
+				<li> <router-link to="user">个人中心</router-link></li>
 			</ul>
 		</div>
 	</div>
@@ -31,11 +26,11 @@
 
 <script>
 import Api from '../../API.js'
-import { Swipe, SwipeItem } from 'mint-ui';
+import { Swipe, SwipeItem,Indicator } from 'mint-ui';
 export default {
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      indexImg:[]
     }
   },
 // //拿到数据
@@ -53,7 +48,10 @@ export default {
 //	    ])
     },
     mounted(){
-    	//http://localhost:8081/#/?a=b&c=d 参数的形式
+    		Indicator.open({
+		  text: '加载中...',
+		  spinnerType: 'fading-circle'
+		});
 		if (JSON.stringify(this.$route.query)!="{}") {
 			console.log(this.$route.query)
 			sessionStorage.setItem('urlQuery',JSON.stringify(this.$route.query))
@@ -70,10 +68,27 @@ export default {
 				})				
 			}
 		}
+		//首页请求的数据
+		Api.Index.indexImg().then(res=>{
+
+			this.indexImg = res.data.data;
+			Indicator.close();
+
+		})
+		
+
 	}
 }
 </script>
 
 <style>
-	
+	.a_herf{
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+	.a_herf >img{
+		display: block;
+		width: 100%;
+	}
 </style>

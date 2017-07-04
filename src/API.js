@@ -55,6 +55,8 @@ const CANCLE_ORDER_STATUS = `${HOST}artup-build/builder/order/update/command.do?
 const GER_USERDBID = `${HOST}artup-build/builder/service/tokenUrl.do?format=json`
 
 
+/*首页连接*/
+const INDEX_IMG = `${HOST}artup-build/builder/cors/lunbo/list.do?ignore=true&format=json&client=mobile`
 
 ////只要访问ajax的时候，没有这个用户信息，就跳到首页去登录获取用户信息
 //if (!sessionIds) {
@@ -65,9 +67,7 @@ const GER_USERDBID = `${HOST}artup-build/builder/service/tokenUrl.do?format=json
 
 
 
-export default {	
-	
-	
+export default {		
 		testBaidu:{
 	  		test:(inter)=>{
 	  			return  VueHttp.$http.get(HOST+inter)   
@@ -188,6 +188,11 @@ export default {
 	   	 		qs.stringify(jsons)
 	   	 	)
 	   	 }
+	   },
+	   Index:{ //首页和其他介绍页面需要的接口
+	   	  indexImg:()=>{ 
+	   	  	return  VueHttp.$http.get(INDEX_IMG)   
+	   	  }
 	   },
 	   user:{
 	   	getUserDbId:()=>{  
