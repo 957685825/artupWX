@@ -246,11 +246,9 @@
                 var arrMap = []; //宝宝书图片的
                 var textArrMap = [];//文字的
                 var lomArrMap = []; //lomo卡的
-
                 for (var i = 0; i < this.editData.ImgHashMap.keys().length; i++) {
                     console.log((this.editData.ImgHashMap.getvalue(this.editData.ImgHashMap.keys()[i])))
                     if (this.editData.ImgHashMap.getvalue(this.editData.ImgHashMap.keys()[i])) {
-
                         arrMap.push(this.editData.ImgHashMap.getvalue(this.editData.ImgHashMap.keys()[i]));
                     }
                 }
@@ -264,19 +262,21 @@
                         textArrMap.push(this.editData.textMap.getvalue(this.editData.textMap.keys()[i]));
                     }
                 }
-
                 //字符串转换数组存储到对象里面
                 this.bbs.workEdit.editPicture = JSON.stringify(arrMap);
                 this.bbs.workEdit.editTxt = JSON.stringify(textArrMap);
                 this.bbs.workEdit.lomo = JSON.stringify(lomArrMap);
-                console.log(this.bbs.workEdit)
-
+                //存入有图的首张图片
+                for (var i = 0; i < arrMap.length; i++) {
+                		if (arrMap[i].thumbnailImageUrl) {
+                			this.bbs.workEdit.thumbnailImageUrl=arrMap[i].thumbnailImageUrl;
+                			break;
+                		}
+                }
                 //保存函数
                 Api.work.workEdit("artup-build/builder/cors/edit/add/command.do",this.bbs.workEdit).then((res)=>{
 //				console.log(window.location.search)
-
-
-                    this.bbs.workEdit.edtDbId = res.data.extraCode
+                 this.bbs.workEdit.edtDbId = res.data.extraCode
 //				console.log(this.$route.query.edtDbid)
                     var oThis = this;
                     if (res.data.code=="success") { //保存成功
@@ -317,8 +317,6 @@
                             Indicator.close();
                             Toast("保存成功")
                         }
-
-
                     }
                 })
                 console.log(this.bbs.nextPageTrue)
@@ -368,9 +366,6 @@
                 Api.work.checkDPI(jsonDpi).then(res=>{
                     //res.data.thumbnailScale  缩放比
                     var constName = this.bbs.page+'_'+this.bbs.num; //几页加第几张图
-                    if (constName=="1_1") {//如果有第一张图
-                        this.bbs.workEdit.thumbnailImageUrl=thumbnailUrl;
-                    }
                     var picObj = {"constName":constName,"picDbId" : oData.dbId, "page" : this.bbs.page, "editCnfIndex" : this.bbs.styleType, "num" : this.bbs.num, actions : {thumbnailScale:res.data.thumbnailScale},
                         "thumbnailImageUrl":oData.thumbnailUrl, "previewThumbnailImageUrl" :oData.previewThumbnailImageUrl, "crop" : "false","editCnfName" : this.bbs.editCnfName};
 
@@ -527,7 +522,6 @@
                 if (!this.bbs.imgEdit.editCnfName) { //宝宝书的对象
                     console.log('宝宝书对象',this.bbs.imgEdit.imgEditIndex)
                     this.editData.ImgHashMap.getvalue(this.bbs.imgEdit.imgEditIndex).actions = imgData.postData
-
                     console.log(this.editData.ImgHashMap.getvalue(this.bbs.imgEdit.imgEditIndex))
                 }else{ //lomo卡的对象
                     console.log('lomo卡的对象',this.bbs.imgEdit.imgEditIndex)
@@ -546,26 +540,25 @@
 //		})
 	 //初始化的时候默认宝宝书和lomo卡的html渲染模版
      this.typeHtml = typeHtml;
-     this.lomok = typeHtmlLome;	
-
+     this.lomok = typeHtmlLome;
       var oThis = this;
 	  //继续编辑初始化的数据
 	  if (this.$route.query.edtDbid) {
+	  	Indicator.open({
+		  text: '继续编辑中...',
+		  spinnerType: 'fading-circle'
+		});
 	  	this.bbs.workEdit.edtDbId = this.$route.query.edtDbid;
 	  	Api.work.unfinishedWork("artup-build/builder/cors/edit/queryOne.do",this.$route.query.edtDbid).then((res)=>{
-	  			console.log(res)
+	  		
 			var oImgData = JSON.parse(res.data.data.editPicture);
 			var oImgLomo = JSON.parse(res.data.data.lomo);
 			var editTxt = JSON.parse(res.data.data.editTxt);
-			
-
 			var strbbs = 'bbs'
-//			var old = oThis.typeHtml;
 			    //先加载板式让图片回显到页面
 				 for (var i = 0; i < oImgData.length; i++) {
 						var strbb = strbbs+oImgData[i].editCnfIndex;
 						 //动态修改模版的板式
-//		                oThis.typeHtml[oImgData[i].page-1] = htmlData[strbb];
 		                oThis.typeHtml.splice(oImgData[i].page-1,1,htmlData[strbb]) 						
 	              }	
 	            //动态添加id节点
@@ -591,41 +584,34 @@
 
 		               }
 					}
-					
-					for (var i = 0; i < oImgData.length; i++) {	
-
-						var constName = oImgData[i].page+'_'+oImgData[i].num;
-						//map生成变量
-						var picObj = {"constName":constName,"picDbId" : oImgData[i].picDbId, "page" : oImgData[i].page, "editCnfIndex" : oImgData[i].editCnfIndex, "num" : oImgData[i].num, "actions" : {},
-						"thumbnailImageUrl":oImgData[i].thumbnailImageUrl, "previewThumbnailImageUrl" :oImgData[i].previewThumbnailImageUrl, "crop" : oImgData[i].crop,"editCnfName" : oImgData[i].editCnfName};
-						oThis.editData.ImgHashMap.putvalue(constName,picObj);
-						var pageNum = oImgData[i].page+'_'+oImgData[i].num+'_'+oImgData[i].editCnfName;
-						console.log(pageNum)
-						$("#"+pageNum).prev(".myImgBox").show().find("img").css("width","100%").css("height","100%").attr("src",oImgData[i].previewThumbnailImageUrl).attr("attrImg",oImgData[i].thumbnailImageUrl);
-//						console.log('xx','_____')
-						$("#"+pageNum).remove();						
-	               }	
-	               
-	                
-					for (var i = 0; i < oImgLomo.length; i++) {	
-
-						var constName = oImgLomo[i].page+'_'+oImgLomo[i].num;
-						//map生成变量
-						var picObj = {"constName":constName,"picDbId" : oImgLomo[i].picDbId, "page" : oImgLomo[i].page, "editCnfIndex" : oImgLomo[i].editCnfIndex, "num" : oImgLomo[i].num, "actions" : {},
-						"thumbnailImageUrl":oImgLomo[i].thumbnailImageUrl, "previewThumbnailImageUrl" :oImgLomo[i].previewThumbnailImageUrl, "crop" : oImgLomo[i].crop,"editCnfName" : oImgLomo[i].editCnfName};
-						oThis.editData.lomHashMap.putvalue(constName,picObj);
-						var pageNum = oImgLomo[i].page+'_'+oImgLomo[i].num+'_'+oImgLomo[i].editCnfName;
-						$("#"+pageNum).prev(".myImgBox").show().find("img").css("width","100%").css("height","100%").attr("src",oImgData[i].previewThumbnailImageUrl).attr("attrImg",oImgData[i].thumbnailImageUrl);				
-	               		$("#"+pageNum).remove();
+					if (oImgData.length>0) {
+						for (var i = 0; i < oImgData.length; i++) {	
+							var constName = oImgData[i].page+'_'+oImgData[i].num;
+							//map生成变量
+							var picObj = {"constName":constName,"picDbId" : oImgData[i].picDbId, "page" : oImgData[i].page, "editCnfIndex" : oImgData[i].editCnfIndex, "num" : oImgData[i].num, "actions" : {},
+							"thumbnailImageUrl":oImgData[i].thumbnailImageUrl, "previewThumbnailImageUrl" :oImgData[i].previewThumbnailImageUrl, "crop" : oImgData[i].crop,"editCnfName" : oImgData[i].editCnfName};
+							oThis.editData.ImgHashMap.putvalue(constName,picObj);
+							var pageNum = oImgData[i].page+'_'+oImgData[i].num+'_'+oImgData[i].editCnfName;
+							console.log(pageNum)
+							$("#"+pageNum).prev(".myImgBox").show().find("img").css("width","100%").css("height","100%").attr("src",oImgData[i].previewThumbnailImageUrl).attr("attrImg",oImgData[i].thumbnailImageUrl);
+							$("#"+pageNum).remove();						
+	             	 }
 					}
-	               
-	              
+					if (oImgLomo.length) {
+						for (var i = 0; i < oImgLomo.length; i++) {
+							var constName = oImgLomo[i].page+'_'+oImgLomo[i].num;
+							//map生成变量
+							var picObj = {"constName":constName,"picDbId" : oImgLomo[i].picDbId, "page" : oImgLomo[i].page, "editCnfIndex" : oImgLomo[i].editCnfIndex, "num" : oImgLomo[i].num, "actions" : {},
+							"thumbnailImageUrl":oImgLomo[i].thumbnailImageUrl, "previewThumbnailImageUrl" :oImgLomo[i].previewThumbnailImageUrl, "crop" : oImgLomo[i].crop,"editCnfName" : oImgLomo[i].editCnfName};
+							oThis.editData.lomHashMap.putvalue(constName,picObj);
+							var pageNum = oImgLomo[i].page+'_'+oImgLomo[i].num+'_'+oImgLomo[i].editCnfName;
+							$("#"+pageNum).prev(".myImgBox").show().find("img").css("width","100%").css("height","100%").attr("src",oImgData[i].previewThumbnailImageUrl).attr("attrImg",oImgData[i].thumbnailImageUrl);				
+		               		$("#"+pageNum).remove();
+						}
+					}
+					//关闭加载弹窗
+					Indicator.close();
 				},1000)
-	               
-	               
-	               
-	               
-	              
                 })
             }
             //素材库地址图片
