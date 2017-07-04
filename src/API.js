@@ -69,11 +69,6 @@ const INDEX_IMG = `${HOST}artup-build/builder/cors/lunbo/list.do?ignore=true&for
 //if (!sessionIds) {
 //	alert('用户信息不存在!');  
 //	location.href='#/'
-
-
-
-
-
 export default {		
 		testBaidu:{
 	  		test:(inter)=>{
