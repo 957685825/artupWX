@@ -13,7 +13,7 @@
 					<div class="content clearfix" :dbId='itme.dbId'>
 						<div class="listContent clearfix">
 							<ul class="clearfix">
-								<li><p v-tap='{methods:updataCheck}' class= "circle circleNone"><i class="icon iconfont">&#xe639;</i></p></li>
+								<li><p v-tap='{methods:updataCheck,dbid:itme.dbId}' class= "circle circleNone"><i class="icon iconfont">&#xe639;</i></p></li>
 								<li>
 									<p>
 										<span>{{itme.name}}</span>
@@ -52,6 +52,15 @@
 				if($(params.event.target).hasClass("circleNone")){
 					$(params.event.target).removeClass('circleNone');
 					$(params.event.target).find('i').show();
+					var jsons = {
+							sessionId:localStorage.getItem("sessionId"),
+							dbId:params.dbid
+						}
+					Api.address.setDefaultAddress(jsons).then(res=>{
+						location.href="#payOrder?openId=&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("sessionId")
+					},err=>{
+						Toast('数据请求错误');
+					})
 				}else{
 					if($(params.event.target).hasClass("icon")){
 						$(params.event.target).hide();

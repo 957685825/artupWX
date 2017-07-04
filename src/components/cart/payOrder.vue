@@ -7,10 +7,10 @@
 		  </router-link>
 		  <mt-button icon=""  slot="right"></mt-button>
 		</mt-header>
-		<div v-bind:hidden="addresBool" class="address">
+		<div v-bind:hidden="addresBool" class="address" v-tap="{methods:addAddress}">
 			<span>+</span>&nbsp;请添加收货地址
 		</div>
-		<div class="addressContet" v-bind:hidden="!addresBool">
+		<div class="addressContet" v-bind:hidden="!addresBool" v-tap="{methods:updataAddress}">
 			<ul>
 				<li><span>收件人姓名</span><span>{{addressData.name}}({{addressData.mobile}})</span></li>
 				<li>{{addressData.province}}{{addressData.address}}</li>
@@ -79,8 +79,14 @@
         methods: {
         	gotoOrderPay(){
         		location.href="#orderStatus?paymentType=WX&addressId="+this.addressData.dbId+"&dbId="+this.dataList.dbId+"&userDbId="+this.$route.query.userDbId+"&openId="+this.$route.query.openId;
-				//alert(0)
-				//location.href="wxPay.html?paymentType=WX&addressId="+this.addressData.dbId+"&dbId="+this.dataList.dbId+"&userDbId="+this.$route.query.userDbId+"&openId="+this.$route.query.openId;
+				
+        	},
+        	updataAddress(){
+        		location.href="#Address?openId=&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("sessionId")
+        		
+        	},
+        	addAddress(){
+        		location.href="#newAddress?openId=&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("sessionId")
         	}
          
         },
