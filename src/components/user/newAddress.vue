@@ -141,7 +141,7 @@
 						console.log(res);
 						if(res.data.code == 'success'){
 							if(this.$route.query.orderDbId){
-								location.href="#address?openId=&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("sessionId");
+								location.href="#payOrder?openId="+this.$route.query.openId+"&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("userDbId")
 							}else{
 								location.href="#address";
 							}

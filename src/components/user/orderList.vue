@@ -99,7 +99,7 @@
 									Toast('订单删除成功');
 									if(this.dataList.length < 1){
 										MessageBox.alert('您当前没有任何订单请去创建').then(action => {
-					        				location.href="/"		
+					        				location.href=""		
 										});
 									}
 									
@@ -119,7 +119,7 @@
         		if(this.dataList.length < 1){
         			
         			MessageBox.alert('您当前没有任何订单请去创建').then(action => {
-        				location.href="/"		
+        				location.href=""		
 					});
         				
         		}

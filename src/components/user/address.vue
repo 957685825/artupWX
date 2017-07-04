@@ -57,7 +57,7 @@
 							dbId:params.dbid
 						}
 					Api.address.setDefaultAddress(jsons).then(res=>{
-						location.href="#payOrder?openId=&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("sessionId")
+						location.href="#payOrder?openId="+this.$route.query.openId+"&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("userDbId")
 					},err=>{
 						Toast('数据请求错误');
 					})
@@ -95,11 +95,11 @@
 			},
 			/*新增地址*/
 			gotoAddAddress(){
-				location.href="#newAddress";
+				location.href="#newAddress?openId="+this.$route.query.openId+"&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("userDbId");
 			},
 			/*编辑地址*/
 			editorAddress(params){
-				location.href="#newAddress?dbId="+params.dbId;
+				location.href="#newAddress?dbId="+params.dbId+"&openId="+this.$route.query.openId+"&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("userDbId");
 			}
 		
 		},
