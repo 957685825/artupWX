@@ -1,18 +1,24 @@
 import Vue from 'vue'
 import axios from 'axios'
 import qs from 'qs'
-console.log(qs)
+
 Vue.prototype.$http = axios
+
 // 常量 API 接口地址
 const HOST = 'http://image2.artup.com/'
+
+//图片服务器（静态资源）服务器地址
+const STATIC_SERVER_HOST = 'http://image2.artup.com/'
+
 var urlQuery = sessionStorage.getItem('urlQuery');
+
 const VueHttp = new Vue();
 //用户名全局变量获取
 //localStorage.setItem("sessionId","2141731");
 var  userDbIds = localStorage.getItem('userDbId');	
 var  sessionIds = "";
 
-const  UPLOAD_URL = `${HOST}artup-build/builder/cors/picture/upload.do?format=json&userDbId=${userDbIds}`;
+const  UPLOAD_URL = `${STATIC_SERVER_HOST}artup-build/builder/cors/picture/upload.do?format=json&userDbId=${userDbIds}`;
 /*添加购物车*/
 const ADD_CAR = `${HOST}artup-build/builder/cors/car/add/command.do?format=json&ignore=true`
 /*购物车列表*/
