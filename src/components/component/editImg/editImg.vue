@@ -10,7 +10,7 @@
                 </div>
             </mt-header>
 
-            <!--<loading ref="editInstance" @imgChanged="imgChanged" @getImageCropper="getImageCropper"></loading>-->
+            <loading ref="editInstance" @imgChanged="imgChanged" @getImageCropper="getImageCropper"></loading>
 
         </div>
     </transition>
