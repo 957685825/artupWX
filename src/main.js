@@ -19,13 +19,14 @@ import {DomHeight} from './directive.js';
 //引入一个自定义的util函数，里面定义的是全局公用的方法
 import utils from './components/component/util';
 
-//import loading from './components/component/edit'
+import loading from './components/component/edit'
 import editimg from './components/component/editImg';
 import MaxImg from './components/component/maxImg';
 
 Vue.use(MaxImg)
 Vue.use(utils)
 Vue.use(editimg);
+Vue.use(loading);
 Vue.use(vueTap)
 //使用use 引入插件
 Vue.use(MintUI);

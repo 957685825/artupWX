@@ -68,7 +68,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="fmFont">
+						<div id="fengdi" class="fmFont">
 							封底
 						</div>
 					</div>
@@ -169,8 +169,7 @@
                 checkBS:true,//更换板式
                 selectBS:false, //板式选择的模版页面
                 textareaTexts:false,//文本弹出框编辑
-                previewPage:false, //预览页面切换
-                
+                previewPage:false, //预览页面切换               
                 bbs:{
                 		oPrice:JSON.parse(localStorage.getItem("bbsSlsectDate")).price,//产品的价格
                     attrImg:true,//图片编辑存储的临时变量
@@ -190,12 +189,12 @@
                         ignore:"true",
                         operator:"add",
                         edtDbId:'',// 新生成的产品才有的字段
-                        tplCode:"baobaoshu_170-235_24", //暂时写死
+                        tplCode:"", //暂时写死,父组件带入
 //                      sessionId:localStorage.getItem("sessionId"),
                         userDbId:localStorage.getItem('userDbId'),
 //                      client:"mobile",//渠道前端传递，暂时写死
                         category:this.getFromSession("category"),//产品类型这里是宝宝书
-                        defDbId:"7ad740df-0b81-418f-b4b5-c078ef580b47", //tplCode 模版暂时写死
+                        defDbId:"", //tplCode 模版暂时写死,父组件带入
                         channelCode:"zc",//暂时写死
                         sku:JSON.parse(localStorage.getItem("bbsSlsectDate")).name,
                         editPicture:[],//产品图片
@@ -415,10 +414,23 @@
                 $(".box_checkBS .checkBS > li").eq(oindex).addClass("liactive");
             },
             nextBS(){//板式选择完毕的下一步
+                var oThis = this;
                 this.selectBS = false;
                 var oIndexs = 'bbs'+(this.bbs.index2+1)
 //              var oIndexs = 'bbs0'+(this.bbs.index2+1)
-                //动态修改模版的板式
+
+               	//修改模版板式之后清空他map里面的数据
+                $("#fengdi").append(this.typeHtml[this.bbs.index1]);
+                //清空图片和文字
+                $("#fengdi .bbsClass").each(function(index,el){
+                		var oPageNumber = oThis.bbs.index1+1+'_'+$(el).find(".sucaiClass").attr("nm");
+                		oThis.editData.ImgHashMap.remove(oPageNumber);
+                		oThis.editData.textMap.remove("1_1");
+                })
+                $("#fengdi .allBbsClass").remove();
+                $("#fengdi .bbsClass").remove();
+                $("#fengdi .textarea").remove();
+                 //动态修改模版的板式
                 this.typeHtml[this.bbs.index1] = htmlData[oIndexs];
                 this.goAnchor("#offsetId");//跳转锚点
             },
@@ -544,10 +556,12 @@
 //			console.log(fns)
 //		})
 
-	//首先拿到从父级传递的数据	
-	this.titleEdit.title = this.dataImg.title.title
-	this.titleEdit.titleEdit = this.dataImg.title.titleEdit
-	console.log(this.dataImg)
+	//首先拿到从父级传递的必要数据回填到组件中	
+	this.titleEdit.title = this.dataImg.dataMsg.title
+	this.titleEdit.titleEdit = this.dataImg.dataMsg.titleEdit	
+	this.bbs.workEdit.defDbId = this.dataImg.dataMsg.defDbId
+	this.bbs.workEdit.tplCode = this.dataImg.dataMsg.tplCode;
+
 	 //初始化的时候默认宝宝书和lomo卡的html渲染模版,此处的数据是从父组件带带本组件中的
      this.typeHtml = this.dataImg.imgArrType;
      this.lomok = this.dataImg.imgArrLome;
@@ -735,3 +749,18 @@
 <style>
 
 </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
