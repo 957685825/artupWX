@@ -14,14 +14,13 @@
 		<div v-DomHeight class="btn_btn">
 			<ul class="btn_ul">
 				<li>
-					
 					<router-link to="bbsMsg?category=baobaoshu">
 						 <i style="font-size: 3.1875rem;" class="icon iconfont">&#xe625;</i>
 				 		<p>宝宝书</p>
 					</router-link>
 				</li>
 				<li>
-					<router-link to="">
+					<router-link to="huaceMsg?category=huace">
 						<i style="font-size: 3.1875rem;" class="icon iconfont">&#xe7ca;</i>
 						<p>画册</p>
 					</router-link>

@@ -13,7 +13,14 @@ import Cart from './components/cart/cart.vue'
 import payOrder from './components/cart/payOrder.vue'
 //宝宝书选择
 import bbsSelect from './components/product/bbs/bbsSelect.vue'
+
 import bbsMsg from './components/product/bbs/bbsMsg.vue'
+
+//画册
+import huaceMsg from './components/product/huace/huaceMsg.vue'
+import huaceSelect from './components/product/huace/huaceSelect.vue'
+
+
 //图片编辑
 import editImg from './components/editImg/editImg.vue'
 
@@ -90,7 +97,14 @@ export default{
 			path:'/workList', component:workList //我的作品库
 		},
 		{
+<<<<<<< HEAD
 			path:'/khSelect', component:khSelect //我的作品库
+=======
+			path:'/huaceMsg', component:huaceMsg //画册介绍
+		},
+		{
+			path:'/huaceSelect', component:huaceSelect //画册选择
+>>>>>>> f34b60eb8623cbc34c481493343574d7785dd554
 		}	
 	]
 }
