@@ -35,8 +35,8 @@ import workList from './components/workList/workList.vue'
 //模块测试
 import editImgs from './components/editImg/bbsImgs.vue'
 import huaceImgs from './components/editImg/huaceImgs.vue'
-
-
+/*选择框画尺寸以及框*/
+import khSelect from './components/product/kh/khSelect.vue'
 
 ////导出路由
 export default{
@@ -97,10 +97,14 @@ export default{
 			path:'/workList', component:workList //我的作品库
 		},
 		{
+<<<<<<< HEAD
+			path:'/khSelect', component:khSelect //我的作品库
+=======
 			path:'/huaceMsg', component:huaceMsg //画册介绍
 		},
 		{
 			path:'/huaceSelect', component:huaceSelect //画册选择
+>>>>>>> f34b60eb8623cbc34c481493343574d7785dd554
 		}	
 	]
 }
