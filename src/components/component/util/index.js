@@ -20,7 +20,6 @@ export default{
 			}
 			return ''
 		}
-		
     }
      //同意增加session属性
      Vue.prototype.sourceSession = function (jsons) {

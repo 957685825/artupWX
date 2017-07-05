@@ -10,8 +10,8 @@
             </div>
             <!--旋转90度-->
             <div class="rotate_90">
-                <div class="rotate-ccw" @click="rotateCW">左旋转<i>90°</i></div>
-                <div class="rotate-cw" @click="rotateCCW">右旋转<i>90°</i></div>
+                <div class="rotate-ccw" @click="rotateCCW">左旋转<i>90°</i></div>
+                <div class="rotate-cw" @click="rotateCW">右旋转<i>90°</i></div>
             </div>
         </div>
     </div>
