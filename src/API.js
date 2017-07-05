@@ -1,18 +1,24 @@
 import Vue from 'vue'
 import axios from 'axios'
 import qs from 'qs'
-console.log(qs)
+
 Vue.prototype.$http = axios
+
 // 常量 API 接口地址
 const HOST = 'http://image2.artup.com/'
+
+//图片服务器（静态资源）服务器地址
+const STATIC_SERVER_HOST = 'http://image2.artup.com/'
+
 var urlQuery = sessionStorage.getItem('urlQuery');
+
 const VueHttp = new Vue();
 //用户名全局变量获取
 //localStorage.setItem("sessionId","2141731");
 var  userDbIds = localStorage.getItem('userDbId');	
 var  sessionIds = "";
 
-const  UPLOAD_URL = `${HOST}artup-build/builder/cors/picture/upload.do?format=json&userDbId=${userDbIds}`;
+const  UPLOAD_URL = `${STATIC_SERVER_HOST}artup-build/builder/cors/picture/upload.do?format=json&userDbId=${userDbIds}`;
 /*添加购物车*/
 const ADD_CAR = `${HOST}artup-build/builder/cors/car/add/command.do?format=json&ignore=true`
 /*购物车列表*/
@@ -39,7 +45,7 @@ const DELETE_ORDER = `${HOST}artup-build/builder/order/update/command.do?format=
 const DEFAULT_ADDRESS = `${HOST}artup-build/builder/address/queryAll.do?format=json&ignore=true&status=1&mainAddr=Y`
 
 /*素材dpi是否合格*/
-const MATER_DPI = `${HOST}artup-build/builder/cors/picture/validate.do?format=json&ignore=true&userDbId=${userDbIds}`
+const MATER_DPI = `${STATIC_SERVER_HOST}artup-build/builder/cors/picture/validate.do?format=json&ignore=true&userDbId=${userDbIds}`
 
 /*订单支付*/
 const ORDER_PAY = `${HOST}artup-build/builder/orderPayment/payment.do?format=json&ignore=true`
