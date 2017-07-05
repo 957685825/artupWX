@@ -28,8 +28,8 @@ import workList from './components/workList/workList.vue'
 //模块测试
 import editImgs from './components/editImg/bbsImgs.vue'
 import huaceImgs from './components/editImg/huaceImgs.vue'
-
-
+/*选择框画尺寸以及框*/
+import khSelect from './components/product/kh/khSelect.vue'
 
 ////导出路由
 export default{
@@ -88,6 +88,9 @@ export default{
 		},
 		{
 			path:'/workList', component:workList //我的作品库
+		},
+		{
+			path:'/khSelect', component:khSelect //我的作品库
 		}	
 	]
 }

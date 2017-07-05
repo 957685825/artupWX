@@ -385,6 +385,7 @@
             },
             editWork(){//保存作品
                 console.log(this.editData)
+                this.bbs.nextPageTrue = false;
                 this.assembleData();
             },
             goAnchor(selector) { //跳转锚点的函数
