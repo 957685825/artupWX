@@ -45,7 +45,8 @@
 			  </li>
 			</ul>
 			<!--<p class="page-infinite-loading" v-bind:hidden="loading == false">
-		    	  加载中...
+		    	  加载中... 
+		    	 6228484040538704117
 		    </p>-->
 			</div>
 			
