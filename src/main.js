@@ -15,14 +15,15 @@ import App from './App.vue'
 import vueTap from 'v-tap';
 //引入vue指令暴露出去的全局指令
 import {DomHeight} from './directive.js';
+
 //引入一个自定义的util函数，里面定义的是全局公用的方法
 import utils from './components/component/util';
 
-import loading from './components/component/edit'
+//import loading from './components/component/edit'
 import editimg from './components/component/editImg';
+import MaxImg from './components/component/maxImg';
 
-
-Vue.use(loading)
+Vue.use(MaxImg)
 Vue.use(utils)
 Vue.use(editimg);
 Vue.use(vueTap)

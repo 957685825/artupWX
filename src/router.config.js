@@ -17,16 +17,31 @@ import bbsMsg from './components/product/bbs/bbsMsg.vue'
 //图片编辑
 import editImg from './components/editImg/editImg.vue'
 
+
 //BbsImg 宝宝书 图片上传
 import BbsImg from './components/editImg/bbsImg.vue'
 //我的作品库
 import workList from './components/workList/workList.vue'
+
+
+
+//模块测试
+import editImgs from './components/editImg/bbsImgs.vue'
+import huaceImgs from './components/editImg/huaceImgs.vue'
+
+
 
 ////导出路由
 export default{
 	routes:[
 	 	{ 
 	 		path: '/', component: Index	 		
+	 	},
+	 	{ 
+	 		path: '/bbsImgs', component: editImgs  //测试模块的路由宝宝书 		
+	 	},
+	 	{ 
+	 		path: '/huaceImgs', component: huaceImgs  //测试模块路由画册
 	 	},
 //		{
 //			path:'/', component:Home, //首页 home

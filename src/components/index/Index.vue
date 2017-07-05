@@ -79,12 +79,12 @@ export default {
 //	    ])
     },
     mounted(){
+
     		Indicator.open({
 		  text: '加载中...',
 		  spinnerType: 'fading-circle'
 		});
-		if (JSON.stringify(this.$route.query)!="{}") {
-			console.log(this.$route.query)
+		if (JSON.stringify(this.$route.query)!="{}") { 
 			sessionStorage.setItem('urlQuery',JSON.stringify(this.$route.query))
 			if (this.$route.query.userDbId) {
 				localStorage.setItem('userDbId',this.$route.query.userDbId)
@@ -95,7 +95,7 @@ export default {
 				//请求接口 //重新登录函数
 				Api.user.getUserDbId().then(res=>{
 					//请求微信授权
-//					location.href=res.data.tokenUrl
+					window.location.href=res.data.tokenUrl
 				})				
 			}
 		}

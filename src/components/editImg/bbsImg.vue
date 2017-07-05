@@ -2,7 +2,6 @@
 	<div id="bbsImg">
 		<mt-header  title="宝宝书预览" v-if="previewPage" >
 			<router-link to="" slot="left">
-
 				<mt-button v-tap="{methods : ContinueEdit}"   icon="back">继续编辑</mt-button>
 			</router-link>
 			<router-link to="" v-tap="{methods : nextPageEdit}" slot="right">
@@ -60,7 +59,7 @@
 						</div>
 					</div>
 				</li>
-				<li>
+				<li id="fengdi">
 					<div class="bs">
 						<div class="bsLeft imgBox">
 							<div class="bstp bstpfm">
@@ -398,6 +397,7 @@
                 $(params.event.target).parents(".bs").parent("li").attr("id","offsetId");
                 var oindex = params.index;
                 this.bbs.index1 = oindex;
+                console.log(this.bbs.index1)
                 //默认选中第一条
                 this.selectBS = true;//板式选择模版
                 console.log(params.event.target)
@@ -410,10 +410,23 @@
                 $(".box_checkBS .checkBS > li").eq(oindex).addClass("liactive");
             },
             nextBS(){//板式选择完毕的下一步
+            		var oThis = this;
                 this.selectBS = false;
                 var oIndexs = 'bbs'+(this.bbs.index2+1)
 //              var oIndexs = 'bbs0'+(this.bbs.index2+1)
-                //动态修改模版的板式
+
+               	//修改模版板式之后清空他map里面的数据
+                $("#fengdi").append(this.typeHtml[this.bbs.index1]);
+                //清空图片和文字
+                $("#fengdi .bbsClass").each(function(index,el){
+                		var oPageNumber = oThis.bbs.index1+1+'_'+$(el).find(".sucaiClass").attr("nm");
+                		oThis.editData.ImgHashMap.remove(oPageNumber);
+                		oThis.editData.textMap.remove("1_1");
+                })
+                $("#fengdi .allBbsClass").remove();
+                $("#fengdi .bbsClass").remove();
+                $("#fengdi .textarea").remove();
+                 //动态修改模版的板式
                 this.typeHtml[this.bbs.index1] = htmlData[oIndexs];
                 this.goAnchor("#offsetId");//跳转锚点
             },
@@ -538,6 +551,9 @@
 //		Api.ajax("url22",function(fns){
 //			console.log(fns)
 //		})
+
+	
+
 	 //初始化的时候默认宝宝书和lomo卡的html渲染模版
      this.typeHtml = typeHtml;
      this.lomok = typeHtmlLome;
