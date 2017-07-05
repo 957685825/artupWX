@@ -6,7 +6,7 @@
 		  </router-link>
 		</mt-header>		
 		<div class="bbsImg">
-			<img src="../../../assets/img/bbs.png"/>
+			<img src="http://image2.artup.com/resources/static/img/bbs.png"/>
 		</div>
 		
 

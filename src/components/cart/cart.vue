@@ -27,7 +27,8 @@
 				<div class="div_number">
 					<ol>
 						<li v-tap='{methods : reduce,num:itme.num,index:indexs}'>
-							<i class="icon iconfont">&#xe638;</i>
+							<i class="icon iconfont" v-if="itme.num>1" style="color:#666">&#xe638;</i>
+							<i class="icon iconfont" v-else="" >&#xe638;</i>
 						</li>
 						<li v-model="itme.num">{{itme.num}}</li>
 						<li v-tap='{methods : add,num:itme.num,index:indexs}'>
@@ -137,7 +138,6 @@ export default {
 							//alert(res.data.orderDbId)
 							location.href="#payOrder?openId="+res.data.openId+"&orderDbId="+res.data.orderDbId+"&userDbId="+localStorage.getItem("userDbId");
 						}
-						console.log(res);
 					},err=>{
 						Toast('请求错误');
 					})

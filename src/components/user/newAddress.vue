@@ -105,7 +105,8 @@
 					Toast('请输入正确的手机号码!');
 					return;
 				}
-				/*判断是新建地址还是编辑地址
+				/*
+				 * 判断是新建地址还是编辑地址
 				 *如果路由上有dbid是编辑地址
 				 *else就是新建
 				 * */
@@ -178,8 +179,7 @@
 		    		this.datas.province = res.data.province;
 		    		this.datas.address =  res.data.address;
 		    		this.datas.mainAddr = res.data.mainAddr;
-		    		console.log(res)
-		    		console.log(this.mainAddr)
+		    		
 		    	},err=>{
 		    		
 		    	})
