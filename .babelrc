@@ -1,5 +1,21 @@
 {
-  "plugins": [],
-  "ignore": ["node_modules"],
-  "presets": ["es2017","stage-0"]
+  "ignore": [
+    "node_modules"
+  ],
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "browsers": [
+            "last 2 versions"
+          ]
+        }
+      }
+    ],
+    "stage-0"
+  ],
+  "plugins": [
+    "transform-runtime"
+  ]
 }

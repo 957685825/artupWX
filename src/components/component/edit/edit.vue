@@ -3,7 +3,9 @@
         <div id="dropBox" class="resumable-drop">
         </div>
         <div id="image-cropper">
-            <div class="cropit-preview" @click="selectPreview"></div>
+            <div class="cropit-preview-box">
+                <div class="cropit-preview" @click="selectPreview"></div>
+            </div>
             <!--大小大滑拉杆儿-->
             <div class="div_range">
                 <b>小</b><input type="range" class="cropit-image-zoom-input"><b>大</b>
@@ -159,6 +161,7 @@
         font-size: 40px;
         color: #f60;
         text-align: center;
+        padding-top: 40px;
     }
 
     .cropit-preview {
@@ -241,9 +244,14 @@
 
     #image-cropper .cropit-preview {
         display: block;
-        margin: 0 auto;
-        margin: 3.09375rem auto 4rem;
         overflow: hidden;
+    }
+    .cropit-preview-box{
+        height: 10em;
+        display: flex;
+        display: -webkit-flex;
+        justify-content: center;
+        align-items: center;
     }
 
     #image-cropper .rotate_90 {
