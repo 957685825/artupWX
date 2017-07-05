@@ -8,11 +8,8 @@
 		    <mt-button>保存</mt-button>
 		  </router-link>
 		</mt-header>
-
 		<loading></loading>
-		
-	</div>
-	
+	</div>	
 </template>
 
 <script>

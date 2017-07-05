@@ -48,6 +48,7 @@ export default {
 //	    ])
     },
     mounted(){
+
     		Indicator.open({
 		  text: '加载中...',
 		  spinnerType: 'fading-circle'

@@ -1,6 +1,6 @@
 <template>
 	<div id="bbsImg">
-		<mt-header  title="宝宝书预览" v-if="previewPage" >
+		<mt-header  :title="titleEdit.titleEdit" v-show="previewPage" >
 			<router-link to="" slot="left">
 				<mt-button v-tap="{methods : ContinueEdit}"   icon="back">继续编辑</mt-button>
 			</router-link>
@@ -8,7 +8,7 @@
 				<mt-button v-tap="{methods : goCart}">添加购物车</mt-button>
 			</router-link>
 		</mt-header>
-		<mt-header title="宝宝书" v-if="!previewPage">
+		<mt-header :title="titleEdit.title" v-show="!previewPage">
 			<router-link to="" slot="left">
 				<mt-button  icon="back">返回</mt-button>
 			</router-link>
@@ -59,7 +59,7 @@
 						</div>
 					</div>
 				</li>
-				<li id="fengdi">
+				<li>
 					<div class="bs">
 						<div class="bsLeft imgBox">
 							<div class="bstp bstpfm">
@@ -125,8 +125,8 @@
 				<p>请输入内容</p>
 				<textarea name="" v-model="bbs.textTextarea" maxlength="40" placeholder="请输入内容(限制输入40字)" rows="" cols=""></textarea>
 				<ol>
-					<li><span   v-tap="{methods : cancel}" >取消</span></li>
-					<li><span v-tap="{methods : confirmText}">确认</span></li>
+					<li><span  v-tap="{methods : cancel}" >取消</span></li>
+					<li><span  v-tap="{methods : confirmText}">确认</span></li>
 				</ol>
 			</div>
 		</mt-popup>
@@ -146,15 +146,19 @@
 				</div>
 			</div>
 		</mt-popup>
-		<edit-img @selectPreview="selectPreview" @editFinish="editFinish"></edit-img>
+		<edit-img  @selectPreview="selectPreview" @editFinish="editFinish"></edit-img>
 	</div>
 </template>
 <script>
     import { Toast ,Actionsheet,Popup,Indicator} from 'mint-ui';
-    import Api from '../../API.js'
+    import Api from '../../../API.js'
     export default{
         data () {
             return {
+            		titleEdit:{
+            			title:'',
+            			titleEdit:''
+            		},
                 mobanArr:['http://image2.artup.com/resources/static/img/bbs_bs1.jpg','http://image2.artup.com/resources/static/img/bbs_bs2.jpg','http://image2.artup.com/resources/static/img/bbs_bs3.jpg',
                     'http://image2.artup.com/resources/static/img/bbs_bs4.jpg','http://image2.artup.com/resources/static/img/bbs_bs5.jpg','http://image2.artup.com/resources/static/img/bbs_bs6.jpg',
                     'http://image2.artup.com/resources/static/img/bbs_bs7.jpg','http://image2.artup.com/resources/static/img/bbs_bs8.jpg'],//模版对应的图片
@@ -166,6 +170,7 @@
                 selectBS:false, //板式选择的模版页面
                 textareaTexts:false,//文本弹出框编辑
                 previewPage:false, //预览页面切换
+                
                 bbs:{
                 		oPrice:JSON.parse(localStorage.getItem("bbsSlsectDate")).price,//产品的价格
                     attrImg:true,//图片编辑存储的临时变量
@@ -203,6 +208,7 @@
                 editData:{}//后端需要的大对象
             }
         },
+        props: ['dataImg'],
         methods:{
             goCart(){
                 var bbsSlsectDate = JSON.parse(localStorage.getItem("bbsSlsectDate"));
@@ -397,7 +403,6 @@
                 $(params.event.target).parents(".bs").parent("li").attr("id","offsetId");
                 var oindex = params.index;
                 this.bbs.index1 = oindex;
-                console.log(this.bbs.index1)
                 //默认选中第一条
                 this.selectBS = true;//板式选择模版
                 console.log(params.event.target)
@@ -410,23 +415,10 @@
                 $(".box_checkBS .checkBS > li").eq(oindex).addClass("liactive");
             },
             nextBS(){//板式选择完毕的下一步
-            		var oThis = this;
                 this.selectBS = false;
                 var oIndexs = 'bbs'+(this.bbs.index2+1)
 //              var oIndexs = 'bbs0'+(this.bbs.index2+1)
-
-               	//修改模版板式之后清空他map里面的数据
-                $("#fengdi").append(this.typeHtml[this.bbs.index1]);
-                //清空图片和文字
-                $("#fengdi .bbsClass").each(function(index,el){
-                		var oPageNumber = oThis.bbs.index1+1+'_'+$(el).find(".sucaiClass").attr("nm");
-                		oThis.editData.ImgHashMap.remove(oPageNumber);
-                		oThis.editData.textMap.remove("1_1");
-                })
-                $("#fengdi .allBbsClass").remove();
-                $("#fengdi .bbsClass").remove();
-                $("#fengdi .textarea").remove();
-                 //动态修改模版的板式
+                //动态修改模版的板式
                 this.typeHtml[this.bbs.index1] = htmlData[oIndexs];
                 this.goAnchor("#offsetId");//跳转锚点
             },
@@ -552,11 +544,14 @@
 //			console.log(fns)
 //		})
 
-	
-
-	 //初始化的时候默认宝宝书和lomo卡的html渲染模版
-     this.typeHtml = typeHtml;
-     this.lomok = typeHtmlLome;
+	//首先拿到从父级传递的数据	
+	this.titleEdit.title = this.dataImg.title.title
+	this.titleEdit.titleEdit = this.dataImg.title.titleEdit
+	console.log(this.dataImg)
+	 //初始化的时候默认宝宝书和lomo卡的html渲染模版,此处的数据是从父组件带带本组件中的
+     this.typeHtml = this.dataImg.imgArrType;
+     this.lomok = this.dataImg.imgArrLome;
+     
       var oThis = this;
 	  //继续编辑初始化的数据
 	  if (this.$route.query.edtDbid) {
