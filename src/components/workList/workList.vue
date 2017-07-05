@@ -63,7 +63,6 @@
 				tapStyle:false,
 				worklist:[],
 				loading:false,
-				workStatus:1, //默认是未完成的数据
 				workPage:0 //第0页
 			}
 		},
@@ -75,8 +74,16 @@
 					$(params.event.target).addClass('liActive');
 				}
 				if($(params.event.target).text() == '未完成'){
+					Api.work.workList("artup-build/builder/cors/edit/queryByPage.do",1,this.workPage,this.getFromSession('category')).then((res)=>{
+			
+						console.log(res)
+					})
 					this.tapStyle = false;
 				}else{
+					Api.work.workList("artup-build/builder/cors/edit/queryByPage.do",2,this.workPage,this.getFromSession('category')).then((res)=>{
+			
+						console.log(res)
+					})
 					this.tapStyle = true;
 				}
 
@@ -111,10 +118,11 @@
 		},
 		mounted(){
 
-			var category = 'baobaoshu'
+			//var category = 'baobaoshu'
+			
 			Indicator.open({text: '作品加载中...',spinnerType: 'fading-circle'});
 			//开始默认的时候，去拿我的作品列表
-			Api.work.workList("artup-build/builder/cors/edit/queryByPage.do",this.workStatus,this.workPage,category).then((res)=>{
+			Api.work.workList("artup-build/builder/cors/edit/queryByPage.do",1,this.workPage,this.getFromSession('category')).then((res)=>{
 				this.worklist = res.data.results;
 				Indicator.close();
 				console.log(this.worklist)
