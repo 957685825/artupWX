@@ -11,7 +11,7 @@ export default {
   data () {
     return { 
     		dataImg:{ //img
-      	 imgArrType:[huaCeData.bbs5],
+      	 imgArrType:[huaCeData.bbs1,huaCeData.bbs2,huaCeData.bbs3],
       	 imgArrTypeData:huaCeData, //传递板式的对象
       	 imgArrLome:[],
       	 dataMsg:{
