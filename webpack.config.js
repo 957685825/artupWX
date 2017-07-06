@@ -1,11 +1,13 @@
 var path = require('path')
 var webpack = require('webpack')
 
+//打包时加.
+//本地测试无需加.
 module.exports = {
     entry: './src/main.js',
     output: {
         path: path.resolve(__dirname, './dist'),
-        publicPath: '/dist/',
+        publicPath: './dist/',
         filename: 'build.js'
     },
     module: {
