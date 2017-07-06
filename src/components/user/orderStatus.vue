@@ -28,9 +28,12 @@
         	};
         	
         	Api.car.orderPay(jsons).then(res=>{
+        		alert('0')
         		if(res.data.code === 'success'){
 						if(this.$route.query.paymentType==='WX'){//手机微信支付
+							alert('1')
 							wxpay(res.data,function callback(res){
+								alert('2')
 								if(res.errMsg=="chooseWXPay:fail"){
 									Toast('调起支付失败');
 									Api.car.updataOrderStatus({sessionId:localStorage.getItem("sessionId"),dbId:this.$route.query.dbId}).then(res=>{
@@ -80,7 +83,7 @@
 						})
 					}
         	},err=>{
-        		
+        		alert('err')
         	})
         }
     }
