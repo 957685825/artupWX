@@ -32,7 +32,7 @@
 					</router-link>
 				</li>
 				<li>
-					<router-link to="">
+					<router-link to="khSelect">
 						<i style="font-size: 3.1875rem;" class="icon iconfont">&#xe628;</i>
 						<p>框画</p>
 					</router-link>

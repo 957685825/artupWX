@@ -96,9 +96,8 @@ export default{
 		{
 			path:'/workList', component:workList //我的作品库
 		},
-<<<<<<< HEAD
 		{
-			path:'/khSelect', component:khSelect //我的作品库
+			path:'/khSelect', component:khSelect //框画选择
 			
 		},
 		{
@@ -106,16 +105,6 @@ export default{
 		},
 		{
 			path:'/huaceSelect', component:huaceSelect //画册选择
-=======
-		{ 
-			path:'/khSelect', component:khSelect //我的作品库  
-		},
-		{  
-			path:'/huaceMsg', component:huaceMsg //画册介绍
-		},
-		{
-			path:'/huaceSelect', component:huaceSelect //画册选择 
->>>>>>> 9dcb6eea7ff42667730d8537dc2ed7db98980fcf
-		}	
+		}
 	]
 }
