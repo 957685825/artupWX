@@ -63,12 +63,12 @@
 					<div class="bs">
 						<div class="bsLeft imgBox">
 							<div class="bstp bstpfm">
-								<div class="bbs03  fmPage">
+								<div class="bbs03  fmPage fdPage">
 
 								</div>
 							</div>
 						</div>
-						<div id="fengdi" class="fmFont">
+						<div id="fengdi" class="fmFont ">
 							封底
 						</div>
 					</div>
@@ -418,7 +418,6 @@
                 this.selectBS = false;
                 var oIndexs = 'bbs'+(this.bbs.index2+1)
 //              var oIndexs = 'bbs0'+(this.bbs.index2+1)
-
                	//修改模版板式之后清空他map里面的数据
                 $("#fengdi").append(this.typeHtml[this.bbs.index1]);
                 //清空图片和文字

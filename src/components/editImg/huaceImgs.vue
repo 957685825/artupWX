@@ -9,16 +9,18 @@ import Api from '../../API.js'
 import { Swipe, SwipeItem,Indicator } from 'mint-ui';
 export default {
   data () {
-    return {
-      dataImg:{ //img
-      	 imgArrType:[htmlData.bbs5,htmlData.bbs6],
+    return { 
+    		dataImg:{ //img
+      	 imgArrType:[huaCeData.bbs5],
       	 imgArrLome:[],
-      	 title:{
+      	 dataMsg:{
       	 	title:"画册",
-      	 	titleEdit:"画册预览"     	 	
+      	 	titleEdit:"画册预览",
+      	 	tplCode:"huace_170-235_24", 
+      	 	defDbId:"9de2973d-3487-4b05-b556-b9b92dd75493"
       	 }
 	   }
-  	}
+    	}
   },
 // props: ['dataImg'],
     methods:{

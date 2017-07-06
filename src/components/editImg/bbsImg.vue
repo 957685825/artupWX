@@ -63,7 +63,7 @@
 					<div class="bs">
 						<div class="bsLeft imgBox">
 							<div class="bstp bstpfm">
-								<div class="bbs03  fmPage">
+								<div class="bbs03  fmPage fdPage">
 
 								</div>
 							</div>

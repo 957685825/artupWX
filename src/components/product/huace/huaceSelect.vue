@@ -6,7 +6,19 @@
 		  </router-link>
 		</mt-header>		
 		<div class="bbsImg">
-			<img src="http://image2.artup.com/resources/static/img/bbs.png"/>
+			<img src="http://builder.artup.com/front/imgs/album/album.jpg"/>
+			
+			<!--
+				http://builder.artup.com/front/
+				白色 
+				imgs/album/hui.png    imgs/album/hui3.png
+				绿色
+				imgs/album/lv.png    imgs/album/lv3.png
+				紫色
+				imgs/album/zi.png     imgs/album/zi3.png
+				红色
+				imgs/album/red.png      imgs/album/red3.png
+			-->
 		</div>
 			<dl v-for="(item,index1) in bbs.attributes"  class="slect_dl">
 				<dt>
@@ -64,7 +76,7 @@
 				}
 			},
 			nextPage(){//下一页
-				location.href="#BbsImg"
+				location.href="#huaceImgs"
 			},
 			getPrice(dom){//获得页面的价格
 					this.bbsSlsectDate={};
@@ -109,8 +121,9 @@
 			});	
 			//开始默认的时候，去拿我的作品列表判断是否有未完成的作品
 			this.bbsSlsectDate.category =this.getFromSession("category"); //类型字段
-			Api.work.workList("artup-build/builder/cors/edit/queryAll.do",1,0,this.bbsSlsectDate.category).then((res)=>{
-				if (res.data.length>0) {
+			Api.work.workList("artup-build/builder/cors/edit/queryAll.do",1,0,this.getFromSession("category")).then((res)=>{
+
+				if (res.data.results.length>0) {
 					MessageBox({
 					  title: '我的作品',
 					  message: '您有未完成的作品,需要编辑未完成的作品吗?',
@@ -120,7 +133,7 @@
 					}).then((res)=>{
 						if(res=="confirm"){//有未完成的作品
 							//跳转到未完成的页面去
-							window.location.href="#workList"
+							location.href="#workList"
 						}					
 					})
 				};				
