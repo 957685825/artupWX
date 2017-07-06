@@ -625,7 +625,7 @@
 						for (var i = 0; i < oImgLomo.length; i++) {
 							var constName = oImgLomo[i].page+'_'+oImgLomo[i].num;
 							//map生成变量
-							var picObj = {"constName":constName,"picDbId" : oImgLomo[i].picDbId, "page" : oImgLomo[i].page, "editCnfIndex" : oImgLomo[i].editCnfIndex, "num" : oImgLomo[i].num, "actions" : {},
+							var picObj = {"constName":constName,"picDbId" : oImgLomo[i].picDbId, "page" : oImgLomo[i].page, "editCnfIndex" : oImgLomo[i].editCnfIndex, "num" : oImgLomo[i].num, "actions" : {"thumbnailScale":oImgData[i].actions.thumbnailScale},
 							"thumbnailImageUrl":oImgLomo[i].thumbnailImageUrl, "previewThumbnailImageUrl" :oImgLomo[i].previewThumbnailImageUrl, "crop" : oImgLomo[i].crop,"editCnfName" : oImgLomo[i].editCnfName};
 							oThis.editData.lomHashMap.putvalue(constName,picObj);
 							var pageNum = oImgLomo[i].page+'_'+oImgLomo[i].num+'_'+oImgLomo[i].editCnfName;
@@ -653,12 +653,13 @@
             //动态切换书皮
             checkColor(shupi,$('.fmPage'),$('.fdPage'),$('.fePage'))
             console.log(this.$el)
-            var templateCode = "baobaoshu_170-235_24";//模版编码
+            var templateCode = this.bbs.templateCode;//模版编码
+            console.log(templateCode)
             var client = 'pc';   //手机，pc，app 设备等
             var channel = '本站' //渠道
 
             //图片操作的json值
-            var cropitData = {"x":200.21,"y":400.32,"width":100,"height":300,"rotate":0,"thumbnailScale":1};
+//          var cropitData = {"x":200.21,"y":400.32,"width":100,"height":300,"rotate":0,"thumbnailScale":1};
 
             //定义3个hashMap
             this.editData.ImgHashMap = new HashMap(); //图片

@@ -96,8 +96,6 @@ export default{
 		{
 			path:'/workList', component:workList //我的作品库
 		},
-<<<<<<< HEAD
-<<<<<<< HEAD
 		{
 			path:'/huaceMsg', component:huaceMsg //画册介绍
 		},
@@ -107,30 +105,5 @@ export default{
 		{
 			path:'/khSelect', component:khSelect	
 		}
-=======
-=======
-<<<<<<< HEAD
-		{
-			path:'/khSelect', component:khSelect //我的作品库
-			
-		},
-		{
-			path:'/huaceMsg', component:huaceMsg //画册介绍
-		},
-		{
-			path:'/huaceSelect', component:huaceSelect //画册选择
-=======
->>>>>>> 521b1caeb8af90b4ff255a6b67f2e037213c40c1
-		{ 
-			path:'/khSelect', component:khSelect //我的作品库  
-		},
-		{  
-			path:'/huaceMsg', component:huaceMsg //画册介绍
-		},
-		{
-			path:'/huaceSelect', component:huaceSelect //画册选择 
->>>>>>> 9dcb6eea7ff42667730d8537dc2ed7db98980fcf
-		}	
->>>>>>> 9dcb6eea7ff42667730d8537dc2ed7db98980fcf
 	]
 }
