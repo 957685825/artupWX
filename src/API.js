@@ -53,7 +53,7 @@ const MATER_DPI = `${STATIC_SERVER_HOST}artup-build/builder/cors/picture/validat
 const ORDER_PAY = `${HOST}artup-build/builder/orderPayment/payment.do?format=json&ignore=true`
 
 /*修改订单状态*/
-const UPDATA_ORDER_STATUS = `${HOST}artup-build/builder/order/update/command.do?format=json&ignore=true&status=1`
+const UPDATA_ORDER_STATUS = `${HOST}artup-build/builder/order/update/command.do?format=json&ignore=true`
 
 /*获取订单列表*/
 const ORDER_LIST_STATUS = `${HOST}artup-build/builder/order/queryByPage.do?format=json&ignore=true&pageSize=150&sort=createdDt&order=desc`
