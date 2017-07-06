@@ -97,14 +97,13 @@ export default{
 			path:'/workList', component:workList //我的作品库
 		},
 		{
-<<<<<<< HEAD
-			path:'/khSelect', component:khSelect //我的作品库
-=======
 			path:'/huaceMsg', component:huaceMsg //画册介绍
 		},
 		{
 			path:'/huaceSelect', component:huaceSelect //画册选择
->>>>>>> f34b60eb8623cbc34c481493343574d7785dd554
-		}	
+		},
+		{
+			path:'/khSelect', component:khSelect	
+		}
 	]
 }

@@ -121,8 +121,8 @@
 			});	
 			//开始默认的时候，去拿我的作品列表判断是否有未完成的作品
 			this.bbsSlsectDate.category =this.getFromSession("category"); //类型字段
-			Api.work.workList("artup-build/builder/cors/edit/queryAll.do",1,0,this.getFromSession("category")).then((res)=>{
-
+			console.log(this.getFromSession("category"))
+			Api.work.workList("artup-build/builder/cors/edit/queryByPage.do",1,0,this.getFromSession("category")).then((res)=>{
 				if (res.data.results.length>0) {
 					MessageBox({
 					  title: '我的作品',
