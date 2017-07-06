@@ -4,7 +4,7 @@
 			<router-link  to="" slot="left">
 				<mt-button v-tap="{methods : ContinueEdit}"   icon="back">继续编辑</mt-button>
 			</router-link>
-			<router-link to="" v-tap="{methods : nextPageEdit}" slot="right">
+			<router-link to="" slot="right">
 				<mt-button v-tap="{methods : goCart}">添加购物车</mt-button>
 			</router-link>
 		</mt-header>
@@ -50,7 +50,9 @@
 				</li>
 				<li v-for="(item,index) in typeHtml">
 					<div class="bs">
-						<div class="bstp bstpfm"><div   v-tap="{methods : ActionsheetIn,index : index}"  v-html="item" class="bsLeft imgBox"></div></div>
+						<div class="bstp bstpfm">
+							<div  v-tap="{methods : ActionsheetIn,index : index}"  v-html="item" class="bsLeft imgBox"></div>
+						</div>
 						<div class="bbsBtn">
 							<ul>
 								<li><p>第<span>{{index+1}}</span>页</p></li>
@@ -58,33 +60,9 @@
 							</ul>
 						</div>
 					</div>
-				</li>
-				<li>
-					<div class="bs">
-						<div class="bsLeft imgBox">
-							<div class="bstp bstpfm">
-								<div class="bbs03  fmPage fdPage">
-
-								</div>
-							</div>
-						</div>
-						<div id="fengdi" class="fmFont ">
-							封底
-						</div>
-					</div>
-				</li>
-
-				<li v-for="(item,index) in lomok">
-					<div class="bs">
-						<div class="bstp bstpfm"><div   v-tap="{methods : ActionsheetIn,index : index}"  v-html="item" class="bsLeft imgBox"></div></div>
-						<div class="bbsBtn">
-							<ul>
-								<li><p>第<span>{{index+1}}</span>页</p></li>
-								<!--<li><a v-tap="{methods : switchBs,index : index}">更换板式</a></li>-->
-							</ul>
-						</div>
-					</div>
-				</li>
+				</li>	
+			
+	
 			</ul>
 		</div>
 		<div class="cart_btn">

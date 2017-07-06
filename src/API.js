@@ -106,6 +106,7 @@ export default {
 	   		return VueHttp.$http.get(QUERY_ORDER,{params:jsons})
 	   	},
 	   	updataOrderStatus:(jsons)=>{//改变订单状态
+	   		 
 	   		return VueHttp.$http.get(UPDATA_ORDER_STATUS,{params:jsons})
 	   	},
 	   	cancleOrder:(jsons)=>{//取消订单

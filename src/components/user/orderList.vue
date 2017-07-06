@@ -11,7 +11,7 @@
 				<li>
 					<span>订单号</span>
 					<span>{{itmes.code}}</span>
-					<span v-tap="{methods:delectFn,index:indexs,dbid:itmes.dbId}"><i class="icon iconfont">&#xe68a;</i></span>
+					<span v-if='itmes.status == -1' v-tap="{methods:delectFn,index:indexs,dbid:itmes.dbId}"><i class="icon iconfont">&#xe68a;</i></span>
 				</li>
 				<li>
 					<span>状态</span>
