@@ -25,8 +25,8 @@ var htmlData={
 };
 //定义画册的几个模版
 var huaCeData={
-	bbs1:'<div bsdata = "1" imgNum="1"  class="bbs01 bbsA bbsClass marginAuto"><div class="myImgBox"><img src="" alt="" /><span nm="1"  type="1" class="editImg">编辑</span><a></a></div><img nm="1"  type="1" editCnfName="huace_170-235_24_single"  @click="ActionsheetIn"  src="http://image2.artup.com/resources/static/img/p_sucai_02.jpg"  class="sucaiClass" alt="" /></div><div class="textarea"><p nm="1" type="1" editCnfName="huace_170-235_24_single"  class="classP"></p></div>',
-	bbs2:'<div bsdata = "2"  imgNum="1" class="bbs02 bbsA bbsClass marginAuto"><div class="myImgBox"><img src="" alt="" /><span nm="1"  type="2" class="editImg">编辑</span><a></a></div><img nm="1"  type="2" editCnfName="huace_170-235_24_single"  src="http://image2.artup.com/resources/static/img/p_sucai_02.jpg"  class="sucaiClass" alt="" /></div><div class="textarea"><p nm="1" type="2" editCnfName="huace_170-235_24_single" class="classP"></p></div>',
+	bbs1:'<div bsdata = "1" imgNum="1"  class="hc01 bbsA bbsClass marginAuto"><div class="hc1"><div class="textarea textareahc"><p nm="1" type="1" editcnfname="huace_170-235_24_single" class="classP"></p></div><div class="textarea textareahc2"><p nm="2" type="1" editcnfname="huace_170-235_24_single" class="classP"></p></div></div></div>',
+	bbs2:'<div bsdata = "2"  imgNum="1" class="hc02 bbsA bbsClass marginAuto"><div class="hc1"><div class="textarea textareahc3"><p nm="1" type="1" editcnfname="huace_170-235_24_single" class="classP"></p></div><div class="textarea textareahc4"><p nm="2" type="1" editcnfname="huace_170-235_24_single" class="classP"></p></div></div></div>',
 	bbs3:'<div bsdata = "3" imgNum="1" class="bbs03 bbsA bbsClass marginAuto"><div class="myImgBox"><img src="" alt="" /><span nm="1"  type="3" class="editImg">编辑</span><a></a></div><img nm="1" type="3" editCnfName="huace_170-235_24_single"   src="http://image2.artup.com/resources/static/img/p_sucai_02.jpg"  class="sucaiClass" alt="" /></div>',
 	bbs4:'<div bsdata = "4" imgNum="1" class="bbs04 bbsA bbsClass marginAuto"><div class="myImgBox"><img src="" alt="" /><span nm="1"  type="4" class="editImg">编辑</span><a></a></div><img nm="1" type="4"  editCnfName="huace_170-235_24_single"  src="http://image2.artup.com/resources/static/img/p_sucai_02.jpg"  class="sucaiClass" alt="" /></div><div class="textarea"><p nm="1"  type="4" editCnfName="huace_170-235_24_single"  class="classP"></p></div>',
 	bbs5:'<div bsdata = "5" imgNum="2" class="bbsA allBbsClass"><div class="bbs05 bbsClass"><div class="myImgBox"><img src="" alt="" /><span nm="1"  type="5" class="editImg">编辑</span><a></a></div><img nm="1" type="5" editCnfName="huace_170-235_24_single"  src="http://image2.artup.com/resources/static/img/p_sucai_02.jpg"  class="sucaiClass" alt="" /></div><div class="bbs05 bbsClass"><div class="myImgBox"><img src="" alt="" /><span nm="2"  type="5" class="editImg">编辑</span><a></a></div><img nm="2" type="5" src="http://image2.artup.com/resources/static/img/p_sucai_02.jpg" editCnfName="huace_170-235_24_single" class="sucaiClass" alt="" /></div></div>',
@@ -42,9 +42,9 @@ var huaCeData={
 /*板式默认的格式*/
 //var typeHtmlLome = [htmlData.bbs09,htmlData.bbs10,htmlData.bbs10,htmlData.bbs10,htmlData.bbs10,htmlData.bbs10,htmlData.bbs10,htmlData.bbs10,htmlData.bbs10,htmlData.bbs10,htmlData.bbs10]
 
-//var typeHtmlLome = [htmlData.bbs9]	
+var typeHtmlLome = [htmlData.bbs9]	
 //var typeHtml = [htmlData.bbs01,htmlData.bbs02,htmlData.bbs01,htmlData.bbs03,htmlData.bbs01,htmlData.bbs01,htmlData.bbs03,htmlData.bbs03,htmlData.bbs04,htmlData.bbs04,htmlData.bbs02,htmlData.bbs05,htmlData.bbs06,htmlData.bbs02,htmlData.bbs07,htmlData.bbs04,htmlData.bbs08,htmlData.bbs02,htmlData.bbs02,htmlData.bbs01,htmlData.bbs02,htmlData.bbs02,htmlData.bbs06,htmlData.bbs03,htmlData.bbs01,htmlData.bbs02,htmlData.bbs03,htmlData.bbs01,htmlData.bbs04,htmlData.bbs03,htmlData.bbs01,htmlData.bbs04]
-//var typeHtml = [htmlData.bbs1]
+var typeHtml = [htmlData.bbs1]
 
 
 
