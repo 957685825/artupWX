@@ -1,14 +1,13 @@
 <template>
 	<div id="bbsMsg">
 		<mt-header title="宝宝书介绍">
-		 <router-link to="" @click.native="fn"  slot="left">
+		  <router-link to=""  v-tap="{ methods:linkGo }" slot="left">
 		    <mt-button icon="back">返回</mt-button>
 		  </router-link>
-		  <mt-button icon="more" slot="right"></mt-button>
-		</mt-header>
+		</mt-header>	
 		<span><a href="#bbsSelect">宝宝书介绍</a></span>
-		<p @click="fn">test</p>
 	</div>
+
 </template>
 
 <script>
@@ -20,13 +19,12 @@ export default {
 	    }
 	  },
     methods:{
-		fn(){
-			
+		linkGo(){
+			this.vurRouterGo();
 		}
     },
     mounted(){
-    	    //更改session
-    		this.addToSession();
+    	   
 	}
 }
 </script>

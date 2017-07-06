@@ -33,5 +33,10 @@ export default{
 			return obj;
 		}
     }
+     //路由返回上一页
+     Vue.prototype.vurRouterGo = function () {
+     	
+     	this.$router.go(-1)
+    }
   }
 }

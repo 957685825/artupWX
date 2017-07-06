@@ -1,9 +1,8 @@
 <template>
 	<div id="user">
 		<mt-header title="个人中心">
-		  <router-link to="/" slot="left">
+		   <router-link to=""  v-tap="{ methods:linkGo }" slot="left">
 		    <mt-button icon="back">返回</mt-button>
-		    <mt-button>关闭</mt-button>
 		  </router-link>
 		  <mt-button icon="more" slot="right"></mt-button>
 		</mt-header>
@@ -51,6 +50,22 @@
 </template>
 
 <script>
+import { Swipe, SwipeItem } from 'mint-ui';
+export default {
+	  data () {
+	    return {
+	     
+	    }
+	  },
+    methods:{
+		linkGo(){
+			this.vurRouterGo();
+		}
+    },
+    mounted(){
+    	   
+	}
+}
 </script>
 
 <style>

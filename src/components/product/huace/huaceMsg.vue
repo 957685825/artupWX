@@ -1,11 +1,11 @@
 <template>
 	<div id="bbsMsg">
 		<mt-header title="画册介绍">
-		 <router-link to="" @click.native="fn"  slot="left">
+		   <router-link to=""  v-tap="{ methods:linkGo }" slot="left">
 		    <mt-button icon="back">返回</mt-button>
 		  </router-link>
-		  <mt-button icon="more" slot="right"></mt-button>
-		</mt-header>
+		</mt-header>	
+
 		<div class="bottom">
 		    <img class="cart_size" src="http://image2.artup.com/resources/static/img/index/huace01.jpg">
 		    <div class="addCon_topText">
@@ -94,6 +94,7 @@
 		        </div>
 		    </div>
 		</div>
+
 	</div>
 </template>
 <script>
@@ -105,8 +106,8 @@ export default {
 	    }
 	  },
     methods:{
-		fn(){
-			
+		linkGo(){
+			this.vurRouterGo();
 		}
     },
     mounted(){
