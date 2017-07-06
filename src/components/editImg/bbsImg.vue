@@ -561,6 +561,25 @@
      this.typeHtml = typeHtml;
      this.lomok = typeHtmlLome;
       var oThis = this;
+      
+      
+    //拿到浏览器存储的书皮
+    var shupi = JSON.parse(localStorage.getItem("bbsSlsectDate")).colorName;
+    //动态切换书皮
+    checkColor(shupi,$('.fmPage'),$('.fdPage'),$('.fePage'))
+    var templateCode = "baobaoshu_170-235_24";//模版编码
+    var client = 'pc';   //手机，pc，app 设备等
+    var channel = '本站' //渠道
+
+    //图片操作的json值
+//  var cropitData = {"x":200.21,"y":400.32,"width":100,"height":300,"rotate":0,"thumbnailScale":1};
+
+    //定义3个hashMap
+    this.editData.ImgHashMap = new HashMap(); //图片
+    this.editData.lomHashMap =  new HashMap();//lom卡
+    this.editData.textMap = new HashMap();// 文本框
+      
+      
 	  //继续编辑初始化的数据
 	  if (this.$route.query.edtDbid) {
 	  	Indicator.open({
@@ -606,8 +625,9 @@
 					if (oImgData.length>0) {
 						for (var i = 0; i < oImgData.length; i++) {	
 							var constName = oImgData[i].page+'_'+oImgData[i].num;
+							console.log('缩小',oImgData[i].actions.thumbnailScale)
 							//map生成变量
-							var picObj = {"constName":constName,"picDbId" : oImgData[i].picDbId, "page" : oImgData[i].page, "editCnfIndex" : oImgData[i].editCnfIndex, "num" : oImgData[i].num, "actions" : {},
+							var picObj = {"constName":constName,"picDbId" : oImgData[i].picDbId, "page" : oImgData[i].page, "editCnfIndex" : oImgData[i].editCnfIndex, "num" : oImgData[i].num, "actions" : {"thumbnailScale":oImgData[i].actions.thumbnailScale},
 							"thumbnailImageUrl":oImgData[i].thumbnailImageUrl, "previewThumbnailImageUrl" :oImgData[i].previewThumbnailImageUrl, "crop" : oImgData[i].crop,"editCnfName" : oImgData[i].editCnfName};
 							oThis.editData.ImgHashMap.putvalue(constName,picObj);
 							var pageNum = oImgData[i].page+'_'+oImgData[i].num+'_'+oImgData[i].editCnfName;
@@ -643,22 +663,7 @@
                 this.bbs.Material[this.bbs.MaterialImgIndex].activeLi=true;
                 console.log(this.bbs.Material)
             })
-            //拿到浏览器存储的书皮
-            var shupi = JSON.parse(localStorage.getItem("bbsSlsectDate")).colorName;
-            //动态切换书皮
-            checkColor(shupi,$('.fmPage'),$('.fdPage'),$('.fePage'))
-            console.log(this.$el)
-            var templateCode = "baobaoshu_170-235_24";//模版编码
-            var client = 'pc';   //手机，pc，app 设备等
-            var channel = '本站' //渠道
-
-            //图片操作的json值
-            var cropitData = {"x":200.21,"y":400.32,"width":100,"height":300,"rotate":0,"thumbnailScale":1};
-
-            //定义3个hashMap
-            this.editData.ImgHashMap = new HashMap(); //图片
-            this.editData.lomHashMap =  new HashMap();//lom卡
-            this.editData.textMap = new HashMap();// 文本框
+            
 
 
             //图片上传时提交的参数

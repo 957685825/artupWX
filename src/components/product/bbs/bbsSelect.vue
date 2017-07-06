@@ -110,8 +110,9 @@
 			});	
 			//开始默认的时候，去拿我的作品列表判断是否有未完成的作品
 			this.bbsSlsectDate.category =this.getFromSession("category"); //类型字段
-			Api.work.workList("artup-build/builder/cors/edit/queryAll.do",1,0,this.bbsSlsectDate.category).then((res)=>{
-				if (res.data.results && res.data.results.length>0) {
+
+			Api.work.workList("artup-build/builder/cors/edit/queryByPage.do",1,0,this.bbsSlsectDate.category).then((res)=>{
+				if (res.data.results.length>0) {
 					MessageBox({
 					  title: '我的作品',
 					  message: '您有未完成的作品,需要编辑未完成的作品吗?',
@@ -121,7 +122,7 @@
 					}).then((res)=>{
 						if(res=="confirm"){//有未完成的作品
 							//跳转到未完成的页面去
-							window.location.href="#workList"
+							location.href="#workList"
 						}					
 					})
 				};				

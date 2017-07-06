@@ -12,6 +12,7 @@ export default {
     return { 
     		dataImg:{ //img
       	 imgArrType:[huaCeData.bbs5],
+      	 imgArrTypeData:huaCeData, //传递板式的对象
       	 imgArrLome:[],
       	 dataMsg:{
       	 	title:"画册",
@@ -27,7 +28,7 @@ export default {
     		
     },
     mounted(){
-    		
+
     }
 }
 </script>
