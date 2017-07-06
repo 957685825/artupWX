@@ -1,7 +1,7 @@
 <template>
 	<div id="bbs-select">
 		<mt-header title="选择产品">
-		  <router-link to="/" slot="left">
+		  <router-link to="" href="javascript:window.history.go(-1);" v-tap slot="left">
 		    <mt-button icon="back">返回</mt-button>
 		  </router-link>
 		</mt-header>		

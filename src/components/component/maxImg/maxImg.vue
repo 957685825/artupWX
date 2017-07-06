@@ -1,7 +1,7 @@
 <template>
 	<div id="bbsImg">
 		<mt-header  :title="titleEdit.titleEdit" v-show="previewPage" >
-			<router-link to="" slot="left">
+			<router-link  to="" slot="left">
 				<mt-button v-tap="{methods : ContinueEdit}"   icon="back">继续编辑</mt-button>
 			</router-link>
 			<router-link to="" v-tap="{methods : nextPageEdit}" slot="right">
@@ -9,7 +9,7 @@
 			</router-link>
 		</mt-header>
 		<mt-header :title="titleEdit.title" v-show="!previewPage">
-			<router-link to="" slot="left">
+			<router-link to="" v-tap="{ methods:linkGo }" slot="left">
 				<mt-button  icon="back">返回</mt-button>
 			</router-link>
 			<router-link to="" v-tap="{methods : nextPageEdit}" slot="right">
@@ -209,6 +209,10 @@
         },
         props: ['dataImg'],
         methods:{
+        	    //返回上一页
+	        	linkGo(){
+	        		this.vurRouterGo();
+	        	},
             goCart(){
                 var bbsSlsectDate = JSON.parse(localStorage.getItem("bbsSlsectDate"));
                 console.log(bbsSlsectDate)
