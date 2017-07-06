@@ -50,9 +50,7 @@
 				</li>
 				<li v-for="(item,index) in typeHtml">
 					<div class="bs">
-						<div class="bstp bstpfm">
-							<div  v-tap="{methods : ActionsheetIn,index : index}"  v-html="item" class="bsLeft imgBox"></div>
-						</div>
+						<div class="bstp bstpfm"><div v-tap="{methods : ActionsheetIn,index : index}"  v-html="item" class="bsLeft imgBox"></div></div>
 						<div class="bbsBtn">
 							<ul>
 								<li><p>第<span>{{index+1}}</span>页</p></li>
@@ -60,7 +58,11 @@
 							</ul>
 						</div>
 					</div>
+
 				</li>	
+
+				</li>
+
 				<li>
 					<div class="bs">
 						<div class="bsLeft imgBox">
@@ -75,19 +77,17 @@
 						</div>
 					</div>
 				</li>
-				
+
 				<li v-for="(item,index) in lomok">
 					<div class="bs">
 						<div class="bstp bstpfm"><div   v-tap="{methods : ActionsheetIn,index : index}"  v-html="item" class="bsLeft imgBox"></div></div>
 						<div class="bbsBtn">
 							<ul>
 								<li><p>第<span>{{index+1}}</span>页</p></li>
-
 							</ul>
 						</div>
 					</div>
 				</li>
-				
 			</ul>
 		</div>
 		<div class="cart_btn">

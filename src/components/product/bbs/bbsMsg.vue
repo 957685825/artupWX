@@ -24,7 +24,7 @@ export default {
 		}
     },
     mounted(){
-    	   
+    	   this.addToSession();
 	}
 }
 </script>
