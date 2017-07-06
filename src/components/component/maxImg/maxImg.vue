@@ -174,7 +174,7 @@
                 		oPrice:JSON.parse(localStorage.getItem("bbsSlsectDate")).price,//产品的价格
                     attrImg:true,//图片编辑存储的临时变量
                     index2:0,
-                    templateCode : "baobaoshu_170-235_24",
+                    templateCode : this.dataImg.dataMsg.tplCode,
                     imgUploadNumber:0,
                     textTextarea:'', //弹出框文本字段
                     Material:[], //素材库图片
@@ -189,12 +189,12 @@
                         ignore:"true",
                         operator:"add",
                         edtDbId:'',// 新生成的产品才有的字段
-                        tplCode:"", //暂时写死,父组件带入
+                        tplCode:this.dataImg.dataMsg.tplCode, //暂时写死,父组件带入
 //                      sessionId:localStorage.getItem("sessionId"),
                         userDbId:localStorage.getItem('userDbId'),
 //                      client:"mobile",//渠道前端传递，暂时写死
                         category:this.getFromSession("category"),//产品类型这里是宝宝书
-                        defDbId:"", //tplCode 模版暂时写死,父组件带入
+                        defDbId:this.dataImg.dataMsg.defDbId, //tplCode 模版暂时写死,父组件带入
                         channelCode:"zc",//暂时写死
                         sku:JSON.parse(localStorage.getItem("bbsSlsectDate")).name,
                         editPicture:[],//产品图片
@@ -357,7 +357,8 @@
                 console.log(oData)
                 jsonDpi.client = oData.client;
                 jsonDpi.channel = oData.channel;
-                jsonDpi.category = oData.category;
+                jsonDpi.category = this.getFromSession("category");
+                console.log(jsonDpi.category)
                 jsonDpi.pictureDbId = oData.dbId;
                 jsonDpi.templateCode= this.bbs.templateCode;
                 jsonDpi.editCnfName= this.bbs.editCnfName;
@@ -430,7 +431,7 @@
                 $("#fengdi .bbsClass").remove();
                 $("#fengdi .textarea").remove();
                  //动态修改模版的板式
-                this.typeHtml[this.bbs.index1] = htmlData[oIndexs];
+                this.typeHtml[this.bbs.index1] = huaCeData[oIndexs];
                 this.goAnchor("#offsetId");//跳转锚点
             },
             MaterialCheckImg(params){//图片素材库切换
@@ -564,7 +565,7 @@
 	 //初始化的时候默认宝宝书和lomo卡的html渲染模版,此处的数据是从父组件带带本组件中的
      this.typeHtml = this.dataImg.imgArrType;
      this.lomok = this.dataImg.imgArrLome;
-     
+      console.log(this.typeHtml)
       var oThis = this;
 	  //继续编辑初始化的数据
 	  if (this.$route.query.edtDbid) {
@@ -574,16 +575,18 @@
 		});
 	  	this.bbs.workEdit.edtDbId = this.$route.query.edtDbid;
 	  	Api.work.unfinishedWork("artup-build/builder/cors/edit/queryOne.do",this.$route.query.edtDbid).then((res)=>{
-	  		
-			var oImgData = JSON.parse(res.data.data.editPicture);
-			var oImgLomo = JSON.parse(res.data.data.lomo);
+
+			var oImgData = JSON.parse(res.data.data.editPicture);		
 			var editTxt = JSON.parse(res.data.data.editTxt);
+			if (res.data.data.lomo) {
+				var oImgLomo = JSON.parse(res.data.data.lomo);
+			}
 			var strbbs = 'bbs'
 			    //先加载板式让图片回显到页面
 				 for (var i = 0; i < oImgData.length; i++) {
 						var strbb = strbbs+oImgData[i].editCnfIndex;
 						 //动态修改模版的板式
-		                oThis.typeHtml.splice(oImgData[i].page-1,1,htmlData[strbb]) 						
+		                oThis.typeHtml.splice(oImgData[i].page-1,1,oThis.dataImg.imgArrTypeData[strbb]) 						
 	              }	
 	            //动态添加id节点
 				setTimeout(function(){
@@ -601,15 +604,15 @@
 							//map生成变量
 							 var textMapVal = {"content":editTxt[i].content,"page":editTxt[i].page,"num":editTxt[i].num,"editCnfIndex":editTxt[i].editCnfIndex,"editCnfName" : editTxt[i].editCnfName};						
 							 console.log(textMapVal)
-							 oThis.editData.textMap.putvalue(constName,textMapVal);
-							 
+							 oThis.editData.textMap.putvalue(constName,textMapVal);							 
 							var pageNum = editTxt[i].page+'_'+editTxt[i].num+'_'+editTxt[i].editCnfName;
 							$("#"+pageNum).parents(".bsLeft").find(".textarea  >p").text(editTxt[i].content);
 
 		               }
 					}
 					if (oImgData.length>0) {
-						for (var i = 0; i < oImgData.length; i++) {	
+						for (var i = 0; i < oImgData.length; i++) {
+							console.log(oImgData[i])
 							var constName = oImgData[i].page+'_'+oImgData[i].num;
 							//map生成变量
 							var picObj = {"constName":constName,"picDbId" : oImgData[i].picDbId, "page" : oImgData[i].page, "editCnfIndex" : oImgData[i].editCnfIndex, "num" : oImgData[i].num, "actions" : {},
@@ -621,7 +624,7 @@
 							$("#"+pageNum).remove();						
 	             	 }
 					}
-					if (oImgLomo.length) {
+					if (oImgLomo && oImgLomo.length>0) {
 						for (var i = 0; i < oImgLomo.length; i++) {
 							var constName = oImgLomo[i].page+'_'+oImgLomo[i].num;
 							//map生成变量
@@ -639,21 +642,21 @@
                 })
             }
             //素材库地址图片
-            Api.Material.MaterialData("artup-build/service/picture/page.do").then((res)=>{
+            Api.Material.MaterialData("artup-build/service/picture/page.do","").then((res)=>{
+            		console.log(res)
                 this.bbs.Material = res.data.results;
                 //添加属性切换属性
                 this.bbs.Material.forEach((arrJson,i)=>{
                     arrJson.activeLi = false;
                 })
                 this.bbs.Material[this.bbs.MaterialImgIndex].activeLi=true;
-                console.log(this.bbs.Material)
             })
             //拿到浏览器存储的书皮
             var shupi = JSON.parse(localStorage.getItem("bbsSlsectDate")).colorName;
             //动态切换书皮
             checkColor(shupi,$('.fmPage'),$('.fdPage'),$('.fePage'))
-            console.log(this.$el)
-            var templateCode = this.bbs.templateCode;//模版编码
+            console.log(this.bbs)
+            var templateCode =this.bbs.workEdit.tplCode;//模版编码
             console.log(templateCode)
             var client = 'pc';   //手机，pc，app 设备等
             var channel = '本站' //渠道
@@ -671,7 +674,7 @@
             var extraPostData = {};
             console.log(document.getElementById('browseButton'));
            
-            console.log(typeHtmlLome)
+//          console.log(typeHtmlLome)
 
 			/* 文件上传init */
 //          var uploadUrl = 'http://image2.artup.com/artup-build/builder/cors/picture/upload.do?format=json&sessionId=2141731&category=baobaoshu';

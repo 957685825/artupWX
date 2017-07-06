@@ -214,7 +214,7 @@ export default {
 	   	}
 	   },
 	   Material:{
-	   		MaterialData:(inter)=>{//素材数据
+	   		MaterialData:(inter,category)=>{//素材数据
 		   	  	return VueHttp.$http.get(HOST+inter, {
 						params: {
 				   	  		format:"json",
@@ -224,7 +224,7 @@ export default {
 				   	  		pageSize:50,
 				   	  		sort:"uploadDt",
 				   	  		order:"desc",
-				   	  		category:''
+				   	  		category:category
 				   	  	}
 				})
 	   	 }	   	 

@@ -111,8 +111,13 @@
 			},
 			continueEdit(params){ //继续编辑
 				//存入继续编辑页面的id
-				console.log(this.worklist[params.index].dbId)
-				location.href = "#BbsImg?edtDbid="+this.worklist[params.index].dbId;
+//				console.log(this.worklist[params.index].dbId)
+				if(this.worklist[params.index].category=="huace"){
+					location.href = "#huaceImgs?edtDbid="+this.worklist[params.index].dbId;
+				}else{					
+					location.href = "#BbsImg?edtDbid="+this.worklist[params.index].dbId;
+				}
+				
 				
 			}
 		},
