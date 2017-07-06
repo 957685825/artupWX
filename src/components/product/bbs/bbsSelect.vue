@@ -66,7 +66,7 @@
 				}
 			},
 			nextPage(){//下一页
-				location.href="#BbsImg"
+				location.href="#BbsImgs"
 			},
 			getPrice(dom){//获得页面的价格
 					this.bbsSlsectDate={};
