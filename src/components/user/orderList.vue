@@ -65,8 +65,18 @@
             }
         },
         methods: {
-        	gotoOrderPay(params){
-				location.href="#payOrder?openId=&orderDbId="+params.dbId+"&userDbId="+localStorage.getItem("userDbId");
+        	gotoOrderPay(params){ 
+                Api.car.cloneOrder({orderDbId:params.dbId, userDbId:localStorage.getItem("userDbId")}).then(res=>{
+                    if(res.data.code == 'success'){
+                        location.href="#payOrder?openId=&orderDbId="+params.dbId+"&userDbId="+localStorage.getItem("userDbId");
+                    } else {
+                        Toast('此订单数据错误，请联系客服！');
+                    }
+                    //console.log(res)
+                },err=>{
+                    Toast('数据请求错误');
+                })
+				
         	},
         	cancleOrder(params){
         		Api.car.cancleOrder({dbId:params.dbId}).then(res=>{
@@ -77,9 +87,7 @@
         			
         		})
         	},
-        	delectFn(params){
-        		
-        		
+        	delectFn(params){ 
         		var jsons = {
         			sessionId:localStorage.getItem("sessionId"),
         			dbId:params.dbid
@@ -93,8 +101,7 @@
 					}).then((res)=>{
 						if(res=="confirm"){
 							that.dataList.splice(params.index,1);
-							Api.car.deleteOrder(jsons).then(res=>{
-								console.log(res)
+							Api.car.deleteOrder(jsons).then(res=>{ 
 		        				if(res.data.code == 'success'){
 									Toast('订单删除成功');
 									if(this.dataList.length < 1){

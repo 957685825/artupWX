@@ -36,6 +36,8 @@ const UPDATE_ADDRESS = `${HOST}artup-build/builder/address/update/command.do?for
 const EDITOR_ADDRESS = `${HOST}artup-build/builder/address/queryById.do?format=json&ignore=true`
 /*创建订单*/
 const CREATE_ORDER = `${HOST}artup-build/builder/order/createOrder.do?format=json&ignore=true`
+/*克隆一个新订单*/
+const CLONE_ORDER = `${HOST}artup-build/builder/order/cloneOrder.do?format=json&ignore=true`
 /*获取订单*/
 const QUERY_ORDER = `${HOST}artup-build/builder/order/queryOrders.do?format=json&ignore=true`
 /*获取订单*/
@@ -101,12 +103,17 @@ export default {
 	   	 			qs.stringify(jsons)   	 				   	 		
 	   	 )
 	   	},
+	   	cloneOrder:(jsons)=>{//克隆订单
+	   		return VueHttp.$http.post(CLONE_ORDER,
+	   	 			qs.stringify(jsons)   	 				   	 		
+	   	 )
+	   	},
 	   	queryOrder:(jsons)=>{//订单详情
 	   	
 	   		return VueHttp.$http.get(QUERY_ORDER,{params:jsons})
 	   	},
 	   	updataOrderStatus:(jsons)=>{//改变订单状态
-	   		 
+
 	   		return VueHttp.$http.get(UPDATA_ORDER_STATUS,{params:jsons})
 	   	},
 	   	cancleOrder:(jsons)=>{//取消订单
