@@ -4,7 +4,7 @@
 			<router-link to="" slot="left">
 				<mt-button v-tap="{methods : ContinueEdit}"   icon="back">继续编辑</mt-button>
 			</router-link>
-			<router-link to="" v-tap="{methods : nextPageEdit}" slot="right">
+			<router-link to="" slot="right">
 				<mt-button v-tap="{methods : goCart}">添加购物车</mt-button>
 			</router-link>
 		</mt-header>
@@ -205,9 +205,10 @@
         },
         methods:{
             goCart(){
-                var bbsSlsectDate = JSON.parse(localStorage.getItem("bbsSlsectDate"));
+            	//alert(1)
+               var bbsSlsectDate = JSON.parse(localStorage.getItem("bbsSlsectDate"));
                 console.log(bbsSlsectDate)
-                var jsons = {
+               var jsons = {
                     operator:"add",
 //                  sessionId:localStorage.getItem("sessionId"),
                     userDbId:localStorage.getItem("userDbId"),
@@ -222,7 +223,7 @@
                     thumbnailImageUrl:this.bbs.workEdit.thumbnailImageUrl,
                     total:bbsSlsectDate.price
                 }
-                Api.car.addCar(jsons).then(res=>{
+               Api.car.addCar(jsons).then(res=>{
                     //var category = "baobaoshu"
                     location.href="#cart?edtDbId="+this.bbs.extraCode+"&category="+bbsSlsectDate.category
                 },err=>{
@@ -274,6 +275,7 @@
                 }
                 //保存函数
                 Api.work.workEdit("artup-build/builder/cors/edit/add/command.do",this.bbs.workEdit).then((res)=>{
+                	//alert(0)
 //				console.log(window.location.search)
                  this.bbs.workEdit.edtDbId = res.data.extraCode
 //				console.log(this.$route.query.edtDbid)

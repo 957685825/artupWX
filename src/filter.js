@@ -24,3 +24,9 @@ Vue.filter("splitSkuLast",function(value){
 		return arr[arr.length - 1];
 	}
 })
+Vue.filter("splitAddress",function(value){
+	if (value) {
+		
+		return value.length > 10 ? value.substr(0,10).concat('...'):value;
+	}
+})

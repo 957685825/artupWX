@@ -744,7 +744,7 @@
             >ul{
                 width: 18.93rem;
                 margin: 0.58rem auto;
-                height: 4.32rem;
+              
                 >li{
                     height: 100%;
                     >div{
@@ -757,6 +757,7 @@
                         position: relative;
                         border: 1px solid #dddddd;
                         border-radius: 4px;
+                        height: 3.6rem;
                         img{
                             max-height:4.32rem;
                             max-width: 4.48rem;
@@ -807,4 +808,173 @@
     width: 100%;
     height: 100%;
    
+   .bbsImg{
+        width: 100%;
+        position: relative;
+        height: 19.9375rem;
+        background: #eee;
+        position: relative;
+         .contioner{
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            background-position: center;
+            position: absolute;
+             left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto auto;
+            .hx{
+                width: 74%;
+                height: 74%;
+                background: #b5b5b5;
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                margin: auto auto;
+                >img{
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    left: 0;
+                    bottom: 0;
+                    margin: auto auto;
+                }
+                .imgBox{
+                    display: none;
+                    width: 100%;
+                    height: 100%;
+                    position: relative;
+                    >span{
+                       width: 4rem;
+                       height: 1.6rem;
+                       text-align: center;
+                       line-height: 1.6rem;
+                       background:rgba(0,0,0,0.5);
+                       position: absolute;
+                       top: 0;
+                       right: 0;
+                       bottom: 0;
+                       left: 0;
+                       margin: auto auto;
+                       color: #fff;
+                       font-size: 0.69rem;
+                       
+                    }
+                }
+               
+            }
+        }
+        > img {
+            max-height: 100%;
+            max-width: 100%;
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            top: 0;
+            margin: auto auto;
+        }
+   }
+      //选择
+    .slect_dl{
+        padding: 0 1.25rem;
+        min-height: 4.1875rem;
+        border: 1px solid #f5f5f5;
+        background: #fff;
+    
+        >dt{
+            line-height: 2.23125rem;
+            height: 2.03125rem;
+            font-size: 0.6875rem;
+            color: #666;            
+        }
+        >dd{
+                width: 100%;
+                overflow: hidden;
+                .dd_slect{
+                    width: 4rem;
+                    height: 1.3125rem;
+                    line-height: 1.3125rem;
+                    margin-right:0.463rem;
+                    border: 1px solid #ededed;
+                    box-sizing: border-box;float: left;
+                    margin-bottom: 0.3rem;
+                    overflow: hidden;
+                    position: relative;
+                    font-size: 0.625rem;
+                    text-align: center;
+                    >b{
+                        display: inline-block;
+                        width: 0.4375rem;
+                        height: 0.4375rem;
+                        border: 1px solid #efefef;
+                        margin-right: 0.2rem;
+                        background: #4170e9;
+                    }
+                }
+                .dd_slect:last-of-type{
+                    margin-right: 0;
+                }
+                 .dd_slectWidth{width: 8.2875rem !important;}
+                 .dd_slect:nth-of-type(2n+2){
+                     margin-right: 0;
+                 }
+                 .dd_active{
+                      border: 1px solid #5c5c5c !important;
+                 }
+            }
+    }
+}
+//页面底部样式
+  .cart_btn{
+        width: 100%;
+        height: 2.9375rem;
+        line-height: 2.9375rem;
+        position: fixed;
+        bottom: 0;left: 0;
+        font-size: 0.71875rem;
+        background: #000;
+        overflow: hidden;
+         padding: 0 0.6875rem;
+        >div{
+            float: left;
+        }
+        //全选
+
+    //价格
+    .price{
+        width: 5.5625rem;
+        height: 100%;
+        float: left;
+       
+        color: #fff;     
+        >span{
+            color: #f84845;
+            font-size: 0.8rem;
+            letter-spacing: 0.1rem;
+            padding-left: 0.2rem;
+            >b{
+                font-weight: 400;
+                font-size: 0.6rem;
+                padding-right: 0.1rem;
+            }
+        }
+    }
+    //结算
+    .crectOrder{
+        width: 4.4375rem;
+        height: 1.875rem;
+        line-height: 1.875rem;
+        box-sizing: border-box;
+        font-size: 0.71875rem;
+        color: #fff;
+        letter-spacing: 0.2rem;
+        text-align: right;
+        margin-top: 0.5175rem;
+        float: right;
+        margin-right:  1.2rem;
+    }
 }

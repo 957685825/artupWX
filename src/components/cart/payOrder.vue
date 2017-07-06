@@ -13,15 +13,15 @@
 		<div class="addressContet" v-bind:hidden="!addresBool" v-tap="{methods:updataAddress}">
 			<ul>
 				<li><span>收件人姓名</span><span>{{addressData.name}}({{addressData.mobile}})</span></li>
-				<li>{{addressData.province}}{{addressData.address}}</li>
+				<li>{{addressData.province}}{{addressData.address | splitAddress}}</li>
 				<i class="icon iconfont">&#xe65f;</i>
 			</ul>
 		</div>
 		<div class="content">
 			<div class="contentList clearfix">
-				<ul>
-					<li v-for="(itmes,index) in dataList.cars">
-						<div class="leftBox">
+				<ul class="clearfix">
+					<li class="clearfix" v-for="(itmes,index) in dataList.cars">
+						<div class="leftBox clearfix">
 							<img :src="itmes.thumbnailImageUrl"/>
 						</div>
 						<div class="rightBox">
