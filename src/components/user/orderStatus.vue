@@ -43,7 +43,7 @@
 									})
 									
 								}else if(res.errMsg == "chooseWXPay:cancel" ) {//用户取消订单
-									
+									alert('用户取消订单')
 									Api.car.updataOrderStatus({sessionId:localStorage.getItem("sessionId"),dbId:this.$route.query.dbId}).then(res=>{
 										if(res.data.code == 'success'){
 											location.href="#orderList"
