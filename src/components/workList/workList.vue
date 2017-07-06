@@ -115,7 +115,7 @@
 				if(this.worklist[params.index].category=="huace"){
 					location.href = "#huaceImgs?edtDbid="+this.worklist[params.index].dbId;
 				}else{					
-					location.href = "#BbsImg?edtDbid="+this.worklist[params.index].dbId;
+					location.href = "#BbsImgs?edtDbid="+this.worklist[params.index].dbId;
 				}
 				
 				

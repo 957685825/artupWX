@@ -13,6 +13,7 @@ export default {
       dataImg:{ //img
       	 imgArrType:[htmlData.bbs5,htmlData.bbs6],
       	 imgArrLome:[htmlData.bbs9,htmlData.bbs10],
+      	 imgArrTypeData:htmlData, //传递板式的对象
       	 dataMsg:{
       	 	title:"宝宝书",
       	 	titleEdit:"宝宝书预览",
