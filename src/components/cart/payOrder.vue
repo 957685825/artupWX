@@ -79,7 +79,9 @@
         methods: {
         	
         	gotoOrderPay(){
-        		location.href="#orderStatus?paymentType=WX&addressId="+this.addressData.dbId+"&dbId="+this.dataList.dbId+"&userDbId="+this.$route.query.userDbId+"&openId="+this.$route.query.openId;	
+                var payUrl = "#orderStatus?paymentType=WX&addressId="+this.addressData.dbId+"&dbId="+this.dataList.dbId+"&userDbId="+this.$route.query.userDbId+"&openId="+this.$route.query.openId;
+        		//console.log(payUrl);
+                location.href=	payUrl;
         	},
         	updataAddress(){
         		location.href="#Address?openId="+this.$route.query.openId+"&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("sessionId");
@@ -95,14 +97,11 @@
         		openId:this.$route.query.openId,
         		userDbId:this.$route.query.userDbId,
         		sessionId:localStorage.getItem("sessionId")
-        	}
-        	console.log(jsons)
-           Api.car.queryOrder(jsons).then(res=>{
-           	console.log(res)
+        	} 
+           Api.car.queryOrder(jsons).then(res=>{ 
            	if(res.data.length > 0){
            		this.dataList = res.data[0];
-           	}
-           		console.log(res.data)
+           	} 
            },err=>{
            		Toast('数据请求错误');
            })
@@ -114,9 +113,7 @@
            		if(res.data.length > 0){
            			this.addressData = res.data[0];
            			this.addresBool = true;
-           		}
-           		
-           		console.log(res)
+           		} 
            },err=>{
             	Toast('数据请求错误');
            })

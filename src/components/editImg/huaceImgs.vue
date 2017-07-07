@@ -10,10 +10,10 @@ import { Swipe, SwipeItem,Indicator } from 'mint-ui';
 export default {
   data () {
     return { 
-    		dataImg:{ //img
-      	 imgArrType:[huaCeData.bbs5,huaCeData.bbs4,huaCeData.bbs1],
-      	 imgArrTypeData:huaCeData, //传递板式的对象
-      	 imgArrLome:[],
+	    dataImg:{ //img
+	      	 imgArrType:[huaCeData.bbs5,huaCeData.bbs4,huaCeData.bbs1],
+	      	 imgArrTypeData:huaCeData, //传递板式的对象
+	      	 imgArrLome:[],
       	 dataMsg:{
       	 	title:"画册",
       	 	titleEdit:"画册预览",
