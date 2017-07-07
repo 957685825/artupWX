@@ -658,7 +658,10 @@
                 this.bbs.Material.forEach((arrJson,i)=>{
                     arrJson.activeLi = false;
                 })
-                this.bbs.Material[this.bbs.MaterialImgIndex].activeLi=true;
+                if(this.bbs.Material[this.bbs.MaterialImgIndex]){
+                    this.bbs.Material[this.bbs.MaterialImgIndex].activeLi=true;    
+                }
+                
             })
             //拿到浏览器存储的书皮
             var shupi = JSON.parse(sessionStorage.getItem("bbsSlsectDate")).colorName;
