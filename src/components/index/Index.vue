@@ -26,7 +26,7 @@
 					</router-link>
 				</li>
 				<li> 
-					<router-link to="">
+					<router-link to="tlSelect?category=taili">
 						<i style="font-size: 3.1875rem;" class="icon iconfont">&#xe686;</i>
 						<p>台历</p>
 					</router-link>

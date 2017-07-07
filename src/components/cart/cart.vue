@@ -148,7 +148,8 @@ export default {
 		},	
 		mounted(){			
 			var jsons = {
-				sessionId:localStorage.getItem("sessionId"),
+				
+				sessionId:this.getFromSession("sessionId"),
 	  			userDbId:localStorage.getItem("userDbId"),
 	  			status:1,
 	  			pageNum:0,
@@ -174,6 +175,7 @@ export default {
 			})
 			
 			console.log(this.$route.query)
+			
 		}
 	}
 	

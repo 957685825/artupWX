@@ -174,7 +174,7 @@
                 textareaTexts:false,//文本弹出框编辑
                 previewPage:false, //预览页面切换               
                 bbs:{
-                		oPrice:JSON.parse(localStorage.getItem("bbsSlsectDate")).price,//产品的价格
+                		oPrice:JSON.parse(sessionStorage.getItem("bbsSlsectDate")).price,//产品的价格
                     attrImg:true,//图片编辑存储的临时变量
                     index2:0,
                     templateCode : this.dataImg.dataMsg.tplCode,
@@ -199,7 +199,7 @@
                         category:this.getFromSession("category"),//产品类型这里是宝宝书
                         defDbId:this.dataImg.dataMsg.defDbId, //tplCode 模版暂时写死,父组件带入
                         channelCode:"zc",//暂时写死
-                        sku:JSON.parse(localStorage.getItem("bbsSlsectDate")).name,
+                        sku:JSON.parse(sessionStorage.getItem("bbsSlsectDate")).name,
                         editPicture:[],//产品图片
                         editTxt:[],//产品文字描述
                         lomo:[],//lomo卡图片
@@ -217,7 +217,7 @@
 	        		this.vurRouterGo();
 	        	},
             goCart(){
-                var bbsSlsectDate = JSON.parse(localStorage.getItem("bbsSlsectDate"));
+                var bbsSlsectDate = JSON.parse(sessionStorage.getItem("bbsSlsectDate"));
                 console.log(bbsSlsectDate)
                 var jsons = {
                     operator:"add",
@@ -284,6 +284,7 @@
                 			break;
                 		}
                 }
+               console.log(this.bbs.workEdit)
                 //保存函数
                 Api.work.workEdit("artup-build/builder/cors/edit/add/command.do",this.bbs.workEdit).then((res)=>{
 //				console.log(window.location.search)
@@ -582,6 +583,7 @@
 		});
 	  	this.bbs.workEdit.edtDbId = this.$route.query.edtDbid;
 	  	Api.work.unfinishedWork("artup-build/builder/cors/edit/queryOne.do",this.$route.query.edtDbid).then((res)=>{
+	  		//console.log(res)
 
 			var oImgData = JSON.parse(res.data.data.editPicture);		
 			var editTxt = JSON.parse(res.data.data.editTxt);
@@ -656,10 +658,13 @@
                 this.bbs.Material.forEach((arrJson,i)=>{
                     arrJson.activeLi = false;
                 })
-                this.bbs.Material[this.bbs.MaterialImgIndex].activeLi=true;
+                if(this.bbs.Material[this.bbs.MaterialImgIndex]){
+                    this.bbs.Material[this.bbs.MaterialImgIndex].activeLi=true;    
+                }
+                
             })
             //拿到浏览器存储的书皮
-            var shupi = JSON.parse(localStorage.getItem("bbsSlsectDate")).colorName;
+            var shupi = JSON.parse(sessionStorage.getItem("bbsSlsectDate")).colorName;
             //动态切换书皮
             checkColor(shupi,$('.fmPage'),$('.fdPage'),$('.fePage'))
             console.log(this.bbs)
@@ -701,6 +706,7 @@
                         //触发uploadStart
                         r.upload();} else {r.cancel();}
                 });
+                
                 //开始上传
                 r.on('uploadStart', function(){
                     //组装后端需要的数据
