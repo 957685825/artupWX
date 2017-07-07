@@ -53,7 +53,7 @@
 					$(params.event.target).removeClass('circleNone');
 					$(params.event.target).find('i').show();
 					var jsons = {
-							sessionId:localStorage.getItem("sessionId"),
+							sessionId:this.getFromSession("sessionId"),
 							dbId:params.dbid
 						}
 					Api.address.setDefaultAddress(jsons).then(res=>{
@@ -72,7 +72,7 @@
 			/*删除地址*/
 			deleteAddress(params){
 				var jsons = {
-					sessionId:localStorage.getItem("sessionId"),
+					sessionId:this.getFromSession("sessionId"),
 					dbId:params.dbId
 				};
 				var index = params.index;
@@ -107,7 +107,7 @@
 			var jsons = {
 				userDbId:localStorage.getItem("userDbId"),
 				status:1,
-				sessionId:localStorage.getItem("sessionId"),
+				sessionId:this.getFromSession("sessionId"),
 				pageNum:0,
 				pageSize:15,
 				sort:'createdDt'

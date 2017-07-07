@@ -89,7 +89,7 @@
 						//价格计算
 						 this.price = res.data.price;
 						 this.bbsSlsectDate.price = res.data.price;
-						 localStorage.setItem("bbsSlsectDate",JSON.stringify(this.bbsSlsectDate))
+						 sessionStorage.setItem("bbsSlsectDate",JSON.stringify(this.bbsSlsectDate))
 					})
 			}
 		},
@@ -100,7 +100,7 @@
 			Indicator.open({text: '页面加载中...',spinnerType: 'fading-circle'});
 			Api.baobaoshu.bbsSelect("artup-build/builder/service/baobaoshu/attributes.do?format=json&ignore=true").then((res)=>{
 				//添加1个titleName
-				 localStorage.setItem('titleName',res.data.name);
+				 sessionStorage.setItem('titleName',res.data.name);
 				 this.bbs= res.data;
 				 //给数据里面添加1个判断class的对象
 				 this.checkColor(this.bbs.attributes,0)				 
