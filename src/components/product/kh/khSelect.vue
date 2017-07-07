@@ -1,5 +1,7 @@
 <template>
 	<div id="khSelect">
+		<file-load @getImgData="getImg" :extraPostDatas="extraPostData" :sheetVisible="sheetV" ></file-load>
+		
 		<mt-header title="艺术框画">
 		  <router-link to="/" slot="left">
 		    <mt-button icon="back"></mt-button>
@@ -9,7 +11,7 @@
 		<div class="bbsImg">
 			<div class="contioner" :style="{width:CaseData.currentWidth,height:CaseData.currentHeight,backgroundImage:CaseData.urls}">
 				<div class="hx" :style="{width:CaseData.smallWidth,height:CaseData.smallHeight}">
-					<img src="http://image2.artup.com/resources/static/img/p_sucai_02.jpg" alt="" />
+					<img @click="imgshow" src="http://image2.artup.com/resources/static/img/p_sucai_02.jpg" alt="" />
 					<div class="imgBox" >
 						<span>编辑</span>
 						<img src="" alt="" />
@@ -86,17 +88,39 @@
 </template>
 	
 <script>
-	//import Selects from './selecgKh.js'
 	import selectKh from '../../../store/selectKh.js'
+	import fileLoad from '../../component/publicComponent/fileLoad.vue'
 	export default{
 		data(){
 			return{
 				CaseData:'',
 				size:'',
-				type:''
+				type:'',
+				sheetV:false, //组件的开关
+				extraPostData:{
+					category :"kuanghua",
+					client :'mobile',
+					channel:'',
+					userDbId :"", 
+					picPage : 1,
+					picNum : 1,
+					styleType : 1,
+					editCnfName :'kuanghua_400X500',
+					templateCode : 'kuanghua_400X500',				
+					defDbId:'6afedcf6-b0e4-447d-afd9-c70449f42f50'
+				}
 			}
 		},
+		components:{  
+	       fileLoad
+	    },
 		methods:{
+			imgshow(){ //显示上传
+				this.sheetV =!this.sheetV;
+			},
+			getImg(val){ //获取组件图片
+				console.log(val)
+			},
 			updataType(params){//选择框型
 				this.type = $(params.event.target).text();
 				$(params.event.target).addClass('dd_active').siblings().removeClass('dd_active')
@@ -106,8 +130,7 @@
 			updataSize(params){//选择尺寸
 				this.size = $(params.event.target).text();
 				$(params.event.target).addClass('dd_active').siblings().removeClass('dd_active')
-				this.initStyle();
-				
+				this.initStyle();				
 			},
 			initStyle(){//初始化数据
 				var size = this.trimStr(this.size);
@@ -122,11 +145,15 @@
 
 		},
 		mounted(){
+			 this.addToSession();
+			 
 			/*默认画框样式*/
 			this.size = this.trimStr($('.size:nth-child(1)').text());
 			this.type = this.trimStr($('.type:nth-child(1)').text());
 			this.initStyle();
 			
+			
+		
 		
 		}
 	}

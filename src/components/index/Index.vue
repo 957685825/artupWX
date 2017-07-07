@@ -32,7 +32,7 @@
 					</router-link>
 				</li>
 				<li>
-					<router-link to="khSelect">
+					<router-link to="khSelect?category=kuanghua">
 						<i style="font-size: 3.1875rem;" class="icon iconfont">&#xe628;</i>
 						<p>框画</p>
 					</router-link>
