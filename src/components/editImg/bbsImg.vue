@@ -168,7 +168,7 @@
                 textareaTexts:false,//文本弹出框编辑
                 previewPage:false, //预览页面切换
                 bbs:{
-                		oPrice:JSON.parse(localStorage.getItem("bbsSlsectDate")).price,//产品的价格
+                		oPrice:JSON.parse(sessionStorage.getItem("bbsSlsectDate")).price,//产品的价格
                     attrImg:true,//图片编辑存储的临时变量
                     index2:0,
                     templateCode : "baobaoshu_170-235_24",
@@ -193,7 +193,7 @@
                         category:this.getFromSession("category"),//产品类型这里是宝宝书
                         defDbId:"7ad740df-0b81-418f-b4b5-c078ef580b47", //tplCode 模版暂时写死
                         channelCode:"zc",//暂时写死
-                        sku:JSON.parse(localStorage.getItem("bbsSlsectDate")).name,
+                        sku:JSON.parse(sessionStorage.getItem("bbsSlsectDate")).name,
                         editPicture:[],//产品图片
                         editTxt:[],//产品文字描述
                         lomo:[],//lomo卡图片
@@ -207,7 +207,7 @@
         methods:{
             goCart(){
             	//alert(1)
-               var bbsSlsectDate = JSON.parse(localStorage.getItem("bbsSlsectDate"));
+               var bbsSlsectDate = JSON.parse(sessionStorage.getItem("bbsSlsectDate"));
                 console.log(bbsSlsectDate)
                var jsons = {
                     operator:"add",
@@ -565,7 +565,7 @@
       
       
     //拿到浏览器存储的书皮
-    var shupi = JSON.parse(localStorage.getItem("bbsSlsectDate")).colorName;
+    var shupi = JSON.parse(sessionStorage.getItem("bbsSlsectDate")).colorName;
     //动态切换书皮
     checkColor(shupi,$('.fmPage'),$('.fdPage'),$('.fePage'))
     var templateCode = "baobaoshu_170-235_24";//模版编码

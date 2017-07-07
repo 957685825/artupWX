@@ -89,7 +89,7 @@
         	},
         	delectFn(params){ 
         		var jsons = {
-        			sessionId:localStorage.getItem("sessionId"),
+        			sessionId:this.getFromSession("sessionId"),
         			dbId:params.dbid
         		}
         		var that = this;

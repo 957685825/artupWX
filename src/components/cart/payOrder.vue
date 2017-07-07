@@ -96,7 +96,7 @@
         		orderDbId:this.$route.query.orderDbId,
         		openId:this.$route.query.openId,
         		userDbId:this.$route.query.userDbId,
-        		sessionId:localStorage.getItem("sessionId")
+        		sessionId:this.getFromSession("sessionId")
         	} 
            Api.car.queryOrder(jsons).then(res=>{ 
            	if(res.data.length > 0){
@@ -107,7 +107,7 @@
            })
            var addJsons= {
            		userDbId:this.$route.query.userDbId,
-           		sessionId:localStorage.getItem("sessionId")
+           		sessionId:this.getFromSession("sessionId")
            }
            Api.address.defaultAddress(addJsons).then(res=>{
            		if(res.data.length > 0){
