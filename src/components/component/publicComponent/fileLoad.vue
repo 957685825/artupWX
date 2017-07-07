@@ -54,14 +54,31 @@
         			 this.extraPostData = this.extraPostDatas
         		},
         		slectUpload(){
+        			Indicator.open({text: '素材加载中...',spinnerType: 'fading-circle'});
+		    		//素材库地址图片
+		        Api.Material.MaterialData("artup-build/service/picture/page.do","").then((res)=>{		
+		            this.Material = res.data.results;
+		            //添加属性切换属性
+		            this.Material.forEach((arrJson,i)=>{		
+		                arrJson.activeLi = false;
+		            })
+		            this.Material[this.MaterialImgIndex].activeLi=true;
+		            setTimeout(function(){
+			        	 //计算素材库图片的位置
+		                $(".img_div ul li").each(function(i,el){
+		                    setTimeout(function(){
+		                        dragThumb($(el).find("img"),$(el));
+		                    },100)
+		                })
+			        },200)
+		            //关闭弹窗
+		           Indicator.close();
+		        })   
+		        
+		        
         			this.sheetVisibles = false;
                 this.popupVisible = true;
-                //计算素材库图片的位置
-                $(".img_div ul li").each(function(i,el){
-                    setTimeout(function(){
-                        dragThumb($(el).find("img"),$(el));
-                    },100)
-                })
+                
         	   },
         	   MaterialCheckImg(params){ //选择图片
 	    			this.Material.forEach((arrJson,i)=>{
@@ -87,17 +104,7 @@
 			var oThis = this;
 			
 			
-			 //素材库地址图片
-            Api.Material.MaterialData("artup-build/service/picture/page.do","").then((res)=>{
-
-                this.Material = res.data.results;
-                //添加属性切换属性
-                this.Material.forEach((arrJson,i)=>{
-
-                    arrJson.activeLi = false;
-                })
-                this.Material[this.MaterialImgIndex].activeLi=true;
-            })
+			
 			
 			
 			
