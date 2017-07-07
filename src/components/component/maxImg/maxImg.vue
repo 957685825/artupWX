@@ -435,7 +435,7 @@
                 $("#fengdi .bbsClass").remove();
                 $("#fengdi .textarea").remove();
                  //动态修改模版的板式
-                this.typeHtml[this.bbs.index1] = huaCeData[oIndexs];
+                this.typeHtml[this.bbs.index1] = this.dataImg.imgArrTypeData[oIndexs];
                 this.goAnchor("#offsetId");//跳转锚点
             },
             MaterialCheckImg(params){//图片素材库切换

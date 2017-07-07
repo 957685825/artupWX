@@ -11,13 +11,9 @@ export default {
   data () {
     return { 
     		dataImg:{ //img
-<<<<<<< HEAD
-      	 imgArrType:[huaCeData.bbs5,huaCeData.bbs4,huaCeData.bbs1],
-=======
-      	 imgArrType:[huaCeData.bbs1,huaCeData.bbs2,huaCeData.bbs3,huaCeData.bbs4,huaCeData.bbs5,huaCeData.bbs6],
->>>>>>> 94e1a120feab4ee70e3e4c7808e859a677204cc4
-      	 imgArrTypeData:huaCeData, //传递板式的对象
-      	 imgArrLome:[],
+	      	 imgArrType:[huaCeData.bbs1,huaCeData.bbs2,huaCeData.bbs3,huaCeData.bbs4,huaCeData.bbs5,huaCeData.bbs6],
+	      	 imgArrTypeData:huaCeData, //传递板式的对象
+	      	 imgArrLome:[],
       	 dataMsg:{
       	 	title:"画册",
       	 	titleEdit:"画册预览",
