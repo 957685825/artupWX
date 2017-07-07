@@ -73,21 +73,21 @@ export default {
 //    'add','testBtn'
 //  ]),
     methods:{
-//	    	mapActions([
-//	      'add','testBtn'
-//	    ])
+		fetchData(){
+			sessionStorage.setItem('urlQuery',JSON.stringify(this.$route.query))			
+			if (this.$route.query.userDbId) {
+				localStorage.setItem('userDbId',this.$route.query.userDbId)
+			}
+		}
     },
     mounted(){
-
     		Indicator.open({
 		  text: '加载中...',
 		  spinnerType: 'fading-circle'
 		});
+		console.log(this.$route.query)
 		if (JSON.stringify(this.$route.query)!="{}") { 
-			sessionStorage.setItem('urlQuery',JSON.stringify(this.$route.query))
-			if (this.$route.query.userDbId) {
-				localStorage.setItem('userDbId',this.$route.query.userDbId)
-			}			
+				this.fetchData();		
 		}else{
 
 			if (!localStorage.getItem('userDbId')) {
@@ -105,9 +105,10 @@ export default {
 			Indicator.close();
 
 		})
-		
-
-	}
+	},
+	 watch:{
+        $route:'fetchData'
+     }
 }
 </script>
 
