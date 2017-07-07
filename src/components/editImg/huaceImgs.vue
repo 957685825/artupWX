@@ -10,8 +10,8 @@ import { Swipe, SwipeItem,Indicator } from 'mint-ui';
 export default {
   data () {
     return { 
-    		dataImg:{ //img
-	      	 imgArrType:[huaCeData.bbs1,huaCeData.bbs2,huaCeData.bbs3,huaCeData.bbs4,huaCeData.bbs5,huaCeData.bbs6],
+	    dataImg:{ //img
+	      	 imgArrType:[huaCeData.bbs5,huaCeData.bbs4,huaCeData.bbs1],
 	      	 imgArrTypeData:huaCeData, //传递板式的对象
 	      	 imgArrLome:[],
       	 dataMsg:{
@@ -23,7 +23,6 @@ export default {
 	   }
     	}
   },
-// props: ['dataImg'],
     methods:{
     		
     },

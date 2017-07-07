@@ -83,6 +83,7 @@
 					//组装后端需要的数据暂存浏览器
 					this.bbsSlsectDate.name = this.bbs.name+'.'+dataCode2;
 					this.bbsSlsectDate.category =this.getFromSession("category"); //类型字段
+					console.log(this.getFromSession("category"))
 				 	//请求价格:			
 					Api.baobaoshu.bbsPrice(`artup-build/builder/price.do?format=json&ignore=true&category=${this.bbsSlsectDate.category}&parameter=${dataCode}`).then((res)=>{
 						//价格计算
@@ -94,6 +95,7 @@
 		},
 		mounted(){
 			var This = this;
+			
 			//宝宝书选择作品
 			Indicator.open({text: '页面加载中...',spinnerType: 'fading-circle'});
 			Api.baobaoshu.bbsSelect("artup-build/builder/service/baobaoshu/attributes.do?format=json&ignore=true").then((res)=>{

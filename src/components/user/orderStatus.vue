@@ -33,7 +33,7 @@
 							wxpay(res.data,function callback(res){ 
 								if(res.errMsg=="chooseWXPay:fail"){
 									Toast('调起支付失败');
-									Api.car.updataOrderStatus({dbId:jsons.dbId}).then(res=>{
+									Api.car.updataOrderStatus({dbId:jsons.dbId, status:1}).then(res=>{
 										if(res.data.code == 'success'){
 											location.href="#orderList"
 										}
@@ -44,7 +44,7 @@
 									
 								}else if(res.errMsg == "chooseWXPay:cancel" ) {//用户取消订单
                                     
-									Api.car.updataOrderStatus({dbId:jsons.dbId}).then(res=>{
+									Api.car.updataOrderStatus({dbId:jsons.dbId, status:1}).then(res=>{
 										if(res.data.code == 'success'){
 											location.href="#orderList"
 										}
@@ -57,20 +57,13 @@
 									
 								}else{
 									Toast('支付成功');
-									Api.car.updataOrderStatus({dbId:jsons.dbId}).then(res=>{
-										if(res.data.code == 'success'){
-											location.href="#orderList"
-										}
-										
-									},err=>{
-										Toast('请求数据失败');
-									})
+                                    location.href="#orderList";
 								}
 							}); 
 						}
 					} else {
 						Toast('支付失败');
-        				Api.car.updataOrderStatus({dbId:jsons.dbId}).then(res=>{
+        				Api.car.updataOrderStatus({dbId:jsons.dbId, status:1}).then(res=>{
 							if(res.data.code == 'success'){
 								location.href="#orderList"
 							}

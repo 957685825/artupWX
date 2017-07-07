@@ -58,7 +58,11 @@
 							</ul>
 						</div>
 					</div>
+
+				</li>	
+
 				</li>
+
 				<li>
 					<div class="bs">
 						<div class="bsLeft imgBox">
@@ -80,7 +84,6 @@
 						<div class="bbsBtn">
 							<ul>
 								<li><p>第<span>{{index+1}}</span>页</p></li>
-								<!--<li><a v-tap="{methods : switchBs,index : index}">更换板式</a></li>-->
 							</ul>
 						</div>
 					</div>
