@@ -376,13 +376,13 @@
 
                 console.log(jsonDpi)
                 //素材库dpi成功
-                Api.work.checkDPI(jsonDpi).then(res=>{
+                Api.work.checkDPI(jsonDpi).then(res=>{ 
                     //res.data.thumbnailScale  缩放比
-                    var constName = this.bbs.page+'_'+this.bbs.num; //几页加第几张图
-                    var picObj = {"constName":constName,"picDbId" : oData.dbId, "page" : this.bbs.page, "editCnfIndex" : this.bbs.styleType, "num" : this.bbs.num, actions : {thumbnailScale:res.data.thumbnailScale},
-                        "thumbnailImageUrl":oData.thumbnailUrl, "previewThumbnailImageUrl" :oData.previewThumbnailImageUrl, "crop" : "false","editCnfName" : this.bbs.editCnfName};
-
-                    if (this.bbs.editCnfName=="baobaoshu_lomo") { //判断是lomo卡的东西
+                    var constName = res.data.picPage+'_'+res.data.picNum; //几页加第几张图
+                    var picObj = {"constName":constName,"picDbId" : res.data.pictureDbId, "page" : res.data.picPage, "editCnfIndex" : res.data.styleType, "num" : res.data.picNum, actions : {thumbnailScale:res.data.thumbnailScale},
+                        "thumbnailImageUrl":oData.thumbnailUrl, "previewThumbnailImageUrl" :res.data.previewThumbnailImageUrl, "crop" : "false","editCnfName" : res.data.editCnfName};
+console.log(picObj);
+                    if (res.data.editCnfName=="baobaoshu_lomo") { //判断是lomo卡的东西
                         this.editData.lomHashMap.putvalue(constName,picObj);//存入lomo卡的对象
                         Indicator.close();//关闭弹出框
                         this.sheetVisible = false;
@@ -391,14 +391,13 @@
                     }
                     //存入图片ImgHashMap
                     this.editData.ImgHashMap.putvalue(constName,picObj);
-                    console.log(this.editData.ImgHashMap.getvalue('1_1'))
+                    //console.log(this.editData.ImgHashMap.getvalue('1_1'))
                     //隐藏两个弹窗
                     this.sheetVisible = false;
                     this.popupVisible = false;
                 })
             },
-            editWork(){//保存作品
-                console.log(this.editData)
+            editWork(){//保存作品 
                 this.assembleData();
             },
             goAnchor(selector) { //跳转锚点的函数
