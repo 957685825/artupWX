@@ -13,7 +13,7 @@
 				<div class="hx" :style="{width:CaseData.smallWidth,height:CaseData.smallHeight}">
 					<img @click="imgshow" id="updateBtn" src="http://image2.artup.com/resources/static/img/p_sucai_02.jpg" alt="" />
 					<div class="imgBox" >
-						<span v-tap='editer'>编辑</span>
+						<span class="editSpan" v-tap='{methods:editer}'>编辑</span>
 						<img id="showImg" src="" alt="" />
 					</div>
 				</div>
@@ -133,8 +133,7 @@
 			updataType(params){//选择框型
 				this.type = $(params.event.target).text();
 				$(params.event.target).addClass('dd_active').siblings().removeClass('dd_active')
-				this.initStyle();
-				
+				this.initStyle();				
 			},
 			updataSize(params){//选择尺寸
 				this.size = $(params.event.target).text();
@@ -150,12 +149,28 @@
 			trimStr(str){//字符串去空格
 				return str.replace(/(^\s*)|(\s*$)/g,"");
 			},
-			editer(){
-				
+			editer(params){
+			   if ($(params.event.target).hasClass("editSpan")) {
+			   		this.editorImage({a:1})
+			   }
 			},
 			editFinish(dn){
 				console.log(dn)
-			}
+			},
+			 editorImage(jsons){
+	            console.log('宽高',jsons)
+	            this.$store.commit(
+	                'showEditor',
+	                {
+	                    imgSrc: jsons.oSrc,
+	                    imgSize: {width: jsons.oW, height: jsons.oH},
+	                    initialCrop:jsons.actions,
+	                    customParams:{
+	                        thumbnailScale:jsons.thumbnailScale
+	                    }
+	                }
+	            )
+	        }
 
 		},
 		mounted(){
