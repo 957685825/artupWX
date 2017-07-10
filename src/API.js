@@ -18,12 +18,19 @@ const VueHttp = new Vue();
 var  userDbIds = localStorage.getItem('userDbId');	
 var  sessionIds = "";
 
+/*图片上传地址*/
 const  UPLOAD_URL = `${STATIC_SERVER_HOST}artup-build/builder/cors/picture/upload.do?format=json&userDbId=${userDbIds}`;
+/*查询素材库*/
+const  QUERY_PICTURE_URL = `${HOST}artup-build/service/picture/page.do?format=json&ignore=true`;
+/*未完成作品*/
+const  QUERY_UNFINISHED_WORK_URL = `${HOST}artup-build/builder/cors/edit/queryOne.do?format=json&ignore=true`;
+/*保存作品*/
+const  SAVE_WORK_URL = `${HOST}artup-build/builder/cors/edit/add/command.do?format=json&ignore=true`;
+
 /*添加购物车*/
 const ADD_CAR = `${HOST}artup-build/builder/cors/car/add/command.do?format=json&ignore=true`
 /*购物车列表*/
 const CAR_LIST = `${HOST}artup-build/builder/cors/car/queryByPage.do?format=json&ignore=true`
-
 /*收货地址*/
 const ADDRESS = `${HOST}artup-build/builder/address/queryByPage.do?format=json&ignore=true`
 /*删除收货地址*/
@@ -172,9 +179,9 @@ export default {
 	   	  }
 	   },
 	   work:{ //作品的接口post方法(保存)
-	   	 	workEdit:(inter,jsons)=>{	
+	   	 	workEdit:(jsons)=>{	
 				jsons = VueHttp.sourceSession(jsons)
-	   	 		return VueHttp.$http.post(HOST+inter,
+	   	 		return VueHttp.$http.post(SAVE_WORK_URL,
 	   	 			qs.stringify(jsons)   	 				   	 		
 	   	 		)
 	   	 	},
@@ -194,15 +201,9 @@ export default {
 				   	  	}
 			})
 	   	  },
-	   	  unfinishedWork:(inter,edtDbId)=>{//素材数据
-		   	  	return VueHttp.$http.get(HOST+inter, {
-	   	 			params: {
-			   	  		format:"json",
-			   	  		ignore:"true",
-			   	  		userDbId:userDbIds,
-			   	  		sessionId:sessionIds,
-			   	  		edtDbId:edtDbId				   	  		
-				   	}
+	   	  unfinishedWork:(paramJson)=>{//素材数据
+		   	  	return VueHttp.$http.get(QUERY_UNFINISHED_WORK_URL, {
+	   	 			params: paramJson 	
 				})
 	   	 },
 	   	 checkDPI:(jsons)=>{
@@ -222,20 +223,27 @@ export default {
 	   	}
 	   },
 	   Material:{
-	   		MaterialData:(inter,category)=>{//素材数据
-		   	  	return VueHttp.$http.get(HOST+inter, {
-						params: {
-				   	  		format:"json",
-				   	  		userDbId:userDbIds,
-				   	  		status:1,
-				   	  		pageNum:0,
-				   	  		pageSize:50,
-				   	  		sort:"uploadDt",
-				   	  		order:"desc",
-				   	  		category:category
+	   // 		MaterialData:(inter,category)=>{//素材数据
+		  //  	  	return VueHttp.$http.get(HOST+inter, {
+				// 		params: {
+				//    	  		format:"json",
+				//    	  		userDbId:userDbIds,
+				//    	  		status:1,
+				//    	  		pageNum:0,
+				//    	  		pageSize:50,
+				//    	  		sort:"uploadDt",
+				//    	  		order:"desc",
+				//    	  		category:category
+				//    	  	}
+				// })
+	   // 	 }
+	   		MaterialData:(paramJson)=>{//素材数据
+		   	  	return VueHttp.$http.get(QUERY_PICTURE_URL, 
+						 {
+				   	  		params: paramJson
 				   	  	}
-				})
-	   	 }	   	 
+				)
+	   	 	}	   	 
 	   },
 	   UPLOAD_URL:UPLOAD_URL,
 	   

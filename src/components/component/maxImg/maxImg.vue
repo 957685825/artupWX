@@ -286,7 +286,7 @@
                 }
 
                 //保存函数
-                Api.work.workEdit("artup-build/builder/cors/edit/add/command.do",this.bbs.workEdit).then((res)=>{
+                Api.work.workEdit(this.bbs.workEdit).then((res)=>{
 
                  this.bbs.workEdit.edtDbId = res.data.extraCode
 
@@ -581,7 +581,12 @@
 		  spinnerType: 'fading-circle'
 		});
 	  	this.bbs.workEdit.edtDbId = this.$route.query.edtDbid;
-	  	Api.work.unfinishedWork("artup-build/builder/cors/edit/queryOne.do",this.$route.query.edtDbid).then((res)=>{
+
+        var paramsJson={
+                        userDbId:localStorage.getItem('userDbId'),
+                        edtDbId:this.$route.query.edtDbid                         
+                    };
+	  	Api.work.unfinishedWork(paramsJson).then((res)=>{
 	  		//console.log(res)
 
 			var oImgData = JSON.parse(res.data.data.editPicture);		
@@ -669,7 +674,7 @@
             }    
 
             //素材库地址图片
-            Api.Material.MaterialData("artup-build/service/picture/page.do", paramJson).then((res)=>{ 
+            Api.Material.MaterialData(paramJson).then((res)=>{ 
                 this.bbs.Material = res.data.results;
                 //添加属性切换属性
                 this.bbs.Material.forEach((arrJson,i)=>{
