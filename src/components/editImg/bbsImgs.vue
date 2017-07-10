@@ -13,6 +13,9 @@ export default {
       dataImg:{ //img
       	 imgArrType:[htmlData.bbs5,htmlData.bbs6],
       	 imgArrLome:[htmlData.bbs9,htmlData.bbs10],
+      	 mobanArr:['http://image2.artup.com/resources/static/img/bbs_bs1.jpg','http://image2.artup.com/resources/static/img/bbs_bs2.jpg','http://image2.artup.com/resources/static/img/bbs_bs3.jpg',
+                    'http://image2.artup.com/resources/static/img/bbs_bs4.jpg','http://image2.artup.com/resources/static/img/bbs_bs5.jpg','http://image2.artup.com/resources/static/img/bbs_bs6.jpg',
+                    'http://image2.artup.com/resources/static/img/bbs_bs7.jpg','http://image2.artup.com/resources/static/img/bbs_bs8.jpg'],//模版对应的图片
       	 imgArrTypeData:htmlData, //传递板式的对象
       	 dataMsg:{
       	 	title:"宝宝书",
