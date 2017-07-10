@@ -655,10 +655,21 @@
 					Indicator.close();
 				},1000)
                 })
-            }
+            } 
+            
+            var paramJson ={
+                format:"json",
+                userDbId:localStorage.getItem('userDbId'),
+                status:1,
+                pageNum:0,
+                pageSize:50,
+                sort:"uploadDt",
+                order:"desc",
+                category: ""
+            }    
+
             //素材库地址图片
-            Api.Material.MaterialData("artup-build/service/picture/page.do","").then((res)=>{
-            		console.log(res)
+            Api.Material.MaterialData("artup-build/service/picture/page.do", paramJson).then((res)=>{ 
                 this.bbs.Material = res.data.results;
                 //添加属性切换属性
                 this.bbs.Material.forEach((arrJson,i)=>{
