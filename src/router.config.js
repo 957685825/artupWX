@@ -42,6 +42,7 @@ import tlSelect from './components/product/tl/tlSelect.vue'
 
 ////导出路由
 export default{
+//	mode:'history',
 	routes:[
 	 	{ 
 	 		path: '/', component: Index	 		
