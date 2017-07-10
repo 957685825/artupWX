@@ -11,10 +11,10 @@
 		<div class="bbsImg">
 			<div class="contioner" :style="{width:CaseData.currentWidth,height:CaseData.currentHeight,backgroundImage:CaseData.urls}">
 				<div class="hx" :style="{width:CaseData.smallWidth,height:CaseData.smallHeight}">
-					<img @click="imgshow" src="http://image2.artup.com/resources/static/img/p_sucai_02.jpg" alt="" />
+					<img @click="imgshow" id="updateBtn" src="http://image2.artup.com/resources/static/img/p_sucai_02.jpg" alt="" />
 					<div class="imgBox" >
-						<span>编辑</span>
-						<img src="" alt="" />
+						<span v-tap='editer'>编辑</span>
+						<img id="showImg" src="" alt="" />
 					</div>
 				</div>
 			</div>
@@ -84,11 +84,13 @@
 			合计<span><b>¥</b>0.01</span></div> <div class="crectOrder">
 			下一步
 		</div></div>
+		<edit-img @editFinish="editFinish"></edit-img>
 	</div>
+	
 </template>
 	
 <script>
-	import selectKh from '../../../store/selectKh.js'
+	import selectKh from '../../../../static/lab/js/selectKh.js'
 	import fileLoad from '../../component/publicComponent/fileLoad.vue'
 	export default{
 		data(){
@@ -119,6 +121,13 @@
 				this.sheetV =!this.sheetV;
 			},
 			getImg(val){ //获取组件图片
+				$('#showImg').attr('src',val.previewThumbnailImageUrl);
+				$('.imgBox').show();
+				$('#updateBtn').show();
+				setTimeout(function(){
+					dragThumb($('#showImg'),$('.imgBox'))
+				},200)
+				
 				console.log(val)
 			},
 			updataType(params){//选择框型
@@ -137,10 +146,15 @@
 				var type = this.trimStr(this.type)
 				var datas = selectKh.init.selectK(size,type);
 				this.CaseData = datas;
-				console.log(this.CaseData)
 			},
 			trimStr(str){//字符串去空格
 				return str.replace(/(^\s*)|(\s*$)/g,"");
+			},
+			editer(){
+				
+			},
+			editFinish(dn){
+				console.log(dn)
 			}
 
 		},

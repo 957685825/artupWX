@@ -157,7 +157,7 @@ function dragThumb(cs_src, cs_divdom) { //cs_src图片的节点,框型（固定d
 	var oProportionWidth = boxWidth/imgWidth;
 	//原图和框的比例（高）
 	var oProportionHeight =boxHeight/imgHeight;
-	
+	//alert(boxWidth)
 	//得到换算的最终比例mul
 	var mul;
 	if (oProportionWidth>oProportionHeight) {
