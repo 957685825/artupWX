@@ -85,7 +85,7 @@
 					this.bbsSlsectDate.category =this.getFromSession("category"); //类型字段
 					console.log(this.getFromSession("category"))
 				 	//请求价格:			
-					Api.baobaoshu.bbsPrice(`artup-build/builder/price.do?format=json&ignore=true&category=${this.bbsSlsectDate.category}&parameter=${dataCode}`).then((res)=>{
+					Api.baobaoshu.bbsPrice(`artup-build/builder/sku.do?format=json&ignore=true&category=${this.bbsSlsectDate.category}&parameter=${dataCode}`).then((res)=>{
 						//价格计算
 						 this.price = res.data.price;
 						 this.bbsSlsectDate.price = res.data.price;
