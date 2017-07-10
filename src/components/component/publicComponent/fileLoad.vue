@@ -62,7 +62,9 @@
 		            this.Material.forEach((arrJson,i)=>{		
 		                arrJson.activeLi = false;
 		            })
-		            this.Material[this.MaterialImgIndex].activeLi=true;
+		            if (this.Material) {
+		            	   this.Material[this.MaterialImgIndex].activeLi=true;
+		            }		           
 		            setTimeout(function(){
 			        	 //计算素材库图片的位置
 		                $(".img_div ul li").each(function(i,el){

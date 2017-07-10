@@ -74,6 +74,7 @@ export default {
 //  ]),
     methods:{
 		fetchData(){
+			alert(this.$route.query.userDbId)
 			sessionStorage.setItem('urlQuery',JSON.stringify(this.$route.query))			
 			if (this.$route.query.userDbId) {
 				localStorage.setItem('userDbId',this.$route.query.userDbId)
@@ -85,11 +86,11 @@ export default {
 		  text: '加载中...',
 		  spinnerType: 'fading-circle'
 		});
-		console.log(this.$route.query)
+		
 		if (JSON.stringify(this.$route.query)!="{}") { 
+			  
 				this.fetchData();		
 		}else{
-
 			if (!localStorage.getItem('userDbId')) {
 				//请求接口 //重新登录函数
 				Api.user.getUserDbId().then(res=>{
