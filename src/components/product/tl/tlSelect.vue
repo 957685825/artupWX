@@ -5,8 +5,8 @@
 		    <mt-button icon="back">返回</mt-button>
 		  </router-link>
 		</mt-header>		
-		<div class="bbsImg">
-			<img src="http://image2.artup.com/resources/static/img/bbs.png"/>
+		<div class="bbsImg bbsImgTl">
+			<img v-model="imgUrl" :src="imgUrl"/>
 		</div>
 		
 
@@ -15,10 +15,10 @@
 				选择日期
 			</dt>
 			<dd>
-				<div   v-model="popupVisible" v-tap='{methods:selects}' class="dd_slect size dd_slectWidth dd_active">
+				<div v-model="popupVisible" v-tap='{methods:selects}' class="dd_slect date dd_slectWidth">
 					{{years}}
 				</div>
-				<div v-model="popupVisible" v-tap='{methods:selects}' class="dd_slect size dd_slectWidth ">
+				<div v-model="popupVisible" v-tap='{methods:selects}' class="dd_slect date dd_slectWidth ">
 					{{month}}
 				</div>
 				
@@ -29,10 +29,10 @@
 				选择尺寸
 			</dt>
 			<dd>
-				<div  class="dd_slect size dd_slectWidth dd_active">
+				<div  v-tap='{methods:updateSize}' class="dd_slect size dd_slectWidth dd_active">
 					195mmx145mm
 				</div>
-				<div  class="dd_slect size dd_slectWidth ">
+				<div v-tap='{methods:updateSize}' class="dd_slect size dd_slectWidth ">
 					145mmx195mm
 				</div>
 				
@@ -43,10 +43,10 @@
 				选择颜色
 			</dt>
 			<dd>
-				<div  class="dd_slect size dd_slectWidth dd_active">
+				<div v-tap='{methods:updateType}'  class="dd_slect type dd_slectWidth dd_active">
 					白色
 				</div>
-				<div  class="dd_slect size dd_slectWidth ">
+				<div v-tap='{methods:updateType}' class="dd_slect type dd_slectWidth ">
 					咖啡色
 				</div>
 				
@@ -71,6 +71,7 @@
 
 <script>
 	import Api from '../../../API.js'	
+	import selectTl from '../../../../static/lab/js/selectTl.js'
 	import { Toast,Indicator,MessageBox,Picker,Popup } from 'mint-ui';	
 //	import {mapGetters, mapActions} from 'vuex'
 	export default{
@@ -101,7 +102,10 @@
 					
 				},
 				price:0, //价格,
-				popupVisible:false
+				popupVisible:false,
+				size:'',//选择台历的尺寸
+				type:'',//选择的颜色类型
+				imgUrl:''//显示台历样式的图片数据
 			}
 		},
 		methods:{
@@ -114,14 +118,36 @@
 		      this.month = picker.getValues()[1];
 		   },
 		   nextPage(picker, values){
-		   	 
 		   },
 		   selects(){
-		   
 		   	this.popupVisible = !this.popupVisible;
-		   }
+
+		   },
+		   updateSize(params){
+		   	this.size = $(params.event.target).text();
+		   	this.initStyle();
+		   	$(params.event.target).addClass('dd_active').siblings().removeClass('dd_active')
+		   },
+		   updateType(params){
+		   	this.type = $(params.event.target).text();
+		   	this.initStyle();
+		   	$(params.event.target).addClass('dd_active').siblings().removeClass('dd_active')
+		   },
+		   trimStr(str){//字符串去空格
+				return str.replace(/(^\s*)|(\s*$)/g,"");
+			},
+			initStyle(){//初始化数据
+				var size = this.trimStr(this.size);
+				var type = this.trimStr(this.type);
+				var imgUrl = selectTl.init.selectK(size,type);
+				this.imgUrl = imgUrl;
+			},
 		},
 		mounted(){
+			this.size = this.trimStr($('.size:nth-child(1)').text());
+			this.type = this.trimStr($('.type:nth-child(1)').text());
+			this.initStyle();
+			
 			
 		}
 	}
