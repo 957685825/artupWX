@@ -74,7 +74,7 @@ export default {
 //  ]),
     methods:{
 		fetchData(){
-			alert(this.$route.query.userDbId)
+			//alert(this.$route.query.userDbId)
 			sessionStorage.setItem('urlQuery',JSON.stringify(this.$route.query))			
 			if (this.$route.query.userDbId) {
 				localStorage.setItem('userDbId',this.$route.query.userDbId)

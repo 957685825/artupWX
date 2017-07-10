@@ -15,17 +15,23 @@ var urlQuery = sessionStorage.getItem('urlQuery');
 const VueHttp = new Vue();
 //用户名全局变量获取
 //localStorage.setItem("sessionId","2141731");
-var  userDbIds = localStorage.getItem('userDbId');	
-var  sessionIds = "";
+//var  userDbIds = localStorage.getItem('userDbId');	
+//var  sessionIds = "";
 
 /*图片上传地址*/
-const  UPLOAD_URL = `${STATIC_SERVER_HOST}artup-build/builder/cors/picture/upload.do?format=json&userDbId=${userDbIds}`;
+const  UPLOAD_URL = `${STATIC_SERVER_HOST}artup-build/builder/cors/picture/upload.do?format=json`;
 /*查询素材库*/
 const  QUERY_PICTURE_URL = `${HOST}artup-build/service/picture/page.do?format=json&ignore=true`;
 /*未完成作品*/
 const  QUERY_UNFINISHED_WORK_URL = `${HOST}artup-build/builder/cors/edit/queryOne.do?format=json&ignore=true`;
 /*保存作品*/
 const  SAVE_WORK_URL = `${HOST}artup-build/builder/cors/edit/add/command.do?format=json&ignore=true`;
+/*作品列表*/
+const  QUERY_WORK_LIST_URL = `${HOST}artup-build/builder/cors/edit/queryByPage.do?format=json&ignore=true`;
+/*查询sku*/
+const  QUERY_SKU_URL = `${HOST}artup-build/builder/sku.do?format=json&ignore=true`;
+/*查询属性对象*/
+const  QUERY_ATTRIBUTE_URL = `${HOST}artup-build/builder/service/attributes.do?format=json&ignore=true`;
 
 /*添加购物车*/
 const ADD_CAR = `${HOST}artup-build/builder/cors/car/add/command.do?format=json&ignore=true`
@@ -54,7 +60,7 @@ const DELETE_ORDER = `${HOST}artup-build/builder/order/update/command.do?format=
 const DEFAULT_ADDRESS = `${HOST}artup-build/builder/address/queryAll.do?format=json&ignore=true&status=1&mainAddr=Y`
 
 /*素材dpi是否合格*/
-const MATER_DPI = `${STATIC_SERVER_HOST}artup-build/builder/cors/picture/validate.do?format=json&ignore=true&userDbId=${userDbIds}`
+const MATER_DPI = `${STATIC_SERVER_HOST}artup-build/builder/cors/picture/validate.do?format=json&ignore=true`
 
 /*订单支付*/
 const ORDER_PAY = `${HOST}artup-build/builder/orderPayment/payment.do?format=json&ignore=true`
@@ -89,6 +95,14 @@ export default {
 	  		test:(inter)=>{
 	  			return  VueHttp.$http.get(HOST+inter)   
 	  		}
+	   },
+	   sku:{
+	   		querySku:(paraJsons)=>{
+	   			return VueHttp.$http.get(QUERY_SKU_URL,{params: paraJsons})
+	   		},
+	   		queryAttributes:(paraJsons)=>{
+	   			return VueHttp.$http.get(QUERY_ATTRIBUTE_URL, {params: paraJsons})
+	   		}
 	   },
 	   car:{//购物车
 	   	/*添加购物车*/
@@ -169,15 +183,15 @@ export default {
 	   	 	return VueHttp.$http.get(SET_DEFAULT_ADDRESS,{params:jsons})
 	   	 }
 	   },
-	   baobaoshu:{ //宝宝书
-	   	//artup-build/builder/service/baobaoshu/attributes.do?format=json&ignore=true
-	   	  bbsSelect:(inter)=>{ //宝宝书选择数据
-	   	  	return  VueHttp.$http.get(HOST+inter)   
-	   	  },
-	   	  bbsPrice:(inter,category,color,page,size)=>{//宝宝书价格
-	   	  	return  VueHttp.$http.get(HOST+inter)
-	   	  }
-	   },
+	   // baobaoshu:{ //宝宝书
+	   // 	//artup-build/builder/service/baobaoshu/attributes.do?format=json&ignore=true
+	   // 	  bbsSelect:(inter)=>{ //宝宝书选择数据
+	   // 	  	return  VueHttp.$http.get(HOST+inter)   
+	   // 	  },
+	   // 	  bbsPrice:(inter,category,color,page,size)=>{//宝宝书价格
+	   // 	  	return  VueHttp.$http.get(HOST+inter)
+	   // 	  }
+	   // },
 	   work:{ //作品的接口post方法(保存)
 	   	 	workEdit:(jsons)=>{	
 				jsons = VueHttp.sourceSession(jsons)
@@ -185,20 +199,23 @@ export default {
 	   	 			qs.stringify(jsons)   	 				   	 		
 	   	 		)
 	   	 	},
-	   	 	workList:(inter,status,pageNum,category)=>{ //作品列表查询
-	   	  		return  VueHttp.$http.get(HOST+inter,{
-						params: {
-				   	  		format:"json",
-				   	  		ignore:"true",
-				   	  		userDbId:userDbIds,
-				   	  		sessionId:sessionIds,
-				   	  		status:status, //未完成1，已经完成2 
-				   	  		sortField:"createdDt",
-				   	  		pageSize:15,//每页多少条
-				   	  		pageNum:pageNum, //第几页
-				   	  		order:"desc",
-				   	  		category:category //类型
-				   	  	}
+	   	 	workList:(paraJson)=>{ //作品列表查询
+	  //  	  		return  VueHttp.$http.get(QUERY_WORK_LIST_URL,{
+			// 			params: {
+			// 	   	  		format:"json",
+			// 	   	  		ignore:"true",
+			// 	   	  		userDbId:userDbIds,
+			// 	   	  		sessionId:sessionIds,
+			// 	   	  		status:status, //未完成1，已经完成2 
+			// 	   	  		sortField:"createdDt",
+			// 	   	  		pageSize:15,//每页多少条
+			// 	   	  		pageNum:pageNum, //第几页
+			// 	   	  		order:"desc",
+			// 	   	  		category:category //类型
+			// 	   	  	}
+			// })
+			return  VueHttp.$http.get(QUERY_WORK_LIST_URL,{
+						params: paraJson
 			})
 	   	  },
 	   	  unfinishedWork:(paramJson)=>{//素材数据

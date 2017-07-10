@@ -373,7 +373,7 @@
                 jsonDpi.picNum = this.bbs.num;
                 jsonDpi.picPage = this.bbs.page;
                 jsonDpi.styleType = this.bbs.styleType;
-
+                jsonDpi.userDbId = localStorage.getItem('userDbId');
 
                 //素材库dpi成功
                 Api.work.checkDPI(jsonDpi).then(res=>{ 
@@ -713,7 +713,7 @@
 			/* 文件上传init */
 //          var uploadUrl = 'http://image2.artup.com/artup-build/builder/cors/picture/upload.do?format=json&sessionId=2141731&category=baobaoshu';
 //          var uploadUrl = Api.UPLOAD_URL;
-            var uploadUrl = Api.UPLOAD_URL+'&category='+this.getFromSession("category");
+            var uploadUrl = Api.UPLOAD_URL+'&category='+this.getFromSession("category")+'&userDbId='+localStorage.getItem('userDbId');
 
             
             uploadInitializer($, uploadUrl, onUploadComplete);
