@@ -37,8 +37,10 @@ import editImgs from './components/editImg/bbsImgs.vue'
 import huaceImgs from './components/editImg/huaceImgs.vue'
 /*选择框画尺寸以及框*/
 import khSelect from './components/product/kh/khSelect.vue'
-/*x选择台历此存*/
+/*x选择台历尺寸*/
 import tlSelect from './components/product/tl/tlSelect.vue'
+//编辑上传台历
+import tlEdit from './components/product/tl/tlEdit.vue'
 
 ////导出路由
 export default{
@@ -111,6 +113,10 @@ export default{
 		},
 		{
 			path:'/tlSelect', component:tlSelect //框画选择
+			
+		},
+		{
+			path:'/tlEdit', component:tlEdit //框画选择
 			
 		}
 	]

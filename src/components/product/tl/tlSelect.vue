@@ -118,6 +118,7 @@
 		      this.month = picker.getValues()[1];
 		   },
 		   nextPage(picker, values){
+		   	location.href="#tlEdit"
 		   },
 		   selects(){
 		   	this.popupVisible = !this.popupVisible;
@@ -142,6 +143,20 @@
 				var imgUrl = selectTl.init.selectK(size,type);
 				this.imgUrl = imgUrl;
 			},
+			 editorImage(jsons){
+                console.log('宽高',jsons)
+                this.$store.commit(
+                    'showEditor',
+                    {
+                        imgSrc: jsons.oSrc,
+                        imgSize: {width: jsons.oW, height: jsons.oH},
+                        initialCrop:jsons.actions,
+                        customParams:{
+                            thumbnailScale:jsons.thumbnailScale
+                        }
+                    }
+                )
+            }
 		},
 		mounted(){
 			this.size = this.trimStr($('.size:nth-child(1)').text());
