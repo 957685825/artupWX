@@ -109,7 +109,7 @@
         watch: {
             imgSrc(val, oldVal) {
                 if (val) {
-                    Indicator.open();
+//                  Indicator.open();
                     const {
                         imgSize
                     } = this;
@@ -132,7 +132,7 @@
                 width: 200,
                 height: 200,
                 onImageLoaded(){
-                    Indicator.close();
+//                  Indicator.close();
                     let {initialCrop} = vm;
                     vm.cropitImg(initialCrop);
 

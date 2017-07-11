@@ -93,10 +93,10 @@ export default {
 		}else{
 			if (!localStorage.getItem('userDbId')) {
 				//请求接口 //重新登录函数
-				Api.user.getUserDbId().then(res=>{
-					//请求微信授权
-					window.location.href=res.data.tokenUrl
-				})				
+//				Api.user.getUserDbId().then(res=>{
+//					//请求微信授权
+//					window.location.href=res.data.tokenUrl
+//				})				
 			}
 		}
 		//首页请求的数据
