@@ -478,17 +478,19 @@
                     }
                     //costName  map 索引
                     var costName = params.index+1+'_'+$(params.event.target).attr("nm");
+                    console.log(costName)
                     this.bbs.imgEdit.oSrc = oImg.attr("attrImg");
                     this.bbs.imgEdit.imgEditIndex = costName;
                     this.bbs.imgEdit.oW = oImg.parent(".myImgBox").width();
                     this.bbs.imgEdit.oH = oImg.parent(".myImgBox").height();
                     this.bbs.imgEdit.editCnfName = '';
-
+					console.log($(params.event.target).attr("editCnfName"))
                     if ($(params.event.target).attr("editCnfName")) {
                         this.bbs.imgEdit.editCnfName = $(params.event.target).attr("editCnfName");
                         this.bbs.imgEdit.thumbnailScale = this.editData.lomHashMap.getvalue(costName).actions.thumbnailScale
                         this.bbs.imgEdit.actions = this.editData.lomHashMap.getvalue(costName).actions
                     }else{
+                    		console.log(this.editData.ImgHashMap.getvalue(costName))
                         this.bbs.imgEdit.thumbnailScale = this.editData.ImgHashMap.getvalue(costName).actions.thumbnailScale
                         this.bbs.imgEdit.actions = this.editData.ImgHashMap.getvalue(costName).actions
                     }
@@ -587,7 +589,7 @@
                         edtDbId:this.$route.query.edtDbid                         
                     };
 	  	Api.work.unfinishedWork(paramsJson).then((res)=>{
-	  		//console.log(res)
+	  		console.log(res)
 
 			var oImgData = JSON.parse(res.data.data.editPicture);		
 			var editTxt = JSON.parse(res.data.data.editTxt);
@@ -633,10 +635,10 @@
 					}
 					if (oImgData.length>0) {
 						for (var i = 0; i < oImgData.length; i++) {
-
+						
 							var constName = oImgData[i].page+'_'+oImgData[i].num;
 							//map生成变量
-							var picObj = {"constName":constName,"picDbId" : oImgData[i].picDbId, "page" : oImgData[i].page, "editCnfIndex" : oImgData[i].editCnfIndex, "num" : oImgData[i].num, "actions" : {},
+							var picObj = {"constName":constName,"picDbId" : oImgData[i].picDbId, "page" : oImgData[i].page, "editCnfIndex" : oImgData[i].editCnfIndex, "num" : oImgData[i].num, "actions" :oImgData[i].actions,
 							"thumbnailImageUrl":oImgData[i].thumbnailImageUrl, "previewThumbnailImageUrl" :oImgData[i].previewThumbnailImageUrl, "crop" : oImgData[i].crop,"editCnfName" : oImgData[i].editCnfName};
 							oThis.editData.ImgHashMap.putvalue(constName,picObj);
 							var pageNum = oImgData[i].page+'_'+oImgData[i].num+'_'+oImgData[i].editCnfName;
@@ -648,7 +650,7 @@
 						for (var i = 0; i < oImgLomo.length; i++) {
 							var constName = oImgLomo[i].page+'_'+oImgLomo[i].num;
 							//map生成变量
-							var picObj = {"constName":constName,"picDbId" : oImgLomo[i].picDbId, "page" : oImgLomo[i].page, "editCnfIndex" : oImgLomo[i].editCnfIndex, "num" : oImgLomo[i].num, "actions" : {"thumbnailScale":oImgData[i].actions.thumbnailScale},
+							var picObj = {"constName":constName,"picDbId" : oImgLomo[i].picDbId, "page" : oImgLomo[i].page, "editCnfIndex" : oImgLomo[i].editCnfIndex, "num" : oImgLomo[i].num, "actions" : oImgLomo[i].actions,
 							"thumbnailImageUrl":oImgLomo[i].thumbnailImageUrl, "previewThumbnailImageUrl" :oImgLomo[i].previewThumbnailImageUrl, "crop" : oImgLomo[i].crop,"editCnfName" : oImgLomo[i].editCnfName};
 							oThis.editData.lomHashMap.putvalue(constName,picObj);
 							var pageNum = oImgLomo[i].page+'_'+oImgLomo[i].num+'_'+oImgLomo[i].editCnfName;

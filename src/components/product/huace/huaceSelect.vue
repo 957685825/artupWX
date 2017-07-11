@@ -153,6 +153,10 @@
 					})
 				};				
 			})
+			//监听浏览器返回
+			window.addEventListener("popstate", function(e) {  
+		       MessageBox.close();
+		    }, false);
 		}
 	}
 </script>
