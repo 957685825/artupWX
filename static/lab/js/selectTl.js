@@ -5,11 +5,11 @@ var jsons = {
 		    index:1,
 		    data:[
 		    		{
-		    			Size:"195mmx145mm",
+		    			Size:"195mmX145mm",
 		    			imgUrl:'http://image2.artup.com/resources/static/img/taili/taili04.jpg'
 		    		},
 		    		{
-		    			Size:"145mmx195mm",
+		    			Size:"145mmX195mm",
 		    			imgUrl:'http://image2.artup.com/resources/static/img/taili/taili06.jpg'
 		    		}
 		    ]
@@ -19,11 +19,11 @@ var jsons = {
 		    index:1,
 		    data:[
 		    		{
-		    			Size:"195mmx145mm",
+		    			Size:"195mmX145mm",
 		    			imgUrl:'http://image2.artup.com/resources/static/img/taili/taili03.jpg'
 		    		},
 		    		{
-		    			Size:"145mmx195mm",
+		    			Size:"145mmX195mm",
 		    			imgUrl:'http://image2.artup.com/resources/static/img/taili/taili05.jpg'
 		    		}
 		    ]
