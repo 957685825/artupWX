@@ -185,7 +185,7 @@
 				this.imgData = val;
 				var picObj = {
 				 	"constName":'1_1',
-				 	"picDbId" : val.bdId,
+				 	"picDbId" : val.pictureDbId,
 				 	"page" :val.picPage,
 				 	"editCnfIndex" :val.styleType,
 				 	"num" : val.picNum,

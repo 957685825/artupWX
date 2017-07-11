@@ -38,9 +38,9 @@
 					</router-link>
 				</li>
 				<li> 
-					<router-link to="">
+					<router-link to="hbSelect?category=haibao">
 						<i style="font-size: 3.1875rem;" class="icon iconfont">&#xe609;</i>
-						<p>其他产品</p>
+						<p>海报</p>
 					</router-link>
 				</li>				
 				<li> 
