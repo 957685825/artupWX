@@ -164,7 +164,8 @@
 						for (var i = 0; i < this.worklist.length; i++) {
 							if (this.worklist[i].isOK) {
 								arr+= this.worklist[i].dbId+',';
-								 this.worklist.splice(i,1);
+								this.worklist.splice(i,1);
+								i--;
 							}					
 						}
 						Api.work.deletWork({dbId:arr,userDbId:localStorage.getItem('userDbId')}).then(res=>{

@@ -88,6 +88,7 @@ export default {
 							if (this.dataList[i].isOK) {
 								arr+= this.dataList[i].dbId+',';
 								 this.dataList.splice(i,1);
+								 i--;
 							}					
 						}
 						arr.substr(0,arr.length-1);
