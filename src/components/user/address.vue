@@ -2,8 +2,8 @@
 	<div id="Address">
 		<!--头-->
 		<mt-header title="收货地址">
-		  <router-link to="/" slot="left">
-		    <mt-button icon="back"></mt-button>
+		  <router-link to="" v-tap="{methods:linkGo}" slot="left">
+		    <mt-button icon="back">返回</mt-button>
 		  </router-link>
 		  <mt-button icon=""  slot="right"></mt-button>
 		</mt-header>
@@ -13,7 +13,7 @@
 					<div class="content clearfix" :dbId='itme.dbId'>
 						<div class="listContent clearfix">
 							<ul class="clearfix">
-								<li><p v-tap='{methods:updataCheck,dbid:itme.dbId}' class= "circle circleNone"><i class="icon iconfont">&#xe639;</i></p></li>
+								<li><p v-bind:hidden="selectBtn == false" v-tap='{methods:updataCheck,dbid:itme.dbId}' class= "circle circleNone"><i class="icon iconfont">&#xe639;</i></p></li>
 								<li>
 									<p>
 										<span>{{itme.name}}</span>
@@ -44,7 +44,8 @@
 		data(){
 			return{
 				tapStyle:false,
-				dataList:[]
+				dataList:[],
+				selectBtn:false
 			}
 		},
 		methods:{
@@ -100,10 +101,18 @@
 			/*编辑地址*/
 			editorAddress(params){
 				location.href="#newAddress?dbId="+params.dbId+"&openId="+this.$route.query.openId+"&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("userDbId");
+			},
+	        linkGo(){
+				this.vurRouterGo();
 			}
 		
 		},
 		mounted(){
+			if(this.$route.query.dzgl && this.$route.query.dzgl == 'grzx'){
+				this.selectBtn = true;
+			}else{
+				this.selectBtn = false;
+			}
 			var jsons = {
 				userDbId:localStorage.getItem("userDbId"),
 				status:1,

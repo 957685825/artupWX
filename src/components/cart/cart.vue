@@ -1,13 +1,13 @@
 <template>
 	<div id="cart">
 		<mt-header title="购物车">
-		  <router-link to="/" slot="left">
+		  <router-link to="" v-tap="{methods:linkGo}" slot="left">
 		    <mt-button icon="back">返回</mt-button>
 		  </router-link>
 		  <mt-button icon="" @click.native='deleteCar' slot="right">删除</mt-button>
 		</mt-header>
 		<!--购物车列表-->
-		<ul class="cartList">
+		<ul v-model="dataList" class="cartList">
 			<li v-for="(itme,indexs) in dataList">
 				<div class="div_select" >
 					<b  :class="itme.isOK ? 'activeSelect':'' "  v-tap='{methods:updateCheck,index:indexs}'  ><i class="icon iconfont">&#xe672;</i></b>
@@ -76,7 +76,39 @@ export default {
 　　　　},
 		methods:{
 			deleteCar(){
-				alert(0)
+				
+				MessageBox({
+				  title: '我的订单',
+				  message: '您确认删除此条订单吗?',
+				  showCancelButton: true
+				}).then((res)=>{
+					if(res=="confirm"){
+						var arr = '';
+						for (var i = 0; i < this.dataList.length; i++) {
+							if (this.dataList[i].isOK) {
+								arr+= this.dataList[i].dbId+',';
+								 this.dataList.splice(i,1);
+							}					
+						}
+						arr.substr(0,arr.length-1);
+						Api.car.deleteCarCorde({dbId:arr,userDbId:localStorage.getItem('userDbId')}).then(res=>{
+							if(res.data.code == 'success'){
+								
+								Toast('订单删除成功');
+								if(this.dataList.length < 1){
+									MessageBox.alert('您当前没有任何订单请去创建').then(action => {
+				        				location.href=""		
+									});
+								}
+							}
+						},err=>{
+							Toast('请求错误');
+						})
+						
+					}
+								
+				})
+				
 			},
 			/*添加数量*/
 			add(params){
@@ -111,6 +143,7 @@ export default {
 					el.isOK = !el.isOK;
 				})
 				this.oPrice();
+				this.$forceUpdate();
 			},
 			/*跳转到结算页面*/
 			gotoPayOrder(){
@@ -146,6 +179,9 @@ export default {
 				}else{
 					return
 				}				
+			},
+	        linkGo(){
+				this.vurRouterGo();
 			}
 		},	
 		mounted(){			

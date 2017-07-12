@@ -5,7 +5,7 @@
 		  <router-link to="" v-tap='{methods:linkGo}' slot="left">
 		    <mt-button icon="back">返回</mt-button>
 		  </router-link>
-		  <mt-button icon=""  slot="right">删除</mt-button>
+		  <mt-button icon="" id='deleteBtn' slot="right" @click.native='deleteWork' >删除</mt-button>
 		</mt-header>
 		<div class="headTap">
 			<ul>
@@ -18,20 +18,20 @@
 				<ul
 			  v-infinite-scroll="loadMore"
 			  infinite-scroll-disabled="loading"
-			  infinite-scroll-distance="10">
+			  infinite-scroll-distance="10" v-model="worklist">
 			  <li v-for="(item,index) in worklist" style="margin-top: 0.53rem;">
 			  	<div class="content">
 					<ul>
-						<li><p v-tap='{methods:updataCheck}' class= "circle circleNone"><i class="icon iconfont">&#xe639;</i></p></li>
+						<li><p v-tap='{methods:updataCheck,indexs:index}':class="item.isOK ? 'circle':'circle circleNone' "><i v-bind:hidden="item.isOK == false" class="icon iconfont">&#xe639;</i></p></li>
 						<li>
 							<img :src="item.thumbnailImageUrl">
 						</li> 
 						<li>
 							<ul>
 								<li>
-									<span>{{item.sku}}</span>
-									<!--<span>智慧蓝</span>
-									<span>24页</span>-->
+									<span>{{item.sku | splitSku}}</span>
+									<span>{{item.sku | splitSkuLast}}</span>
+
 								</li>
 								<!--<li>170mm*235mm</li>-->
 								<li>{{item.createdDt}}</li>
@@ -56,7 +56,7 @@
 </template>
 
 <script>
-	import { InfiniteScroll,Indicator } from 'mint-ui';
+	import {Toast, InfiniteScroll,Indicator,MessageBox } from 'mint-ui';
 	import Api from '../../API.js'
 	export default{
 		data(){
@@ -97,18 +97,17 @@
 					})
 					this.tapStyle = true;
 				}
+				if(this.tapStyle == true){
+					$('#deleteBtn').hide();
+				}else{
+					$('#deleteBtn').show();
+				}
 
 			},
 			updataCheck(params){
-				if($(params.event.target).hasClass("circleNone")){
-					$(params.event.target).removeClass('circleNone');
-					$(params.event.target).find('i').show();
-				}else{
-					if($(params.event.target).hasClass("icon")){
-						$(params.event.target).hide();
-						$(params.event.target).parent('p').addClass('circleNone');
-					}	
-				}
+			this.worklist[params.indexs].isOK = !this.worklist[params.indexs].isOK;
+			this.$forceUpdate();
+			//alert(this.worklist[params.indexs].isOK)
 			},
 			addCar(params){
 				var jsons = {
@@ -139,13 +138,6 @@
 			},
 			loadMore() {
 				  this.loading = true;
-	//			  setTimeout(() => {
-	//			    let last = this.list[this.list.length - 1];
-	//			    for (let i = 1; i <= 10; i++) {
-	//			      this.list.push(last + i);
-	//			    }
-	//			    this.loading = false;
-	//			  }, 2500);
 			},
 			continueEdit(params){ //继续编辑
 				//存入继续编辑页面的id
@@ -160,6 +152,38 @@
 			},
 	        linkGo(){
 				this.vurRouterGo();
+			},
+			deleteWork(){
+				MessageBox({
+				  title: '我的作品',
+				  message: '您确认删除此数据吗?',
+				  showCancelButton: true
+				}).then((res)=>{
+					if(res=="confirm"){
+						var arr = '';
+						for (var i = 0; i < this.worklist.length; i++) {
+							if (this.worklist[i].isOK) {
+								arr+= this.worklist[i].dbId+',';
+								 this.worklist.splice(i,1);
+							}					
+						}
+						Api.work.deletWork({dbId:arr,userDbId:localStorage.getItem('userDbId')}).then(res=>{
+							if(res.data.code == 'success'){
+								
+								Toast('作品删除成功');
+								if(this.worklist.length < 1){
+									MessageBox.alert('您当前没有任何作品请去创建').then(action => {
+				        				location.href=""		
+									});
+								}
+							}
+						},err=>{
+							Toast('请求错误');
+						})
+						
+					}
+								
+				})
 			}
 		},
 		mounted(){
@@ -179,6 +203,10 @@
 			//开始默认的时候，去拿我的作品列表
 			Api.work.workList(paraJson).then((res)=>{
 				this.worklist = res.data.results;
+				console.log(this.worklist)
+				for (var i = 0; i < this.worklist.length; i++) {
+					this.worklist[i].isOK = false;
+				}
 				Indicator.close();
 				console.log(this.worklist)
 			})

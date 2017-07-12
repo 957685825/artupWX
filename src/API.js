@@ -84,7 +84,10 @@ const GER_USERDBID = `${HOST}artup-build/builder/service/tokenUrl.do?format=json
 
 /*首页连接*/
 const INDEX_IMG = `${HOST}artup-build/builder/cors/lunbo/list.do?ignore=true&format=json&client=mobile`
-
+//删除购物车记录
+const DELECT_CAR_RECORD = `${HOST}artup-build/builder/cors/car/delete/command.do?format=json&ignore=true`
+//删除作品
+const DELECT_WORK = 	`${HOST}artup-build/builder/cors/edit/delete/command.do?format=json&ignore=true`
 
 ////只要访问ajax的时候，没有这个用户信息，就跳到首页去登录获取用户信息
 //if (!sessionIds) {
@@ -105,6 +108,9 @@ export default {
 	   		}
 	   },
 	   car:{//购物车
+	   	deleteCarCorde:(jsons)=>{
+	   		return VueHttp.$http.get(DELECT_CAR_RECORD,{params:jsons})
+	   	},
 	   	/*添加购物车*/
 	   	addCar:(jsons)=>{
 	   		return VueHttp.$http.post(ADD_CAR,
@@ -198,6 +204,9 @@ export default {
 	   	 		return VueHttp.$http.post(SAVE_WORK_URL,
 	   	 			qs.stringify(jsons)   	 				   	 		
 	   	 		)
+	   	 	},
+	   	 	deletWork:(jsons)=>{
+	   	 		return  VueHttp.$http.get(DELECT_WORK,{params: jsons})
 	   	 	},
 	   	 	workList:(paraJson)=>{ //作品列表查询
 	  //  	  		return  VueHttp.$http.get(QUERY_WORK_LIST_URL,{
