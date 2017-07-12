@@ -27,21 +27,21 @@
 				<div v-tap='{methods:updataSize}' data-code='400X500'  class="dd_slect size dd_slectWidth dd_active">
 					400mmX500mm
 				</div>
-				<div v-tap='{methods:updataSize}' data-code='530X740' class="dd_slect size dd_slectWidth ">
+				<div v-tap='{methods:updataSize}' data-code='500X700' class="dd_slect size dd_slectWidth ">
 					
-					500mmX400mm
+					500mmX700mm
 				</div>
-				<div v-tap='{methods:updataSize}'data-code='500X500' class="dd_slect size dd_slectWidth ">
+				<div v-tap='{methods:updataSize}'data-code='700X500' class="dd_slect size dd_slectWidth ">
 					
 					700mmX500mm
 				</div>
 				<div v-tap='{methods:updataSize}' data-code='500X500' class="dd_slect size dd_slectWidth ">
 					
-					500mmX700mm
-				</div>
-				<div v-tap='{methods:updataSize}' data-code='740X530' class="dd_slect size dd_slectWidth ">
-					
 					500mmX500mm
+				</div>
+				<div v-tap='{methods:updataSize}' data-code='500X400' class="dd_slect size dd_slectWidth ">
+					
+					500mmX400mm
 				</div>
 			</dd>
 		</dl>
@@ -49,7 +49,7 @@
 		<i style="height: 2.9375rem; display: block; width: 100%;"></i>
 		<div class="addCarBtn" v-bind:hidden="finishWork == false" v-tap="{methods:addCar}">加入购物车</div>
 		<div class="cart_btn"><div class="price">
-			合计<span><b>¥</b>0.01</span></div> <div v-bind:hidden="finishWork == true" v-tap="{methods:nextGoCar}" class="crectOrder">
+			合计<span><b>¥</b>{{price}}</span></div> <div v-bind:hidden="finishWork == true" v-tap="{methods:nextGoCar}" class="crectOrder">
 			下一步
 		</div></div>
 		<edit-img @editFinish="editFinish"></edit-img>
@@ -77,6 +77,7 @@
 				skuCode:'',
 				skuName:'',
 				extraCode:'',
+				price:'',
 				extraPostData:{
 					category :"haibao",
 					client :'mobile',
@@ -191,6 +192,17 @@
 				this.skuCode = 'haibao.'+this.sizeCode;
 				this.extraPostData.editCnfName = 'haibao_'+this.sizeCode;
 				this.CaseData = datas;
+				var paramsJson = {
+						"category": this.getFromSession("category"),
+						"parameter" : this.skuCode
+					};
+				 	//请求价格:			
+				Api.sku.querySku(paramsJson).then((res)=>{ 
+					console.log(res)
+					 this.price = res.data.price;
+					 //this.bbsSlsectDate.price = res.data.price;
+					 sessionStorage.setItem("hbPrice",this.price)
+				})
 				console.log(datas)
 			},
 			trimStr(str){//字符串去空格

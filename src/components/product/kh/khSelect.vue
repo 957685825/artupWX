@@ -82,7 +82,7 @@
 		<i style="height: 2.9375rem; display: block; width: 100%;"></i>
 		<div class="addCarBtn" v-bind:hidden="finishWork == false" v-tap="{methods:addCar}">加入购物车</div>
 		<div class="cart_btn"><div class="price">
-			合计<span><b>¥</b>0.01</span></div> <div v-bind:hidden="finishWork == true" v-tap="{methods:nextGoCar}" class="crectOrder">
+			合计<span><b>¥</b>{{price}}</span></div> <div v-bind:hidden="finishWork == true" v-tap="{methods:nextGoCar}" class="crectOrder">
 			下一步
 		</div></div>
 		<edit-img @editFinish="editFinish"></edit-img>
@@ -110,6 +110,7 @@
 				skuCode:'',
 				skuName:'',
 				extraCode:'',
+				price:'',
 				extraPostData:{
 					category :"kuanghua",
 					client :'mobile',
@@ -223,6 +224,17 @@
 				this.extraPostData.editCnfName = 'kuanghua_'+this.sizeCode;
 				//console.log(this.skuCode)
 				this.CaseData = datas;
+				var paramsJson = {
+						"category": this.getFromSession("category"),
+						"parameter" : this.skuCode
+					};
+				 	//请求价格:			
+				Api.sku.querySku(paramsJson).then((res)=>{ 
+					console.log(res)
+					 this.price = res.data.price;
+					 //this.bbsSlsectDate.price = res.data.price;
+					 sessionStorage.setItem("hbPrice",this.price)
+				})
 				console.log(size)
 			},
 			trimStr(str){//字符串去空格
@@ -298,6 +310,7 @@
 		mounted(){
 			 this.addToSession();
 			 this.extraPostData.defDbId = this.defDbId;
+			 this.extraPostData.userDbId = localStorage.getItem('userDbId');
 			 this.sizeCode = $('.size:nth-child(1)').attr('data-code');
 			 this.typeCode = $('.type:nth-child(1)').attr('data-code');
 			/*默认画框样式*/

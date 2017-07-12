@@ -2,8 +2,8 @@
 	<div id="tlEdit">
 		<file-load @getImgData="getImg" :extraPostDatas="extraPostData" :sheetVisible="sheetV" ></file-load>
 		<mt-header title="台历编辑">
-		  <router-link to="/" slot="left">
-		    <mt-button icon="back"></mt-button>
+		  <router-link to=""  v-tap="{ methods:linkGo }"  slot="left">
+		    <mt-button icon="back">返回</mt-button>
 		  </router-link>
 		  <mt-button icon=""  slot="right">下一步</mt-button>
 		</mt-header>
@@ -324,6 +324,9 @@
                 },err=>{
                     Toast('添加购物车出错');
                 })
+			},
+	        linkGo(){
+				this.vurRouterGo();
 			}
 		},
 		mounted(){

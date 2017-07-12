@@ -60,7 +60,7 @@
 		<i style="height: 2.9375rem; display: block; width: 100%;"></i>
 		<div class="cart_btn">			
 			<div class="price">
-				合计<span><b>¥</b></span></div> 
+				合计<span><b>¥</b>{{price}}</span></div> 
 			<div  v-tap="{methods : nextPage}" class="crectOrder">
 				下一步
 			</div>
@@ -105,7 +105,7 @@
 				bbsSlsectDate:{ //给后端传递的数据
 					
 				},
-				price:0, //价格,
+				price:"", //价格,
 				popupVisible:false,
 				size:'',//选择台历的尺寸
 				type:'',//选择的颜色类型
@@ -154,6 +154,17 @@
 				sessionStorage.setItem('skuName',this.skuName);
 				sessionStorage.setItem('templateCode',this.templateCode);
 				sessionStorage.setItem('skuCode',this.skuCode);
+				var paramsJson = {
+						"category": this.getFromSession("category"),
+						"parameter" : this.skuCode
+					};
+				 	//请求价格:			
+				Api.sku.querySku(paramsJson).then((res)=>{ 
+					console.log(res)
+					 this.price = res.data.price;
+					 //this.bbsSlsectDate.price = res.data.price;
+					 sessionStorage.setItem("hbPrice",this.price)
+				})
 			},
 			 editorImage(jsons){
                 console.log('宽高',jsons)
@@ -171,6 +182,7 @@
             }
 		},
 		mounted(){
+			this.addToSession();
 			this.size = this.trimStr($('.size:nth-child(1)').text());
 			this.type = this.trimStr($('.type:nth-child(1)').text());
 			 this.sizeCode = $('.size:nth-child(1)').attr('data-code');
