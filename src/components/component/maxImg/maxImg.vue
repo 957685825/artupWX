@@ -232,7 +232,9 @@
                     channelCode:"artron",
                     opSystem:'',
                     thumbnailImageUrl:this.bbs.workEdit.thumbnailImageUrl,
-                    total:bbsSlsectDate.price
+                    total:bbsSlsectDate.price,
+                    sku : bbsSlsectDate.name,
+                    skuCode : bbsSlsectDate.skuCode
                 }
                 Api.car.addCar(jsons).then(res=>{
                     //var category = "baobaoshu"
@@ -273,6 +275,9 @@
                         textArrMap.push(this.editData.textMap.getvalue(this.editData.textMap.keys()[i]));
                     }
                 }
+                var bbsSlsectDate = JSON.parse(sessionStorage.getItem("bbsSlsectDate"));
+                this.bbs.workEdit.sku = bbsSlsectDate.name;
+                this.bbs.workEdit.skuCode = bbsSlsectDate.skuCode;
                 //字符串转换数组存储到对象里面
                 this.bbs.workEdit.editPicture = JSON.stringify(arrMap);
                 this.bbs.workEdit.editTxt = JSON.stringify(textArrMap);
