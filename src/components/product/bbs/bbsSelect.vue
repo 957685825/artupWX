@@ -8,8 +8,6 @@
 		<div class="bbsImg">
 			<img src="http://image2.artup.com/resources/static/img/bbs.png"/>
 		</div>
-		
-
 			<dl v-for="(item,index1) in bbs.attributes"  class="slect_dl">
 				<dt>
 					{{item.name}}选择
@@ -46,6 +44,9 @@
 			}
 		},
 		methods:{
+			fnd(){
+				this.$router.push({ path: 'register', query: { plan: 'private' }})
+			},
 			check(params){ //切换选项		
 				for (var i = 0; i < this.bbs.attributes.length; i++) {
 						for (var j = 0; j < this.bbs.attributes[i].attributeValues.length; j++) {
