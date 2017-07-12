@@ -2,8 +2,8 @@
 	<div id="workList">
 		<!--头-->
 		<mt-header title="我的作品">
-		  <router-link to="/" slot="left">
-		    <mt-button icon="back"></mt-button>
+		  <router-link to="" v-tap='{methods:linkGo}' slot="left">
+		    <mt-button icon="back">返回</mt-button>
 		  </router-link>
 		  <mt-button icon=""  slot="right">删除</mt-button>
 		</mt-header>
@@ -37,8 +37,9 @@
 								<li>{{item.createdDt}}</li>
 							</ul>
 						</li>
-						<li v-tap="{methods : continueEdit ,index : index}"  v-bind:hidden="tapStyle">
-							<p>继续编辑</p>
+						<li>
+							<p v-tap="{methods : continueEdit ,index : index}" v-bind:hidden="tapStyle == true">继续编辑</p>
+							<p v-tap='{methods:addCar , itmeData:item}' v-bind:hidden="tapStyle == false">加入购物车</p>
 						</li>
 					</ul>
 				</div>
@@ -84,14 +85,14 @@
 				if($(params.event.target).text() == '未完成'){
 					paraJson.status = 1;
 					Api.work.workList(paraJson).then((res)=>{
-			
+						this.worklist = res.data.results;
 						console.log(res)
 					})
 					this.tapStyle = false;
 				}else{
 					paraJson.status = 2;
 					Api.work.workList(paraJson).then((res)=>{
-			
+						this.worklist = res.data.results;
 						console.log(res)
 					})
 					this.tapStyle = true;
@@ -108,6 +109,33 @@
 						$(params.event.target).parent('p').addClass('circleNone');
 					}	
 				}
+			},
+			addCar(params){
+				var jsons = {
+                    operator:"add",
+//                  sessionId:localStorage.getItem("sessionId"),
+                    userDbId:localStorage.getItem("userDbId"),
+                    client:"mobile",//渠道前端传递，暂时写死
+                    category:params.itmeData.category,//产品类型这里是宝宝书,暂时写死
+                    edtDbId:	params.itmeData.dbId,
+                    price:params.itmeData.price,
+                    num:params.itmeData.num,
+                    discount:params.itmeData.discount,
+                    channelCode:params.itmeData.channelCode,
+                    opSystem:params.itmeData.opSystem,
+                    thumbnailImageUrl:params.itmeData.thumbnailImageUrl,
+                    total:params.itmeData.total,
+                    skuCode:params.itmeData.skuCode
+
+                }
+                Api.car.addCar(jsons).then(res=>{
+                	console.log(jsons)
+                    //var category = "baobaoshu"
+                   location.href="#cart?edtDbId="+jsons.edtDbId+"&category="+jsons.category;
+                },err=>{
+                    Toast('添加购物车出错');
+                })
+				
 			},
 			loadMore() {
 				  this.loading = true;
@@ -129,6 +157,9 @@
 				}
 				
 				
+			},
+	        linkGo(){
+				this.vurRouterGo();
 			}
 		},
 		mounted(){

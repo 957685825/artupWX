@@ -198,7 +198,7 @@
 //                      client:"mobile",//渠道前端传递，暂时写死
                         category:this.getFromSession("category"),//产品类型这里是宝宝书
                         defDbId:this.dataImg.dataMsg.defDbId, //tplCode 模版暂时写死,父组件带入
-                        channelCode:"zc",//暂时写死
+                        channelCode:"artron",//暂时写死
                         sku:JSON.parse(sessionStorage.getItem("bbsSlsectDate")).name,
                         editPicture:[],//产品图片
                         editTxt:[],//产品文字描述
@@ -229,7 +229,7 @@
                     price:bbsSlsectDate.price,
                     num:1,
                     discount:'',
-                    channelCode:"zc",
+                    channelCode:"artron",
                     opSystem:'',
                     thumbnailImageUrl:this.bbs.workEdit.thumbnailImageUrl,
                     total:bbsSlsectDate.price
@@ -694,8 +694,8 @@
 
             var templateCode =this.bbs.workEdit.tplCode;//模版编码
 
-            var client = 'pc';   //手机，pc，app 设备等
-            var channel = '本站' //渠道
+            var client = 'wx';   //手机，pc，app 设备等
+            var channel = 'artron' //渠道
 
             //图片操作的json值
 //          var cropitData = {"x":200.21,"y":400.32,"width":100,"height":300,"rotate":0,"thumbnailScale":1};

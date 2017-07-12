@@ -9,13 +9,18 @@ Vue.filter("json", function(value) {   //全局方法 Vue.filter() 注册一个�
    return JSON.stringify(value);
 });
 Vue.filter("splitSku",function(value){
-	if (value) {
+	if (value ) {
 		var arr = value.split('.');
-		var newArr = [];
-		for(var i=0; i<arr.length-2; i++){
-			newArr.push(arr[i])
+		if(arr.length > 2){
+			var newArr = [];
+			for(var i=0; i<arr.length-2; i++){
+				newArr.push(arr[i])
+			}
+			return newArr.join('.');
+		}else{
+			return arr[0];
 		}
-		return newArr.join('.');
+		
 	}
 });
 Vue.filter("splitSkuLast",function(value){

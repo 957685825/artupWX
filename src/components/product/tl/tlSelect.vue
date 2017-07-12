@@ -29,11 +29,11 @@
 				选择尺寸
 			</dt>
 			<dd>
-				<div  v-tap='{methods:updateSize}' class="dd_slect size dd_slectWidth dd_active">
-					195mmx145mm
+				<div data-code= '195X145'  v-tap='{methods:updateSize}' class="dd_slect size dd_slectWidth dd_active">
+					195mmX145mm
 				</div>
-				<div v-tap='{methods:updateSize}' class="dd_slect size dd_slectWidth ">
-					145mmx195mm
+				<div data-code= '145X195' v-tap='{methods:updateSize}' class="dd_slect size dd_slectWidth ">
+					145mmX195mm
 				</div>
 				
 			</dd>
@@ -43,10 +43,10 @@
 				选择颜色
 			</dt>
 			<dd>
-				<div v-tap='{methods:updateType}'  class="dd_slect type dd_slectWidth dd_active">
+				<div data-code= 'white' v-tap='{methods:updateType}'  class="dd_slect type dd_slectWidth dd_active">
 					白色
 				</div>
-				<div v-tap='{methods:updateType}' class="dd_slect type dd_slectWidth ">
+				<div data-code= 'coffee' v-tap='{methods:updateType}' class="dd_slect type dd_slectWidth ">
 					咖啡色
 				</div>
 				
@@ -79,6 +79,10 @@
 			return{
 				years:new Date().getFullYear(),
 				month:1,
+				skuCode:'',
+				skuName:'',
+				sizeCode:'',
+				colorCode:'',
 				slots: [
 			        {
 			          flex: 1,
@@ -118,7 +122,7 @@
 		      this.month = picker.getValues()[1];
 		   },
 		   nextPage(picker, values){
-		   	location.href="#tlEdit"
+		   	location.href="#tlEdit?years="+this.years+'&month='+this.month+'&size='+this.sizeCode+'&type='+this.type;
 		   },
 		   selects(){
 		   	this.popupVisible = !this.popupVisible;
@@ -126,11 +130,13 @@
 		   },
 		   updateSize(params){
 		   	this.size = $(params.event.target).text();
+		   	this.sizeCode = $(params.event.target).attr('data-code');
 		   	this.initStyle();
 		   	$(params.event.target).addClass('dd_active').siblings().removeClass('dd_active')
 		   },
 		   updateType(params){
 		   	this.type = $(params.event.target).text();
+		   	this.colorCode = $(params.event.target).attr('data-code');
 		   	this.initStyle();
 		   	$(params.event.target).addClass('dd_active').siblings().removeClass('dd_active')
 		   },
@@ -142,6 +148,12 @@
 				var type = this.trimStr(this.type);
 				var imgUrl = selectTl.init.selectK(size,type);
 				this.imgUrl = imgUrl;
+				this.skuName = "台历."+ size+'.'+type;
+				this.templateCode = 'taili_'+this.sizeCode;
+				this.skuCode = 'taili.'+this.sizeCode+'.'+this.colorCode;
+				sessionStorage.setItem('skuName',this.skuName);
+				sessionStorage.setItem('templateCode',this.templateCode);
+				sessionStorage.setItem('skuCode',this.skuCode);
 			},
 			 editorImage(jsons){
                 console.log('宽高',jsons)
@@ -161,6 +173,9 @@
 		mounted(){
 			this.size = this.trimStr($('.size:nth-child(1)').text());
 			this.type = this.trimStr($('.type:nth-child(1)').text());
+			 this.sizeCode = $('.size:nth-child(1)').attr('data-code');
+			 this.colorCode = $('.type:nth-child(1)').attr('data-code');
+			 
 			this.initStyle();
 			
 			

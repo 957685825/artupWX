@@ -41,6 +41,8 @@ import khSelect from './components/product/kh/khSelect.vue'
 import tlSelect from './components/product/tl/tlSelect.vue'
 //编辑上传台历
 import tlEdit from './components/product/tl/tlEdit.vue'
+//海报选择
+import hbSelect from './components/product/hb/hbSelect.vue'
 
 ////导出路由
 export default{
@@ -117,6 +119,10 @@ export default{
 		},
 		{
 			path:'/tlEdit', component:tlEdit //框画选择
+			
+		},
+		{
+			path:'/hbSelect', component:hbSelect //框画选择
 			
 		}
 	]
