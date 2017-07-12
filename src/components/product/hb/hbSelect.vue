@@ -135,38 +135,41 @@
 				this.workEdit.sku = this.skuName;
 				this.workEdit.skuCode = this.skuCode;
 				this.workEdit.category = this.getFromSession('category');
-				console.log(this.workEdit)
-			   Api.work.workEdit(this.workEdit).then((res)=>{
-			   	this.extraCode = res.data.extraCode;
-			   })
+				 
+			   	Api.work.workEdit(this.workEdit).then((res)=>{
+			   		this.extraCode = res.data.extraCode;
+			   	})
 			
 			},
-			getImg(val){ //获取组件图片
-				$('#showImg').attr('src',val.thumbnailUrl);
-				$('.imgBox').show();
-				$('#updateBtn').show();
-				
-				setTimeout(function(){
-					dragThumb($('#showImg'),$('.imgBox'))
-				},200)
-				$('#showImg').attr('attrImg',$('#showImg').attr('src'));//存原图
-				this.imgData = val;
-				var picObj = {
-				 	"constName":'1_1',
-				 	"picDbId" : val.bdId,
-				 	"page" :val.picPage,
-				 	"editCnfIndex" :val.styleType,
-				 	"num" : val.picNum,
-				 	 actions : {"thumbnailScale":val.thumbnailScale},
-                     "thumbnailImageUrl":val.thumbnailUrl, 
-                     "previewThumbnailImageUrl" :val.previewThumbnailImageUrl,
-                     "crop" : "false","editCnfName" : val.editCnfName
-				 };
-				 this.workEdit.editPicture.push(picObj);
-				 this.workEdit.thumbnailImageUrl = val.thumbnailUrl;
-				 this.workEdit.tplCode = this.templateCode;
-				 
-				console.log(val)
+			getImg(val){ //获取组件图片 
+				if(val.pictureDbId){
+					$('#showImg').attr('src',val.thumbnailUrl);
+					$('.imgBox').show();
+					$('#updateBtn').show();
+					
+					setTimeout(function(){
+						dragThumb($('#showImg'),$('.imgBox'))
+					},200)
+					
+					$('#showImg').attr('attrImg',$('#showImg').attr('src'));//存原图
+					this.imgData = val;
+					var picObj = {
+					 	"constName":'1_1',
+					 	"picDbId" : val.bdId,
+					 	"page" :val.picPage,
+					 	"editCnfIndex" :val.styleType,
+					 	"num" : val.picNum,
+					 	 actions : {"thumbnailScale":val.thumbnailScale},
+	                     "thumbnailImageUrl":val.thumbnailUrl, 
+	                     "previewThumbnailImageUrl" :val.previewThumbnailImageUrl,
+	                     "crop" : "false","editCnfName" : val.editCnfName
+					 };
+					 this.workEdit.editPicture.push(picObj);
+					 this.workEdit.thumbnailImageUrl = val.thumbnailUrl;
+					 this.workEdit.tplCode = this.templateCode;
+				} else {
+					//Toast('上传图片失败，请重试');
+				} 
 			},
 			updataType(params){//选择框型
 				

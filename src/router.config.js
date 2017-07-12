@@ -44,18 +44,27 @@ import tlEdit from './components/product/tl/tlEdit.vue'
 //海报选择
 import hbSelect from './components/product/hb/hbSelect.vue'
 
-////导出路由
-export default{
+
+let router = {
 //	mode:'history',
 	routes:[
 	 	{ 
-	 		path: '/', component: Index	 		
+	 		path: '/', component: Index,
+	 		meta:{
+	 			title:"传给雅昌"
+	 		}
 	 	},
 	 	{ 
-	 		path: '/bbsImgs', component: editImgs  //测试模块的路由宝宝书 		
+	 		path: '/bbsImgs', component: editImgs,  //测试模块的路由宝宝书
+	 		meta:{
+	 			title:"宝宝书"
+	 		}
 	 	},
 	 	{ 
-	 		path: '/huaceImgs', component: huaceImgs  //测试模块路由画册
+	 		path: '/huaceImgs', component: huaceImgs,  //测试模块路由画册
+	 		meta:{
+	 			title:"画册"
+	 		}
 	 	},
 //		{
 //			path:'/', component:Home, //首页 home
@@ -68,10 +77,16 @@ export default{
 	 		path: '/Login', component: Login	//测试vuex 		
 	 	},
 		{
-			path:'/User', component:User //个人列表
+			path:'/User', component:User, //个人列表
+			meta:{
+	 			title:"个人中心"
+	 		}
 		},
 		{
-			path:'/NewAddress', component:NewAddress //新建地址
+			path:'/NewAddress', component:NewAddress, //新建地址
+			meta:{
+	 			title:"新建地址"
+	 		}
 		},
 		{
 			path:'/Address', component:Address //收货地址
@@ -111,19 +126,32 @@ export default{
 			path:'/huaceMsg', component:huaceMsg //画册介绍
 		},
 		{
-			path:'/huaceSelect', component:huaceSelect //画册选择
+			path:'/huaceSelect', component:huaceSelect, //画册选择
+			meta:{
+	 			title:"画册尺寸选择"
+	 		}
 		},
 		{
-			path:'/tlSelect', component:tlSelect //框画选择
+			path:'/tlSelect', component:tlSelect //台历
+			,meta:{
+	 			title:"台历尺寸选择"
+	 		}
+		},
+		{
+			path:'/tlEdit', component:tlEdit //台历
 			
 		},
 		{
-			path:'/tlEdit', component:tlEdit //框画选择
-			
-		},
-		{
-			path:'/hbSelect', component:hbSelect //框画选择
+			path:'/hbSelect', component:hbSelect //海报选择
 			
 		}
 	]
 }
+//进入路由后动态修改每一个的title
+console.log(router)
+
+
+
+
+//导出路由
+export default router

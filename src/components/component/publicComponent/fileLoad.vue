@@ -56,7 +56,17 @@
         		slectUpload(){
         			Indicator.open({text: '素材加载中...',spinnerType: 'fading-circle'});
 		    		//素材库地址图片
-		        Api.Material.MaterialData("artup-build/service/picture/page.do","").then((res)=>{		
+		            var paramJson ={
+                        format:"json",
+                        userDbId:localStorage.getItem('userDbId'),
+                        status:1,
+                        pageNum:0,
+                        pageSize:50,
+                        sort:"uploadDt",
+                        order:"desc",
+                        category: ""
+                    } 
+                    Api.Material.MaterialData(paramJson).then((res)=>{		
 		            this.Material = res.data.results;
 		            //添加属性切换属性
 		            this.Material.forEach((arrJson,i)=>{		
@@ -152,10 +162,16 @@
                 });
                 //上传成功
                 r.on('fileSuccess', function(file, message){
-                		console.log('上传成功')
-                		this.sheetVisibles= false;
-                		//给父级的回调
-                    oThis.$emit('getImgData',$.parseJSON(message))
+                    var rObj = $.parseJSON(message);
+                    if(rObj.pictureDbId){ 
+                        this.sheetVisibles= false;
+                        //给父级的回调
+                        oThis.$emit('getImgData',$.parseJSON(message));
+                    } else {
+                        //alert(0);
+                        alert('上传图片失败，请重试');
+                    }
+                	
                     Indicator.close();
                 });
             }
