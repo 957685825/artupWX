@@ -4,44 +4,38 @@
 				
 				{
 					Size:'400mmX500mm',
-					width:'7.02989rem',
-					height:'8.92986rem',
-					smallBoxWidth:'5.43716rem',
-					smallBoxHeight:'7.5464rem'
+					width:'8rem',
+					height:'10rem'
+					
 
 				},
 				{
 					Size:"500mmX400mm",
-					width:'8.92986rem',
-					height:'7.02989rem',
-					smallBoxWidth:'8.1792rem',
-					smallBoxHeight:'12.6087rem'
+					width:'10rem',
+					height:'8rem'
+					
 
 				},	
 				{
 					Size:"700mmX500mm",
-					width:'12.7298rem',
-					height:'8.92986rem',
-					smallBoxWidth:'7.5464rem',
-					smallBoxHeight:'7.5464rem'
+					width:'13rem',
+					height:'9.29rem'
+					
 					
 				},
 				{
 					Size:"500mmX700mm",
-					width:'8.92986rem',
-					height:'12.7298rem',
-					smallBoxWidth:'7.5464rem',
-					smallBoxHeight:'5.43716rem'
+					width:'9rem',
+					height:'12.68rem'
+					
 
 
 				},
 				{
 					Size:"500mmX500mm",
-					width:'8.92986rem',
-					height:'8.92986rem',
-					smallBoxWidth:'12.6087rem',
-					smallBoxHeight:'8.1792rem'
-
+					width:'10rem',
+					height:'10rem'
+					
 				}
 			]
   		
