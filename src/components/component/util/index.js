@@ -26,7 +26,10 @@ export default{
 		var obj = JSON.parse(sessionStorage.getItem("urlQuery"));
 		if (jsons) {
 			for (var i in obj) {
-				jsons[i] = obj[i]
+				console.log(obj[i])
+				if(obj[i] && obj[i] != ''){
+					jsons[i] = obj[i]
+				}
 			}
 			return jsons;
 		}else{

@@ -3,8 +3,8 @@
 		<file-load @getImgData="getImg" :extraPostDatas="extraPostData" :sheetVisible="sheetV" ></file-load>
 		
 		<mt-header title="艺术海报">
-		  <router-link to="/" slot="left">
-		    <mt-button icon="back"></mt-button>
+		  <router-link to="" v-tap="{ methods:linkGo }" slot="left">
+		    <mt-button icon="back">返回</mt-button>
 		  </router-link>
 		  <mt-button icon=""  slot="right"></mt-button>
 		</mt-header>
@@ -70,7 +70,7 @@
 				type:'',
 				sheetV:false, //组件的开关
 				imgData:'',
-				defDbId:'6afedcf6-b0e4-447d-afd9-c70449f42f50',
+				defDbId:'d6e44ca4-511f-41d5-87df-d8d75a491c09',
 				templateCode:'',
 				sizeCode:'',
 				typeCode:'',
@@ -78,15 +78,15 @@
 				skuName:'',
 				extraCode:'',
 				extraPostData:{
-					category :"kuanghua",
+					category :"haibao",
 					client :'mobile',
 					channel:'',
 					userDbId :"", 
 					picPage : 1,
 					picNum : 1,
 					styleType : 1,
-					editCnfName :'kuanghua_400X500',
-					templateCode : 'kuanghua_400X500',				
+					editCnfName :'',
+					templateCode : '',				
 					defDbId:''
 				},
 				 workEdit:{ //给后端保存或者编辑完成下一步传递的对象
@@ -98,7 +98,7 @@
 //                      sessionId:localStorage.getItem("sessionId"),
                         userDbId:localStorage.getItem('userDbId'),
 //                      client:"mobile",//渠道前端传递，暂时写死
-                        category:this.getFromSession("category"),//产品类型这里是宝宝书
+                        category:'',//产品类型这里是宝宝书
                         defDbId:'', //tplCode 模版暂时写死,父组件带入
                         channelCode:"zc",//暂时写死
                         sku:'',//产品调sku
@@ -134,9 +134,10 @@
 				this.workEdit.editPicture = JSON.stringify(this.workEdit.editPicture[0])
 				this.workEdit.sku = this.skuName;
 				this.workEdit.skuCode = this.skuCode;
-			   Api.work.workEdit("artup-build/builder/cors/edit/add/command.do",this.workEdit).then((res)=>{
+				this.workEdit.category = this.getFromSession('category');
+				console.log(this.workEdit)
+			   Api.work.workEdit(this.workEdit).then((res)=>{
 			   	this.extraCode = res.data.extraCode;
-			   
 			   })
 			
 			},
@@ -181,13 +182,11 @@
 			},
 			initStyle(){//初始化数据
 				var size = this.trimStr(this.size);
-
 				var datas = selectKh.init.selectK(size);
-				
-				//this.skuName = "框画."+ size+'.'+type;
-				this.templateCode = 'kuanghua_'+this.sizeCode;
-				this.skuCode = 'kuanghua.'+this.sizeCode+'.'+this.typeCode;
-				
+				this.skuName = "海报."+ size;
+				this.templateCode = 'haibao_'+this.sizeCode;
+				this.skuCode = 'haibao.'+this.sizeCode;
+				this.extraPostData.editCnfName = 'haibao_'+this.sizeCode;
 				this.CaseData = datas;
 				console.log(datas)
 			},
@@ -255,14 +254,18 @@
 	                    }
 	                }
 	            )
-	        }
+	       },
+	        linkGo(){
+				this.vurRouterGo();
+			}
 
 		},
 		mounted(){
-			
+			this.addToSession();
+			 this.extraPostData.defDbId = this.defDbId;
+			 this.sizeCode = $('.size:nth-child(1)').attr('data-code');
 			/*默认画框样式*/
 			this.size = this.trimStr($('.size:nth-child(1)').text());
-			
 			this.initStyle();
 			
 			

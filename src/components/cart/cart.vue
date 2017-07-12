@@ -3,9 +3,8 @@
 		<mt-header title="购物车">
 		  <router-link to="/" slot="left">
 		    <mt-button icon="back">返回</mt-button>
-		    <mt-button>关闭</mt-button>
 		  </router-link>
-		  <mt-button icon="more" slot="right"></mt-button>
+		  <mt-button icon="" @click.native='deleteCar' slot="right">删除</mt-button>
 		</mt-header>
 		<!--购物车列表-->
 		<ul class="cartList">
@@ -76,6 +75,9 @@ export default {
 　　　　
 　　　　},
 		methods:{
+			deleteCar(){
+				alert(0)
+			},
 			/*添加数量*/
 			add(params){
 				++this.dataList[params.index].num;

@@ -1,8 +1,8 @@
 <template>
 	<div id="orderList">
 		<mt-header title="我的订单">
-		  <router-link to="/" slot="left">
-		    <mt-button icon="back"></mt-button>
+		  <router-link to="" v-tap='{methods:linkGo}' slot="left">
+		    <mt-button icon="back">返回</mt-button>
 		  </router-link>
 		  <mt-button icon="more" slot="right"></mt-button>
 		</mt-header>
@@ -118,7 +118,10 @@
 						}
 									
 					})
-        	}
+        		},
+	        linkGo(){
+				this.vurRouterGo();
+			}
         },
         mounted() {
         	Api.car.orderListStatus({userDbId:localStorage.getItem("userDbId")}).then(res=>{

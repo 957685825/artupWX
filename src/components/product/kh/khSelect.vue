@@ -3,8 +3,8 @@
 		<file-load @getImgData="getImg" :extraPostDatas="extraPostData" :sheetVisible="sheetV" ></file-load>
 		
 		<mt-header title="艺术框画">
-		  <router-link to="/" slot="left">
-		    <mt-button icon="back"></mt-button>
+		  <router-link to=""  v-tap="{ methods:linkGo }" slot="left">
+		    <mt-button icon="back">返回</mt-button>
 		  </router-link>
 		  <mt-button icon=""  slot="right"></mt-button>
 		</mt-header>
@@ -118,8 +118,8 @@
 					picPage : 1,
 					picNum : 1,
 					styleType : 1,
-					editCnfName :'kuanghua_400X500',
-					templateCode : 'kuanghua_400X500',				
+					editCnfName :'',
+					templateCode : '',				
 					defDbId:''
 				},
 				 workEdit:{ //给后端保存或者编辑完成下一步传递的对象
@@ -167,7 +167,7 @@
 				this.workEdit.editPicture = JSON.stringify(this.workEdit.editPicture[0])
 				this.workEdit.sku = this.skuName;
 				this.workEdit.skuCode = this.skuCode;
-			   Api.work.workEdit("artup-build/builder/cors/edit/add/command.do",this.workEdit).then((res)=>{
+			   Api.work.workEdit(this.workEdit).then((res)=>{
 			   	this.extraCode = res.data.extraCode;
 			   
 			   })
@@ -220,8 +220,8 @@
 				this.skuName = "框画."+ size+'.'+type;
 				this.templateCode = 'kuanghua_'+this.sizeCode;
 				this.skuCode = 'kuanghua.'+this.sizeCode+'.'+this.typeCode;
-				
-				console.log(this.skuCode)
+				this.extraPostData.editCnfName = 'kuanghua_'+this.sizeCode;
+				//console.log(this.skuCode)
 				this.CaseData = datas;
 				console.log(size)
 			},
@@ -289,7 +289,10 @@
 	                    }
 	                }
 	            )
-	        }
+	        },
+	        linkGo(){
+				this.vurRouterGo();
+			}
 
 		},
 		mounted(){
