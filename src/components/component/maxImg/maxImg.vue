@@ -84,6 +84,8 @@
 						<div class="bbsBtn">
 							<ul>
 								<li><p>第<span>{{index+1}}</span>页</p></li>
+								<li  v-if="index==0" class="switchBs"><a  style="border: none;" >6寸照片</a></li>
+								<li  v-if="index!=0" class="switchBs"><a style="border: none;" >lomo卡</a></li>
 							</ul>
 						</div>
 					</div>
@@ -93,7 +95,7 @@
 		<i style="display: block;width: 100%;height: 2.9375rem;"></i>
 		<div class="cart_btn">
 			<div class="price">
-				合计<span><b>¥</b>{{bbs.oPrice}}</span></div>
+				价格：<span><b>¥</b>{{bbs.oPrice}}</span></div>
 			<div v-if="!previewPage" v-tap="{methods : editWork}" class="crectOrder">
 				保存作品
 			</div>
@@ -428,18 +430,29 @@
                
                 var oindex = params.index;
                 this.bbs.index1 = oindex;
+                //每一次切换的时候都给板式等于1个常量100
+                this.bbs.index2 = 100
+                
                 //默认选中第一条
                 this.selectBS = true;//板式选择模版
-
+				
             },
             selectMoban(params){ //选择板式
                 var oindex = params.index;
                 this.bbs.index2 = oindex;
+                
                 //变化ui
                 $(".box_checkBS .checkBS > li").removeClass("liactive");
                 $(".box_checkBS .checkBS > li").eq(oindex).addClass("liactive");
             },
             nextBS(){//板式选择完毕的下一步
+            	    //如果等于100就不去切换板式
+            		if (this.bbs.index2 ==100) {
+            			this.goAnchor("#offsetId");//跳转锚点
+            			this.selectBS = false;
+            			return 
+            		}
+            	
                 var oThis = this;
                 this.selectBS = false;
                 var oIndexs = 'bbs'+(this.bbs.index2+1)               
@@ -453,6 +466,7 @@
 		                		var oPageNumber = oThis.bbs.index1+1+'_'+$(el).find(".sucaiClass").attr("nm");
 		                		oThis.editData.ImgHashMap.remove(oPageNumber);
 		                		oThis.editData.textMap.remove("1_1");
+		                		oThis.editData.textMap.remove("1_2");
 		                })
 		                $("#fengdi .allBbsClass").remove();
 		                $("#fengdi .bbsClass").remove();

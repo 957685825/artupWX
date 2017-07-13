@@ -20,7 +20,7 @@
 		<i style="height: 2.9375rem; display: block; width: 100%;"></i>
 		<div class="cart_btn">			
 			<div class="price">
-				合计<span><b>¥</b>{{price}}</span></div> 
+				价格：<span><b>¥</b>{{price}}</span></div> 
 			<div  v-tap="{methods : nextPage}" class="crectOrder">
 				下一步
 			</div>
