@@ -155,9 +155,9 @@
 					var minDpiWidth = dpiImg.minDpiWidth;
 					var minDpiHeight = dpiImg.minDpiHeight;	
 					if(imgWidth < minDpiWidth || imgHeight < minDpiHeight){
-						$("#editImg .reportNav").show()
+						$("#editImg .reportNav").show();
 					}else{
-						$("#editImg .reportNav").hide()						
+						$("#editImg .reportNav").hide();					
 					}
                 },
                 onZoomChange(){
