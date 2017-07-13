@@ -2,8 +2,8 @@
 	<div id="newAddress">
 		<!--头-->
 		<mt-header title="收货地址">
-		  <router-link to="/" slot="left">
-		    <mt-button icon="back"></mt-button>
+		  <router-link to="" v-tap="{methods:linkGo}" slot="left">
+		    <mt-button icon="back">返回</mt-button>
 		  </router-link>
 		  <mt-button icon=""  slot="right"></mt-button>
 		</mt-header>
@@ -124,7 +124,7 @@
 					/*确认提交*/
 					Api.address.updateAddress(jsons).then(res=>{
 						console.log(res);
-						location.href="#address";
+						location.href="#address?openId="+this.$route.query.openId+"&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("userDbId");
 					},err=>{
 						Toast('数据请求错误');
 					})
@@ -144,7 +144,8 @@
 							if(this.$route.query.orderDbId){
 								location.href="#payOrder?openId="+this.$route.query.openId+"&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("userDbId")
 							}else{
-								location.href="#address";
+								
+								location.href="#address?openId="+this.$route.query.openId+"&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("userDbId");
 							}
 						}
 					},err=>{
@@ -152,6 +153,9 @@
 					})
 				}
 				console.log(this.datas)
+			},
+	        linkGo(){
+				this.vurRouterGo();
 			}
 		
 		},

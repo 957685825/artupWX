@@ -115,7 +115,7 @@
 					<mt-button icon="back">返回</mt-button>
 				</router-link>
 				<router-link to="" slot="right">
-					<mt-button   v-tap="{methods : nextBS}">下一步</mt-button>
+					<mt-button   v-tap="{methods : nextBS}">确认</mt-button>
 				</router-link>
 			</mt-header>
 			<ul class="checkBS">

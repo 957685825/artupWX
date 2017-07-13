@@ -79,13 +79,24 @@
 				
         	},
         	cancleOrder(params){
-        		Api.car.cancleOrder({dbId:params.dbId}).then(res=>{
-        			this.dataList[params.index].status = -1;
-        			this.dataList[params.index].orderState = '已取消';
-        			//console.log(res)
-        		},err=>{
-        			
-        		})
+        		
+        		
+        		MessageBox({
+					  title: '我的订单',
+					  message: '您确认取消该条订单吗？',
+					  showCancelButton: true
+					}).then((res)=>{
+						if(res=="confirm"){
+							Api.car.cancleOrder({dbId:params.dbId}).then(res=>{
+				        			this.dataList[params.index].status = -1;
+				        			this.dataList[params.index].orderState = '已取消';
+				        			//console.log(res)
+				        		},err=>{
+				        			Toast('数据请求错误');
+				        		})
+						}
+									
+					})
         	},
         	delectFn(params){ 
         		var jsons = {
