@@ -4,6 +4,7 @@
     		<div  class="reportNav">		
 				！图片像素不足，会导致打印模糊，建议更换图片
 		</div>
+
         <div id="dropBox" class="resumable-drop">
         </div>
         <div id="image-cropper">
@@ -37,7 +38,7 @@
     export default {
         data() {
             return {
-             	isDpi:false
+             
             }
         },
         methods: {
@@ -145,7 +146,7 @@
                     imgIsChanged = false;
                 },
                 onOffsetChange(){               		
-                    vm.imgChanged();
+                   vm.imgChanged();
                     var imgObj = build();
                     //dpi 检验
                     var dpiImg = vm.$store.state.editImgModule.initialCrop;
@@ -156,9 +157,12 @@
 					var minDpiHeight = dpiImg.minDpiHeight;	
 					if(imgWidth < minDpiWidth || imgHeight < minDpiHeight){
 						$("#editImg .reportNav").show()
+						
 					}else{
-						$("#editImg .reportNav").hide()						
+						$("#editImg .reportNav").hide()	
+						
 					}
+					 
                 },
                 onZoomChange(){
                     vm.imgChanged();

@@ -44,6 +44,8 @@ import tlEdit from './components/product/tl/tlEdit.vue'
 //海报选择
 import hbSelect from './components/product/hb/hbSelect.vue'
 
+//我的素材库
+import material from './components/user/material.vue'
 
 let router = {
 //	mode:'history',
@@ -144,7 +146,11 @@ let router = {
 		{
 			path:'/hbSelect', component:hbSelect //海报选择
 			
+		},{
+			path:'/material', component:material //我的素材
+			
 		}
+		
 	]
 }
 //进入路由后动态修改每一个的title

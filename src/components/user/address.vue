@@ -105,7 +105,6 @@
 	        linkGo(){
 				this.vurRouterGo();
 			}
-		
 		},
 		mounted(){
 			if(this.$route.query.dzgl && this.$route.query.dzgl == 'grzx'){
