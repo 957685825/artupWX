@@ -366,7 +366,9 @@
                 },100)
                 var oData = this.bbs.Material[this.bbs.MaterialImgIndex];
 
-
+				//存入最大宽高和里面的dpi做对比
+				this.bbs.imgEdit.minDpiHeight = oData.minDpiHeight;
+				this.bbs.imgEdit.minDpiWidth = 	oData.minDpiWidth;
 
                 jsonDpi.client = oData.client;
                 jsonDpi.channel = oData.channel;
@@ -405,7 +407,7 @@
             editWork(){//保存作品 
                 this.assembleData();
             },
-            goAnchor(selector) { //跳转锚点的函数
+            goAnchor(selector){ //跳转锚点的函数
                 var anchor = this.$el.querySelector(selector);
                 document.body.scrollTop = anchor.offsetTop;
             },
@@ -474,7 +476,6 @@
                     //编辑时候添加1个图片回显唯一标识符
                     $(".OnlyOneEditImg").removeClass("OnlyOneEditImg");
                     $(params.event.target).addClass("OnlyOneEditImg");
-
                     var oImg = $(params.event.target).prev("img");
                     //拿到编辑的图片地址.原图缓存到页面 属性 attrImg
                     if (this.bbs.attrImg && !oImg.attr("attrImg")) {
@@ -499,6 +500,10 @@
                         this.bbs.imgEdit.thumbnailScale = this.editData.ImgHashMap.getvalue(costName).actions.thumbnailScale
                         this.bbs.imgEdit.actions = this.editData.ImgHashMap.getvalue(costName).actions
                     }
+                    //传递控件里面的dpi校验参数
+                    this.bbs.imgEdit.actions.minDpiHeight = this.bbs.imgEdit.minDpiHeight
+                    this.bbs.imgEdit.actions.minDpiWidth = this.bbs.imgEdit.minDpiWidth
+
                     console.log(this.bbs.imgEdit)
                     this.editorImage(this.bbs.imgEdit)
                     //给地址存入vuex和浏览器
@@ -658,8 +663,8 @@
 							var picObj = {"constName":constName,"picDbId" : oImgLomo[i].picDbId, "page" : oImgLomo[i].page, "editCnfIndex" : oImgLomo[i].editCnfIndex, "num" : oImgLomo[i].num, "actions" : oImgLomo[i].actions,
 							"thumbnailImageUrl":oImgLomo[i].thumbnailImageUrl, "previewThumbnailImageUrl" :oImgLomo[i].previewThumbnailImageUrl, "crop" : oImgLomo[i].crop,"editCnfName" : oImgLomo[i].editCnfName};
 							oThis.editData.lomHashMap.putvalue(constName,picObj);
-							var pageNum = oImgLomo[i].page+'_'+oImgLomo[i].num+'_'+oImgLomo[i].editCnfName;
-							$("#"+pageNum).prev(".myImgBox").show().find("img").css("width","100%").css("height","100%").attr("src",oImgData[i].previewThumbnailImageUrl).attr("attrImg",oImgData[i].thumbnailImageUrl);				
+							var pageNum = oImgLomo[i].page+'_'+oImgLomo[i].num+'_'+oImgLomo[i].editCnfName;							
+							$("#"+pageNum).prev(".myImgBox").show().find("img").css("width","100%").css("height","100%").attr("src",oImgLomo[i].previewThumbnailImageUrl).attr("attrImg",oImgLomo[i].thumbnailImageUrl);				
 		               		$("#"+pageNum).remove();
 						}
 					}
@@ -753,6 +758,7 @@
                     //进度条显示
                     $(".mint-indicator-text").text("上传中..."+parseInt(progressWidth)+'%')
                 });
+                
                 //上传成功
                 r.on('fileSuccess', function(file, message){
                     var responseText = $.parseJSON(message);
@@ -762,8 +768,9 @@
                         dragThumb($(".OnlyOne").prev(".myImgBox").find("img"),$(".OnlyOne").prev(".myImgBox"));
                         $(".OnlyOne").remove(); //清空触发弹出上传框的节点,防止vue事件委派兼容
                     },200)
-
-
+					//存入最大宽高和里面的dpi做对比
+					oThis.bbs.imgEdit.minDpiHeight = responseText.minDpiHeight;
+					oThis.bbs.imgEdit.minDpiWidth = 	responseText.minDpiWidth;
                     //组装后端需要的数据
                     var constName = responseText.picPage+'_'+responseText.picNum; //几页加第几张图
                     if (constName=="1_1"){//如果有第一页存入预览图

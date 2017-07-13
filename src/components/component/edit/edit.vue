@@ -1,5 +1,9 @@
 <template>
     <div id="editImg" v-once>
+    		<!--dpi校验-->
+    		<div  class="reportNav">		
+				！图片像素不足，会导致打印模糊，建议更换图片
+		</div>
         <div id="dropBox" class="resumable-drop">
         </div>
         <div id="image-cropper">
@@ -33,8 +37,7 @@
     export default {
         data() {
             return {
-                NavMenu: [], //左侧的菜单栏
-                number2: '',//test
+             	isDpi:false
             }
         },
         methods: {
@@ -109,6 +112,7 @@
         watch: {
             imgSrc(val, oldVal) {
                 if (val) {
+
 //                  Indicator.open();
                     const {
                         imgSize
@@ -140,16 +144,27 @@
 
                     imgIsChanged = false;
                 },
-                onOffsetChange(){
+                onOffsetChange(){               		
                     vm.imgChanged();
+                    var imgObj = build();
+                    //dpi 检验
+                    var dpiImg = vm.$store.state.editImgModule.initialCrop;
+                    var scale = dpiImg.thumbnailScale; 
+					var imgWidth = imgObj.width/scale; 
+					var imgHeight= imgObj.height/scale;
+					var minDpiWidth = dpiImg.minDpiWidth;
+					var minDpiHeight = dpiImg.minDpiHeight;	
+					if(imgWidth < minDpiWidth || imgHeight < minDpiHeight){
+						$("#editImg .reportNav").show()
+					}else{
+						$("#editImg .reportNav").hide()						
+					}
                 },
                 onZoomChange(){
                     vm.imgChanged();
                 }
             });
-
             this.$emit('getImageCropper', imageCropper);
-
         }
     }
 </script>
@@ -159,8 +174,20 @@
         font-size: 40px;
         color: #f60;
         text-align: center;
+        position: relative;
+        margin-top: 150px;
     }
-
+	#editImg .reportNav{
+		text-align: center;
+		line-height: 40px;
+		color: red;
+		font-size: 0.6rem;
+		background: rgba(0,0,0,0.3);
+	    position: absolute;
+	    top: -110px;
+	    width: 100%;
+		display: none;
+	}
     .cropit-preview {
         background-color: #f8f8f8;
         background-size: cover;

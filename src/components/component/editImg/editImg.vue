@@ -9,7 +9,6 @@
                     <mt-button @click="save">保存</mt-button>
                 </div>
             </mt-header>
-
             <loading ref="editInstance" @imgChanged="imgChanged" @getImageCropper="getImageCropper"></loading>
 
         </div>
@@ -29,7 +28,6 @@
             editorHeight: window.innerHeight,
             isShow: false
         }),
-
         props: [],
 
         methods: {
@@ -46,7 +44,7 @@
                     cropit: imgIsChanged,
                     ...state.editImgModule.customParams
                 });
-
+				
                 this::$emit('editFinish', {postData, imgData: imageCropper.cropit('export')});
 
                 commit('hideEditor');
