@@ -113,7 +113,7 @@
                         ignore:"true",
                         operator:"add",
                         edtDbId:'',// 新生成的产品才有的字段
-                        tplCode:sessionStorage.getItem('templateCode'), //暂时写死,父组件带入
+                        tplCode:sessionStorage.getItem('taili_templateCode'), //暂时写死,父组件带入
 //                      sessionId:localStorage.getItem("sessionId"),
                         userDbId:localStorage.getItem('userDbId'),
 //                      client:"mobile",//渠道前端传递，暂时写死
@@ -211,8 +211,7 @@
 					{width:"100%",height:"100%",top:0,left:0}
 				);
 				this.editData.actions = data.postData;
-				this.ImgHashMap.getvalue(this.imgData.picPage).actions = this.editData.actions;
-				console.log(data)
+				this.ImgHashMap.getvalue(this.imgData.picPage).actions = this.editData.actions; 
 			},
 			//调起编辑图片组件
 			 editorImage(jsons){
@@ -343,14 +342,14 @@
 			this.fuoundData(this.years,this.month);
 			this.statDt = this.taili[1].code;
 			this.extraPostData.defDbId = this.defDbId;
-			this.extraPostData.templateCode = sessionStorage.getItem('templateCode');
-			this.extraPostData.editCnfName = sessionStorage.getItem('templateCode');
+			this.extraPostData.templateCode = sessionStorage.getItem('taili_templateCode');
+			this.extraPostData.editCnfName = sessionStorage.getItem('taili_editCnfName');
 			this.extraPostData.defDbId = this.defDbId;
 			this.extraPostData.userDbId = localStorage.getItem("userDbId");
 			this.ImgHashMap = new HashMap(); //图片
 			this.textHashMap = new HashMap();//文字
-			this.skuName = sessionStorage.getItem('skuName');
-			this.skuCode = sessionStorage.getItem('skuCode');
+			this.skuName = sessionStorage.getItem('taili_skuName');
+			this.skuCode = sessionStorage.getItem('taili_skuCode');
 			
 			
 		}

@@ -151,9 +151,10 @@
 				this.skuName = "台历."+ size+'.'+type;
 				this.templateCode = 'taili_'+this.sizeCode;
 				this.skuCode = 'taili.'+this.sizeCode+'.'+this.colorCode;
-				sessionStorage.setItem('skuName',this.skuName);
-				sessionStorage.setItem('templateCode',this.templateCode);
-				sessionStorage.setItem('skuCode',this.skuCode);
+				sessionStorage.setItem('taili_skuName',this.skuName);
+				sessionStorage.setItem('taili_templateCode',this.templateCode);
+				sessionStorage.setItem('taili_editCnfName',this.templateCode + '_single');
+				sessionStorage.setItem('taili_skuCode',this.skuCode);
 				var paramsJson = {
 						"category": this.getFromSession("category"),
 						"parameter" : this.skuCode
@@ -166,8 +167,7 @@
 					 sessionStorage.setItem("hbPrice",this.price)
 				})
 			},
-			 editorImage(jsons){
-                console.log('宽高',jsons)
+			 editorImage(jsons){ 
                 this.$store.commit(
                     'showEditor',
                     {
