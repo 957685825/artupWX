@@ -33,7 +33,7 @@
 				 </router-link>
 			</li>
 			<li>
-				<router-link to="">
+				<router-link to="material">
 					 <i class="icon iconfont">&#xe603;</i>
 				 	<p>我的素材库</p>
 				 </router-link>
