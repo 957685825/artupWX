@@ -191,7 +191,9 @@
 				 	 actions : {"thumbnailScale":val.thumbnailScale},
                      "thumbnailImageUrl":val.thumbnailUrl, 
                      "previewThumbnailImageUrl" :val.previewThumbnailImageUrl,
-                     "crop" : "false","editCnfName" : val.editCnfName
+                     "crop" : "false",
+                     "editCnfName" : val.editCnfName,
+                      "userDbId":val.userDbId
 				 };
 				 this.ImgHashMap.putvalue(val.picPage,picObj)
 				 var tl_code = this.taili[val.picPage-1].code;

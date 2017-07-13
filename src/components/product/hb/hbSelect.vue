@@ -163,7 +163,9 @@
 					 	 actions : {"thumbnailScale":val.thumbnailScale},
 	                     "thumbnailImageUrl":val.thumbnailUrl, 
 	                     "previewThumbnailImageUrl" :val.previewThumbnailImageUrl,
-	                     "crop" : "false","editCnfName" : val.editCnfName
+	                     "crop" : "false",
+	                     "editCnfName" : val.editCnfName,
+	                      "userDbId":val.userDbId
 					 };
 					 this.workEdit.editPicture.push(picObj);
 					 this.workEdit.thumbnailImageUrl = val.thumbnailUrl;
