@@ -140,15 +140,16 @@
 				  this.loading = true;
 			},
 			continueEdit(params){ //继续编辑
+				//更改再次编辑的书皮的颜色
+				var jsons = JSON.parse(sessionStorage.getItem("bbsSlsectDate"));
+			 	jsons.colorName = this.worklist[params.index].sku.split('.')[1]
+			 	sessionStorage.setItem("bbsSlsectDate",JSON.stringify(jsons))
 				//存入继续编辑页面的id
-//				console.log(this.worklist[params.index].dbId)
 				if(this.worklist[params.index].category=="huace"){
 					location.href = "#huaceImgs?edtDbid="+this.worklist[params.index].dbId;
 				}else{					
 					location.href = "#BbsImgs?edtDbid="+this.worklist[params.index].dbId;
-				}
-				
-				
+				}				
 			},
 	        linkGo(){
 				this.vurRouterGo();
