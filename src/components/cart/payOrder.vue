@@ -79,9 +79,12 @@
         methods: {
         	
         	gotoOrderPay(){
-                var payUrl = "#orderStatus?paymentType=WX&addressId="+this.addressData.dbId+"&dbId="+this.dataList.dbId+"&userDbId="+this.$route.query.userDbId+"&openId="+this.$route.query.openId;
-        		//console.log(payUrl);
-                location.href=	payUrl;
+        		if(this.addresBool != true){
+        			Toast('地址不能为空');
+        			return;
+        		}
+           var payUrl = "#orderStatus?paymentType=WX&addressId="+this.addressData.dbId+"&dbId="+this.dataList.dbId+"&userDbId="+this.$route.query.userDbId+"&openId="+this.$route.query.openId;
+           location.href = payUrl;
         	},
         	updataAddress(){
         		location.href="#Address?openId="+this.$route.query.openId+"&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("userDbId");

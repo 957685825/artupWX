@@ -191,7 +191,11 @@
 				 	"page" :val.picPage,
 				 	"editCnfIndex" :val.styleType,
 				 	"num" : val.picNum,
-				 	 actions : {"thumbnailScale":val.thumbnailScale},
+				 	 actions : {
+				 	 	"thumbnailScale":val.thumbnailScale,
+				 	 	"minDpiHeight":val.minDpiHeight,
+				 	 	"minDpiWidth":val.minDpiWidth
+				 	 },
                      "thumbnailImageUrl":val.thumbnailUrl, 
                      "previewThumbnailImageUrl" :val.previewThumbnailImageUrl,
                      "crop" : "false",
