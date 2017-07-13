@@ -124,7 +124,7 @@
                         editPicture:[],//产品图片
                         editTxt:[],
                         thumbnailImageUrl:'',//第一板式的第一张缩略图
-                        status:1
+                        status:2
                   },
                   ImgHashMap:'',//存储图片的hasmap
                   textHashMap:'',
