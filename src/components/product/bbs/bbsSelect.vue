@@ -54,7 +54,7 @@
 							this.bbs.attributes[params.index1].attributeValues[params.index2].colorF = true;
 						}
 				}
-				$("#bbs-select .slect_dl > dd .dd_slectWidth").eq(params.index2).addClass("dd_active").siblings().removeClass("dd_active");
+				$("#bbs-select .slect_dl").eq(params.index1).find("dd .dd_slectWidth").eq(params.index2).addClass("dd_active").siblings().removeClass("dd_active");
 				//在次计算价格
 				this.getPrice($("#bbs-select .slect_dl > dd .dd_active"));
 			},

@@ -9,7 +9,7 @@
 			<div class="img_div">
 				<ul>
 					<li v-for="(item,inde) in Material">
-						<img :src="item.previewThumbnailImageUrl"/>
+						<img :src="item.thumbnailUrl"/>
 					</li>
 				</ul>
 			</div>

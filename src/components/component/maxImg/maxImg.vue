@@ -90,6 +90,7 @@
 				</li>
 			</ul>
 		</div>
+		<i style="display: block;width: 100%;height: 2.9375rem;"></i>
 		<div class="cart_btn">
 			<div class="price">
 				合计<span><b>¥</b>{{bbs.oPrice}}</span></div>
@@ -112,7 +113,7 @@
 		<div v-if="selectBS" class="box_checkBS">
 			<mt-header title="板式选择">
 				<router-link to="" slot="left">
-					<mt-button icon="back">返回</mt-button>
+					<mt-button v-tap="{methods : blockBtn}" icon="back">返回</mt-button>
 				</router-link>
 				<router-link to="" slot="right">
 					<mt-button   v-tap="{methods : nextBS}">确认</mt-button>
@@ -212,6 +213,10 @@
         },
         props: ['dataImg'],
         methods:{
+        		//更换板式返回
+        		blockBtn(){
+        			this.selectBS = false;
+        		},
         	    //返回上一页
 	        	linkGo(){
 	        		this.vurRouterGo();
@@ -315,11 +320,11 @@
                                     $(el).find(".myImgBox >img").each(function(i,e){
                                         if (!$(e).attr("src")) {
                                             if ($(e).attr("class")=="lomo") {
-                                                Toast('lomo卡第'+(index-oThis.typeHtml.length+1)+'页图片上传不完整!');
+                                                Toast('请上传lomo卡第'+(index-oThis.typeHtml.length+1)+'页图片!');
                                                 isOK = false;
                                                 return;
                                             }
-                                            Toast('第'+(index+1)+'页图片上传不完整!');
+                                            Toast('请上传第'+(index+1)+'页图片!');
                                             isOK = false;
                                             return;
                                         }
@@ -417,6 +422,10 @@
                 //给当前添加1个锚点id
                 $("#offsetId").attr("id","");
                 $(params.event.target).parents(".bs").parent("li").attr("id","offsetId");
+                //板式
+                var oTppe_type = $(params.event.target).parents(".bs").find(".bbsA").attr("bsdata")
+                this.bbs.oTppe_type = oTppe_type;
+               
                 var oindex = params.index;
                 this.bbs.index1 = oindex;
                 //默认选中第一条
@@ -433,22 +442,26 @@
             nextBS(){//板式选择完毕的下一步
                 var oThis = this;
                 this.selectBS = false;
-                var oIndexs = 'bbs'+(this.bbs.index2+1)
-//              var oIndexs = 'bbs0'+(this.bbs.index2+1)
-               	//修改模版板式之后清空他map里面的数据
-                $("#fengdi").append(this.typeHtml[this.bbs.index1]);
-                //清空图片和文字
-                $("#fengdi .bbsClass").each(function(index,el){
-                		var oPageNumber = oThis.bbs.index1+1+'_'+$(el).find(".sucaiClass").attr("nm");
-                		oThis.editData.ImgHashMap.remove(oPageNumber);
-                		oThis.editData.textMap.remove("1_1");
-                })
-                $("#fengdi .allBbsClass").remove();
-                $("#fengdi .bbsClass").remove();
-                $("#fengdi .textarea").remove();
-                 //动态修改模版的板式
-                this.typeHtml[this.bbs.index1] = this.dataImg.imgArrTypeData[oIndexs];
-                this.goAnchor("#offsetId");//跳转锚点
+                var oIndexs = 'bbs'+(this.bbs.index2+1)               
+                 //动态修改模版的板式 
+               if (this.bbs.oTppe_type!=this.bbs.index2+1) {
+                 	 this.typeHtml[this.bbs.index1] = this.dataImg.imgArrTypeData[oIndexs];
+                 	 	//修改模版板式之后清空他map里面的数据
+		                $("#fengdi").append(this.typeHtml[this.bbs.index1]);
+		                //清空图片和文字
+		                $("#fengdi .bbsClass").each(function(index,el){
+		                		var oPageNumber = oThis.bbs.index1+1+'_'+$(el).find(".sucaiClass").attr("nm");
+		                		oThis.editData.ImgHashMap.remove(oPageNumber);
+		                		oThis.editData.textMap.remove("1_1");
+		                })
+		                $("#fengdi .allBbsClass").remove();
+		                $("#fengdi .bbsClass").remove();
+		                $("#fengdi .textarea").remove();
+               		  this.goAnchor("#offsetId");//跳转锚点
+               }
+               else{
+                 	Toast("板式没有变更")
+                }               
             },
             MaterialCheckImg(params){//图片素材库切换
                 this.bbs.Material.forEach((arrJson,i)=>{
