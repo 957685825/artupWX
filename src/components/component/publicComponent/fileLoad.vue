@@ -55,6 +55,7 @@
         		},
         		slectUpload(){
         			Indicator.open({text: '素材加载中...',spinnerType: 'fading-circle'});
+        			$("body").css("overflow","hidden")
 		    		//素材库地址图片
 		            var paramJson ={
                         format:"json",
@@ -85,11 +86,14 @@
 			        },200)
 		            //关闭弹窗
 		           Indicator.close();
+		           this.sheetVisibles = false;
+               	   this.popupVisible = true;
+               	   //避免窗口被滑动
+               	   $("body").css("overflow","inherit")
 		        })   
 		        
 		        
-        			this.sheetVisibles = false;
-                this.popupVisible = true;
+        			
                 
         	   },
         	   MaterialCheckImg(params){ //选择图片
