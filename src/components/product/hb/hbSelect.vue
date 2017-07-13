@@ -165,7 +165,7 @@
 	                     "previewThumbnailImageUrl" :val.previewThumbnailImageUrl,
 	                     "crop" : "false",
 	                     "editCnfName" : val.editCnfName,
-	                      "userDbId":val.userDbId
+	                     "userDbId":val.userDbId
 					 };
 					 this.workEdit.editPicture.push(picObj);
 					 this.workEdit.thumbnailImageUrl = val.thumbnailUrl;
@@ -247,7 +247,9 @@
                     channelCode:"zc",
                     opSystem:'',
                     thumbnailImageUrl:this.workEdit.thumbnailImageUrl,
-                    total:'0.01'
+                    total:'0.01',
+                    sku : this.skuName,
+                    skuCode : this.skuCode
                 }
                 Api.car.addCar(jsons).then(res=>{
                     //var category = "baobaoshu"
@@ -280,6 +282,7 @@
 		mounted(){
 			this.addToSession();
 			 this.extraPostData.defDbId = this.defDbId;
+			 this.extraPostData.userDbId = localStorage.getItem("userDbId");
 			 this.sizeCode = $('.size:nth-child(1)').attr('data-code');
 			/*默认画框样式*/
 			this.size = this.trimStr($('.size:nth-child(1)').text());

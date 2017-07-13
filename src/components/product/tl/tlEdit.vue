@@ -318,7 +318,9 @@
                     channelCode:"zc",
                     opSystem:'',
                     thumbnailImageUrl:this.workEdit.thumbnailImageUrl,
-                    total:'0.01'
+                    total:'0.01',
+                    sku : this.skuName,
+                    skuCode : this.skuCode
                 }
                 Api.car.addCar(jsons).then(res=>{
                     //var category = "baobaoshu"

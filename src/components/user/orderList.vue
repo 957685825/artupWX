@@ -4,7 +4,7 @@
 		  <router-link to="" v-tap='{methods:linkGo}' slot="left">
 		    <mt-button icon="back">返回</mt-button>
 		  </router-link>
-		  <mt-button icon="more" slot="right"></mt-button>
+		  <mt-button icon="" slot="right"></mt-button>
 		</mt-header>
 		<div class="order" v-for="(itmes,indexs) in dataList">
 			<ul>
