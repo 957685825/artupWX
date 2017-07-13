@@ -20,7 +20,7 @@
 						<li>{{itme.sku | splitSku}}</li>
 						<li>{{itme.sku | splitSkuLast}}</li>
 						<li>{{itme.createdDt}}</li>
-						<li class="pic" v-model="itme.num">¥&nbsp;{{itme.total * itme.num}}</li>
+						<li class="pic" v-model="itme.num">¥&nbsp;{{itme.total * itme.num | toFixedTwo}}</li>
 					</ol>
 				</div>
 				<div class="div_number">
