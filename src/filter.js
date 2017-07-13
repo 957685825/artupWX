@@ -35,3 +35,10 @@ Vue.filter("splitAddress",function(value){
 		return value.length > 10 ? value.substr(0,10).concat('...'):value;
 	}
 })
+
+Vue.filter("splitAddress",function(value){
+	if (value) {
+		
+		return parseFloat(value.toFixed(2));
+	}
+})

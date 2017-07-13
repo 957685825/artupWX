@@ -184,6 +184,7 @@
 				},200)
 				$('#showImg').attr('attrImg',$('#showImg').attr('src'));//存原图
 				this.imgData = val;
+				console.log(val)
 				var picObj = {
 				 	"constName":'1_1',
 				 	"picDbId" : val.pictureDbId,
@@ -193,13 +194,15 @@
 				 	 actions : {"thumbnailScale":val.thumbnailScale},
                      "thumbnailImageUrl":val.thumbnailUrl, 
                      "previewThumbnailImageUrl" :val.previewThumbnailImageUrl,
-                     "crop" : "false","editCnfName" : val.editCnfName
+                     "crop" : "false",
+                     "editCnfName" : val.editCnfName,
+                     "userDbId":val.userDbId
 				 };
 				 this.workEdit.editPicture.push(picObj);
 				 this.workEdit.thumbnailImageUrl = val.thumbnailUrl;
 				 this.workEdit.tplCode = this.templateCode;
 				 
-				console.log(val)
+				
 			},
 			updataType(params){//选择框型
 				this.type = $(params.event.target).text();
@@ -277,8 +280,11 @@
                     channelCode:"zc",
                     opSystem:'',
                     thumbnailImageUrl:this.workEdit.thumbnailImageUrl,
-                    total:'0.01'
+                    total:'0.01',
+                    sku : this.skuName,
+                    skuCode : this.skuCode
                 }
+				
                 Api.car.addCar(jsons).then(res=>{
                     //var category = "baobaoshu"
                     location.href="#cart?edtDbId="+this.extraCode+"&category="+this.getFromSession("category");

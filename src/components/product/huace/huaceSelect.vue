@@ -91,9 +91,10 @@
 					//console.log(dataCode)
 					//console.log(dataCode2)
 					//组装后端需要的数据暂存浏览器
-					this.bbsSlsectDate.name = this.bbs.name+'.'+dataCode2;
-					this.bbsSlsectDate.category =this.getFromSession("category"); //类型字段
-				 	
+					this.bbsSlsectDate.name = this.bbs.name+'.'+dataCode2; 
+				 	this.bbsSlsectDate.skuCode = this.getFromSession("category")+'.'+dataCode;
+					this.bbsSlsectDate.category = this.getFromSession("category"); //类型字段
+
 				 	var paramsJson = {
 						"category": this.getFromSession("category"),
 						"parameter" : dataCode

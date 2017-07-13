@@ -236,9 +236,13 @@
                     sku : bbsSlsectDate.name,
                     skuCode : bbsSlsectDate.skuCode
                 }
-                Api.car.addCar(jsons).then(res=>{
-                    //var category = "baobaoshu"
-                    location.href="#cart?edtDbId="+this.bbs.extraCode+"&category="+bbsSlsectDate.category
+                Api.car.addCar(jsons).then(res=>{ 
+                    if(res.data.code === 'success' && res.data.extraCode){
+                      location.href="#cart?edtDbId="+this.bbs.extraCode+"&category="+bbsSlsectDate.category  
+                    } else {
+                        Toast('添加购物车失败(' + res.data.message + ')');
+                    }
+                    //
                 },err=>{
                     Toast('添加购物车出错');
                 })
@@ -335,9 +339,7 @@
                             Toast("保存成功")
                         }
                     }
-                })
-
-                console.log(this.bbs.workEdit)
+                }) 
 
             },
             slectUpload(){ //素材库倒入的操作
