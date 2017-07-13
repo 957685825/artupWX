@@ -94,6 +94,8 @@
 	import selectKh from '../../../../static/lab/js/selectKh.js'
 	import fileLoad from '../../component/publicComponent/fileLoad.vue'
     import Api from '../../../API.js'
+	import { Toast,Indicator,MessageBox,Picker,Popup } from 'mint-ui';	
+    
 	
 	export default{
 		data(){
@@ -159,19 +161,24 @@
 				this.sheetV =!this.sheetV;
 			},
 			nextGoCar(){
-				this.finishWork = !this.finishWork;
-				this.workEdit.defDbId = this.defDbId;
-				if(this.editData.actions){
-					this.workEdit.editPicture[0].actions = this.editData.actions ;
-				}
-				//this.workEdit.editPicture[0].actions = this.editData.actions ;
-				this.workEdit.editPicture = JSON.stringify(this.workEdit.editPicture[0])
-				this.workEdit.sku = this.skuName;
-				this.workEdit.skuCode = this.skuCode;
-			   Api.work.workEdit(this.workEdit).then((res)=>{
-			   	this.extraCode = res.data.extraCode;
-			   
-			   })
+				if($("#showImg").attr('src')){
+				
+					this.finishWork = !this.finishWork;
+					this.workEdit.defDbId = this.defDbId;
+					if(this.editData.actions){
+						this.workEdit.editPicture[0].actions = this.editData.actions ;
+					}
+					//this.workEdit.editPicture[0].actions = this.editData.actions ;
+					this.workEdit.editPicture = '['+JSON.stringify(this.workEdit.editPicture[0])+']';
+					this.workEdit.sku = this.skuName;
+					this.workEdit.skuCode = this.skuCode;
+				   Api.work.workEdit(this.workEdit).then((res)=>{
+				   	this.extraCode = res.data.extraCode;
+				   
+				   })
+			  }else{
+			  	Toast('请先上传图片');
+			  }
 			
 			},
 			getImg(val){ //获取组件图片
