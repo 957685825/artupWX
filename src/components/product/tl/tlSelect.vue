@@ -183,7 +183,7 @@
 		},
 		mounted(){
 			this.addToSession();
-			this.extraPostData.userDbId = localStorage.getItem("userDbId");
+			
 			this.size = this.trimStr($('.size:nth-child(1)').text());
 			this.type = this.trimStr($('.type:nth-child(1)').text());
 			 this.sizeCode = $('.size:nth-child(1)').attr('data-code');

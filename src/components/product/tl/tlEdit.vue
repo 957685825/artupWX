@@ -346,6 +346,7 @@
 			this.extraPostData.templateCode = sessionStorage.getItem('templateCode');
 			this.extraPostData.editCnfName = sessionStorage.getItem('templateCode');
 			this.extraPostData.defDbId = this.defDbId;
+			this.extraPostData.userDbId = localStorage.getItem("userDbId");
 			this.ImgHashMap = new HashMap(); //图片
 			this.textHashMap = new HashMap();//文字
 			this.skuName = sessionStorage.getItem('skuName');
