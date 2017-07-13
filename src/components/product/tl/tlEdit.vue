@@ -148,9 +148,6 @@
 		      	 this.month = picker.getValues()[1];
 		      	  this.fuoundData(this.years,this.month);
 		      }
-		     
-		      console.log(this.years)
-		      console.log(this.month)
 		    
 		   },
 			imgshow(index){ //显示上传
@@ -188,7 +185,11 @@
 				 	"page" :val.picPage,
 				 	"editCnfIndex" :val.styleType,
 				 	"num" : val.picNum,
-				 	 actions : {"thumbnailScale":val.thumbnailScale},
+				 	actions : {
+				 	 	"thumbnailScale":val.thumbnailScale,
+				 	 	"minDpiHeight":val.minDpiHeight,
+				 	 	"minDpiWidth":val.minDpiWidth
+				 	 },
                      "thumbnailImageUrl":val.thumbnailUrl, 
                      "previewThumbnailImageUrl" :val.previewThumbnailImageUrl,
                      "crop" : "false",
@@ -268,9 +269,9 @@
 					}else{
 						Toast('第'+(picObject.page)+'页图片上传不完整!');
 					}
-                    if (this.ImgHashMap.getvalue(this.ImgHashMap.keys()[i])) {
-                        arrMap.push(this.ImgHashMap.getvalue(this.ImgHashMap.keys()[i]));
-                    }
+                    //if (this.ImgHashMap.getvalue(this.ImgHashMap.keys()[i])) {
+                    //    arrMap.push(this.ImgHashMap.getvalue(this.ImgHashMap.keys()[i]));
+                    //}
                 }
 				for(var j = 0; j<this.textHashMap.keys().length; j++){
 					if(this.textHashMap.getvalue(this.textHashMap.keys()[j])){
@@ -298,8 +299,7 @@
                 		if(res.data.code == 'success'){
                 			this.finishWork = !this.finishWork;
                 			this.extraCode = res.data.extraCode;
-                		}
-                		console.log(res)
+                		} 
                 })
               	//console.log(this.workEdit)
 			},

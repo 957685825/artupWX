@@ -36,7 +36,7 @@ Vue.filter("splitAddress",function(value){
 	}
 })
 
-Vue.filter("splitAddress",function(value){
+Vue.filter("toFixedTwo",function(value){
 	if (value) {
 		
 		return parseFloat(value.toFixed(2));

@@ -155,13 +155,11 @@
 					var imgHeight= imgObj.height/scale;
 					var minDpiWidth = dpiImg.minDpiWidth;
 					var minDpiHeight = dpiImg.minDpiHeight;	
-					if(imgWidth < minDpiWidth || imgHeight < minDpiHeight){
-						$("#editImg .reportNav").show()
-						
+					if(imgWidth < minDpiWidth || imgHeight < minDpiHeight){ 
+						$("#editImg .reportNav").show();
 					}else{
-						$("#editImg .reportNav").hide()	
-						
-					}
+						$("#editImg .reportNav").hide(); 	
+					} 
 					 
                 },
                 onZoomChange(){

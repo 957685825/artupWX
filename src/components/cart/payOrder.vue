@@ -2,8 +2,8 @@
 	<div id="payOrder">
 		<!--头-->
 		<mt-header title="确认订单">
-		  <router-link to="/" slot="left">
-		    <mt-button icon="back"></mt-button>
+		  <router-link to="" v-tap="{methods:linkGo}" slot="left">
+		    <mt-button icon="back">返回</mt-button>
 		  </router-link>
 		  <mt-button icon=""  slot="right"></mt-button>
 		</mt-header>
@@ -79,17 +79,22 @@
         methods: {
         	
         	gotoOrderPay(){
-                var payUrl = "#orderStatus?paymentType=WX&addressId="+this.addressData.dbId+"&dbId="+this.dataList.dbId+"&userDbId="+this.$route.query.userDbId+"&openId="+this.$route.query.openId;
-        		//console.log(payUrl);
-                location.href=	payUrl;
+        		if(this.addresBool != true){
+        			Toast('地址不能为空');
+        			return;
+        		}
+           var payUrl = "#orderStatus?paymentType=WX&addressId="+this.addressData.dbId+"&dbId="+this.dataList.dbId+"&userDbId="+this.$route.query.userDbId+"&openId="+this.$route.query.openId;
+           location.href = payUrl;
         	},
         	updataAddress(){
-        		location.href="#Address?openId="+this.$route.query.openId+"&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("sessionId");
+        		location.href="#Address?openId="+this.$route.query.openId+"&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("userDbId");
         	},
         	addAddress(){
-        		location.href="#newAddress?openId="+this.$route.query.openId+"&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("sessionId");
-        	}
-         
+        		location.href="#newAddress?openId="+this.$route.query.openId+"&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("userDbId");
+        	},
+        linkGo(){
+			this.vurRouterGo();
+		}
         },
         mounted() {
         	var jsons = {

@@ -20,7 +20,7 @@
 						<li>{{itme.sku | splitSku}}</li>
 						<li>{{itme.sku | splitSkuLast}}</li>
 						<li>{{itme.createdDt}}</li>
-						<li class="pic" v-model="itme.num">¥&nbsp;{{itme.total * itme.num}}</li>
+						<li class="pic" v-model="itme.num">¥&nbsp;{{itme.total * itme.num | toFixedTwo}}</li>
 					</ol>
 				</div>
 				<div class="div_number">
@@ -41,7 +41,7 @@
 		<i style="height: 2.9375rem;display: block;width: 100%;"></i>
 		<div class="cart_btn">
 			<div class="all_select">
-				<b v-tap='{methods:checkAll}'><i></i></b> 
+				<b  :class="checkAllBtn == false ? '':'activeSelect' "  v-tap='{methods:checkAll}'  ><i v-bind:hidden="checkAllBtn == false" class="icon iconfont" style="top: -0.875rem;">&#xe672;</i></b>
 				<span>全选</span>
 			</div>
 			<div class="price">
@@ -68,7 +68,8 @@ export default {
 			checkes:false,
 			allPic:0,
 			arr:[],
-			picMap:[]
+			picMap:[],
+			checkAllBtn:false
 	    }
 	  },
 	 watch:{
@@ -136,13 +137,37 @@ export default {
 			/*设置选中状态*/
 			updateCheck(params){
 				this.dataList[params.index].isOK = !this.dataList[params.index].isOK;
+				var arr = [];
+				for (var i = 0; i < this.dataList.length; i++) {
+					if (this.dataList[i].isOK == true) {
+						arr.push(this.dataList[i]);
+					}					
+				}
+				if(this.dataList.length == arr.length){
+					this.checkAllBtn = true;
+				}else{
+					this.checkAllBtn = false;
+				}
 				this.oPrice();
+				
+				
+				
 			},
 			/*全选*/
 			checkAll(){
-				this.dataList.forEach(function(el,n){
-					el.isOK = !el.isOK;
-				})
+				this.checkAllBtn  = !this.checkAllBtn;
+				if(this.checkAllBtn == true){
+					this.dataList.forEach(function(el,n){
+						//el.isOK = !el.isOK;
+						el.isOK = true;
+					})
+				}else{
+					this.dataList.forEach(function(el,n){
+						//el.isOK = !el.isOK;
+						el.isOK = false;
+					})
+				}
+				
 				this.oPrice();
 				this.$forceUpdate();
 			},

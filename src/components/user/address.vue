@@ -13,7 +13,7 @@
 					<div class="content clearfix" :dbId='itme.dbId'>
 						<div class="listContent clearfix">
 							<ul class="clearfix">
-								<li><p v-bind:hidden="selectBtn == false" v-tap='{methods:updataCheck,dbid:itme.dbId}' class= "circle circleNone"><i class="icon iconfont">&#xe639;</i></p></li>
+								<li><p v-bind:hidden="selectBtn == false" v-tap='{methods:updataCheck,dbid:itme.dbId,index:indexs}' :class="itme.isOK ? 'circle':'circle circleNone' "><i v-bind:hidden="itme.isOK == false" class="icon iconfont">&#xe639;</i></p></li>
 								<li>
 									<p>
 										<span>{{itme.name}}</span>
@@ -50,25 +50,16 @@
 		},
 		methods:{
 			updataCheck(params){
-				if($(params.event.target).hasClass("circleNone")){
-					$(params.event.target).removeClass('circleNone');
-					$(params.event.target).find('i').show();
-					var jsons = {
+				this.dataList[params.index].isOK = !this.dataList[params.index].isOK;
+				var jsons = {
 							sessionId:this.getFromSession("sessionId"),
 							dbId:params.dbid
-						}
-					Api.address.setDefaultAddress(jsons).then(res=>{
-						location.href="#payOrder?openId="+this.$route.query.openId+"&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("userDbId")
-					},err=>{
-						Toast('数据请求错误');
-					})
-				}else{
-					if($(params.event.target).hasClass("icon")){
-						$(params.event.target).hide();
-						$(params.event.target).parent('p').addClass('circleNone');
-					}
-					
-				}
+							}
+				Api.address.setDefaultAddress(jsons).then(res=>{
+					location.href="#payOrder?openId="+this.$route.query.openId+"&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("userDbId")
+				},err=>{
+					Toast('数据请求错误');
+				})
 			},
 			/*删除地址*/
 			deleteAddress(params){
@@ -108,9 +99,12 @@
 		},
 		mounted(){
 			if(this.$route.query.dzgl && this.$route.query.dzgl == 'grzx'){
-				this.selectBtn = true;
-			}else{
 				this.selectBtn = false;
+				 
+			}else{	
+			
+				this.selectBtn = true;
+				
 			}
 			var jsons = {
 				userDbId:localStorage.getItem("userDbId"),
@@ -122,7 +116,16 @@
 			}
 			Api.address.addressList(jsons).then(res=>{
 				this.dataList = res.data.results;
-				console.log(res)
+				for (var i = 0; i < this.dataList.length; i++) {
+					if(this.dataList[i].mainAddr  == '是'){
+						
+						this.dataList[i].isOK = true;
+					}else{
+						this.dataList[i].isOK = false;	
+					}
+				}
+				//console.log(this.dataList)
+				//console.log(res)
 				//动态设置删除按钮高度
 				function FnsetDelectDivHeight(){
 					var delectHeight = [];

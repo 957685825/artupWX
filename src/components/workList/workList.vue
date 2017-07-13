@@ -155,6 +155,16 @@
 				this.vurRouterGo();
 			},
 			deleteWork(){
+				var checkArr = [];
+				for (var i = 0; i < this.worklist.length; i++) {
+						if (this.worklist[i].isOK) {
+							checkArr.push(this.worklist[i])
+						}					
+					}
+				if(checkArr.length < 1){
+					Toast('请选择要删除的作品');
+					return;
+				}
 				MessageBox({
 				  title: '我的作品',
 				  message: '您确认删除此数据吗?',
