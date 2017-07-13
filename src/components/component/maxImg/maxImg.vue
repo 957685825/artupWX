@@ -92,7 +92,7 @@
 				</li>
 			</ul>
 		</div>
-		<i style="display: block;width: 100%;height: 2.9375rem;"></i>
+		<i style="display: block;width: 100%;height: 0.9375rem;"></i>
 		<div class="cart_btn">
 			<div class="price">
 				价格：<span><b>¥</b>{{bbs.oPrice}}</span></div>
@@ -350,14 +350,41 @@
 
             },
             slectUpload(){ //素材库倒入的操作
-                this.sheetVisible = false;
-                this.popupVisible = true;
-                //计算素材库图片的位置
-                $("#bbsImg .img_div ul li").each(function(i,el){
-                    setTimeout(function(){
-                        dragThumb($(el).find("img"),$(el));
-                    },100)
+            	//规避弹窗滚动条
+            	$("body").css("overflow","hidden")
+            	Indicator.open({text: '素材加载中...',spinnerType: 'fading-circle'});
+            		var paramJson ={
+	                format:"json",
+	                userDbId:localStorage.getItem('userDbId'),
+	                status:1,
+	                pageNum:0,
+	                pageSize:50,
+	                sort:"uploadDt",
+	                order:"desc",
+	                category: ""
+	            }    			
+            //素材库地址图片
+            Api.Material.MaterialData(paramJson).then((res)=>{ 
+                this.bbs.Material = res.data.results;
+                //添加属性切换属性
+                this.bbs.Material.forEach((arrJson,i)=>{
+                    arrJson.activeLi = false;
                 })
+                if(this.bbs.Material[this.bbs.MaterialImgIndex]){
+                    this.bbs.Material[this.bbs.MaterialImgIndex].activeLi=true;    
+                }
+                 //计算素材库图片的位置
+                  setTimeout(function(){
+	                $("#bbsImg .img_div ul li").each(function(i,el){                  
+	                  dragThumb($(el).find("img"),$(el));                    
+	                })  
+                	  },200)
+               //关闭弹窗
+	           Indicator.close();
+	           this.sheetVisible = false;
+            	   this.popupVisible = true;
+            	   $("body").css("overflow","inherit")
+            })
             },
             okQuery(){//弹出框确认选中图片操作
 
@@ -703,29 +730,29 @@
                 })
             } 
             
-            var paramJson ={
-                format:"json",
-                userDbId:localStorage.getItem('userDbId'),
-                status:1,
-                pageNum:0,
-                pageSize:50,
-                sort:"uploadDt",
-                order:"desc",
-                category: ""
-            }    
-
-            //素材库地址图片
-            Api.Material.MaterialData(paramJson).then((res)=>{ 
-                this.bbs.Material = res.data.results;
-                //添加属性切换属性
-                this.bbs.Material.forEach((arrJson,i)=>{
-                    arrJson.activeLi = false;
-                })
-                if(this.bbs.Material[this.bbs.MaterialImgIndex]){
-                    this.bbs.Material[this.bbs.MaterialImgIndex].activeLi=true;    
-                }
-                
-            })
+//          var paramJson ={
+//              format:"json",
+//              userDbId:localStorage.getItem('userDbId'),
+//              status:1,
+//              pageNum:0,
+//              pageSize:50,
+//              sort:"uploadDt",
+//              order:"desc",
+//              category: ""
+//          }    
+//
+//          //素材库地址图片
+//          Api.Material.MaterialData(paramJson).then((res)=>{ 
+//              this.bbs.Material = res.data.results;
+//              //添加属性切换属性
+//              this.bbs.Material.forEach((arrJson,i)=>{
+//                  arrJson.activeLi = false;
+//              })
+//              if(this.bbs.Material[this.bbs.MaterialImgIndex]){
+//                  this.bbs.Material[this.bbs.MaterialImgIndex].activeLi=true;    
+//              }
+//              
+//          })
             //拿到浏览器存储的书皮
             var shupi = JSON.parse(sessionStorage.getItem("bbsSlsectDate")).colorName;
             //动态切换书皮
