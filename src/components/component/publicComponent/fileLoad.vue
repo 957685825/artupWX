@@ -170,7 +170,7 @@
                 });
               	r.on('error',function(){
                 		 Indicator.close();//关闭弹出框
-                		 Toast('网络错误，上传失败')
+                		 Toast('网络错误，上传失败');
                 });
               
                 //上传成功
@@ -180,9 +180,8 @@
                         this.sheetVisibles= false;
                         //给父级的回调
                         oThis.$emit('getImgData',$.parseJSON(message));
-                    } else {
-                        //alert(0);
-                        alert('上传图片失败，请重试');
+                    } else { 
+                        Toast('上传图片失败，请重试');
                     }
                 	
                     Indicator.close();
