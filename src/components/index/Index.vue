@@ -79,32 +79,40 @@ export default {
 			if (this.$route.query.userDbId) {
 				localStorage.setItem('userDbId',this.$route.query.userDbId)
 			}
+
 		}
     },
     mounted(){
     		Indicator.open({
-		  text: '加载中...',
-		  spinnerType: 'fading-circle'
-		});
-		
-		if (JSON.stringify(this.$route.query)!="{}") {  
-				this.fetchData();		
-		}else{
-			if (localStorage.getItem('userDbId') && localStorage.getItem('userDbId') != null && localStorage.getItem('userDbId') != '' && localStorage.getItem('userDbId') != 'null') {
-			} else {
-				//请求接口 //重新登录函数
-				Api.user.getUserDbId().then(res=>{
-					//请求微信授权
-					window.location.href=res.data.tokenUrl
-				})
-			}
-		}
-		//首页请求的数据
-		Api.Index.indexImg().then(res=>{ 
-			this.indexImg = res.data.data;
-			Indicator.close();
+		  		text: '加载中...',
+		  		spinnerType: 'fading-circle'
+			});
+			 
+			Api.Index.reloadCache().then(res=>{  
+				//alert(res.data);
+				if(res.data && res.data === 'true'){
+					
+				}
+			})
 
-		})
+			if (JSON.stringify(this.$route.query)!="{}") {  
+				this.fetchData();		
+			}else{
+				if (localStorage.getItem('userDbId') && localStorage.getItem('userDbId') != null && localStorage.getItem('userDbId') != '' && localStorage.getItem('userDbId') != 'null') {
+				} else {
+					//请求接口 //重新登录函数
+					Api.user.getUserDbId().then(res=>{
+						//请求微信授权
+						window.location.href=res.data.tokenUrl
+					})
+				}
+			}
+
+			//首页请求的数据
+			Api.Index.indexImg().then(res=>{ 
+				this.indexImg = res.data.data;
+				Indicator.close();
+			})
 	},
 	 watch:{
         $route:'fetchData'
