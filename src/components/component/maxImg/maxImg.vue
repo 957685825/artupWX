@@ -727,30 +727,7 @@
 				},1000)
                 })
             } 
-            
-//          var paramJson ={
-//              format:"json",
-//              userDbId:localStorage.getItem('userDbId'),
-//              status:1,
-//              pageNum:0,
-//              pageSize:50,
-//              sort:"uploadDt",
-//              order:"desc",
-//              category: ""
-//          }    
-//
-//          //素材库地址图片
-//          Api.Material.MaterialData(paramJson).then((res)=>{ 
-//              this.bbs.Material = res.data.results;
-//              //添加属性切换属性
-//              this.bbs.Material.forEach((arrJson,i)=>{
-//                  arrJson.activeLi = false;
-//              })
-//              if(this.bbs.Material[this.bbs.MaterialImgIndex]){
-//                  this.bbs.Material[this.bbs.MaterialImgIndex].activeLi=true;    
-//              }
-//              
-//          })
+             
             //拿到浏览器存储的书皮
             var shupi = JSON.parse(sessionStorage.getItem("bbsSlsectDate")).colorName;
             //动态切换书皮
@@ -760,10 +737,7 @@
 
             var client = 'wx';   //手机，pc，app 设备等
             var channel = 'artron' //渠道
-
-            //图片操作的json值
-//          var cropitData = {"x":200.21,"y":400.32,"width":100,"height":300,"rotate":0,"thumbnailScale":1};
-
+ 
             //定义3个hashMap
             this.editData.ImgHashMap = new HashMap(); //图片
             this.editData.lomHashMap =  new HashMap();//lom卡
@@ -772,13 +746,7 @@
 
             //图片上传时提交的参数
             var extraPostData = {};
-
-           
-//          console.log(typeHtmlLome)
-
-			/* 文件上传init */
-//          var uploadUrl = 'http://image2.artup.com/artup-build/builder/cors/picture/upload.do?format=json&sessionId=2141731&category=baobaoshu';
-//          var uploadUrl = Api.UPLOAD_URL;
+ 
             var uploadUrl = Api.UPLOAD_URL+'&category='+this.getFromSession("category")+'&userDbId='+localStorage.getItem('userDbId');
 
             
@@ -819,35 +787,41 @@
                 });
                 //上传成功
                 r.on('fileSuccess', function(file, message){
-                    var responseText = $.parseJSON(message);
-                    $(".OnlyOne").prev(".myImgBox").show().find("img").attr("src",responseText.thumbnailUrl).attr("attrImg",responseText.thumbnailUrl);
-                    //让图片剧中裁切隐藏
-                    setTimeout(function(){
-                        dragThumb($(".OnlyOne").prev(".myImgBox").find("img"),$(".OnlyOne").prev(".myImgBox"));
-                        $(".OnlyOne").remove(); //清空触发弹出上传框的节点,防止vue事件委派兼容
-                    },200)
-					//存入最大宽高和里面的dpi做对比
-					oThis.bbs.imgEdit.minDpiHeight = responseText.minDpiHeight;
-					oThis.bbs.imgEdit.minDpiWidth = 	responseText.minDpiWidth;
-                    //组装后端需要的数据
-                    var constName = responseText.picPage+'_'+responseText.picNum; //几页加第几张图
-                    if (constName=="1_1"){//如果有第一页存入预览图
-                        oThis.bbs.workEdit.thumbnailImageUrl=responseText.thumbnailUrl;
+                    var responseText = $.parseJSON(message); 
+                    if(responseText.pictureDbId){ 
+                        $(".OnlyOne").prev(".myImgBox").show().find("img").attr("src",responseText.thumbnailUrl).attr("attrImg",responseText.thumbnailUrl);
+                        //让图片剧中裁切隐藏
+                        setTimeout(function(){
+                            dragThumb($(".OnlyOne").prev(".myImgBox").find("img"),$(".OnlyOne").prev(".myImgBox"));
+                            $(".OnlyOne").remove(); //清空触发弹出上传框的节点,防止vue事件委派兼容
+                        },200)
+                        //存入最大宽高和里面的dpi做对比
+                        oThis.bbs.imgEdit.minDpiHeight = responseText.minDpiHeight;
+                        oThis.bbs.imgEdit.minDpiWidth =     responseText.minDpiWidth;
+                        //组装后端需要的数据
+                        var constName = responseText.picPage+'_'+responseText.picNum; //几页加第几张图
+                        if (constName=="1_1"){//如果有第一页存入预览图
+                            oThis.bbs.workEdit.thumbnailImageUrl=responseText.thumbnailUrl;
+                        }
+                        var picObj = {"constName":constName,"picDbId" : responseText.pictureDbId, "page" : responseText.picPage, "editCnfIndex" : responseText.styleType, "num" : responseText.picNum, "actions" : {thumbnailScale:responseText.thumbnailScale},
+                            "thumbnailImageUrl":responseText.thumbnailUrl, "previewThumbnailImageUrl" :responseText.previewThumbnailImageUrl, "crop" : "false","editCnfName" : responseText.editCnfName};
+
+
+
+                        //根据后端返回的类型组装数据,判断结尾标识符是不是lomo卡
+                        if (responseText.editCnfName=="baobaoshu_lomo") { //上传的是宝宝书的东西
+                            oThis.editData.lomHashMap.putvalue(constName,picObj);//存入lomo卡的对象
+
+                            Indicator.close();//关闭弹出框
+                            return;
+                        }
+                        //存入图片ImgHashMap
+                        oThis.editData.ImgHashMap.putvalue(constName,picObj);
+
+                    } else {
+                        Toast('上传图片失败，请重试');
                     }
-                    var picObj = {"constName":constName,"picDbId" : responseText.pictureDbId, "page" : responseText.picPage, "editCnfIndex" : responseText.styleType, "num" : responseText.picNum, "actions" : {thumbnailScale:responseText.thumbnailScale},
-                        "thumbnailImageUrl":responseText.thumbnailUrl, "previewThumbnailImageUrl" :responseText.previewThumbnailImageUrl, "crop" : "false","editCnfName" : responseText.editCnfName};
-
-
-
-                    //根据后端返回的类型组装数据,判断结尾标识符是不是lomo卡
-                    if (responseText.editCnfName=="baobaoshu_lomo") { //上传的是宝宝书的东西
-                        oThis.editData.lomHashMap.putvalue(constName,picObj);//存入lomo卡的对象
-
-                        Indicator.close();//关闭弹出框
-                        return;
-                    }
-                    //存入图片ImgHashMap
-                    oThis.editData.ImgHashMap.putvalue(constName,picObj)
+                    
                     //关闭弹出框
                     Indicator.close();
                 });
