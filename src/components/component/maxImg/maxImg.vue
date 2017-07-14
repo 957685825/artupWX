@@ -225,7 +225,6 @@
 	        	},
             goCart(){
                 var bbsSlsectDate = JSON.parse(sessionStorage.getItem("bbsSlsectDate"));
-                console.log(bbsSlsectDate)
                 var jsons = {
                     operator:"add",
 //                  sessionId:localStorage.getItem("sessionId"),
@@ -294,9 +293,9 @@
                 this.bbs.workEdit.editTxt = JSON.stringify(textArrMap);
                 this.bbs.workEdit.lomo = JSON.stringify(lomArrMap);
                 //存入有图的首张图片
-                for (var i = 0; i < arrMap.length; i++) {
-                		if (arrMap[i].thumbnailImageUrl) {
-                			this.bbs.workEdit.thumbnailImageUrl=arrMap[i].thumbnailImageUrl;
+                for (var i = 0; i < arrMap.length; i++) { 
+                		if (arrMap[i].previewThumbnailImageUrl) {
+                			this.bbs.workEdit.thumbnailImageUrl=arrMap[i].previewThumbnailImageUrl;
                 			break;
                 		}
                 }
@@ -513,8 +512,7 @@
                 $("#bbsImg .img_div ul li").removeClass("liActive")
                 $("#bbsImg .img_div ul li").eq(params.index).addClass("liActive")
             },
-            ActionsheetIn(params){//ActionsheetIn 弹出框显示，选择图片上传
-                console.log(params.event.target)
+            ActionsheetIn(params){//ActionsheetIn 弹出框显示，选择图片上传 
                 //图片上传功能
                 if ($(params.event.target).hasClass("sucaiClass")) {
                     //给此节点动态给1个class,方便回显的时候调用,先清空下calss避免bug

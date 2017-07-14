@@ -232,13 +232,10 @@ export default {
 				for (var i = 0; i < this.dataList.length; i++) {
 					this.dataList[i].isOK = false;
 				}
-				this.oPrice();
-				console.log(res)
+				this.oPrice(); 
 			},err=>{
 				Toast('数据请求错误');
-			})
-			
-			console.log(this.$route.query)
+			}) 
 			
 		}
 	}
