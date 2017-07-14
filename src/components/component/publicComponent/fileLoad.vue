@@ -140,8 +140,10 @@
                 var browBtn = document.getElementById('browseButton');
                 r.assignBrowse(browBtn, false);
                 r.on('filesAdded', function(array) {
+                
                     if(array.length > 1){alert('只能上传一张图片');return;}
                     var ok = validateUploadFiles($, array);
+                   
                     if (ok) {
                         //触发uploadStart
                         r.upload();} else {r.cancel();}
@@ -154,6 +156,7 @@
                     r.opts.query = oThis.extraPostData;
                     //打开进度框
                     Indicator.open({text: '图片上传中...',spinnerType: 'fading-circle'});
+                    
                     //关闭上弹块儿
                     oThis.sheetVisibles = false;
                 });
@@ -163,7 +166,13 @@
                     var progressWidth = progress.toFixed(2)*100;
                     //进度条显示
                     $(".mint-indicator-text").text("上传中..."+parseInt(progressWidth)+'%')
+                  
                 });
+              	r.on('error',function(){
+                		 Indicator.close();//关闭弹出框
+                		 Toast('网络错误，上传失败')
+                });
+              
                 //上传成功
                 r.on('fileSuccess', function(file, message){
                     var rObj = $.parseJSON(message);

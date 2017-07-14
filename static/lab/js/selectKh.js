@@ -9,7 +9,7 @@
   							width:'8.43716rem',
   							height:'10.5464rem',
   							smallBoxWidth:'6rem',
-  							smallBoxHeight:'7.5rem',
+  							smallBoxHeight:'8.1rem',
   							imgUrl:"url(http://image2.artup.com/resources/static/img/kuanghua/400x500-zm.png)"
   							
   						},
@@ -18,7 +18,7 @@
   							width:'11.1792rem',
   							height:'15.6087rem',
   							smallBoxWidth:'9rem',
-  							smallBoxHeight:'12.5rem',
+  							smallBoxHeight:'13.64rem',
   							imgUrl:"url(http://image2.artup.com/resources/static/img/kuanghua/530x740-zm.png)"
   						},	
   						{
@@ -34,7 +34,7 @@
   							width:'10.5464rem',
   							height:'8.43716rem',
   							smallBoxWidth:'8em',
-  							smallBoxHeight:'6.4rem',
+  							smallBoxHeight:'5.88rem',
   							imgUrl:"url(http://image2.artup.com/resources/static/img/kuanghua/500x400-zm.png)"
 
   						},
@@ -42,8 +42,8 @@
   							Size:"740mmX530mm",
   							width:'15.6087rem',
   							height:'11.1792rem',
-  							smallBoxWidth:'12.4rem',
-  							smallBoxHeight:'8.85rem',
+  							smallBoxWidth:'12.2rem',
+  							smallBoxHeight:'8.07rem',
   							imgUrl:"url(http://image2.artup.com/resources/static/img/kuanghua/740x530-zm.png)"
   						}
   					]
@@ -57,7 +57,7 @@
   							width:'8.43716rem',
   							height:'10.5464rem',
   							smallBoxWidth:'6rem',
-  							smallBoxHeight:'7.5rem',
+  							smallBoxHeight:'8.1rem',
   							imgUrl:"url(http://image2.artup.com/resources/static/img/kuanghua/400x500-yxl.png)"
   							
   						},
@@ -66,7 +66,7 @@
   							width:'11.1792rem',
   							height:'15.6087rem',
   							smallBoxWidth:'9rem',
-  							smallBoxHeight:'12.5rem',
+  							smallBoxHeight:'13.64rem',
   							imgUrl:"url(http://image2.artup.com/resources/static/img/kuanghua/530x740-yxl.png)"
   						},	
   						{
@@ -82,7 +82,7 @@
   							width:'10.5464rem',
   							height:'8.43716rem',
   							smallBoxWidth:'8em',
-  							smallBoxHeight:'6.4rem',
+  							smallBoxHeight:'5.88rem',
   							imgUrl:"url(http://image2.artup.com/resources/static/img/kuanghua/500x400-yxl.png)"
 
   						},
@@ -90,8 +90,8 @@
   							Size:"740mmX530mm",
   							width:'15.6087rem',
   							height:'11.1792rem',
-  							smallBoxWidth:'12.4rem',
-  							smallBoxHeight:'8.85rem',
+  							smallBoxWidth:'12.2rem',
+  							smallBoxHeight:'8.07rem',
   							imgUrl:"url(http://image2.artup.com/resources/static/img/kuanghua/740x530-yxl.png)"
   						}
   					]
@@ -105,7 +105,7 @@
   							width:'8.43716rem',
   							height:'10.5464rem',
   							smallBoxWidth:'6rem',
-  							smallBoxHeight:'7.5rem',
+  							smallBoxHeight:'8.1rem',
   							imgUrl:"url(http://image2.artup.com/resources/static/img/kuanghua/400x500-ypl.png)"
   							
   						},
@@ -114,7 +114,7 @@
   							width:'11.1792rem',
   							height:'15.6087rem',
   							smallBoxWidth:'9rem',
-  							smallBoxHeight:'12.5rem',
+  							smallBoxHeight:'13.64rem',
   							imgUrl:"url(http://image2.artup.com/resources/static/img/kuanghua/530x740-ypl.png)"
   						},	
   						{
@@ -130,7 +130,7 @@
   							width:'10.5464rem',
   							height:'8.43716rem',
   							smallBoxWidth:'8em',
-  							smallBoxHeight:'6.4rem',
+  							smallBoxHeight:'5.88rem',
   							imgUrl:"url(http://image2.artup.com/resources/static/img/kuanghua/500x400-ypl.png)"
 
   						},
@@ -138,8 +138,8 @@
   							Size:"740mmX530mm",
   							width:'15.6087rem',
   							height:'11.1792rem',
-  							smallBoxWidth:'12.4rem',
-  							smallBoxHeight:'8.85rem',
+  							smallBoxWidth:'12.2rem',
+  							smallBoxHeight:'8.07rem',
   							imgUrl:"url(http://image2.artup.com/resources/static/img/kuanghua/740x530-ypl.png)"
   						}
   					]
@@ -153,7 +153,7 @@
   							width:'8.43716rem',
   							height:'10.5464rem',
   							smallBoxWidth:'6rem',
-  							smallBoxHeight:'7.5rem',
+  							smallBoxHeight:'8.1rem',
   							imgUrl:"url(http://image2.artup.com/resources/static/img/kuanghua/400x500-ym.png)"
   							
   						},
@@ -162,7 +162,7 @@
   							width:'11.1792rem',
   							height:'15.6087rem',
   							smallBoxWidth:'9rem',
-  							smallBoxHeight:'12.5rem',
+  							smallBoxHeight:'13.64rem',	
   							imgUrl:"url(http://image2.artup.com/resources/static/img/kuanghua/530x740-ym.png)"
   						},	
   						{
@@ -178,7 +178,7 @@
   							width:'10.5464rem',
   							height:'8.43716rem',
   							smallBoxWidth:'8em',
-  							smallBoxHeight:'6.4rem',
+  							smallBoxHeight:'5.88rem',
   							imgUrl:"url(http://image2.artup.com/resources/static/img/kuanghua/500x400-ym.png)"
 
   						},
@@ -186,8 +186,8 @@
   							Size:"740mmX530mm",
   							width:'15.6087rem',
   							height:'11.1792rem',
-  							smallBoxWidth:'12.4rem',
-  							smallBoxHeight:'8.85rem',
+  							smallBoxWidth:'12.2rem',
+  							smallBoxHeight:'8.07rem',
   							imgUrl:"url(http://image2.artup.com/resources/static/img/kuanghua/740x530-ym.png)"
   						}
   					]
@@ -201,7 +201,7 @@
   							width:'8.43716rem',
   							height:'10.5464rem',
   							smallBoxWidth:'6rem',
-  							smallBoxHeight:'7.5rem',
+  							smallBoxHeight:'8.1rem',
   							imgUrl:"url(http://image2.artup.com/resources/static/img/kuanghua/400x500-yll.png)"
   							
   						},
@@ -210,7 +210,7 @@
   							width:'11.1792rem',
   							height:'15.6087rem',
   							smallBoxWidth:'9rem',
-  							smallBoxHeight:'12.5rem',
+  							smallBoxHeight:'13.64rem',
   							imgUrl:"url(http://image2.artup.com/resources/static/img/kuanghua/530x740-yll.png)"
   						},	
   						{
@@ -226,7 +226,7 @@
   							width:'10.5464rem',
   							height:'8.43716rem',
   							smallBoxWidth:'8em',
-  							smallBoxHeight:'6.4rem',
+  							smallBoxHeight:'5.88rem',
   							imgUrl:"url(http://image2.artup.com/resources/static/img/kuanghua/500x400-yll.png)"
 
   						},
@@ -234,8 +234,8 @@
   							Size:"740mmX530mm",
   							width:'15.6087rem',
   							height:'11.1792rem',
-  							smallBoxWidth:'12.4rem',
-  							smallBoxHeight:'8.85rem',
+  							smallBoxWidth:'12.2rem',
+  							smallBoxHeight:'8.07rem',
   							imgUrl:"url(http://image2.artup.com/resources/static/img/kuanghua/740x530-yll.png)"
   						}
   					]
@@ -249,7 +249,7 @@
   							width:'8.43716rem',
   							height:'10.5464rem',
   							smallBoxWidth:'6rem',
-  							smallBoxHeight:'7.5rem',
+  							smallBoxHeight:'8.1rem',
   							imgUrl:"url(http://image2.artup.com/resources/static/img/kuanghua/400x500-ykl.png)"
   							
   						},
@@ -258,7 +258,7 @@
   							width:'11.1792rem',
   							height:'15.6087rem',
   							smallBoxWidth:'9rem',
-  							smallBoxHeight:'12.5rem',
+  							smallBoxHeight:'13.64rem',
   							imgUrl:"url(http://image2.artup.com/resources/static/img/kuanghua/530x740-ykl.png)"
   						},	
   						{
@@ -274,7 +274,7 @@
   							width:'10.5464rem',
   							height:'8.43716rem',
   							smallBoxWidth:'8em',
-  							smallBoxHeight:'6.4rem',
+  							smallBoxHeight:'5.88rem',
   							imgUrl:"url(http://image2.artup.com/resources/static/img/kuanghua/500x400-ykl.png)"
 
   						},
@@ -282,8 +282,8 @@
   							Size:"740mmX530mm",
   							width:'15.6087rem',
   							height:'11.1792rem',
-  							smallBoxWidth:'12.4rem',
-  							smallBoxHeight:'8.85rem',
+  							smallBoxWidth:'12.2rem',
+  							smallBoxHeight:'8.07rem',
   							imgUrl:"url(http://image2.artup.com/resources/static/img/kuanghua/740x530-ykl.png)"
   						}
   					]
@@ -297,7 +297,7 @@
   							width:'8.43716rem',
   							height:'10.5464rem',
   							smallBoxWidth:'6rem',
-  							smallBoxHeight:'7.5rem',
+  							smallBoxHeight:'8.1rem',
   							imgUrl:"url(http://image2.artup.com/resources/static/img/kuanghua/400x500-hxl.png)"
   							
   						},
@@ -306,7 +306,7 @@
   							width:'11.1792rem',
   							height:'15.6087rem',
   							smallBoxWidth:'9rem',
-  							smallBoxHeight:'12.5rem',
+  							smallBoxHeight:'13.64rem',
   							imgUrl:"url(http://image2.artup.com/resources/static/img/kuanghua/530x740-hxl.png)"
   						},	
   						{
@@ -322,7 +322,7 @@
   							width:'10.5464rem',
   							height:'8.43716rem',
   							smallBoxWidth:'8em',
-  							smallBoxHeight:'6.4rem',
+  							smallBoxHeight:'5.88rem',	
   							imgUrl:"url(http://image2.artup.com/resources/static/img/kuanghua/500x400-hxl.png)"
 
   						},
@@ -330,8 +330,8 @@
   							Size:"740mmX530mm",
   							width:'15.6087rem',
   							height:'11.1792rem',
-  							smallBoxWidth:'12.4rem',
-  							smallBoxHeight:'8.85rem',
+  							smallBoxWidth:'12.2rem',
+  							smallBoxHeight:'8.07rem',
   							imgUrl:"url(http://image2.artup.com/resources/static/img/kuanghua/740x530-hxl.png)"
   						}
   					]
@@ -345,7 +345,7 @@
   							width:'8.43716rem',
   							height:'10.5464rem',
   							smallBoxWidth:'6rem',
-  							smallBoxHeight:'7.5rem',
+  							smallBoxHeight:'8.1rem',
   							imgUrl:"url(http://image2.artup.com/resources/static/img/kuanghua/400x500-hpl.png)"
   							
   						},
@@ -354,7 +354,7 @@
   							width:'11.1792rem',
   							height:'15.6087rem',
   							smallBoxWidth:'9rem',
-  							smallBoxHeight:'12.5rem',
+  							smallBoxHeight:'13.64rem',
   							imgUrl:"url(http://image2.artup.com/resources/static/img/kuanghua/530x740-hpl.png)"
   						},	
   						{
@@ -370,7 +370,7 @@
   							width:'10.5464rem',
   							height:'8.43716rem',
   							smallBoxWidth:'8em',
-  							smallBoxHeight:'6.4rem',
+  							smallBoxHeight:'5.88rem',
   							imgUrl:"url(http://image2.artup.com/resources/static/img/kuanghua/500x400-hpl.png)"
 
   						},
@@ -378,8 +378,8 @@
   							Size:"740mmX530mm",
   							width:'15.6087rem',
   							height:'11.1792rem',
-  							smallBoxWidth:'12.4rem',
-  							smallBoxHeight:'8.85rem',
+  							smallBoxWidth:'12.2rem',
+  							smallBoxHeight:'8.07rem',
   							imgUrl:"url(http://image2.artup.com/resources/static/img/kuanghua/740x530-hpl.png)"
   						}
   					]
@@ -394,7 +394,7 @@
   							width:'8.43716rem',
   							height:'10.5464rem',
   							smallBoxWidth:'6rem',
-  							smallBoxHeight:'7.5rem',
+  							smallBoxHeight:'8.1rem',
   							imgUrl:"url(http://image2.artup.com/resources/static/img/kuanghua/400x500-hkl.png)"
   							
   						},
@@ -403,7 +403,7 @@
   							width:'11.1792rem',
   							height:'15.6087rem',
   							smallBoxWidth:'9rem',
-  							smallBoxHeight:'12.5rem',
+  							smallBoxHeight:'13.64rem',
   							imgUrl:"url(http://image2.artup.com/resources/static/img/kuanghua/530x740-hkl.png)"
   						},	
   						{
@@ -419,7 +419,7 @@
   							width:'10.5464rem',
   							height:'8.43716rem',
   							smallBoxWidth:'8em',
-  							smallBoxHeight:'6.4rem',
+  							smallBoxHeight:'5.88rem',
   							imgUrl:"url(http://image2.artup.com/resources/static/img/kuanghua/500x400-hkl.png)"
 
   						},
@@ -427,8 +427,8 @@
   							Size:"740mmX530mm",
   							width:'15.6087rem',
   							height:'11.1792rem',
-  							smallBoxWidth:'12.4rem',
-  							smallBoxHeight:'8.85rem',
+  							smallBoxWidth:'12.2rem',
+  							smallBoxHeight:'8.07rem',
   							imgUrl:"url(http://image2.artup.com/resources/static/img/kuanghua/740x530-hkl.png)"
   						}
   					]

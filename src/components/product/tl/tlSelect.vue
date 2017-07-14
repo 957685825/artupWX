@@ -62,6 +62,7 @@
 			<div class="price">
 				价格：<span><b>¥</b>{{price}}</span></div> 
 			<div  v-tap="{methods : nextPage}" class="crectOrder">
+				
 				下一步
 			</div>
 		</div>
@@ -186,9 +187,8 @@
 			
 			this.size = this.trimStr($('.size:nth-child(1)').text());
 			this.type = this.trimStr($('.type:nth-child(1)').text());
-			 this.sizeCode = $('.size:nth-child(1)').attr('data-code');
-			 this.colorCode = $('.type:nth-child(1)').attr('data-code');
-			 
+			this.sizeCode = $('.size:nth-child(1)').attr('data-code');
+			this.colorCode = $('.type:nth-child(1)').attr('data-code'); 
 			this.initStyle();
 			
 			

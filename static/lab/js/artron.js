@@ -140,6 +140,7 @@ function uploadInitializer($, uploadUrl, uploadEventHandler){
 			
   		//绑定上传文件的事件处理
   		//artronFileUpload($, r, callback);
+
   		uploadEventHandler($, r);
   	}
 } 
