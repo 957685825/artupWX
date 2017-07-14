@@ -65,17 +65,19 @@ function getFiles(event) {
 function validateUploadFiles($, array) {
 	var ok = true;
 	$.each(array, function(idx, file) {
-		//console.log("upload : " + idx + "=" + file);
+		console.log(file);
 		var size = file.size;
 		var str = file.fileName.substring(file.fileName.lastIndexOf('.')+1);
 		if(str == 'JPG' || str == 'jpg'){
 			if (size < 500 * 1024) {
 			alert('文件大小不能小于500k');
+            file.chunks = [];
 			ok = false;
 			return;
 			}
 			
 		}else{
+            file.chunks = [];
 			alert('请上传jpg图片')
 			ok = false;
 		}	

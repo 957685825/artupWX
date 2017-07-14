@@ -141,12 +141,21 @@
                 r.assignBrowse(browBtn, false);
                 r.on('filesAdded', function(array) {
                 
-                    if(array.length > 1){alert('只能上传一张图片');return;}
-                    var ok = validateUploadFiles($, array);
-                   
+                    if(array.length > 1){
+                        $.each(array, function(idx, file) { 
+                            file.chunks = [];
+                        });
+                        alert('只能上传一张图片');
+                        return;
+
+                    }
+                    var ok = validateUploadFiles($, array); 
                     if (ok) {
                         //触发uploadStart
-                        r.upload();} else {r.cancel();}
+                        r.upload();} 
+                        else {
+                            r.cancel();
+                        }
                 });
                 //开始上传
                 r.on('uploadStart', function(){
