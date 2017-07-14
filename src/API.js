@@ -81,6 +81,7 @@ const SET_DEFAULT_ADDRESS = `${HOST}/artup-build/builder/address/mainAddress.do?
 /*重新登录函数*/
 const GER_USERDBID = `${HOST}artup-build/builder/service/tokenUrl.do?format=json`
 
+const RELOAD_CACHE = `${HOST}artup-build/builder/service/getFromCache.do?ignore=true&format=json`
 
 /*首页连接*/
 const INDEX_IMG = `${HOST}artup-build/builder/cors/lunbo/list.do?ignore=true&format=json&client=mobile`
@@ -241,6 +242,9 @@ export default {
 	   Index:{ //首页和其他介绍页面需要的接口
 	   	  indexImg:()=>{ 
 	   	  	return  VueHttp.$http.get(INDEX_IMG)   
+	   	  },
+	   	  reloadCache:()=>{ 
+	   	  	return  VueHttp.$http.get(RELOAD_CACHE);   
 	   	  }
 	   },
 	   user:{
