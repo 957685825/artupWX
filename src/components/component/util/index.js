@@ -2,24 +2,22 @@ export default{
   install(Vue,options)
   {
   	//addToSession 循环url，存入session
-    Vue.prototype.addToSession = function () {
+    Vue.prototype.addToSession = function () { 
 		var obj = JSON.parse(sessionStorage.getItem("urlQuery"));
-		for (var i in this.$route.query)
-		{
-			obj[i] = this.$route.query[i]
-		}
-    	   	sessionStorage.setItem("urlQuery",JSON.stringify(obj))
-//	   console.log("我的公共的方法组件")	
+        if(obj){
+        } else {
+            obj = {};
+        }
+
+        for (var key in this.$route.query){ 
+            if(this.$route.query[key]){
+              obj[key] = this.$route.query[key]   
+            }
+            
+        } 
+    	sessionStorage.setItem("urlQuery",JSON.stringify(obj)) 
     }
-//  Vue.prototype.addToSession2 = function (sessionName) {
-//		var obj = JSON.parse(sessionStorage.getItem(sessionName);
-//		for (var i in this.$route.query)
-//		{
-//			obj[i] = this.$route.query[i]
-//		}
-//  	   	sessionStorage.setItem("urlQuery",JSON.stringify(obj))
-////	   console.log("我的公共的方法组件")	
-//  }
+
     //获取我需要对session
     Vue.prototype.getFromSession = function (sessionName) {
 		var obj = JSON.parse(sessionStorage.getItem("urlQuery"));
@@ -40,12 +38,11 @@ export default{
 		}
     }
     
-     //同意增加session属性
+     //将sessionStorage中存储的属性增加到jsons中
      Vue.prototype.sourceSession = function (jsons) {
 		var obj = JSON.parse(sessionStorage.getItem("urlQuery"));
 		if (jsons) {
-			for (var i in obj) {
-				console.log(obj[i])
+			for (var i in obj) { 
 				if(obj[i] && obj[i] != ''){
 					jsons[i] = obj[i]
 				}
