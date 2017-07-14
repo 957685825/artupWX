@@ -6,7 +6,7 @@
 			  </router-link>
 			  <mt-button icon=""  slot="right"></mt-button>
 			</mt-header>
-			<div class="img_div">
+			<div style="height: auto;" class="img_div">
 				<ul>
 					<li v-for="(item,inde) in Material">
 						<img :src="item.thumbnailUrl"/>

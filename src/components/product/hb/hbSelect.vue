@@ -149,10 +149,12 @@
 			
 			},
 			getImg(val){ //获取组件图片 
+				console.log(val)
 				if(val.pictureDbId){
-					$('#showImg').attr('src',val.thumbnailUrl);
+					
 					$('.imgBox').show();
 					$('#updateBtn').show();
+					$('#showImg').attr('src',val.thumbnailUrl);
 					
 					setTimeout(function(){
 						dragThumb($('#showImg'),$('.imgBox'))

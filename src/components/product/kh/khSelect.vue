@@ -82,7 +82,7 @@
 		<i style="height: 2.9375rem; display: block; width: 100%;"></i>
 		<div class="addCarBtn" v-bind:hidden="finishWork == false" v-tap="{methods:addCar}">加入购物车</div>
 		<div class="cart_btn"><div class="price">
-			合计<span><b>¥</b>{{price}}</span></div> <div v-bind:hidden="finishWork == true" v-tap="{methods:nextGoCar}" class="crectOrder">
+			价格：<span><b>¥</b>{{price}}</span></div> <div v-bind:hidden="finishWork == true" v-tap="{methods:nextGoCar}" class="crectOrder">
 			下一步
 		</div></div>
 		<edit-img @editFinish="editFinish"></edit-img>
