@@ -170,7 +170,7 @@ let router = {
 	]
 }
 //进入路由后动态修改每一个的title
-console.log(router)
+//console.log(router)
 
 
 
