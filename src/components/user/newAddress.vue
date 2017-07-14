@@ -110,7 +110,7 @@
 				 *如果路由上有dbid是编辑地址
 				 *else就是新建
 				 * */
-				if(this.$route.query.dbId){
+				if(this.$route.query.dzgl && this.$route.query.dzgl == 'grzx'){
 					var jsons={
 						name:this.datas.name,
 						mobile:this.datas.mobile,
@@ -124,7 +124,7 @@
 					/*确认提交*/
 					Api.address.updateAddress(jsons).then(res=>{
 						console.log(res);
-						location.href="#address?openId="+this.$route.query.openId+"&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("userDbId");
+						location.href="#address?dzgl=grzx";
 					},err=>{
 						Toast('数据请求错误');
 					})

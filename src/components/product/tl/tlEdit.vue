@@ -153,6 +153,7 @@
 			imgshow(index){ //显示上传
 				this.sheetV =!this.sheetV;
 				this.extraPostData.picPage = index+1;
+				
 			},
 			editer(params){
 			   if ($(params.event.target).hasClass("editSpan")) {
@@ -197,6 +198,7 @@
                       "userDbId":val.userDbId
 				 };
 				 this.ImgHashMap.putvalue(val.picPage,picObj)
+				
 				 var tl_code = this.taili[val.picPage-1].code;
 				 var textMapVal = {"content":tl_code,"page":val.picPage,"num":1,"editCnfIndex":val.styleType,"editCnfName" : val.editCnfName};						
 				 this.textHashMap.putvalue(val.picPage,textMapVal)

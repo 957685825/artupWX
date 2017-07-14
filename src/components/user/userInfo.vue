@@ -21,7 +21,7 @@
 				 </router-link>
 			</li>
 			<li>
-				<router-link to="Address?dzgl:grzx">
+				<router-link to="Address?dzgl=grzx">
 					 <i class="icon iconfont">&#xe601;</i>
 				 	<p>地址管理</p>
 				 </router-link>

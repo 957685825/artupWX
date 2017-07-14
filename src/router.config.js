@@ -18,6 +18,13 @@ import bbsMsg from './components/product/bbs/bbsMsg.vue'
 
 //画册
 import huaceMsg from './components/product/huace/huaceMsg.vue'
+//海报介绍
+import hbMsg from './components/product/hb/hbMsg.vue'
+//框画介绍
+import khMsg from './components/product/kh/khMsg.vue'
+//台历介绍
+import tlMsg from './components/product/tl/tlMsg.vue'
+
 import huaceSelect from './components/product/huace/huaceSelect.vue'
 
 
@@ -126,6 +133,15 @@ let router = {
 		},
 		{
 			path:'/huaceMsg', component:huaceMsg //画册介绍
+		},
+		{
+			path:'/hbMsg', component:hbMsg //海报介绍
+		},
+		{
+			path:'/khMsg', component:khMsg //框画介绍
+		},
+		{
+			path:'/tlMsg', component:tlMsg //台历介绍
 		},
 		{
 			path:'/huaceSelect', component:huaceSelect, //画册选择

@@ -1,6 +1,6 @@
 <template>
-	<div id="bbsMsg">
-		<mt-header title="画册介绍">
+	<div id="hcMsg">
+		<mt-header title="画册">
 		   <router-link to=""  v-tap="{ methods:linkGo }" slot="left">
 		    <mt-button icon="back">返回</mt-button>
 		  </router-link>
@@ -88,10 +88,7 @@
 		    </div>
 		    <div class="btn_box">
 		       <a href="#huaceSelect"> <div class="made_btn" id="art_album">开始定制</div></a>
-		        <div class="cart_box cart_icon">
-		            <img class="cart_size" src="imgs/framed_pictures/cart_03.png">
-		            <span class="cart_num"></span>
-		        </div>
+		      
 		    </div>
 		</div>
 
@@ -116,7 +113,3 @@ export default {
 	}
 }
 </script>
-
-<style>
-	@import url("../../../../static/lab/detail_common.css");
-</style>

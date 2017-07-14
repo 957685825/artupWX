@@ -26,19 +26,19 @@
 					</router-link>
 				</li>
 				<li> 
-					<router-link to="tlSelect?category=taili">
+					<router-link to="tlMsg?category=taili">
 						<i style="font-size: 3.1875rem;" class="icon iconfont">&#xe686;</i>
 						<p>台历</p>
 					</router-link>
 				</li>
 				<li>
-					<router-link to="khSelect?category=kuanghua">
+					<router-link to="khMsg?category=kuanghua">
 						<i style="font-size: 3.1875rem;" class="icon iconfont">&#xe628;</i>
 						<p>框画</p>
 					</router-link>
 				</li>
 				<li> 
-					<router-link to="hbSelect?category=haibao">
+					<router-link to="hbMsg?category=haibao">
 						<i style="font-size: 3.1875rem;" class="icon iconfont">&#xe609;</i>
 						<p>海报</p>
 					</router-link>

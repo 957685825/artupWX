@@ -87,7 +87,12 @@
 			},
 			/*新增地址*/
 			gotoAddAddress(){
-				location.href="#newAddress?openId="+this.$route.query.openId+"&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("userDbId");
+				if(this.$route.query.dzgl && this.$route.query.dzgl == 'grzx'){
+					location.href="#newAddress?dzgl=grzx";
+				}else{
+					location.href="#newAddress?openId="+this.$route.query.openId+"&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("userDbId");
+				}
+
 			},
 			/*编辑地址*/
 			editorAddress(params){
@@ -116,6 +121,7 @@
 			}
 			Api.address.addressList(jsons).then(res=>{
 				this.dataList = res.data.results;
+				console.log(this.dataList)
 				for (var i = 0; i < this.dataList.length; i++) {
 					if(this.dataList[i].mainAddr  == '是'){
 						
