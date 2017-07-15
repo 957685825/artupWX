@@ -171,6 +171,7 @@
 			},
 			 editorImage(){},
 			 getImg(val){ //获取组件图片
+			 	console.log(val);
 			 	this.imgData = val;
 				$('.showImg').eq(val.picPage-1).attr('src',val.thumbnailUrl);
 				$('.showImg').eq(val.picPage-1).next('span').show();

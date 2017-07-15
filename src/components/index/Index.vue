@@ -88,10 +88,10 @@ export default {
 		  		spinnerType: 'fading-circle'
 			});
 			 
-			Api.Index.reloadCache().then(res=>{  
-				//alert(res.data);
-				if(res.data && res.data === 'true'){
-					
+			Api.Index.reloadCache().then(res=>{   
+				if(res.data && res.data === 'Y'){ 
+					sessionStorage.clear(); 	
+					localStorage.clear();
 				}
 			})
 
