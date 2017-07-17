@@ -110,7 +110,7 @@
 				 *如果路由上有dbid是编辑地址
 				 *else就是新建
 				 * */
-				if(this.$route.query.dzgl && this.$route.query.dzgl == 'grzx'){
+				if(this.$route.query.dbId){
 					var jsons={
 						name:this.datas.name,
 						mobile:this.datas.mobile,
@@ -135,7 +135,6 @@
 						province:this.datas.province,
 						address:this.datas.address,
 						mainAddr:this.datas.mainAddr,
-						dbId:this.$route.query.dbId,
 						userDbId:localStorage.getItem("userDbId")
 
 					}
