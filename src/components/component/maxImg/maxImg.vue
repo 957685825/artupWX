@@ -653,7 +653,14 @@
                         edtDbId:this.$route.query.edtDbid                         
                     };
 	  	Api.work.unfinishedWork(paramsJson).then((res)=>{
-	  		console.log(res)
+	  		//console.log(res)
+            
+            if(!res.data.data || !res.data.data.editPicture){
+                //关闭加载弹窗
+                Indicator.close();
+                return;
+            }            
+            
 
 			var oImgData = JSON.parse(res.data.data.editPicture);		
 			var editTxt = JSON.parse(res.data.data.editTxt);
