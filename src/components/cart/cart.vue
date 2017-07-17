@@ -48,7 +48,7 @@
 				合计<span><b>¥</b> {{allPic}}</span>
 			</div>
 			<div v-tap="{methods:gotoPayOrder}" class="crectOrder">
-				结算
+				生成订单
 			</div>
 		</div>
 	</div>

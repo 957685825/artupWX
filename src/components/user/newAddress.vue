@@ -124,7 +124,13 @@
 					/*确认提交*/
 					Api.address.updateAddress(jsons).then(res=>{
 						console.log(res);
-						location.href="#address?dzgl=grzx";
+						if( this.$route.query.dzgl){
+							location.href="#address?dzgl=grzx";
+						}else{
+							location.href="#payOrder?openId="+this.$route.query.openId+"&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("userDbId")
+							
+						}
+						
 					},err=>{
 						Toast('数据请求错误');
 					})
