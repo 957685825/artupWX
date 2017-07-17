@@ -90,7 +90,7 @@
         		location.href="#Address?openId="+this.$route.query.openId+"&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("userDbId");
         	},
         	addAddress(){
-        		location.href="#newAddress?openId="+this.$route.query.openId+"&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("userDbId");
+        		location.href="#Address?openId="+this.$route.query.openId+"&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("userDbId");
         	},
         linkGo(){
 			this.vurRouterGo();

@@ -87,7 +87,7 @@
 		    <i style="height: 5rem;display: block;width: 100%;"></i>
 		    </div>
 		    <div class="btn_box">
-		       <a href="#huaceSelect"> <div class="made_btn" id="art_album">开始定制</div></a>
+		       <a href="#huaceSelect"> <div class="made_btn" id="art_album" style="color: #333;">开始定制</div></a>
 		      
 		    </div>
 		</div>

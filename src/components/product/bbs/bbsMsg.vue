@@ -69,7 +69,7 @@
 			<i style="height: 3rem; display: block; width: 100%;"></i>
 			<div class="btn_box">
 				<a href="#/bbsSelect?category=baobaoshu" class="">
-					<div id="kuanghua" class="made_btn">开始定制</div>
+					<div id="kuanghua" class="made_btn" style="color: #333;">开始定制</div>
 				</a>
 			</div>
 		</div>

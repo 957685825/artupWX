@@ -324,10 +324,13 @@
                     sku : this.skuName,
                     skuCode : this.skuCode
                 }
+				Indicator.open({text: '添加购物车...',spinnerType: 'fading-circle'}); 
                 Api.car.addCar(jsons).then(res=>{
                     //var category = "baobaoshu"
+                    Indicator.close();		
                     location.href="#cart?edtDbId="+this.extraCode+"&category="+this.getFromSession("category");
                 },err=>{
+                	 	Indicator.close();		
                     Toast('添加购物车出错');
                 })
 			},

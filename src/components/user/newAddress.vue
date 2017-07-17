@@ -135,6 +135,7 @@
 						province:this.datas.province,
 						address:this.datas.address,
 						mainAddr:this.datas.mainAddr,
+						dbId:this.$route.query.dbId,
 						userDbId:localStorage.getItem("userDbId")
 
 					}

@@ -142,7 +142,7 @@
 				  position="bottom">
 			<div class="img_div">
 				<!--liActive-->
-				<ul>
+				<ul class="clearfix">
 					<li  v-tap="{methods : MaterialCheckImg ,index : index}"  :class="imgs.activeLi ? 'liActive ':'' " v-for="(imgs,index) in bbs.Material" >
 						<img :src="imgs.thumbnailUrl" >
 					</li>

@@ -61,7 +61,7 @@
     </div>
     <div class="btn_box">
     	<router-link to="khSelect?category=kuanghua">
-        <div class="made_btn" id="kuanghua">开始定制</div>
+        <div class="made_btn" id="kuanghua" style="color: #333;">开始定制</div>
      </router-link>   
     </div>
 </div>
