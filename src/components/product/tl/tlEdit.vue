@@ -187,14 +187,14 @@
 			 //	console.log(val);
 			 	//this.imgData = val;
 			 	//this.dataArrImg.push(this.imgData)
-				$('.showImg').eq(val.picPage-1).attr('src',val.thumbnailUrl);
+				$('.showImg').eq(val.picPage-1).attr('src',val.previewThumbnailImageUrl);
 				$('.showImg').eq(val.picPage-1).next('span').show();
 				$('.showImg').eq(val.picPage-1).parent('.myImgBox').show();
 				$('.showImg').eq(val.picPage-1).attr('attrImg',val.thumbnailUrl);//存原图
 				
-				setTimeout(function(){
-					dragThumb($('.showImg').eq(val.picPage-1),$('.showImg').eq(val.picPage-1).parent('.myImgBox'))
-				},200);
+//				setTimeout(function(){
+//					dragThumb($('.showImg').eq(val.picPage-1),$('.showImg').eq(val.picPage-1).parent('.myImgBox'))
+//				},200);
 				var picObj = {
 				 	"constName":val.picPage,
 				 	"picDbId" : val.pictureDbId,
