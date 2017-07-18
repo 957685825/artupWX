@@ -26,9 +26,12 @@ Vue.filter("splitSku",function(value){
 Vue.filter("splitSkuLast",function(value){
 	if (value) {
 		var arr = value.split('.');
-		return arr[arr.length - 1];
+//		return arr.splice(1,arr.length-1);
+//		return arr.splice(1,arr.length-1).toString()
+		return arr[arr.length - 1]
 	}
 })
+
 Vue.filter("splitAddress",function(value){
 	if (value) {
 		
@@ -43,6 +46,7 @@ Vue.filter("toFixedTwo",function(value){
 	}
 })
 Vue.filter('subStr',function(value){
+
 	if(value){
 		return value.length > 9 ? value.substr(0,9).concat('...'):value.name; 
 	}

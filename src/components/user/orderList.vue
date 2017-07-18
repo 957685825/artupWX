@@ -145,6 +145,7 @@
         mounted() {
         	Api.car.orderListStatus({userDbId:localStorage.getItem("userDbId")}).then(res=>{
         		this.dataList = res.data.results;
+        		console.log(this.dataList)
         		if(this.dataList.length < 1){
         			
         			MessageBox.alert('您当前没有任何订单请去创建').then(action => {
