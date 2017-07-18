@@ -12,7 +12,7 @@
 		</div>
 		<div class="addressContet" v-bind:hidden="!addresBool" v-tap="{methods:updataAddress}">
 			<ul>
-				<li><span>收件人姓名</span><span>{{addressData.name}}({{addressData.mobile}})</span></li>
+				<li><span>收件人姓名</span><span>{{addressData.name | subStr}}({{addressData.mobile}})</span></li>
 				<li>{{addressData.province}}{{addressData.address | splitAddress}}</li>
 				<i class="icon iconfont">&#xe65f;</i>
 			</ul>
@@ -87,6 +87,7 @@
            location.href = payUrl;
         	},
         	updataAddress(){
+        		
         		location.href="#Address?openId="+this.$route.query.openId+"&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("userDbId");
         	},
         	addAddress(){

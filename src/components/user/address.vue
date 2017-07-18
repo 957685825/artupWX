@@ -88,15 +88,24 @@
 			/*新增地址*/
 			gotoAddAddress(){
 				if(this.$route.query.dzgl && this.$route.query.dzgl == 'grzx'){
+					
 					location.href="#newAddress?dzgl=grzx";
 				}else{
+					
 					location.href="#newAddress?openId="+this.$route.query.openId+"&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("userDbId");
 				}
 
 			},
 			/*编辑地址*/
 			editorAddress(params){
-				location.href="#newAddress?dbId="+params.dbId+"&openId="+this.$route.query.openId+"&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("userDbId");
+				if(this.$route.query.dzgl && this.$route.query.dzgl == 'grzx'){
+					location.href="#newAddress?dzgl=grzx&dbId="+params.dbId;
+					
+				}else{
+					location.href="#newAddress?dbId="+params.dbId+"&openId="+this.$route.query.openId+"&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("userDbId");
+					
+				}
+
 			},
 	        linkGo(){
 				this.vurRouterGo();

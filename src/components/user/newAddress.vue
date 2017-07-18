@@ -33,7 +33,7 @@
 				<li>
 					<div class="listTable">
 						<p>详细地址</p>
-						<textarea id="address" v-model="datas.address" name="address" placeholder="请填写详细地址 不少于8个字" rows="" cols=""></textarea>
+						<textarea id="address" v-model="datas.address" name="address" placeholder="请填写详细地址" rows="" cols=""></textarea>
 						
 					</div>
 				</li>
@@ -100,6 +100,7 @@
 					Toast('详细地址不能为空!');
 					return;
 				}
+					
 				var reg = /^1[3|4|5|7|8]\d{9}$/;
 		　　　　if (!reg.test(this.datas.mobile)){
 					Toast('请输入正确的手机号码!');
@@ -110,7 +111,7 @@
 				 *如果路由上有dbid是编辑地址
 				 *else就是新建
 				 * */
-				if(this.$route.query.dzgl && this.$route.query.dzgl == 'grzx'){
+				if(this.$route.query.dbId){
 					var jsons={
 						name:this.datas.name,
 						mobile:this.datas.mobile,
@@ -124,7 +125,13 @@
 					/*确认提交*/
 					Api.address.updateAddress(jsons).then(res=>{
 						console.log(res);
-						location.href="#address?dzgl=grzx";
+						if( this.$route.query.dzgl){
+							location.href="#address?dzgl=grzx";
+						}else{
+							location.href="#payOrder?openId="+this.$route.query.openId+"&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("userDbId")
+							
+						}
+						
 					},err=>{
 						Toast('数据请求错误');
 					})
@@ -135,7 +142,6 @@
 						province:this.datas.province,
 						address:this.datas.address,
 						mainAddr:this.datas.mainAddr,
-						dbId:this.$route.query.dbId,
 						userDbId:localStorage.getItem("userDbId")
 
 					}
