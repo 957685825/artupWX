@@ -396,7 +396,8 @@
                 // $(".OnlyOne").prev(".myImgBox").show().find("img").attr("src",thumbnailUrl).attr("attrImg",thumbnailUrl);
                 //让图片剧中裁切隐藏
                 setTimeout(function(){
-                    dragThumb($(".OnlyOne").prev(".myImgBox").find("img"),$(".OnlyOne").prev(".myImgBox"));
+                    dragThumb($
+                        (".OnlyOne").prev(".myImgBox").find("img"),$(".OnlyOne").prev(".myImgBox"));
                     $(".OnlyOne").remove(); //清空触发弹出上传框的节点,防止vue事件委派兼容
                 },100)
                 var oData = this.bbs.Material[this.bbs.MaterialImgIndex];
