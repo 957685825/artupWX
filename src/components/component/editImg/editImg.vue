@@ -10,7 +10,6 @@
                 </div>
             </mt-header>
             <loading ref="editInstance" @imgChanged="imgChanged" @getImageCropper="getImageCropper"></loading>
-
         </div>
     </transition>
 </template>
@@ -59,7 +58,6 @@
                 imageCropper = ele;
             }
         },
-
         beforeCreate(){
             const vm = this;
             this.$store.registerModule(

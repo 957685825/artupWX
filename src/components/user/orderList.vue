@@ -64,6 +64,11 @@
              	dataList:[]
             }
         },
+//      beforeRouteEnter(to,from,next){
+//			console.log(to)
+//			console.log(from)
+//			next()
+//		},
         methods: {
         	gotoOrderPay(params){ 
                 Api.car.cloneOrder({orderDbId:params.dbId, userDbId:localStorage.getItem("userDbId")}).then(res=>{

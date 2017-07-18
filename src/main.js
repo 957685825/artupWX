@@ -39,14 +39,15 @@ Vue.prototype.$http = axios
 //生成路由实例:
 const router = new VueRouter(routerConfig)
 //动态生成导航拦
-router.afterEach((to,from)=>{
-	if(to.meta.title){
-		window.document.title = ""
-//		window.document.title = to.meta.title
-	}else{
-		window.document.title = ""
-	}
-})
+//router.afterEach((to,from)=>{
+//	
+//	if(to.meta.title){
+//		window.document.title = ""
+////		window.document.title = to.meta.title
+//	}else{
+//		window.document.title = ""
+//	}
+//})
 
 new Vue({
   store,
