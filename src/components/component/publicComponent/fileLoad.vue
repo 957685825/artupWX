@@ -105,12 +105,27 @@
 	            $(".img_div ul li").removeClass("liActive")
 	            $(".img_div ul li").eq(params.index).addClass("liActive")
            },
-           okQuery(){ //确认选择
-           	   this.$emit('getImgData',this.Material[this.MaterialImgIndex])
-           		//隐藏两个模块
-           		this.sheetVisibles = false;
-                this.popupVisible = false;
-               
+           okQuery(){ 
+           		var  oData =  this.Material[this.MaterialImgIndex];
+           		var jsonDpi = {};
+           		console.log(this.extraPostData)
+           	    jsonDpi.client = oData.client;
+                jsonDpi.channel = oData.channel;
+                jsonDpi.category = this.getFromSession("category");
+                jsonDpi.pictureDbId = oData.dbId;
+                jsonDpi.templateCode= this.extraPostData.templateCode;
+                jsonDpi.editCnfName= this.extraPostData.editCnfName;
+                jsonDpi.picNum = this.extraPostData.picNum;
+                jsonDpi.picPage = this.extraPostData.picPage;
+                jsonDpi.styleType = this.extraPostData.styleType;
+                jsonDpi.userDbId = localStorage.getItem('userDbId');
+           		//确认选择
+	       		 Api.work.checkDPI(jsonDpi).then(res=>{ 
+	       		 	this.$emit('getImgData',res.data)
+	       		 	//隐藏两个模块
+	           		this.sheetVisibles = false;
+	                this.popupVisible = false;
+	       		 })
            }
         },
 		mounted(){
