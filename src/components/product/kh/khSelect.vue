@@ -226,7 +226,10 @@
 				this.size = $(params.event.target).text();
 				$(params.event.target).addClass('dd_active').siblings().removeClass('dd_active');
 				this.sizeCode =  $(params.event.target).attr('data-code');
-				this.initStyle();				
+				this.initStyle();	
+				setTimeout(function(){
+					dragThumb($('#showImg'),$('.imgBox'))
+				},200)
 			},
 			initStyle(){//初始化数据
 				var size = this.trimStr(this.size);

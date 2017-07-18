@@ -177,7 +177,7 @@
         color: #f60;
         text-align: center;
         position: relative;
-        margin-top: 150px;
+
     }
 	#editImg .reportNav{
 		text-align: center;
