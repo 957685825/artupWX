@@ -395,7 +395,7 @@
             })
             },
             okQuery(){//弹出框确认选中图片操作
-
+				Indicator.open({text: '素材上传中...',spinnerType: 'fading-circle'});
                 //后台需要的请求dpi对象的参数json
                 var jsonDpi = {}
                 
@@ -441,6 +441,7 @@
                     //隐藏两个弹窗
                     this.sheetVisible = false;
                     this.popupVisible = false;
+                    Indicator.close();
                 })
             },
             editWork(){//保存作品 
