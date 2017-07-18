@@ -158,6 +158,7 @@
 <script>
     import { Toast ,Actionsheet,Popup,Indicator} from 'mint-ui';
     import Api from '../../../API.js'
+    let regx = /['"#$%&\^*》>,."<《？，。！@#￥%……’”：/；]/ ;//验证非法字符的正则
     export default{
         data () {
             return {
@@ -350,7 +351,10 @@
             },
             slectUpload(){ //素材库倒入的操作
             	//规避弹窗滚动条
-            	$("body").css("overflow","hidden")
+            	$("body").css({
+            		"overflow":"hidden",
+            		"height": "100%"           		
+            	})
             	Indicator.open({text: '素材加载中...',spinnerType: 'fading-circle'});
             		var paramJson ={
 	                format:"json",
@@ -382,7 +386,12 @@
 	           Indicator.close();
 	           this.sheetVisible = false;
             	   this.popupVisible = true;
-            	   $("body").css("overflow","inherit")
+            	   
+            	   	$("body").css({
+	            		"overflow":"auto",
+	            		'height': 'auto'
+	            	})
+
             })
             },
             okQuery(){//弹出框确认选中图片操作
@@ -573,6 +582,7 @@
                 		if (this.previewPage) {
                 			return;
                 		}
+                		
                     //重新定义文本框内容
                     this.bbs.textTextarea = $(params.event.target).text();
                     //给文本框加个唯一标识符
@@ -587,7 +597,14 @@
                 }
             },
             confirmText(){//确认按钮弹出框
-
+            		if(regx.test(this.bbs.textTextarea)){
+            			Toast({
+					  message: '文本框有非法字符,请修正!',
+					  position: 'top',
+					  duration: 2000
+					});
+            			return;
+            		}
                 this.textareaTexts=false;
                 $(".textErea").text(this.bbs.textTextarea)
                 //组装数据模版

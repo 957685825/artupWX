@@ -26,8 +26,11 @@
 		</style>
 		<script type="text/javascript">
 			var str = 'translate(-11.3333px, 0px) scale(0.676329) rotate(40deg)';
+			var regx=/['"#$%&\^*》>,."<《？，。！@#￥%……’”：/；]/;
+			var str2 = 'sdv$$$$g'
+			alert(regx.test(str2))
 			console.log(str.match(/rotate\((\S*)deg/)[1])
-			alert('1')
+
 		</script>
 	</head>
 
