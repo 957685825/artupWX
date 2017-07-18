@@ -398,16 +398,7 @@
 
                 //后台需要的请求dpi对象的参数json
                 var jsonDpi = {}
-
-//              var thumbnailUrl = this.bbs.Material[this.bbs.MaterialImgIndex].thumbnailUrl;
-                //确认回显图片到页面
-//			$(".OnlyOne").attr("src",previewThumbnailImageUrl);
-//               $(".OnlyOne").prev(".myImgBox").show().find("img").attr("src",thumbnailUrl).attr("attrImg",thumbnailUrl);
-                //让图片剧中裁切隐藏
-//              setTimeout(function(){
-////                  dragThumb($(".OnlyOne").prev(".myImgBox").find("img"),$(".OnlyOne").prev(".myImgBox"));
-//                  $(".OnlyOne").remove(); //清空触发弹出上传框的节点,防止vue事件委派兼容
-//              },100)
+                
                 var oData = this.bbs.Material[this.bbs.MaterialImgIndex];
 
 				//存入最大宽高和里面的dpi做对比
@@ -438,10 +429,12 @@
                         Indicator.close();//关闭弹出框
                         this.sheetVisible = false;
                         this.popupVisible = false;
+                        $(".OnlyOne").prev(".myImgBox").show().find("img").attr("src",res.data.previewThumbnailImageUrl).attr("attrImg",res.data.thumbnailUrl);
+				   		$(".OnlyOne").remove();
                         return;
                     }
                    $(".OnlyOne").prev(".myImgBox").show().find("img").attr("src",res.data.previewThumbnailImageUrl).attr("attrImg",res.data.thumbnailUrl);
-					 $(".OnlyOne").remove();
+				   $(".OnlyOne").remove();
                     //存入图片ImgHashMap
                     this.editData.ImgHashMap.putvalue(constName,picObj);
                     //console.log(this.editData.ImgHashMap.getvalue('1_1'))
