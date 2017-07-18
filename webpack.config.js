@@ -60,6 +60,10 @@ module.exports = {
     performance: {
         hints: false
     },
+//  babel: {
+//    presets: ['es2015'],
+//    plugins: ['transform-runtime']
+//  },
     devtool: '#eval-source-map'
 }
 

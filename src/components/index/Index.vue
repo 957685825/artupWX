@@ -83,6 +83,7 @@ export default {
 		}
     },
     mounted(){
+
     		Indicator.open({
 		  		text: '加载中...',
 		  		spinnerType: 'fading-circle'
@@ -100,6 +101,7 @@ export default {
 			}else{
 				if (localStorage.getItem('userDbId') && localStorage.getItem('userDbId') != null && localStorage.getItem('userDbId') != '' && localStorage.getItem('userDbId') != 'null') {
 				} else {
+					
 					//请求接口 //重新登录函数
 //					Api.user.getUserDbId().then(res=>{
 //						//请求微信授权

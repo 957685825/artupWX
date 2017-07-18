@@ -47,8 +47,7 @@
 
                 let image = document.querySelector(".cropit-preview-image"),
                     transform = image.style.transform,
-                    currentDeg = +transform.match(/rotate\((\d+)deg\)/)[1]
-                ;
+                    currentDeg = +transform.match(/rotate\((\d+)deg\)/)[1];
                 if (scale !== undefined && rotate !== undefined && x !== undefined && y !== undefined) {
                     //设置图像的加载缩放
                     imageCropper.cropit('zoom', scale);

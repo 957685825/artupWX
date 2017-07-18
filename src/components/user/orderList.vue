@@ -65,13 +65,10 @@
             }
         },
 //      beforeRouteEnter(to,from,next){
-//			if(from.path == '/orderStatus'){
-//				location.href='#orderList'
-//			}
+//			console.log(to)
+//			console.log(from)
 //			next()
-//			console.log(from.path)
-//			
-//		},	
+//		},
         methods: {
         	gotoOrderPay(params){ 
                 Api.car.cloneOrder({orderDbId:params.dbId, userDbId:localStorage.getItem("userDbId")}).then(res=>{
