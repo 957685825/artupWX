@@ -16,7 +16,7 @@
 			</dt>
 			<dd>
 				<div v-model="popupVisible" v-tap='{methods:selects}' class="dd_slect date dd_slectWidth">
-					{{years}}
+					{{years}}年
 				</div>
 				<div v-model="popupVisible" v-tap='{methods:selects}' class="dd_slect date dd_slectWidth ">
 					{{month}}
@@ -87,7 +87,7 @@
 				slots: [
 			        {
 			          flex: 1,
-			          values: ['2017'],
+			          values: ['2017年'],
 			          className: 'slot1',
 			          textAlign: 'right'
 			        }, {
@@ -96,7 +96,7 @@
 			          className: 'slot2'
 			        }, {
 			          flex: 1,
-			          values: ['1', '2', '3', '4', '5', '6','7','8','9','10','11','12'],
+			          values: ['1月', '2月', '3月', '4月', '5月', '6月','7月','8月','9月','10月','11月','12月'],
 			          className: 'slot3',
 			          textAlign: 'left'
 			        }

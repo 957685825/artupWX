@@ -515,6 +515,7 @@
                 $("#bbsImg .img_div ul li").eq(params.index).addClass("liActive")
             },
             ActionsheetIn(params){//ActionsheetIn 弹出框显示，选择图片上传 
+            	console.log(params.event.target)
                 //图片上传功能
                 if ($(params.event.target).hasClass("sucaiClass")) {
                     //给此节点动态给1个class,方便回显的时候调用,先清空下calss避免bug
@@ -569,6 +570,9 @@
                 }
                 //点击弹出文本输入框
                 if ($(params.event.target).hasClass("classP")) {
+                		if (this.previewPage) {
+                			return;
+                		}
                     //重新定义文本框内容
                     this.bbs.textTextarea = $(params.event.target).text();
                     //给文本框加个唯一标识符
@@ -614,7 +618,7 @@
                 if (!this.bbs.imgEdit.editCnfName) { //宝宝书的对象
 
                     this.editData.ImgHashMap.getvalue(this.bbs.imgEdit.imgEditIndex).actions = imgData.postData
-                    console.log(this.editData.ImgHashMap.getvalue(this.bbs.imgEdit.imgEditIndex))
+                    //console.log(this.editData.ImgHashMap.getvalue(this.bbs.imgEdit.imgEditIndex))
                 }else{ //lomo卡的对象
 
                     this.editData.lomHashMap.getvalue(this.bbs.imgEdit.imgEditIndex).actions = imgData.postData

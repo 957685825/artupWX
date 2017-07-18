@@ -11,24 +11,23 @@ Vue.filter("json", function(value) {   //全局方法 Vue.filter() 注册一个�
 Vue.filter("splitSku",function(value){
 	if (value ) {
 		var arr = value.split('.');
-		if(arr.length > 2){
-			var newArr = [];
-			for(var i=0; i<arr.length-2; i++){
-				newArr.push(arr[i])
-			}
-			return newArr.join('.');
-		}else{
-			return arr[0];
-		}
+//		if(arr.length > 2){
+//			var newArr = [];
+//			for(var i=0; i<arr.length-2; i++){
+//				newArr.push(arr[i])
+//			}
+//			return newArr.join('.');
+//		}else{
+//			return arr[0];
+//		}
+		return arr[0];
 		
 	}
 });
 Vue.filter("splitSkuLast",function(value){
 	if (value) {
 		var arr = value.split('.');
-//		return arr.splice(1,arr.length-1);
-//		return arr.splice(1,arr.length-1).toString()
-		return arr[arr.length - 1]
+		return arr.slice(1,arr.length).join('.')
 	}
 })
 

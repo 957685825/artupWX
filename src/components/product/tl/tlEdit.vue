@@ -1,11 +1,12 @@
 <template>
 	<div id="tlEdit">
 		<file-load @getImgData="getImg" :extraPostDatas="extraPostData" :sheetVisible="sheetV" ></file-load>
-		<mt-header title="台历编辑">
+		<mt-header :title="tittle" id='titt'>
 		  <router-link to=""  v-tap="{ methods:linkGo }"  slot="left">
 		    <mt-button icon="back">返回</mt-button>
 		  </router-link>
-		  <mt-button icon=""  slot="right">下一步</mt-button>
+		  <mt-button icon="" id='nt' v-bind:hidden="finishWork == false" v-tap="{methods:nextFn}"  slot="right">下一步</mt-button>
+		   <mt-button icon="" id='gc'  v-tap="{methods:nextFn}"  slot="right">加入购物车</mt-button>
 		</mt-header>
 		<div class="tlEditTop">
 			<span>{{size}}</span>
@@ -17,7 +18,7 @@
 					<img @click="imgshow(index)"  class="updateBtn" src="http://image2.artup.com/resources/static/img/p_sucai_02.jpg" alt="" />
 					<div class="myImgBox" >
 						<img class="showImg" src="" attrImg='' alt="" />
-						<span class="editSpan"  v-tap='{methods:editer}'>编辑</span>
+						<span class="editSpan"  v-tap='{methods:editer,indexs:index}'>编辑</span>
 					</div>
 				</div>
 				<img :class="imgName" v-if="item.imgUrl" :src="item.imgUrl" alt="" />
@@ -29,7 +30,7 @@
 		<div class="addCarBtn" v-bind:hidden="finishWork == false" >加入购物车</div>
 		<div class="cart_btn">
 			<div class="price">
-				合计<span><b>¥</b>0.01</span>
+				价格：<span><b>¥</b>0.01</span>
 			</div> 
 			<div  v-model="popupVisible" v-tap='{methods:selects}' class="bgrq">
 				变更日期
@@ -60,13 +61,15 @@
 				taili:[{
 					code:"封面"
 				}],
+				dataArrImg:[],
+				tittle:'台历编辑',
 				finishWork:false,
 				cssName:'',
 				imgName:'',
 				slots: [
 			        {
 			          flex: 1,
-			          values: ['2017'],
+			          values: ['2017年'],
 			          className: 'slot1',
 			          textAlign: 'right'
 			        }, {
@@ -75,7 +78,7 @@
 			          className: 'slot2'
 			        }, {
 			          flex: 1,
-			          values: ['1', '2', '3', '4', '5', '6','7','8','9','10','11','12'],
+			          values: ['1月', '2月', '3月', '4月', '5月', '6月','7月','8月','9月','10月','11月','12月'],
 			          className: 'slot3',
 			          textAlign: 'left'
 			        }
@@ -99,14 +102,7 @@
 					defDbId:''
 				},
 				finishWork:true,
-				 editData:{//编辑图片都数据
-	                    oSrc:'',
-	                    imgSize: {oW:'', oH: ''},
-	                    actions:'',
-	                    customParams:{
-	                        thumbnailScale:''
-	                    }
-	          	},
+				 
 	          	imgData:'',//图片数据
 	          	workEdit:{ //给后端保存或者编辑完成下一步传递的对象
                         format:"json",
@@ -128,7 +124,8 @@
                   },
                   ImgHashMap:'',//存储图片的hasmap
                   textHashMap:'',
-                  extraCode:''
+                  extraCode:'',
+                  eitDataHashMap:''
 			}
 		},
 		components:{  
@@ -156,23 +153,40 @@
 				
 			},
 			editer(params){
+				var editData={//编辑图片都数据
+	                    oSrc:'',
+	                    imgSize: {oW:'', oH: ''},
+	                    actions:'',
+	                    customParams:{
+	                        thumbnailScale:''
+	                    }
+	          	}
 			   if ($(params.event.target).hasClass("editSpan")) {
-			
-			   		this.editData.oSrc = this.imgData.thumbnailUrl;
-			   		this.editData.imgSize = {
+				editData.oSrc = this.ImgHashMap.getvalue(params.indexs+1).thumbnailImageUrl;
+				editData.picNum = params.indexs+1;
+			   		editData.imgSize = {
 			   			oW: $('.imgBox').width(), 
 			   			oH: $('.imgBox').height()
 			   		}
-			   		this.customParams = {
-			   			thumbnailScale:this.imgData.thumbnailScale
+			   		editData.customParams = {
+			   			thumbnailScale:this.ImgHashMap.getvalue(params.indexs+1).actions.thumbnailScale,
+			   			picPage:params.indexs+1
 			   		}
-			   		this.editorImage(this.editData)
+				
+			   
+			   if(this.eitDataHashMap.getvalue(params.indexs+1)){
+			   	this.editorImage(this.eitDataHashMap.getvalue(params.indexs+1));
+			   }else{
+			   	this.editorImage(editData);
+			   	this.eitDataHashMap.putvalue(params.indexs+1,editData);
+			   }
+			  
 			   }
 			},
-			 editorImage(){},
 			 getImg(val){ //获取组件图片
-			 	console.log(val);
-			 	this.imgData = val;
+			 //	console.log(val);
+			 	//this.imgData = val;
+			 	//this.dataArrImg.push(this.imgData)
 				$('.showImg').eq(val.picPage-1).attr('src',val.thumbnailUrl);
 				$('.showImg').eq(val.picPage-1).next('span').show();
 				$('.showImg').eq(val.picPage-1).parent('.myImgBox').show();
@@ -209,16 +223,25 @@
 				console.log(val)
 			},
 			editFinish(data){
-				var imgBox = $('.showImg').eq(this.imgData.picPage-1)
+				console.log(data)
+				var imgBox = $('.showImg').eq(data.postData.picPage-1);
 				imgBox.attr('src',data.imgData);
+				//console.log(data.imgData)
 				imgBox.css(
 					{width:"100%",height:"100%",top:0,left:0}
 				);
-				this.editData.actions = data.postData;
-				this.ImgHashMap.getvalue(this.imgData.picPage).actions = this.editData.actions; 
+				//alert(data.postData.picPage)
+				this.eitDataHashMap.getvalue(data.postData.picPage).actions = data.postData;
+			//	this.eitDataHashMap.putvalue(data.postData.picPage)
+				//console.log(this.ImgHashMap.getvalue(data.postData.picPage))
+				//console.log(data.postData)
+				this.ImgHashMap.getvalue(data.postData.picPage).actions = data.postData; 
+				
 			},
 			//调起编辑图片组件
 			 editorImage(jsons){
+			 	console.log(jsons)
+			 	
 	            //console.log('宽高',jsons)
 	            this.$store.commit(
 	                'showEditor',
@@ -227,7 +250,8 @@
 	                    imgSize: {width: jsons.imgSize.oW, height:  jsons.imgSize.oH},
 	                    initialCrop:jsons.actions,
 	                    customParams:{
-	                        thumbnailScale:jsons.customParams.thumbnailScale
+	                        thumbnailScale:jsons.customParams.thumbnailScale,
+	                        picPage:jsons.customParams.picPage
 	                    }
 	                }
 	            )
@@ -258,12 +282,16 @@
 			 	//return codeArr;
 			 },
 			nextFn(){
+				//$('#titt').text('预览')
+				
 				 var arrMap = []; //台历图片
 				 var textMap = [];
-				 if(this.ImgHashMap.keys().length < 2){
+				 if(this.ImgHashMap.keys().length < 13){
 				 	Toast('图片上传不完整!');
 				 	return;
 				 }
+				 $('.bgrq').hide();
+				this.tittle = '台历预览'
 				 for (var i = 0; i < this.ImgHashMap.keys().length; i++) {
 					var picObject = this.ImgHashMap.getvalue(this.ImgHashMap.keys()[i]);
 					//console.log(picObject)
@@ -301,6 +329,8 @@
                 Api.work.workEdit(this.workEdit).then((res)=>{
                 		if(res.data.code == 'success'){
                 			this.finishWork = !this.finishWork;
+                			$('#gc').show();
+                			$('#nt').hide();
                 			this.extraCode = res.data.extraCode;
                 		} 
                 })
@@ -354,9 +384,10 @@
 			this.extraPostData.userDbId = localStorage.getItem("userDbId");
 			this.ImgHashMap = new HashMap(); //图片
 			this.textHashMap = new HashMap();//文字
+			this.eitDataHashMap = new HashMap();
 			this.skuName = sessionStorage.getItem('taili_skuName');
 			this.skuCode = sessionStorage.getItem('taili_skuCode');
-			
+			$('#gc').hide();
 			
 		}
 	}

@@ -43,7 +43,7 @@
                     cropit: imgIsChanged,
                     ...state.editImgModule.customParams
                 });
-				
+				console.log(postData)
                 this::$emit('editFinish', {postData, imgData: imageCropper.cropit('export')});
 
                 commit('hideEditor');
