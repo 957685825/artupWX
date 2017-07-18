@@ -141,9 +141,27 @@
 			},
 			continueEdit(params){ //继续编辑
 				//更改再次编辑的书皮的颜色
-				var jsons = JSON.parse(sessionStorage.getItem("bbsSlsectDate"));
-			 	jsons.colorName = this.worklist[params.index].sku.split('.')[1]
-			 	sessionStorage.setItem("bbsSlsectDate",JSON.stringify(jsons))
+				console.log(sessionStorage.getItem("bbsSlsectDate"))
+				if(sessionStorage.getItem("bbsSlsectDate")){
+					var jsons = JSON.parse(sessionStorage.getItem("bbsSlsectDate"));
+				 	jsons.colorName = this.worklist[params.index].sku.split('.')[1]
+				 	sessionStorage.setItem("bbsSlsectDate",JSON.stringify(jsons))
+				}else{
+					var jsons = {
+						"colorName":"欢乐红",
+						"name":"宝宝书.欢乐红.32页.170mmX235mm.",
+						"skuCode":"baobaoshu.red.32.170X235.",
+						"category":"",
+						"price":"0.01"
+						}
+					jsons.colorName = this.worklist[params.index].sku.split('.')[1];
+					jsons.name = this.worklist[params.index].sku;
+					jsons.category = this.worklist[params.index].category;
+					jsons.price =this.worklist[params.index].price;
+					sessionStorage.setItem("bbsSlsectDate",JSON.stringify(jsons))
+					
+				}
+				
 				//存入继续编辑页面的id
 				if(this.worklist[params.index].category=="huace"){
 					location.href = "#huaceImgs?edtDbid="+this.worklist[params.index].dbId;

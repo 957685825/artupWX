@@ -33,7 +33,7 @@
 				<li>
 					<div class="listTable">
 						<p>详细地址</p>
-						<textarea id="address" v-model="datas.address" name="address" placeholder="请填写详细地址 不少于8个字" rows="" cols=""></textarea>
+						<textarea id="address" v-model="datas.address" name="address" placeholder="请填写详细地址" rows="" cols=""></textarea>
 						
 					</div>
 				</li>
@@ -100,6 +100,7 @@
 					Toast('详细地址不能为空!');
 					return;
 				}
+					
 				var reg = /^1[3|4|5|7|8]\d{9}$/;
 		　　　　if (!reg.test(this.datas.mobile)){
 					Toast('请输入正确的手机号码!');
