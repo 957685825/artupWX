@@ -64,6 +64,14 @@
              	dataList:[]
             }
         },
+//      beforeRouteEnter(to,from,next){
+//			if(from.path == '/orderStatus'){
+//				location.href='#orderList'
+//			}
+//			next()
+//			console.log(from.path)
+//			
+//		},	
         methods: {
         	gotoOrderPay(params){ 
                 Api.car.cloneOrder({orderDbId:params.dbId, userDbId:localStorage.getItem("userDbId")}).then(res=>{
