@@ -86,7 +86,7 @@
         		}
 			var jsons = {
 				userDbId:localStorage.getItem("userDbId"),
-				cars:this.car.join(',')
+				cars:this.car
 			}
 			Api.car.createOrder(jsons).then(res=>{
 				if(res.data.code == 'success'){
@@ -113,13 +113,13 @@
 		}
         },
         mounted() {
-        	 this.car = sessionStorage.getItem('cars');
+        	 this.car = sessionStorage.getItem('cars'); 
         	var jsons = {
-        		dbId:this.car.join(',')
+        		dbId:this.car
         	}
         	 Api.car.queryCar(jsons).then(res=>{ 
            	if(res.data.length > 0){
-           		this.dataList = res.data[0];
+           		this.dataList = res.data;
            	} 
            },err=>{
            		Toast('数据请求错误');

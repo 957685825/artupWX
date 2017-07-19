@@ -184,8 +184,9 @@ export default {
 				if(cars.length < 1){
 					Toast('请选择结算产品');
 				}
-				sessionStorage.setItem('cars',cars);
+				
 				if(switchBool == true){
+					sessionStorage.setItem('cars', cars.join(','));
 
 					var jsons = {
 						userDbId:localStorage.getItem("userDbId"),
