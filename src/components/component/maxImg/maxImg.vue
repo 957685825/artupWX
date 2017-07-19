@@ -273,7 +273,17 @@
                 for (var i = 0; i < this.editData.ImgHashMap.keys().length; i++) {
 
                     if (this.editData.ImgHashMap.getvalue(this.editData.ImgHashMap.keys()[i])) {
-                        arrMap.push(this.editData.ImgHashMap.getvalue(this.editData.ImgHashMap.keys()[i]));
+                    	console.log(this.editData.ImgHashMap.getvalue(this.editData.ImgHashMap.keys()[i]))
+                    	var keys = this.editData.ImgHashMap.getvalue(this.editData.ImgHashMap.keys()[i]);
+	                    	for(var i=1; i<=this.typeHtml.length;i++){
+		               		for(var j=1; j<=4; j++){
+								if(keys.constName == (i+'_'+j) && this.bbs.workEdit.thumbnailImageUrl == ''){
+		               				this.bbs.workEdit.thumbnailImageUrl=keys.previewThumbnailImageUrl;
+									
+								}
+			               	}	
+		               }
+                     arrMap.push(this.editData.ImgHashMap.getvalue(this.editData.ImgHashMap.keys()[i]));
                     }
                 }
                 for (var i = 0; i < this.editData.lomHashMap.keys().length; i++) {
@@ -295,13 +305,7 @@
                 this.bbs.workEdit.lomo = JSON.stringify(lomArrMap);
                 //存入有图的首张图片
                // console.log(arrMap)
-                for (var i = 0; i < arrMap.length; i++) { 
-                		if (arrMap[i].previewThumbnailImageUrl) {
-                			this.bbs.workEdit.thumbnailImageUrl=arrMap[i].previewThumbnailImageUrl;
-                			break;
-                		}
-                }
-
+               
                 //保存函数
                 Api.work.workEdit(this.bbs.workEdit).then((res)=>{
 
