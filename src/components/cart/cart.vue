@@ -191,19 +191,20 @@ export default {
 				}
 				sessionStorage.setItem('cars',cars);
 				if(switchBool == true){
-					location.href="#payOrder?openId="+res.data.openId+"&orderDbId="+res.data.orderDbId+"&userDbId="+localStorage.getItem("userDbId");
-//					var jsons = {
-//						userDbId:localStorage.getItem("userDbId"),
-//						cars:JSON.stringify(cars)
-//					}
-//					Api.car.createOrder(jsons).then(res=>{
-//						if(res.data.code == 'success'){
-//							//alert(res.data.orderDbId)
-//							location.href="#payOrder?openId="+res.data.openId+"&orderDbId="+res.data.orderDbId+"&userDbId="+localStorage.getItem("userDbId");
-//						}
-//					},err=>{
-//						Toast('请求错误');
-//					})
+
+					var jsons = {
+						userDbId:localStorage.getItem("userDbId"),
+						cars:JSON.stringify(cars)
+					}
+					Api.car.submitCars(jsons).then(res=>{
+						if(res.data.code == 'success'){
+							//alert(res.data.orderDbId)
+							location.href="#payOrder?openId="+res.data.openId+"&userDbId="+localStorage.getItem("userDbId");
+						}
+					},err=>{
+						Toast('请求错误');
+					})
+
 				}else{
 					return
 				}				

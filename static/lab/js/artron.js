@@ -105,7 +105,7 @@ function uploadInitializer($, uploadUrl, uploadEventHandler){
         maxChunkRetries: 1,
         chunkRetryInterval: 5000,
         simultaneousUploads: 4,
-        chunkSize: 1*1024*1024,
+        chunkSize: 5*1024*1024,
         fileParameterName:"file",
         testChunks: false,
         allowDuplicateUploads:false,
