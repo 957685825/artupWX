@@ -20,7 +20,7 @@
 		<div class="content">
 			<div class="contentList clearfix">
 				<ul class="clearfix">
-					<li class="clearfix" v-for="(itmes,index) in dataList.cars">
+					<li class="clearfix" v-for="(itmes,index) in dataList">
 						<div class="leftBox clearfix">
 							<img :src="itmes.thumbnailImageUrl"/>
 						</div>
@@ -42,7 +42,7 @@
 						</li>
 						<li>
 							<span>商品金额</span>
-							<span>￥{{dataList.total}}</span>
+							<span>￥{{total}}</span>
 						</li>
 						<li>
 							<span>运费</span>
@@ -58,7 +58,7 @@
 		</div>
 		<div class="bottomBar">
 			<ul>
-				<li>合计<span>￥{{dataList.total}}</span></li>
+				<li>合计<span>￥{{total}}</span></li>
 				<li><span v-tap="{methods:gotoOrderPay}">订单提交</span></li>
 			</ul>
 		</div>
@@ -74,7 +74,8 @@
               dataList:[],
               addressData:[],
               addresBool :false,
-              car:''
+              car:'',
+              total:0
             }
         },
         methods: {
@@ -120,23 +121,15 @@
         	 Api.car.queryCar(jsons).then(res=>{ 
            	if(res.data.length > 0){
            		this.dataList = res.data;
+           		for(var i = 0; i<this.dataList.length; i++){
+           			this.total += parseInt(this.dataList[i].total)
+           		}
+           		console.log(this.dataList)
            	} 
            },err=>{
            		Toast('数据请求错误');
            })
-//      	var jsons = {
-//      		orderDbId:this.$route.query.orderDbId,
-//      		openId:this.$route.query.openId,
-//      		userDbId:this.$route.query.userDbId,
-//      		sessionId:this.getFromSession("sessionId")
-//      	} 
-//         Api.car.queryOrder(jsons).then(res=>{ 
-//         	if(res.data.length > 0){
-//         		this.dataList = res.data[0];
-//         	} 
-//         },err=>{
-//         		Toast('数据请求错误');
-//         })
+
            var addJsons= {
            		userDbId:this.$route.query.userDbId,
            		sessionId:this.getFromSession("sessionId")

@@ -106,6 +106,7 @@
 	            $(".img_div ul li").eq(params.index).addClass("liActive")
            },
            okQuery(){ 
+           	    Indicator.open({text: '素材加载中...',spinnerType: 'fading-circle'});
            		var  oData =  this.Material[this.MaterialImgIndex];
            		var jsonDpi = {};
            		console.log(this.extraPostData)
@@ -125,6 +126,7 @@
 	       		 	//隐藏两个模块
 	           		this.sheetVisibles = false;
 	                this.popupVisible = false;
+	                Indicator.close();
 	       		 })
            }
         },
