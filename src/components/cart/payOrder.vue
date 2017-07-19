@@ -89,10 +89,13 @@
 				userDbId:localStorage.getItem("userDbId"),
 				cars:this.car
 			}
-			Api.car.createOrder(jsons).then(res=>{
+			Api.car.createOrder(jsons).then(res=>{ 
 				if(res.data.code == 'success'){
+                    var orderDbId = res.data.orderDbId;
+                    var openId = res.data.openId;
+                    var userDbId = localStorage.getItem("userDbId");
 					//alert(res.data.orderDbId)
-					 var payUrl = "#orderStatus?paymentType=WX&addressId="+this.addressData.dbId+"&dbId="+this.dataList.dbId+"&userDbId="+this.$route.query.userDbId+"&openId="+this.$route.query.openId;
+					 var payUrl = "#orderStatus?paymentType=WX&addressId="+this.addressData.dbId+"&dbId="+orderDbId+"&userDbId="+userDbId+"&openId="+openId; 
           			 location.href = payUrl;
 
 				}
