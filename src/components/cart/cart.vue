@@ -177,12 +177,7 @@ export default {
 				var switchBool = false;
 				this.dataList.forEach(function(el,n){
 					if(el.isOK){
-						var obj={
-							dbId:el.dbId,
-							num:el.num,
-							price:el.total
-						}
-						cars.push(obj);
+						cars.push(el.dbId);
 						switchBool = true;
 					}
 				})

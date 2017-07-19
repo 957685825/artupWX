@@ -89,6 +89,8 @@ const INDEX_IMG = `${HOST}artup-build/builder/cors/lunbo/list.do?ignore=true&for
 const DELECT_CAR_RECORD = `${HOST}artup-build/builder/cors/car/delete/command.do?format=json&ignore=true`
 //删除作品
 const DELECT_WORK = 	`${HOST}artup-build/builder/cors/edit/delete/command.do?format=json&ignore=true`
+//购物车物品查询
+const QUERY_CAR = `${HOST}artup-build/builder/cors/car/queryAll.do?format=json&ignore=true`
 
 ////只要访问ajax的时候，没有这个用户信息，就跳到首页去登录获取用户信息
 //if (!sessionIds) {
@@ -117,6 +119,9 @@ export default {
 	   		return VueHttp.$http.post(ADD_CAR,
 	   	 			qs.stringify(jsons)   	 				   	 		
 	   	 	)
+	   	},
+	   	queryCar:(jsons)=>{
+	   		return VueHttp.$http.get(QUERY_CAR,{params:jsons})
 	   	},
 	   	orderPay:(jsons)=>{
 	   		return VueHttp.$http.post(ORDER_PAY,

@@ -73,7 +73,8 @@
             return {
               dataList:[],
               addressData:[],
-              addresBool :false
+              addresBool :false,
+              car:''
             }
         },
         methods: {
@@ -83,8 +84,22 @@
         			Toast('地址不能为空');
         			return;
         		}
-           var payUrl = "#orderStatus?paymentType=WX&addressId="+this.addressData.dbId+"&dbId="+this.dataList.dbId+"&userDbId="+this.$route.query.userDbId+"&openId="+this.$route.query.openId;
-           location.href = payUrl;
+			var jsons = {
+				userDbId:localStorage.getItem("userDbId"),
+				cars:this.car.join(',')
+			}
+			Api.car.createOrder(jsons).then(res=>{
+				if(res.data.code == 'success'){
+					//alert(res.data.orderDbId)
+					 var payUrl = "#orderStatus?paymentType=WX&addressId="+this.addressData.dbId+"&dbId="+this.dataList.dbId+"&userDbId="+this.$route.query.userDbId+"&openId="+this.$route.query.openId;
+          			 location.href = payUrl;
+
+				}
+			},err=>{
+				Toast('请求错误');
+			})
+        		
+          
         	},
         	updataAddress(){
         		
@@ -98,19 +113,30 @@
 		}
         },
         mounted() {
+        	 this.car = sessionStorage.getItem('cars');
         	var jsons = {
-        		orderDbId:this.$route.query.orderDbId,
-        		openId:this.$route.query.openId,
-        		userDbId:this.$route.query.userDbId,
-        		sessionId:this.getFromSession("sessionId")
-        	} 
-           Api.car.queryOrder(jsons).then(res=>{ 
+        		dbId:this.car.join(',')
+        	}
+        	 Api.car.queryCar(jsons).then(res=>{ 
            	if(res.data.length > 0){
            		this.dataList = res.data[0];
            	} 
            },err=>{
            		Toast('数据请求错误');
            })
+//      	var jsons = {
+//      		orderDbId:this.$route.query.orderDbId,
+//      		openId:this.$route.query.openId,
+//      		userDbId:this.$route.query.userDbId,
+//      		sessionId:this.getFromSession("sessionId")
+//      	} 
+//         Api.car.queryOrder(jsons).then(res=>{ 
+//         	if(res.data.length > 0){
+//         		this.dataList = res.data[0];
+//         	} 
+//         },err=>{
+//         		Toast('数据请求错误');
+//         })
            var addJsons= {
            		userDbId:this.$route.query.userDbId,
            		sessionId:this.getFromSession("sessionId")
