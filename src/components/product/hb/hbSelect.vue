@@ -9,8 +9,8 @@
 		  <mt-button icon=""  slot="right"></mt-button>
 		</mt-header>
 		<div class="bbsImg">
-			<div class="contioner" :style="{width:CaseData.currentWidth,height:CaseData.currentHeight,backgroundImage:CaseData.urls}">
-				<div class="hx" :style="{width:CaseData.smallWidth,height:CaseData.smallHeight}">
+			<div class="contioner" style="background-color: #fff;" :style="{width:CaseData.currentWidth,height:CaseData.currentHeight,backgroundImage:CaseData.urls}">
+				<div class="hx">
 					<img @click="imgshow" id="updateBtn" src="http://image2.artup.com/resources/static/img/p_sucai_02.jpg" alt="" />
 					<div class="imgBox" >
 						<span class="editSpan"  v-bind:hidden="finishWork == true" v-tap='{methods:editer}'>编辑</span>
@@ -49,7 +49,7 @@
 		<i style="height: 2.9375rem; display: block; width: 100%;"></i>
 		<div class="addCarBtn" v-bind:hidden="finishWork == false" v-tap="{methods:addCar}">加入购物车</div>
 		<div class="cart_btn"><div class="price">
-			合计<span><b>¥</b>{{price}}</span></div> <div v-bind:hidden="finishWork == true" v-tap="{methods:nextGoCar}" class="crectOrder">
+			价格<span><b>¥</b>{{price}}</span></div> <div v-bind:hidden="finishWork == true" v-tap="{methods:nextGoCar}" class="crectOrder">
 			下一步
 		</div></div>
 		<edit-img @editFinish="editFinish"></edit-img>
@@ -151,11 +151,13 @@
 			getImg(val){ //获取组件图片 
 				console.log(val)
 				if(val.pictureDbId){
-					
 					$('.imgBox').show();
 					$('#updateBtn').show();
 					$('#showImg').attr('src',val.thumbnailUrl);
-					
+					$('.hx').css({
+						'width':'90%',
+						'height':'90%'
+					})
 					setTimeout(function(){
 						dragThumb($('#showImg'),$('.imgBox'))
 					},200)
@@ -196,7 +198,10 @@
 				this.size = $(params.event.target).text();
 				$(params.event.target).addClass('dd_active').siblings().removeClass('dd_active');
 				this.sizeCode =  $(params.event.target).attr('data-code');
-				this.initStyle();				
+				this.initStyle();	
+				setTimeout(function(){
+					dragThumb($('#showImg'),$('.imgBox'))
+				},200)
 			},
 			initStyle(){//初始化数据
 				var size = this.trimStr(this.size);

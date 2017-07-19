@@ -47,7 +47,7 @@ Vue.filter("toFixedTwo",function(value){
 Vue.filter('subStr',function(value){
 
 	if(value){
-		return value.length > 9 ? value.substr(0,9).concat('...'):value.name; 
+		return value.length > 9 ? value.substr(0,9).concat('...'):value; 
 	}
 	
 })

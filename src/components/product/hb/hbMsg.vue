@@ -54,7 +54,7 @@
 	    </div>
 	    <div class="btn_box">
 	    	<router-link to="hbSelect?category=haibao">
-	        <div class="made_btn">开始定制</div>
+	        <div class="made_btn" style="color: #333;">开始定制</div>
 	    </router-link>   
 	    </div>
 	</div>
