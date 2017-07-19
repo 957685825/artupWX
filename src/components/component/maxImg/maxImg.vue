@@ -158,6 +158,7 @@
 <script>
     import { Toast ,Actionsheet,Popup,Indicator} from 'mint-ui';
     import Api from '../../../API.js'
+    let regx = /['"#$%&\^*》>,."<《？，。！@#￥%……’”：/；]/ ;//验证非法字符的正则
     export default{
         data () {
             return {
@@ -350,7 +351,10 @@
             },
             slectUpload(){ //素材库倒入的操作
             	//规避弹窗滚动条
-            	$("body").css("overflow","hidden")
+            	$("body").css({
+            		"overflow":"hidden",
+            		"height": "100%"           		
+            	})
             	Indicator.open({text: '素材加载中...',spinnerType: 'fading-circle'});
             		var paramJson ={
 	                format:"json",
@@ -382,23 +386,19 @@
 	           Indicator.close();
 	           this.sheetVisible = false;
             	   this.popupVisible = true;
-            	   $("body").css("overflow","inherit")
+            	   
+            	   	$("body").css({
+	            		"overflow":"auto",
+	            		'height': 'auto'
+	            	})
+
             })
             },
             okQuery(){//弹出框确认选中图片操作
-
+				Indicator.open({text: '素材上传中...',spinnerType: 'fading-circle'});
                 //后台需要的请求dpi对象的参数json
                 var jsonDpi = {}
-
-//              var thumbnailUrl = this.bbs.Material[this.bbs.MaterialImgIndex].thumbnailUrl;
-                //确认回显图片到页面
-//			$(".OnlyOne").attr("src",previewThumbnailImageUrl);
-//               $(".OnlyOne").prev(".myImgBox").show().find("img").attr("src",thumbnailUrl).attr("attrImg",thumbnailUrl);
-                //让图片剧中裁切隐藏
-//              setTimeout(function(){
-////                  dragThumb($(".OnlyOne").prev(".myImgBox").find("img"),$(".OnlyOne").prev(".myImgBox"));
-//                  $(".OnlyOne").remove(); //清空触发弹出上传框的节点,防止vue事件委派兼容
-//              },100)
+                
                 var oData = this.bbs.Material[this.bbs.MaterialImgIndex];
 
 				//存入最大宽高和里面的dpi做对比
@@ -429,16 +429,19 @@
                         Indicator.close();//关闭弹出框
                         this.sheetVisible = false;
                         this.popupVisible = false;
+                        $(".OnlyOne").prev(".myImgBox").show().find("img").attr("src",res.data.previewThumbnailImageUrl).attr("attrImg",res.data.thumbnailUrl);
+				   		$(".OnlyOne").remove();
                         return;
                     }
                    $(".OnlyOne").prev(".myImgBox").show().find("img").attr("src",res.data.previewThumbnailImageUrl).attr("attrImg",res.data.thumbnailUrl);
-					 $(".OnlyOne").remove();
+				   $(".OnlyOne").remove();
                     //存入图片ImgHashMap
                     this.editData.ImgHashMap.putvalue(constName,picObj);
                     //console.log(this.editData.ImgHashMap.getvalue('1_1'))
                     //隐藏两个弹窗
                     this.sheetVisible = false;
                     this.popupVisible = false;
+                    Indicator.close();
                 })
             },
             editWork(){//保存作品 
@@ -573,6 +576,7 @@
                 		if (this.previewPage) {
                 			return;
                 		}
+                		
                     //重新定义文本框内容
                     this.bbs.textTextarea = $(params.event.target).text();
                     //给文本框加个唯一标识符
@@ -587,7 +591,14 @@
                 }
             },
             confirmText(){//确认按钮弹出框
-
+            		if(regx.test(this.bbs.textTextarea)){
+            			Toast({
+					  message: '文本框有非法字符,请修正!',
+					  position: 'top',
+					  duration: 2000
+					});
+            			return;
+            		}
                 this.textareaTexts=false;
                 $(".textErea").text(this.bbs.textTextarea)
                 //组装数据模版
