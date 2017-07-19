@@ -189,12 +189,14 @@ export default {
 
 					var jsons = {
 						userDbId:localStorage.getItem("userDbId"),
-						cars:JSON.stringify(cars)
-					}
+						cars: cars.join(',')
+					} 
 					Api.car.submitCars(jsons).then(res=>{
 						if(res.data.code == 'success'){
 							//alert(res.data.orderDbId)
 							location.href="#payOrder?openId="+res.data.openId+"&userDbId="+localStorage.getItem("userDbId");
+						} else{
+							Toast('请求错误');
 						}
 					},err=>{
 						Toast('请求错误');
