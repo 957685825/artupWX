@@ -123,8 +123,7 @@
            		this.dataList = res.data;
            		for(var i = 0; i<this.dataList.length; i++){
            			this.total += parseInt(this.dataList[i].total)
-           		}
-           		console.log(this.dataList)
+           		} 
            	} 
            },err=>{
            		Toast('数据请求错误');

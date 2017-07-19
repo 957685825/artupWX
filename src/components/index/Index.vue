@@ -103,10 +103,10 @@ export default {
 				} else {
 					
 					//请求接口 //重新登录函数
-//					Api.user.getUserDbId().then(res=>{
-//						//请求微信授权
-//						window.location.href=res.data.tokenUrl
-//					})
+					Api.user.getUserDbId().then(res=>{
+						//请求微信授权
+						window.location.href=res.data.tokenUrl
+					})
 				}
 			}
 

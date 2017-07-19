@@ -20,7 +20,7 @@
 						<li>{{itme.sku | splitSku}}</li>
 						<li>{{itme.sku | splitSkuLast}}</li>
 						<li>{{itme.createdDt}}</li>
-						<li class="pic" v-model="itme.num">¥&nbsp;{{itme.total * itme.num | toFixedTwo}}</li>
+						<li class="pic" v-model="itme.num">¥&nbsp;{{itme.price * itme.num | toFixedTwo}}</li>
 					</ol>
 				</div>
 				<div class="div_number">
@@ -129,7 +129,7 @@ export default {
 				var arr = 0;
 				for (var i = 0; i < this.dataList.length; i++) {
 					if (this.dataList[i].isOK) {
-						arr+=this.dataList[i].total *this.dataList[i].num;
+						arr+=this.dataList[i].price * this.dataList[i].num;
 					}					
 				}
 				this.allPic = arr;
@@ -174,9 +174,17 @@ export default {
 			/*跳转到结算页面*/
 			gotoPayOrder(){
 				var cars = [];
+				var carsArry = [];
 				var switchBool = false;
 				this.dataList.forEach(function(el,n){
-					if(el.isOK){
+					if(el.isOK){ 
+						var carJson = {
+							dbId : el.dbId,
+							price : el.price,
+							num : el.num
+						};
+
+						carsArry.push(carJson);
 						cars.push(el.dbId);
 						switchBool = true;
 					}
@@ -190,7 +198,7 @@ export default {
 
 					var jsons = {
 						userDbId:localStorage.getItem("userDbId"),
-						cars: cars.join(',')
+						cars: JSON.stringify(carsArry)
 					} 
 					Api.car.submitCars(jsons).then(res=>{
 						if(res.data.code == 'success'){
