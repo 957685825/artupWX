@@ -158,7 +158,7 @@
 <script>
     import { Toast ,Actionsheet,Popup,Indicator} from 'mint-ui';
     import Api from '../../../API.js'
-    let regx = /['"#$%&\^*》>,."<《？，。！@#￥%……’”：/；]/ ;//验证非法字符的正则
+    let regx = /[#$&\^*》><《@#￥/]/ ;//验证非法字符的正则
     export default{
         data () {
             return {
@@ -294,6 +294,7 @@
                 this.bbs.workEdit.editTxt = JSON.stringify(textArrMap);
                 this.bbs.workEdit.lomo = JSON.stringify(lomArrMap);
                 //存入有图的首张图片
+               // console.log(arrMap)
                 for (var i = 0; i < arrMap.length; i++) { 
                 		if (arrMap[i].previewThumbnailImageUrl) {
                 			this.bbs.workEdit.thumbnailImageUrl=arrMap[i].previewThumbnailImageUrl;
