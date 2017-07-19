@@ -37,6 +37,13 @@ const  QUERY_ATTRIBUTE_URL = `${HOST}artup-build/builder/service/attributes.do?f
 const ADD_CAR = `${HOST}artup-build/builder/cors/car/add/command.do?format=json&ignore=true`
 /*购物车列表*/
 const CAR_LIST = `${HOST}artup-build/builder/cors/car/queryByPage.do?format=json&ignore=true`
+
+/*提交购物车*/
+const SUBMIT_CARS = `${HOST}artup-build/builder/cors/car/submitCars.do?format=json&ignore=true`
+//购物车物品查询
+const QUERY_CAR = `${HOST}artup-build/builder/cors/car/queryAll.do?format=json&ignore=true`
+
+
 /*收货地址*/
 const ADDRESS = `${HOST}artup-build/builder/address/queryByPage.do?format=json&ignore=true`
 /*删除收货地址*/
@@ -89,8 +96,7 @@ const INDEX_IMG = `${HOST}artup-build/builder/cors/lunbo/list.do?ignore=true&for
 const DELECT_CAR_RECORD = `${HOST}artup-build/builder/cors/car/delete/command.do?format=json&ignore=true`
 //删除作品
 const DELECT_WORK = 	`${HOST}artup-build/builder/cors/edit/delete/command.do?format=json&ignore=true`
-//购物车物品查询
-const QUERY_CAR = `${HOST}artup-build/builder/cors/car/queryAll.do?format=json&ignore=true`
+
 
 ////只要访问ajax的时候，没有这个用户信息，就跳到首页去登录获取用户信息
 //if (!sessionIds) {
@@ -130,6 +136,9 @@ export default {
 	   	},
 	   	carList:(jsons)=>{//购物车列表
 	   		return VueHttp.$http.get(CAR_LIST,{params:jsons})
+	   	},
+	   	submitCars:(jsons)=>{ 
+	   		return VueHttp.$http.post(SUBMIT_CARS, qs.stringify(jsons))
 	   	},
 	   	createOrder:(jsons)=>{//创建订单
 	   		return VueHttp.$http.post(CREATE_ORDER,
