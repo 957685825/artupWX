@@ -71,16 +71,27 @@
 //		},
         methods: {
         	gotoOrderPay(params){ 
-                Api.car.cloneOrder({orderDbId:params.dbId, userDbId:localStorage.getItem("userDbId")}).then(res=>{
-                    if(res.data.code == 'success'){
-                        location.href="#payOrder?openId=&orderDbId="+params.dbId+"&userDbId="+localStorage.getItem("userDbId");
-                    } else {
-                        Toast('此订单数据错误，请联系客服！');
-                    }
-                    //console.log(res)
-                },err=>{
-                    Toast('数据请求错误');
-                })
+                var ordJson = {
+                    orderDbId:params.dbId, 
+                    userDbId:localStorage.getItem("userDbId")
+                }; 
+
+                Api.car.cloneOrder(ordJson).then(res=>{
+                     if(res.data.code == 'success'){
+                        var orderDbId = res.data.orderDbId;
+                        var openId = res.data.openId;
+                        var addressDbId = res.data.addressDbId;
+                        var userDbId = localStorage.getItem("userDbId");
+ 
+                         var payUrl = "#orderStatus?paymentType=WX&addressId="+addressDbId+"&dbId="+orderDbId+"&userDbId="+userDbId+"&openId="+openId; 
+                         location.href = payUrl; 
+                     } else {
+                         Toast('此订单数据错误，请联系客服！');
+                     }
+                     //console.log(res)
+                 },err=>{
+                     Toast('数据请求错误');
+                 })
 				
         	},
         	cancleOrder(params){
