@@ -48,7 +48,7 @@
 				合计<span><b>¥</b> {{allPic}}</span>
 			</div>
 			<div v-tap="{methods:gotoPayOrder}" class="crectOrder">
-				生成订单
+				结算
 			</div>
 		</div>
 	</div>
@@ -194,10 +194,10 @@ export default {
 						userDbId:localStorage.getItem("userDbId"),
 						cars:JSON.stringify(cars)
 					}
-					Api.car.createOrder(jsons).then(res=>{
+					Api.car.submitCars(jsons).then(res=>{
 						if(res.data.code == 'success'){
 							//alert(res.data.orderDbId)
-							location.href="#payOrder?openId="+res.data.openId+"&orderDbId="+res.data.orderDbId+"&userDbId="+localStorage.getItem("userDbId");
+							location.href="#payOrder?openId="+res.data.openId+"&userDbId="+localStorage.getItem("userDbId");
 						}
 					},err=>{
 						Toast('请求错误');
