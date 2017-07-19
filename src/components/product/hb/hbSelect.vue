@@ -107,7 +107,7 @@
                         sku:'',//产品调sku
                         editPicture:[],//产品图片
                         thumbnailImageUrl:'',//第一板式的第一张缩略图
-                        status:1
+                        status:2
                    },
 			  editData:{//编辑图片都数据
 	                    oSrc:'',
