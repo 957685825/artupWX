@@ -241,8 +241,9 @@
 			   		this.customParams = {
 			   			thumbnailScale:this.imgData.thumbnailScale
 			   		}
-			   		this.editData.customParams = this.customParams ;
-			   		this.editorImage(this.editData)
+			   		this.editData.customParams = this.customParams;
+			   		this.editorImage(this.editData);
+			   		console.log(this.editData.customParams)
 			   }
 			},
 			editFinish(data){

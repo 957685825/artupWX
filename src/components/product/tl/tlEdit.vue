@@ -27,7 +27,7 @@
 		</div>
 		
 		<i style="height: 2.9375rem; display: block; width: 100%;"></i>
-		<div class="addCarBtn" v-bind:hidden="finishWork == false" >加入购物车</div>
+		<!--<div class="addCarBtn" v-bind:hidden="finishWork == true" >加入购物车</div>-->
 		<div class="cart_btn">
 			<div class="price">
 				价格：<span><b>¥</b>{{price}}</span>
@@ -101,7 +101,6 @@
 					templateCode : '',				
 					defDbId:''
 				},
-				finishWork:true,
 				 
 	          	imgData:'',//图片数据
 	          	workEdit:{ //给后端保存或者编辑完成下一步传递的对象
