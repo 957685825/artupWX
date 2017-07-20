@@ -143,6 +143,7 @@
 					 
 				   	Api.work.workEdit(this.workEdit).then((res)=>{
 				   		this.extraCode = res.data.extraCode;
+				   		this.workEdit.previewThumbnailImageUrl = res.data.commandTitle;
 				   	})
 			   }else{
 			   	 Toast('请先上传图片');
@@ -154,7 +155,7 @@
 				if(val.pictureDbId){
 					$('.imgBox').show();
 					$('#updateBtn').show();
-					$('#showImg').attr('src',val.thumbnailUrl);
+					$('#showImg').attr('src',val.previewThumbnailImageUrl);
 					$('.hx').css({
 						'width':'90%',
 						'height':'90%'
@@ -240,6 +241,7 @@
 			   		this.customParams = {
 			   			thumbnailScale:this.imgData.thumbnailScale
 			   		}
+			   		this.editData.customParams = this.customParams ;
 			   		this.editorImage(this.editData)
 			   }
 			},
@@ -280,7 +282,7 @@
 			},
 			//调起编辑图片组件
 			 editorImage(jsons){
-	            //console.log('宽高',jsons)
+
 	            this.$store.commit(
 	                'showEditor',
 	                {

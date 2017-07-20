@@ -175,6 +175,8 @@
 
 				   Api.work.workEdit(this.workEdit).then((res)=>{
 				   	this.extraCode = res.data.extraCode;
+				   	this.workEdit.previewThumbnailImageUrl = res.data.commandTitle;
+				   	console.log(res.data)
 				   
 				   })
 			  }else{
