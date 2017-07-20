@@ -64,7 +64,7 @@
 					} else {
 						
                         if(res.data.acquireOpenId && res.data.acquireOpenId === 'Y'){
-                            Toast('请重新登录');
+                            Toast('请重新关注');
                             Api.user.getUserDbId().then(res=>{
                                 //请求微信授权
                                 window.location.href=res.data.tokenUrl
