@@ -47,6 +47,7 @@
                 this::$emit('editFinish', {postData, imgData: imageCropper.cropit('export')});
 
                 commit('hideEditor');
+                 imageCropper.cropit('imageSrc', "");
             },
             restoreImg(){
                 this.$refs.editInstance.restore()
