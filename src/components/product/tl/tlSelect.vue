@@ -123,7 +123,7 @@
 		      this.month = picker.getValues()[1];
 		   },
 		   nextPage(picker, values){
-		   	location.href="#tlEdit?years="+this.years+'&month='+this.month+'&size='+this.sizeCode+'&type='+this.type;
+		   	location.href="#tlEdit?years="+this.years+'&month='+this.month+'&size='+this.sizeCode+'&type='+this.type+'&price='+this.price;
 		   },
 		   selects(){
 		   	this.popupVisible = !this.popupVisible;

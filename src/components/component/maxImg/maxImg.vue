@@ -297,15 +297,8 @@
                 //存入有图的首张图片
                // console.log(arrMap)
 
-               for(var i=0;i<arrMap.length;i++){
-               	if((1+'_'+1) == arrMap[i].constName ){
-       				//console.log((k+'_'+j))
-       				this.bbs.workEdit.thumbnailImageUrl = arrMap[i].previewThumbnailImageUrl;
-       				break;
-       			}
-             
-               	console.log(arrMap[i])
-               }
+				this.bbs.workEdit.thumbnailImageUrl = $(".fmPage").css("background-image").split("\"")[1];
+               
                 //保存函数
                 Api.work.workEdit(this.bbs.workEdit).then((res)=>{
 
@@ -386,7 +379,7 @@
 	                $("#bbsImg .img_div ul li").each(function(i,el){                  
 	                  dragThumb($(el).find("img"),$(el));                    
 	                })  
-                	  },200)
+                	  },300)
                //关闭弹窗
 	           Indicator.close();
 	           this.sheetVisible = false;
@@ -609,7 +602,8 @@
                 //组装数据模版
                 var textMapVal = {"content":this.bbs.textTextarea,"page":this.bbs.page,"num":this.bbs.num,"editCnfIndex":this.bbs.styleType,"editCnfName" : this.bbs.editCnfName};
                 //放入文本textMap里面
-                this.editData.textMap.putvalue(this.bbs.page+"_"+this.bbs.num,textMapVal);
+                this.editData.textMap.putvalue(this.bbs.page+"_"+this.bbs.num,textMapVal);                
+				$("#bbsImg .textareaText > textarea").blur();//失去焦点
             },
             cancel(){ //弹窗取消操作
                 this.textareaTexts=false;
@@ -817,8 +811,11 @@
                 r.on('progress', function (e) {
                     var progress = Number(r.progress());
                     var progressWidth = progress.toFixed(2)*100;
-                    //进度条显示
-                    $(".mint-indicator-text").text("上传中..."+parseInt(progressWidth)+'%')
+                     //进度条显示       
+                    if (progressWidth>0) {
+	                    	Indicator.open({text: '上传中...'+progressWidth+'%',spinnerType: 'fading-circle'});
+	                    Indicator.close();
+                    }
                 });
                 r.on('error',function(){
                 		 Indicator.close();//关闭弹出框

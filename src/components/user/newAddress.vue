@@ -167,6 +167,8 @@
 		
 		},
 		mounted(){
+			$('body').height($('body')[0].clientHeight)
+			
 			/*初始化地区数据*/
 			var area2 = new LArea();
 		    area2.init({
