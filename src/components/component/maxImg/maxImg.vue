@@ -297,15 +297,8 @@
                 //存入有图的首张图片
                // console.log(arrMap)
 
-               for(var i=0;i<arrMap.length;i++){
-               	if((1+'_'+1) == arrMap[i].constName ){
-       				//console.log((k+'_'+j))
-       				this.bbs.workEdit.thumbnailImageUrl = arrMap[i].previewThumbnailImageUrl;
-       				break;
-       			}
-             
-               	console.log(arrMap[i])
-               }
+				this.bbs.workEdit.thumbnailImageUrl = $(".fmPage").css("background-image").split("\"")[1];
+               
                 //保存函数
                 Api.work.workEdit(this.bbs.workEdit).then((res)=>{
 
