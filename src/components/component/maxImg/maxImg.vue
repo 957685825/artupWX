@@ -297,8 +297,15 @@
                 //存入有图的首张图片
                // console.log(arrMap)
 
-				this.bbs.workEdit.thumbnailImageUrl = $(".fmPage").css("background-image").split("\"")[1];
-               
+               for(var i=0;i<arrMap.length;i++){
+               	if((1+'_'+1) == arrMap[i].constName ){
+       				//console.log((k+'_'+j))
+       				this.bbs.workEdit.thumbnailImageUrl = arrMap[i].previewThumbnailImageUrl;
+       				break;
+       			}
+             
+               	console.log(arrMap[i])
+               }
                 //保存函数
                 Api.work.workEdit(this.bbs.workEdit).then((res)=>{
 
@@ -811,11 +818,8 @@
                 r.on('progress', function (e) {
                     var progress = Number(r.progress());
                     var progressWidth = progress.toFixed(2)*100;
-                     //进度条显示       
-                    if (progressWidth>0) {
-	                    	Indicator.open({text: '上传中...'+progressWidth+'%',spinnerType: 'fading-circle'});
-	                    Indicator.close();
-                    }
+                    //进度条显示
+                    $(".mint-indicator-text").text("上传中..."+parseInt(progressWidth)+'%')
                 });
                 r.on('error',function(){
                 		 Indicator.close();//关闭弹出框
