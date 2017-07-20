@@ -204,7 +204,7 @@
 				this.initStyle();	
 				setTimeout(function(){
 					dragThumb($('#showImg'),$('.imgBox'))
-				},200)
+				},350)
 			},
 			initStyle(){//初始化数据
 				var size = this.trimStr(this.size);
