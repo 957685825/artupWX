@@ -35,10 +35,10 @@
 			<div  v-model="popupVisible" v-tap='{methods:selects}' class="bgrq">
 				变更日期
 			</div>
-			<div v-bind:hidden="finishWork == false" v-tap="{methods:nextFn}" class="crectOrder">
+			<div v-bind:hidden="finishWork == true" v-tap="{methods:nextFn}" class="crectOrder">
 				下一步
 			</div>
-			<div v-bind:hidden="finishWork == true"  v-tap="{methods:addCar}"  class="crectOrder">
+			<div v-bind:hidden="finishWork == false"  v-tap="{methods:addCar}"  class="crectOrder">
 				加入购物车
 			</div>
 		</div>
@@ -317,12 +317,12 @@
 				this.workEdit.editPicture = JSON.stringify(arrMap);
 				this.workEdit.editTxt = JSON.stringify(textMap);
 				//存入有图的首张图片
-                for (var i = 0; i < arrMap.length; i++) {
-                		if (arrMap[i].thumbnailImageUrl) {
-                			this.workEdit.thumbnailImageUrl=arrMap[i].thumbnailImageUrl;
-                			break;
-                		}
-                }
+//              for (var i = 0; i < arrMap.length; i++) {
+//              		if (arrMap[i].thumbnailImageUrl) {
+//              			this.workEdit.thumbnailImageUrl=arrMap[i].thumbnailImageUrl;
+//              			break;
+//              		}
+//              }
                 $('.editSpan').hide();
                	for(var i=1; i<	this.taili.length; i++ ){
                		this.taili[i].imgUrl = 'http://image2.artup.com/resources/static/img/taili/taili_'+this.size+'/'+this.taili[i].year+this.taili[i].month+'.jpg'
@@ -334,6 +334,7 @@
                 			$('#gc').show();
                 			$('#nt').hide();
                 			this.extraCode = res.data.extraCode;
+                			this.workEdit.thumbnailImageUrl=res.data.commandTitle;
                 		} 
                 })
               	//console.log(this.workEdit)
