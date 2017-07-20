@@ -326,6 +326,7 @@
                                             }
                                             Toast('请上传第'+(index+1)+'页图片!');
                                             isOK = false;
+                                            oThis.bbs.nextPageTrue = false;
                                             return;
                                         }
                                     })
@@ -590,11 +591,7 @@
             },
             confirmText(){//确认按钮弹出框
             		if(regx.test(this.bbs.textTextarea)){
-            			Toast({
-					  message: '文本框有非法字符,请修正!',
-					  position: 'top',
-					  duration: 2000
-					});
+            			Toast("文本框有非法字符,请修正!");
             			return;
             		}
                 this.textareaTexts=false;
