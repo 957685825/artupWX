@@ -375,11 +375,11 @@
                     this.bbs.Material[this.bbs.MaterialImgIndex].activeLi=true;    
                 }
                  //计算素材库图片的位置
-                  setTimeout(function(){
-	                $("#bbsImg .img_div ul li").each(function(i,el){                  
-	                  dragThumb($(el).find("img"),$(el));                    
-	                })  
-                	  },300)
+//                setTimeout(function(){
+//	                $("#bbsImg .img_div ul li").each(function(i,el){                  
+//	                  dragThumb($(el).find("img"),$(el));                    
+//	                })  
+//              	  },300)
                //关闭弹窗
 	           Indicator.close();
 	           this.sheetVisible = false;
