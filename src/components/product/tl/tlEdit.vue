@@ -30,7 +30,7 @@
 		<div class="addCarBtn" v-bind:hidden="finishWork == false" >加入购物车</div>
 		<div class="cart_btn">
 			<div class="price">
-				价格：<span><b>¥</b>0.01</span>
+				价格：<span><b>¥</b>{{price}}</span>
 			</div> 
 			<div  v-model="popupVisible" v-tap='{methods:selects}' class="bgrq">
 				变更日期
@@ -125,7 +125,8 @@
                   ImgHashMap:'',//存储图片的hasmap
                   textHashMap:'',
                   extraCode:'',
-                  eitDataHashMap:''
+                  eitDataHashMap:'',
+                  price:''
 			}
 		},
 		components:{  
@@ -162,11 +163,12 @@
 	                    }
 	          	}
 			   if ($(params.event.target).hasClass("editSpan")) {
+
 				editData.oSrc = this.ImgHashMap.getvalue(params.indexs+1).thumbnailImageUrl;
 				editData.picNum = params.indexs+1;
 			   		editData.imgSize = {
-			   			oW: $('.imgBox').width(), 
-			   			oH: $('.imgBox').height()
+			   			oW: $('.myImgBox').width(), 
+			   			oH: $('.myImgBox').height()
 			   		}
 			   		editData.customParams = {
 			   			thumbnailScale:this.ImgHashMap.getvalue(params.indexs+1).actions.thumbnailScale,
@@ -191,7 +193,7 @@
 				$('.showImg').eq(val.picPage-1).next('span').show();
 				$('.showImg').eq(val.picPage-1).parent('.myImgBox').show();
 				$('.showImg').eq(val.picPage-1).attr('attrImg',val.thumbnailUrl);//存原图
-				
+				$('.updateBtn').eq(val.picPage-1).hide();
 //				setTimeout(function(){
 //					dragThumb($('.showImg').eq(val.picPage-1),$('.showImg').eq(val.picPage-1).parent('.myImgBox'))
 //				},200);
@@ -291,6 +293,7 @@
 				 	return;
 				 }
 				 $('.bgrq').hide();
+				 $('.updateBtn').hide();
 				this.tittle = '台历预览'
 				 for (var i = 0; i < this.ImgHashMap.keys().length; i++) {
 					var picObject = this.ImgHashMap.getvalue(this.ImgHashMap.keys()[i]);
@@ -344,13 +347,13 @@
                     client:"mobile",//渠道前端传递，暂时写死
                     category:this.getFromSession("category"),//产品类型这里是宝宝书,暂时写死
                     edtDbId:	this.extraCode,
-                    price:'0.01',
+                    price:this.price,
                     num:1,
                     discount:'',
                     channelCode:"zc",
                     opSystem:'',
                     thumbnailImageUrl:this.workEdit.thumbnailImageUrl,
-                    total:'0.01',
+                    total:this.price,
                     sku : this.skuName,
                     skuCode : this.skuCode
                 }
@@ -373,6 +376,7 @@
 			this.month = this.$route.query.month;
 			this.size = this.$route.query.size;
 			this.type = this.$route.query.type;
+			this.price = this.$route.query.price;
 			this.cssName = 'tl_'+this.size;
 			this.imgName = 'tl_img_'+this.size;
 			this.fuoundData(this.years,this.month);
