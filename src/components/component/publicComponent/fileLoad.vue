@@ -38,7 +38,8 @@
             		extraPostData:{}, //组件传递的
             		popupVisible:false, //素材库显示
             		Material:[], //素材库地址
-            		MaterialImgIndex : 0
+            		MaterialImgIndex : 0,
+            		progressWidth:0
          	 }
         },
 		props:[
@@ -190,9 +191,12 @@
                 r.on('progress', function (e) {
                     var progress = Number(r.progress());
                     var progressWidth = progress.toFixed(2)*100;
-                    //进度条显示
-                    $(".mint-indicator-text").text("上传中..."+parseInt(progressWidth)+'%')
-                  
+                    //进度条显示       
+                    if (progressWidth>0) {
+	                    	Indicator.open({text: '上传中...'+progressWidth+'%',spinnerType: 'fading-circle'});
+	                    Indicator.close();
+                    }
+                    
                 });
               	r.on('error',function(){
                 		 Indicator.close();//关闭弹出框
@@ -209,7 +213,7 @@
                     } else { 
                         Toast('上传图片失败，请重试');
                     }
-                	
+                		console.log('成功')
                     Indicator.close();
                 });
             }
