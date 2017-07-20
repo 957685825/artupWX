@@ -326,6 +326,7 @@
                                             }
                                             Toast('请上传第'+(index+1)+'页图片!');
                                             isOK = false;
+                                            oThis.bbs.nextPageTrue = false;
                                             return;
                                         }
                                     })
@@ -375,11 +376,11 @@
                     this.bbs.Material[this.bbs.MaterialImgIndex].activeLi=true;    
                 }
                  //计算素材库图片的位置
-                  setTimeout(function(){
-	                $("#bbsImg .img_div ul li").each(function(i,el){                  
-	                  dragThumb($(el).find("img"),$(el));                    
-	                })  
-                	  },300)
+//                setTimeout(function(){
+//	                $("#bbsImg .img_div ul li").each(function(i,el){                  
+//	                  dragThumb($(el).find("img"),$(el));                    
+//	                })  
+//              	  },300)
                //关闭弹窗
 	           Indicator.close();
 	           this.sheetVisible = false;
@@ -440,6 +441,9 @@
                     this.sheetVisible = false;
                     this.popupVisible = false;
                     Indicator.close();
+                },err=>{
+                		 Indicator.close();
+                    Toast('网络错误!');
                 })
             },
             editWork(){//保存作品 
@@ -590,11 +594,7 @@
             },
             confirmText(){//确认按钮弹出框
             		if(regx.test(this.bbs.textTextarea)){
-            			Toast({
-					  message: '文本框有非法字符,请修正!',
-					  position: 'top',
-					  duration: 2000
-					});
+            			Toast("文本框有非法字符,请修正!");
             			return;
             		}
                 this.textareaTexts=false;

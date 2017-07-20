@@ -8,9 +8,9 @@
 		</mt-header>
 		<!--购物车列表-->
 		<ul v-model="dataList" class="cartList">
-			<li v-for="(itme,indexs) in dataList">
+			<li v-tap='{methods:updateCheck,index:indexs}' v-for="(itme,indexs) in dataList">
 				<div class="div_select" >
-					<b  :class="itme.isOK ? 'activeSelect':'' "  v-tap='{methods:updateCheck,index:indexs}'  ><i class="icon iconfont">&#xe672;</i></b>
+					<b  :class="itme.isOK ? 'activeSelect':'' "    ><i class="icon iconfont">&#xe672;</i></b>
 				</div>
 				<div class="div_comenter">
 					<div class="img_cart">
@@ -78,8 +78,7 @@ export default {
 　　　　
 　　　　},
 		methods:{
-			deleteCar(){
-				
+			deleteCar(){				
 				MessageBox({
 				  title: '我的订单',
 				  message: '您确认删除此条订单吗?',

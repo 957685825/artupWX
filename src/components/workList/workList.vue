@@ -19,10 +19,10 @@
 			  v-infinite-scroll="loadMore"
 			  infinite-scroll-disabled="loading"
 			  infinite-scroll-distance="10" v-model="worklist">
-			  <li v-for="(item,index) in worklist" style="margin-top: 0.53rem;">
+			  <li v-tap='{methods:updataCheck,indexs:index}' v-for="(item,index) in worklist" style="margin-top: 0.53rem;">
 			  	<div class="content">
 					<ul>
-						<li><p v-tap='{methods:updataCheck,indexs:index}':class="item.isOK ? 'circle':'circle circleNone' "><i v-bind:hidden="item.isOK == false" class="icon iconfont">&#xe639;</i></p></li>
+						<li ><p :class="item.isOK ? 'circle':'circle circleNone' "><i v-bind:hidden="item.isOK == false" class="icon iconfont">&#xe639;</i></p></li>
 						<li>
 							<img :src="item.thumbnailImageUrl">
 						</li> 
