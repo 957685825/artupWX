@@ -297,25 +297,13 @@
                 //存入有图的首张图片
                // console.log(arrMap)
 
-<<<<<<< HEAD
-               for(var i=0;i<arrMap.length;i++){
-               	if((1+'_'+1) == arrMap[i].constName ){
-       				//console.log((k+'_'+j))
-       				this.bbs.workEdit.thumbnailImageUrl = arrMap[i].previewThumbnailImageUrl;
-       				break;
-       			}
-             
-               	console.log(arrMap[i])
-               }
-=======
 				this.bbs.workEdit.thumbnailImageUrl = $(".fmPage").css("background-image").split("\"")[1];
-               	
->>>>>>> c66af25733e158d63180cec34a20b00e7be0f645
+               	 
                 //保存函数
                 Api.work.workEdit(this.bbs.workEdit).then((res)=>{
 
-                 this.bbs.workEdit.edtDbId = res.data.extraCode
-				this.bbs.workEdit.thumbnailImageUrl = res.data.commandTitle;
+                    this.bbs.workEdit.edtDbId = res.data.extraCode
+				    this.bbs.workEdit.thumbnailImageUrl = res.data.commandTitle;//缩略图地址
                     var oThis = this;
                     if (res.data.code=="success") { //保存成功
                         Indicator.close();
