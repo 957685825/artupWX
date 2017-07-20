@@ -52,7 +52,7 @@
 			updataCheck(params){
 				this.dataList[params.index].isOK = !this.dataList[params.index].isOK;
 				var jsons = {
-							sessionId:this.getFromSession("sessionId"),
+							userDbId:localStorage.getItem("userDbId"),
 							dbId:params.dbid
 							}
 				Api.address.setDefaultAddress(jsons).then(res=>{
@@ -64,13 +64,10 @@
 			/*删除地址*/
 			deleteAddress(params){
 				var jsons = {
-					sessionId:this.getFromSession("sessionId"),
+					userDbId: localStorage.getItem("userDbId"),
 					dbId:params.dbId
 				};
-				var index = params.index;
-				//console.log(jsons)
-				console.log(params)
-				 // this.dataList.splice(index,1);
+				var index = params.index; 
 				 var that = this;
 				
 				 Api.address.deleteAddress(jsons).then(res=>{
