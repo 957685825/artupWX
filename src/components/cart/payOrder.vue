@@ -125,7 +125,7 @@
            	if(res.data.length > 0){
            		this.dataList = res.data;
            		for(var i = 0; i<this.dataList.length; i++){
-           			this.total += parseInt(this.dataList[i].total)
+           			this.total += Number(this.dataList[i].total)
            		} 
            	} 
            },err=>{
