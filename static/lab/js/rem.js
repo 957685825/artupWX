@@ -200,7 +200,7 @@ function checkColor(shupi,dom1,dom2,dom3){
 			break;
 			case "智慧蓝":
 				dom1.addClass('fmLs');
-				dom2.addClass('fdLv');
+				dom2.addClass('fdLs');
 				dom3.addClass('feLs');
 			break;
 			case "活力橙":

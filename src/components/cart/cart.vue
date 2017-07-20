@@ -45,10 +45,12 @@
 				<span>全选</span>
 			</div>
 			<div class="price">
-				合计<span><b>¥</b> {{allPic}}</span>
+				
+				<div class="hj">合计:&nbsp;<span>¥&nbsp;{{allPic}}元</span></div>
+				
 			</div>
 			<div v-tap="{methods:gotoPayOrder}" class="crectOrder">
-				结算
+				确认订单
 			</div>
 		</div>
 	</div>
@@ -131,7 +133,7 @@ export default {
 						arr+=this.dataList[i].price * this.dataList[i].num;
 					}					
 				}
-				this.allPic = arr;
+				this.allPic = arr.toFixed(2);
 			},
 			/*设置选中状态*/
 			updateCheck(params){
