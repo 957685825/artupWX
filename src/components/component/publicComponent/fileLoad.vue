@@ -23,6 +23,13 @@
 				</div>
 			</div>
 		</mt-popup>
+		<mt-popup style="position;relative;"
+				  v-model="isOk"
+				  >
+				  <span>
+				  	上传中
+				  </span>
+		</mt-popup>			  
 	</div>	
 </template>
 
@@ -34,6 +41,7 @@
     		 name:"file-load",
      	 data () {
             return {
+            		isOk:true,
             		sheetVisibles:false, //组件传递的
             		extraPostData:{}, //组件传递的
             		popupVisible:false, //素材库显示
@@ -136,16 +144,6 @@
 			this.sheetVisibles= this.sheetVisible;
 
 			var oThis = this;
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 			
 			/* 文件上传init URL */
             var uploadUrl = Api.UPLOAD_URL+'&category='+this.getFromSession("category");
