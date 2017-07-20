@@ -12,8 +12,8 @@
 				<li class="clearfix" v-for="(itme,indexs) in dataList" >
 					<div class="content clearfix" :dbId='itme.dbId'>
 						<div class="listContent clearfix">
-							<ul class="clearfix">
-								<li><p v-bind:hidden="selectBtn == false" v-tap='{methods:updataCheck,dbid:itme.dbId,index:indexs}' :class="itme.isOK ? 'circle':'circle circleNone' "><i v-bind:hidden="itme.isOK == false" class="icon iconfont">&#xe639;</i></p></li>
+							<ul  class="clearfix">
+								<li v-tap='{methods:updataCheck,dbid:itme.dbId,index:indexs}'><p v-bind:hidden="selectBtn == false"  :class="itme.isOK ? 'circle':'circle circleNone' "><i v-bind:hidden="itme.isOK == false" class="icon iconfont">&#xe639;</i></p></li>
 								<li>
 									<p>
 										<span>{{itme.name}}</span>
