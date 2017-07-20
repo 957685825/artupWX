@@ -208,13 +208,9 @@
 					var progress = Number(r.progress());
 					var progressWidth = progress.toFixed(2) * 100;
 					//进度条显示       
-					if(progressWidth > 0) {
-						Indicator.open({
-							text: '上传中...' + progressWidth + '%',
-							spinnerType: 'fading-circle'
-						});
-						Indicator.close();
-					}
+//					if(progressWidth > 0) {
+						$(".mint-indicator-text").text("上传中..."+parseInt(progressWidth)+'%')
+//					}
 
 				});
 				r.on('error', function() {
@@ -232,7 +228,6 @@
 					} else {
 						Toast('上传图片失败，请重试');
 					}
-					console.log('成功')
 					Indicator.close();
 				});
 			}
