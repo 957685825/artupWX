@@ -151,7 +151,10 @@
 					this.sheetVisibles = false;
 					this.popupVisible = false;
 					Indicator.close();
-				})
+				},err=>{
+                		 Indicator.close();
+                    Toast('网络错误!');
+                })
 			}
 		},
 		mounted() {
@@ -209,7 +212,7 @@
 					var progressWidth = progress.toFixed(2) * 100;
 					//进度条显示       
 //					if(progressWidth > 0) {
-						$(".mint-indicator-text").text("上传中..."+parseInt(progressWidth)+'%')
+				       $(".mint-indicator-text").text("上传中..."+parseInt(progressWidth)+'%')
 //					}
 
 				});

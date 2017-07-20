@@ -441,6 +441,9 @@
                     this.sheetVisible = false;
                     this.popupVisible = false;
                     Indicator.close();
+                },err=>{
+                		 Indicator.close();
+                    Toast('网络错误!');
                 })
             },
             editWork(){//保存作品 
