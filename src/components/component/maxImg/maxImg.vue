@@ -298,12 +298,12 @@
                // console.log(arrMap)
 
 				this.bbs.workEdit.thumbnailImageUrl = $(".fmPage").css("background-image").split("\"")[1];
-               
+               	
                 //保存函数
                 Api.work.workEdit(this.bbs.workEdit).then((res)=>{
 
                  this.bbs.workEdit.edtDbId = res.data.extraCode
-
+				this.bbs.workEdit.thumbnailImageUrl = res.data.commandTitle;
                     var oThis = this;
                     if (res.data.code=="success") { //保存成功
                         Indicator.close();

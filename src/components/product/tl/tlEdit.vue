@@ -6,7 +6,7 @@
 		    <mt-button icon="back">返回</mt-button>
 		  </router-link>
 		  <mt-button icon="" id='nt' v-bind:hidden="finishWork == false" v-tap="{methods:nextFn}"  slot="right">下一步</mt-button>
-		   <mt-button icon="" id='gc'  v-tap="{methods:nextFn}"  slot="right">加入购物车</mt-button>
+		  <mt-button icon="" id='gc'  v-tap="{methods:addCar}"  slot="right">加入购物车</mt-button>
 		</mt-header>
 		<div class="tlEditTop">
 			<span>{{size}}</span>

@@ -26,10 +26,10 @@
 				 	<p>地址管理</p>
 				 </router-link>
 			</li>
-			<li>
+			<li v-tap="{methods:clearStore}">
 				<router-link to="">
 				 	<i class="icon iconfont">&#xe620;</i>
-					 <p>优惠卷</p>
+					 <p >清理缓存</p>
 				 </router-link>
 			</li>
 			<li>
@@ -60,6 +60,10 @@ export default {
     methods:{
 		linkGo(){
 			this.vurRouterGo();
+		},
+		clearStore(){	
+			sessionStorage.clear();
+			localStorage.clear();
 		}
     },
     mounted(){
