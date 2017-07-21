@@ -187,11 +187,10 @@
 			getImg(val){ //获取组件图片
 				$('#showImg').attr('src',val.thumbnailUrl);
 				$('.imgBox').show();
-				$('#updateBtn').show();
-				
+				$('#updateBtn').show();			
 				setTimeout(function(){
 					dragThumb($('#showImg'),$('.imgBox'))
-				},200)
+				},750)
 				$('#showImg').attr('attrImg',$('#showImg').attr('src'));//存原图
 				this.imgData = val;
 				console.log(val)
@@ -270,8 +269,7 @@
 			   		}
 			   		this.customParams = {
 			   			thumbnailScale:this.imgData.thumbnailScale
-			   		}
-			   		
+			   		}			   		
 			   		this.editData.customParams = this.customParams;
 			   		//console.log(this.customParams)
 			   		this.editorImage(this.editData)

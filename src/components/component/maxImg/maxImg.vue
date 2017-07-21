@@ -152,7 +152,34 @@
 				</div>
 			</div>
 		</mt-popup>
-		<edit-img  @selectPreview="selectPreview" @editFinish="editFinish"></edit-img>
+		<edit-img  @selectPreview="selectPreview" @editFinish="editFinish"></edit-img>		
+		<!--新增加的上传提示-->
+		<div style="display: none;" id="loading_file" class="loading-popup">
+			<div class="loading_div">
+				<div class="spinner">
+				  <div class="spinner-container container1">
+				    <div class="circle1"></div>
+				    <div class="circle2"></div>
+				    <div class="circle3"></div>
+				    <div class="circle4"></div>
+				  </div>
+				  <div class="spinner-container container2">
+				    <div class="circle1"></div>
+				    <div class="circle2"></div>
+				    <div class="circle3"></div>
+				    <div class="circle4"></div>
+				  </div>
+				  <div class="spinner-container container3">
+				    <div class="circle1"></div>
+				    <div class="circle2"></div>
+				    <div class="circle3"></div>
+				    <div class="circle4"></div>
+				  </div>
+				</div>
+				<span>上传中...</span>
+			</div>
+		</div>
+		
 	</div>
 </template>
 <script>
@@ -803,7 +830,7 @@
                     extraPostData  = {"templateCode" : templateCode, "client" : client, "channel" : channel,"picPage":oThis.bbs.page,"picNum":oThis.bbs.num,"styleType":oThis.bbs.styleType,"editCnfName":oThis.bbs.editCnfName}
                     r.opts.query = extraPostData;
                     //打开进度框
-                    Indicator.open({text: '图片上传中...',spinnerType: 'fading-circle'});
+                    $("#loading_file").show();
                     //关闭上弹块儿
                     oThis.sheetVisible = false;
                 });
@@ -812,9 +839,13 @@
                     var progress = Number(r.progress());
                     var progressWidth = progress.toFixed(2)*100;
                     //进度条显示
-                    $(".mint-indicator-text").text("上传中..."+parseInt(progressWidth)+'%')
+                    if(progressWidth > 0) {						
+						$("#loading_file .loading_div >span").text("上传中..."+parseInt(progressWidth)+'%');
+					}
+//                  $(".mint-indicator-text").text("上传中..."+parseInt(progressWidth)+'%')
                 });
                 r.on('error',function(){
+                		$("#loading_file").hide();
                 		 Indicator.close();//关闭弹出框
                 		 Toast('网络错误，上传失败')
                 });
@@ -825,7 +856,6 @@
                         $(".OnlyOne").prev(".myImgBox").show().find("img").attr("src",responseText.previewThumbnailImageUrl).attr("attrImg",responseText.thumbnailUrl);
                         //让图片剧中裁切隐藏
                         setTimeout(function(){
-                            //dragThumb($(".OnlyOne").prev(".myImgBox").find("img"),$(".OnlyOne").prev(".myImgBox"));
                             $(".OnlyOne").remove(); //清空触发弹出上传框的节点,防止vue事件委派兼容
                         },200)
                         //存入最大宽高和里面的dpi做对比
@@ -844,7 +874,7 @@
                         //根据后端返回的类型组装数据,判断结尾标识符是不是lomo卡
                         if (responseText.editCnfName=="baobaoshu_lomo") { //上传的是宝宝书的东西
                             oThis.editData.lomHashMap.putvalue(constName,picObj);//存入lomo卡的对象
-
+							
                             Indicator.close();//关闭弹出框
                             return;
                         }
@@ -852,10 +882,12 @@
                         oThis.editData.ImgHashMap.putvalue(constName,picObj);
 
                     } else {
+                    		$("#loading_file").hide();
                         Toast('上传图片失败，请重试');
                     }
                     
                     //关闭弹出框
+                    $("#loading_file").hide();
                     Indicator.close();
                 });
             }
