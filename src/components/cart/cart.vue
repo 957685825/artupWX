@@ -50,7 +50,7 @@
 				
 			</div>
 			<div v-tap="{methods:gotoPayOrder}" class="crectOrder">
-				确认订单
+				结算
 			</div>
 		</div>
 	</div>
