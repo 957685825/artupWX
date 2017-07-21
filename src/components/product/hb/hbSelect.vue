@@ -143,7 +143,7 @@
 					 
 				   	Api.work.workEdit(this.workEdit).then((res)=>{
 				   		this.extraCode = res.data.extraCode;
-				   		this.workEdit.previewThumbnailImageUrl = res.data.commandTitle;
+				   		this.workEdit.thumbnailImageUrl = res.data.commandTitle;
 				   	})
 			   }else{
 			   	 Toast('请先上传图片');
@@ -241,8 +241,9 @@
 			   		this.customParams = {
 			   			thumbnailScale:this.imgData.thumbnailScale
 			   		}
-			   		this.editData.customParams = this.customParams ;
-			   		this.editorImage(this.editData)
+			   		this.editData.customParams = this.customParams;
+			   		this.editorImage(this.editData);
+			   		console.log(this.editData.customParams)
 			   }
 			},
 			editFinish(data){
@@ -267,7 +268,7 @@
                     discount:'',
                     channelCode:"zc",
                     opSystem:'',
-                    thumbnailImageUrl:this.workEdit.previewThumbnailImageUrl,
+                    thumbnailImageUrl:this.workEdit.thumbnailImageUrl,
                     total:'0.01',
                     sku : this.skuName,
                     skuCode : this.skuCode

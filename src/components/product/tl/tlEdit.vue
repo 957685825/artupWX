@@ -27,7 +27,7 @@
 		</div>
 		
 		<i style="height: 2.9375rem; display: block; width: 100%;"></i>
-		<div class="addCarBtn" v-bind:hidden="finishWork == false" >加入购物车</div>
+		<!--<div class="addCarBtn" v-bind:hidden="finishWork == true" >加入购物车</div>-->
 		<div class="cart_btn">
 			<div class="price">
 				价格：<span><b>¥</b>{{price}}</span>
@@ -35,10 +35,10 @@
 			<div  v-model="popupVisible" v-tap='{methods:selects}' class="bgrq">
 				变更日期
 			</div>
-			<div v-bind:hidden="finishWork == false" v-tap="{methods:nextFn}" class="crectOrder">
+			<div v-bind:hidden="finishWork == true" v-tap="{methods:nextFn}" class="crectOrder">
 				下一步
 			</div>
-			<div v-bind:hidden="finishWork == true"  v-tap="{methods:addCar}"  class="crectOrder">
+			<div v-bind:hidden="finishWork == false"  v-tap="{methods:addCar}"  class="crectOrder">
 				加入购物车
 			</div>
 		</div>
@@ -101,7 +101,6 @@
 					templateCode : '',				
 					defDbId:''
 				},
-				finishWork:true,
 				 
 	          	imgData:'',//图片数据
 	          	workEdit:{ //给后端保存或者编辑完成下一步传递的对象
@@ -318,12 +317,12 @@
 				this.workEdit.editPicture = JSON.stringify(arrMap);
 				this.workEdit.editTxt = JSON.stringify(textMap);
 				//存入有图的首张图片
-                for (var i = 0; i < arrMap.length; i++) {
-                		if (arrMap[i].thumbnailImageUrl) {
-                			this.workEdit.thumbnailImageUrl=arrMap[i].thumbnailImageUrl;
-                			break;
-                		}
-                }
+//              for (var i = 0; i < arrMap.length; i++) {
+//              		if (arrMap[i].thumbnailImageUrl) {
+//              			this.workEdit.thumbnailImageUrl=arrMap[i].thumbnailImageUrl;
+//              			break;
+//              		}
+//              }
                 $('.editSpan').hide();
                	for(var i=1; i<	this.taili.length; i++ ){
                		this.taili[i].imgUrl = 'http://image2.artup.com/resources/static/img/taili/taili_'+this.size+'/'+this.taili[i].year+this.taili[i].month+'.jpg'
@@ -335,6 +334,7 @@
                 			$('#gc').show();
                 			$('#nt').hide();
                 			this.extraCode = res.data.extraCode;
+                			this.workEdit.thumbnailImageUrl=res.data.commandTitle;
                 		} 
                 })
               	//console.log(this.workEdit)
