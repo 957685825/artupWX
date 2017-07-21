@@ -797,7 +797,7 @@
             //图片上传时提交的参数
             var extraPostData = {};
  
-            var uploadUrl = Api.UPLOAD_URL+'&category='+this.getFromSession("category")+'&userDbId='+localStorage.getItem('userDbId');
+            var uploadUrl = Api.UPLOAD_URL+'&category='+this.getFromSession3("category")+'&userDbId='+localStorage.getItem('userDbId');
 
             
             uploadInitializer($, uploadUrl, onUploadComplete);

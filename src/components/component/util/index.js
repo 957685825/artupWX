@@ -28,6 +28,16 @@ export default{
 			return ''
 		}
     }
+     //给上传地址url用的方法
+     Vue.prototype.getFromSession3 = function (sessionName) {
+		var obj = JSON.parse(sessionStorage.getItem("bbsSlsectDate"));
+		if (sessionName) {
+			if (obj[sessionName]) {
+				return obj[sessionName];
+			}
+			return ''
+		}
+    }
     Vue.prototype.getFromSession2 = function (name,sessionName) {
 		var obj = JSON.parse(sessionStorage.getItem(name));
 		if (sessionName) {
