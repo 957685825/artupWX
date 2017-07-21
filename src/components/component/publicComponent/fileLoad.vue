@@ -21,28 +21,31 @@
 				</div>
 			</div>
 		</mt-popup>
-		<!--<div class="loading-popup">
-			<div class="spinner">
-			  <div class="spinner-container container1">
-			    <div class="circle1"></div>
-			    <div class="circle2"></div>
-			    <div class="circle3"></div>
-			    <div class="circle4"></div>
-			  </div>
-			  <div class="spinner-container container2">
-			    <div class="circle1"></div>
-			    <div class="circle2"></div>
-			    <div class="circle3"></div>
-			    <div class="circle4"></div>
-			  </div>
-			  <div class="spinner-container container3">
-			    <div class="circle1"></div>
-			    <div class="circle2"></div>
-			    <div class="circle3"></div>
-			    <div class="circle4"></div>
-			  </div>
+		<div style="display: none;" id="loading_file" class="loading-popup">
+			<div class="loading_div">
+				<div class="spinner">
+				  <div class="spinner-container container1">
+				    <div class="circle1"></div>
+				    <div class="circle2"></div>
+				    <div class="circle3"></div>
+				    <div class="circle4"></div>
+				  </div>
+				  <div class="spinner-container container2">
+				    <div class="circle1"></div>
+				    <div class="circle2"></div>
+				    <div class="circle3"></div>
+				    <div class="circle4"></div>
+				  </div>
+				  <div class="spinner-container container3">
+				    <div class="circle1"></div>
+				    <div class="circle2"></div>
+				    <div class="circle3"></div>
+				    <div class="circle4"></div>
+				  </div>
+				</div>
+				<span>上传中...</span>
 			</div>
-		</div>-->
+		</div>
 	</div>
 </template>
 
@@ -198,11 +201,11 @@
 					//                  extraPostData  = {"templateCode" : 'templateCode', "client" : 'client', "channel" : 'channel',"picPage":"1","picNum":"1","styleType":"1","editCnfName":"框画"}
 					r.opts.query = oThis.extraPostData;
 					//打开进度框
-					Indicator.open({
-						text: '图片上传中...',
-						spinnerType: 'fading-circle'
-					});
-
+//					Indicator.open({
+//						text: '图片上传中...',
+//						spinnerType: 'fading-circle'
+//					});
+					$("#loading_file").show();
 					//关闭上弹块儿
 					oThis.sheetVisibles = false;
 				});
@@ -210,14 +213,16 @@
 				r.on('progress', function(e) {
 					var progress = Number(r.progress());
 					var progressWidth = progress.toFixed(2) * 100;
-					//进度条显示       
-//					if(progressWidth > 0) {
-				       $(".mint-indicator-text").text("上传中..."+parseInt(progressWidth)+'%')
-//					}
-
+					//进度条显示     
+					console.log(parseInt(progressWidth))
+					if(progressWidth > 0) {						
+						$("#loading_file .loading_div >span").text("上传中..."+parseInt(progressWidth)+'%');
+					}
+					
 				});
 				r.on('error', function() {
 					Indicator.close(); //关闭弹出框
+					$("#loading_file").hide();
 					Toast('网络错误，上传失败');
 				});
 
@@ -231,7 +236,7 @@
 					} else {
 						Toast('上传图片失败，请重试');
 					}
-					Indicator.close();
+					$("#loading_file").hide();
 				});
 			}
 
@@ -246,19 +251,45 @@
 		left: 0;
 		top: 0;
 		height: 100%;
+		position: fixed;
+		z-index: 999999;
+		background: rgba(0,0,0,0.5);
+		
 	}
-	.spinner {
-	  margin: 100px auto;
-	  width: 20px;
-	  height: 20px;
+	.loading-popup .loading_div{
+	  width: 32px;
+	  height: 32px;
+	  padding: 40px;
+	  position: absolute;
+	  margin: auto auto;
+	  left: 0;
+	  top: 0;
+	  bottom: 0;
+	  right: 0;	
+	  background: rgba(0,0,0,0.7);
+	  border-radius: 5px;
+	}
+	.loading-popup .loading_div >span{
+		display: block;
+		font-size: 16px;
+		text-align: center;
+		width: 112px;
+		position: absolute;
+		left: 0;
+		bottom: 10px;
+		color: #fff;
+	}
+	.loading-popup .loading_div .spinner {	 
+	  width: 32px;
+	  height: 32px;
 	  position: relative;
+	  margin: -10px auto;	  
 	}
 	 
-	.container1 > div, .container2 > div, .container3 > div {
+	.loading-popup .loading_div .container1 > div, .container2 > div, .container3 > div {
 	  width: 6px;
 	  height: 6px;
-	  background-color: #333;
-	 
+	  background-color: #f3f3f3;	 
 	  border-radius: 100%;
 	  position: absolute;
 	  -webkit-animation: bouncedelay 1.2s infinite ease-in-out;
@@ -267,78 +298,78 @@
 	  animation-fill-mode: both;
 	}
 	 
-	.spinner .spinner-container {
+	.loading-popup .loading_div .spinner .spinner-container {
 	  position: absolute;
 	  width: 100%;
 	  height: 100%;
 	}
 	 
-	.container2 {
+	.loading-popup .loading_div .container2 {
 	  -webkit-transform: rotateZ(45deg);
 	  transform: rotateZ(45deg);
 	}
 	 
-	.container3 {
+	.loading-popup .loading_div .container3 {
 	  -webkit-transform: rotateZ(90deg);
 	  transform: rotateZ(90deg);
 	}
 	 
-	.circle1 { top: 0; left: 0; }
-	.circle2 { top: 0; right: 0; }
-	.circle3 { right: 0; bottom: 0; }
-	.circle4 { left: 0; bottom: 0; }
+	.loading-popup .loading_div .circle1 { top: 0; left: 0; }
+	.loading-popup .loading_div .circle2 { top: 0; right: 0; }
+	.loading-popup .loading_div .circle3 { right: 0; bottom: 0; }
+	.loading-popup .loading_div .circle4 { left: 0; bottom: 0; }
 	 
-	.container2 .circle1 {
+	.loading-popup .loading_div .container2 .circle1 {
 	  -webkit-animation-delay: -1.1s;
 	  animation-delay: -1.1s;
 	}
 	 
-	.container3 .circle1 {
+	.loading-popup .loading_div .container3 .circle1 {
 	  -webkit-animation-delay: -1.0s;
 	  animation-delay: -1.0s;
 	}
 	 
-	.container1 .circle2 {
+	.loading-popup .loading_div .container1 .circle2 {
 	  -webkit-animation-delay: -0.9s;
 	  animation-delay: -0.9s;
 	}
 	 
-	.container2 .circle2 {
+	.loading-popup .loading_div .container2 .circle2 {
 	  -webkit-animation-delay: -0.8s;
 	  animation-delay: -0.8s;
 	}
 	 
-	.container3 .circle2 {
+	.loading-popup .loading_div .container3 .circle2 {
 	  -webkit-animation-delay: -0.7s;
 	  animation-delay: -0.7s;
 	}
 	 
-	.container1 .circle3 {
+	.loading-popup .loading_div .container1 .circle3 {
 	  -webkit-animation-delay: -0.6s;
 	  animation-delay: -0.6s;
 	}
 	 
-	.container2 .circle3 {
+	.loading-popup .loading_div .container2 .circle3 {
 	  -webkit-animation-delay: -0.5s;
 	  animation-delay: -0.5s;
 	}
 	 
-	.container3 .circle3 {
+	.loading-popup .loading_div .container3 .circle3 {
 	  -webkit-animation-delay: -0.4s;
 	  animation-delay: -0.4s;
 	}
 	 
-	.container1 .circle4 {
+	.loading-popup .loading_div .container1 .circle4 {
 	  -webkit-animation-delay: -0.3s;
 	  animation-delay: -0.3s;
 	}
 	 
-	.container2 .circle4 {
+	.loading-popup .loading_div .container2 .circle4 {
 	  -webkit-animation-delay: -0.2s;
 	  animation-delay: -0.2s;
 	}
 	 
-	.container3 .circle4 {
+	.loading-popup .loading_div .container3 .circle4 {
 	  -webkit-animation-delay: -0.1s;
 	  animation-delay: -0.1s;
 	}
