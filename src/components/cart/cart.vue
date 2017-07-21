@@ -41,7 +41,7 @@
 		<i style="height: 2.9375rem;display: block;width: 100%;"></i>
 		<div class="cart_btn">
 			<div class="all_select">
-				<b  :class="checkAllBtn == false ? '':'activeSelect' "  v-tap='{methods:checkAll}'  ><i v-bind:hidden="checkAllBtn == false" class="icon iconfont" style="top: -0.875rem;">&#xe672;</i></b>
+				<b  :class="checkAllBtn == false ? '':'activeSelect' "  v-tap='{methods:checkAll}'  ><i v-bind:hidden="checkAllBtn == false" class="icon iconfont" style="top: -0.95rem;">&#xe672;</i></b>
 				<span>全选</span>
 			</div>
 			<div class="price">
@@ -50,7 +50,7 @@
 				
 			</div>
 			<div v-tap="{methods:gotoPayOrder}" class="crectOrder">
-				结算
+				确认订单
 			</div>
 		</div>
 	</div>
