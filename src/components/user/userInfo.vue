@@ -64,6 +64,8 @@ export default {
 		clearStore(){	
 			sessionStorage.clear();
 			localStorage.clear();
+			alert('缓存清理完成');
+			location.href="/"
 		}
     },
     mounted(){

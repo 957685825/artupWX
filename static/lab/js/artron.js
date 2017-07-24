@@ -64,8 +64,7 @@ function getFiles(event) {
  */
 function validateUploadFiles($, array) {
 	var ok = true;
-	$.each(array, function(idx, file) {
-		console.log(file);
+	$.each(array, function(idx, file) { 
 		var size = file.size;
 		var str = file.fileName.substring(file.fileName.lastIndexOf('.')+1);
 		if(str == 'JPG' || str == 'jpg'){

@@ -56,10 +56,11 @@
 				</div>
 			</div>
 		</div>
+		<i style="height: 2.93rem;display: block;width: 100%;"></i>
 		<div class="bottomBar">
 			<ul>
-				<li>合计<span>￥{{total}}</span></li>
-				<li><span v-tap="{methods:gotoOrderPay}">订单提交</span></li>
+				<li>合计<span>￥{{total |toFixedTwo}}</span></li>
+				<li><span v-tap="{methods:gotoOrderPay}">确认订单</span></li>
 			</ul>
 		</div>
 	</div>

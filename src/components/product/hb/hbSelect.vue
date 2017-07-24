@@ -162,7 +162,7 @@
 					})
 					setTimeout(function(){
 						dragThumb($('#showImg'),$('.imgBox'))
-					},200)
+					},750)
 					
 					$('#showImg').attr('attrImg',$('#showImg').attr('src'));//存原图
 					this.imgData = val;
