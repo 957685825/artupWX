@@ -129,7 +129,7 @@
 		<mt-popup v-model="textareaTexts"  popup-transition="popup-fade">
 			<div class="textareaText">
 				<p>请输入内容</p>
-				<textarea name="" v-model="bbs.textTextarea" :maxlength="maxLength" :placeholder="placeholder" rows="" cols=""></textarea>
+				<textarea @keydown="preventEnter" name="" v-model="bbs.textTextarea" :maxlength="maxLength" :placeholder="placeholder" rows="" cols=""></textarea>
 				<ol>
 					<li><span  v-tap="{methods : cancel}" >取消</span></li>
 					<li><span  v-tap="{methods : confirmText}">确认</span></li>
@@ -248,6 +248,12 @@
         		//更换板式返回
         		blockBtn(){
         			this.selectBS = false;
+        		},
+        		preventEnter(e){
+        			
+        			if(this.maxLength <= 16 && e.keyCode == 13){
+        				e.preventDefault();  
+        			}
         		},
         	    //返回上一页
 	        	linkGo(){

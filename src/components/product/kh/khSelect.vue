@@ -106,7 +106,6 @@
 				sheetV:false, //组件的开关
 				imgData:'',
 				defDbId:'6afedcf6-b0e4-447d-afd9-c70449f42f50',
-				templateCode:'',
 				sizeCode:'',
 				typeCode:'',
 				skuCode:'',
@@ -211,7 +210,8 @@
 				 };
 				 this.workEdit.editPicture.push(picObj);
 				 this.workEdit.thumbnailImageUrl = val.thumbnailUrl;
-				 this.workEdit.tplCode = this.templateCode; 
+				 this.workEdit.tplCode = this.extraPostData.templateCode; 
+				 
 				
 			},
 			updataType(params){//选择框型
