@@ -129,7 +129,7 @@
 		<mt-popup v-model="textareaTexts"  popup-transition="popup-fade">
 			<div class="textareaText">
 				<p>请输入内容</p>
-				<textarea name="" v-model="bbs.textTextarea" maxlength="40" placeholder="请输入内容(限制输入40字)" rows="" cols=""></textarea>
+				<textarea name="" v-model="bbs.textTextarea" :maxlength="maxLength" :placeholder="placeholder" rows="" cols=""></textarea>
 				<ol>
 					<li><span  v-tap="{methods : cancel}" >取消</span></li>
 					<li><span  v-tap="{methods : confirmText}">确认</span></li>
@@ -162,6 +162,8 @@
     export default{
         data () {
             return {
+            		maxLength:'',
+            		placeholder:'',
             		titleEdit:{
             			title:'',
             			titleEdit:''
@@ -584,6 +586,8 @@
                     //给文本框加个唯一标识符
                     $(".textErea").removeClass("textErea");
                     $(params.event.target).addClass("textErea");
+                   	this.maxLength = $(params.event.target).attr('maxLength');
+                   	this.placeholder = '限制输入（'+this.maxLength+'字）';
                     //打开弹出框
                     this.textareaTexts=true;
                     this.bbs.page = params.index+1; //第几页需要加1
