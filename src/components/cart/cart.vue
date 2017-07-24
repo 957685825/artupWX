@@ -78,39 +78,50 @@ export default {
 　　　　
 　　　　},
 		methods:{
-			deleteCar(){				
-				MessageBox({
-				  title: '我的订单',
-				  message: '您确认删除此条订单吗?',
-				  showCancelButton: true
-				}).then((res)=>{
-					if(res=="confirm"){
-						var arr = '';
-						for (var i = 0; i < this.dataList.length; i++) {
-							if (this.dataList[i].isOK) {
-								arr+= this.dataList[i].dbId+',';
-								 this.dataList.splice(i,1);
-								 i--;
-							}					
-						}
-						arr.substr(0,arr.length-1);
-						Api.car.deleteCarCorde({dbId:arr,userDbId:localStorage.getItem('userDbId')}).then(res=>{
-							if(res.data.code == 'success'){
-								
-								Toast('订单删除成功');
-								if(this.dataList.length < 1){
-									MessageBox.alert('您当前没有任何订单请去创建').then(action => {
-				        				location.href=""		
-									});
-								}
+			deleteCar(){
+				var checkData = [];
+				for (var i = 0; i < this.dataList.length; i++) {
+					if (this.dataList[i].isOK) {
+						checkData.push(this.dataList[i].isOK)
+					}					
+				}
+				if(checkData.length <= 0){
+					Toast('请选择要删除的作品');
+				}else{
+					MessageBox({
+					  title: '我的订单',
+					  message: '您确认删除此条订单吗?',
+					  showCancelButton: true
+					}).then((res)=>{
+						if(res=="confirm"){
+							var arr = '';
+							for (var i = 0; i < this.dataList.length; i++) {
+								if (this.dataList[i].isOK) {
+									arr+= this.dataList[i].dbId+',';
+									 this.dataList.splice(i,1);
+									 i--;
+								}					
 							}
-						},err=>{
-							Toast('请求错误');
-						})
-						
-					}
-								
-				})
+							arr.substr(0,arr.length-1);
+							Api.car.deleteCarCorde({dbId:arr,userDbId:localStorage.getItem('userDbId')}).then(res=>{
+								if(res.data.code == 'success'){
+									
+									Toast('订单删除成功');
+									if(this.dataList.length < 1){
+										MessageBox.alert('您当前没有任何订单请去创建').then(action => {
+					        				location.href=""		
+										});
+									}
+								}
+							},err=>{
+								Toast('请求错误');
+							})
+							
+						}
+									
+					})
+				}
+				
 				
 			},
 			/*添加数量*/
