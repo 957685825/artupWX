@@ -118,7 +118,8 @@
 	                        thumbnailScale:''
 	                    }
 	          	 },
-	           finishWork:false
+	           finishWork:false,
+	           oldImgData:''
 			}
 		},
 		components:{  
@@ -151,7 +152,7 @@
 			
 			},
 			getImg(val){ //获取组件图片 
-				console.log(val)
+				this.oldImgData = val;
 				if(val.pictureDbId){
 					$('.imgBox').show();
 					$('#updateBtn').show();
@@ -160,9 +161,6 @@
 						'width':'90%',
 						'height':'90%'
 					})
-					setTimeout(function(){
-						dragThumb($('#showImg'),$('.imgBox'))
-					},750)
 					
 					$('#showImg').attr('attrImg',$('#showImg').attr('src'));//存原图
 					this.imgData = val;
@@ -202,9 +200,7 @@
 				$(params.event.target).addClass('dd_active').siblings().removeClass('dd_active');
 				this.sizeCode =  $(params.event.target).attr('data-code');
 				this.initStyle();	
-				setTimeout(function(){
-					dragThumb($('#showImg'),$('.imgBox'))
-				},350)
+				
 			},
 			initStyle(){//初始化数据
 				var size = this.trimStr(this.size);
@@ -225,7 +221,34 @@
 					 //this.bbsSlsectDate.price = res.data.price;
 					 sessionStorage.setItem("hbPrice",this.price)
 				})
-				console.log(datas)
+				if($('#showImg').attr('src')){
+					var jsonDpi = {};
+					jsonDpi.client = this.oldImgData.client;
+					jsonDpi.channel = this.oldImgData.channel;
+					jsonDpi.category = this.getFromSession("category");
+					jsonDpi.pictureDbId = this.oldImgData.pictureDbId;
+					jsonDpi.templateCode = this.extraPostData.templateCode;
+					jsonDpi.editCnfName = this.extraPostData.editCnfName;
+					jsonDpi.picNum = this.extraPostData.picNum;
+					jsonDpi.picPage = this.extraPostData.picPage;
+					jsonDpi.styleType = this.extraPostData.styleType;
+					jsonDpi.userDbId = localStorage.getItem('userDbId');
+					//确认选择
+					Indicator.open({
+						text: '正在切换尺寸...',
+						spinnerType: 'fading-circle'
+					});
+					Api.work.checkDPI(jsonDpi).then(res => {
+						if(res){
+							this.getImg(res.data);
+							Indicator.close();
+						}
+						
+					},err=>{
+	                		Indicator.close();
+	                    Toast('网络错误!');
+	                })
+				}
 			},
 			trimStr(str){//字符串去空格
 				return str.replace(/(^\s*)|(\s*$)/g,"");

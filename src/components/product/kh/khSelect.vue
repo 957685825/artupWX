@@ -35,7 +35,7 @@
 					
 					500mmX500mm
 				</div>
-				<div v-tap='{methods:updataSize}' data-code='500X500' class="dd_slect size dd_slectWidth ">
+				<div v-tap='{methods:updataSize}' data-code='500X400' class="dd_slect size dd_slectWidth ">
 					
 					500mmX400mm
 				</div>
@@ -150,7 +150,8 @@
 	                        thumbnailScale:''
 	                    }
 	          	 },
-	           finishWork:false
+	           finishWork:false,
+	           oldImgData:''
 			}
 		},
 		components:{  
@@ -185,15 +186,12 @@
 			
 			},
 			getImg(val){ //获取组件图片
-				$('#showImg').attr('src',val.thumbnailUrl);
+				this.oldImgData = val;
+				$('#showImg').attr('src',val.previewThumbnailImageUrl);
 				$('.imgBox').show();
 				$('#updateBtn').show();			
-				setTimeout(function(){
-					dragThumb($('#showImg'),$('.imgBox'))
-				},750)
-				$('#showImg').attr('attrImg',$('#showImg').attr('src'));//存原图
+				$('#showImg').attr('attrImg',val.thumbnailUrl);//存原图
 				this.imgData = val;
-				console.log(val)
 				var picObj = {
 				 	"constName":'1_1',
 				 	"picDbId" : val.pictureDbId,
@@ -213,8 +211,7 @@
 				 };
 				 this.workEdit.editPicture.push(picObj);
 				 this.workEdit.thumbnailImageUrl = val.thumbnailUrl;
-				 this.workEdit.tplCode = this.templateCode;
-				 
+				 this.workEdit.tplCode = this.templateCode; 
 				
 			},
 			updataType(params){//选择框型
@@ -228,9 +225,7 @@
 				$(params.event.target).addClass('dd_active').siblings().removeClass('dd_active');
 				this.sizeCode =  $(params.event.target).attr('data-code');
 				this.initStyle();	
-				setTimeout(function(){
-					dragThumb($('#showImg'),$('.imgBox'))
-				},200)
+				
 			},
 			initStyle(){//初始化数据
 				var size = this.trimStr(this.size);
@@ -238,7 +233,7 @@
 				var datas = selectKh.init.selectK(size,type);
 				//
 				this.skuName = "框画."+ size+'.'+type;
-				this.templateCode = 'kuanghua_'+this.sizeCode;
+				this.extraPostData.templateCode = 'kuanghua_'+this.sizeCode;
 				this.skuCode = 'kuanghua.'+this.sizeCode+'.'+this.typeCode;
 				this.extraPostData.editCnfName = 'kuanghua_'+this.sizeCode;
 				//console.log(this.skuCode)
@@ -254,7 +249,34 @@
 					 //this.bbsSlsectDate.price = res.data.price;
 					 sessionStorage.setItem("hbPrice",this.price)
 				})
-				console.log(size)
+				if($('#showImg').attr('src')){
+					var jsonDpi = {};
+					jsonDpi.client = this.oldImgData.client;
+					jsonDpi.channel = this.oldImgData.channel;
+					jsonDpi.category = this.getFromSession("category");
+					jsonDpi.pictureDbId = this.oldImgData.pictureDbId;
+					jsonDpi.templateCode = this.extraPostData.templateCode;
+					jsonDpi.editCnfName = this.extraPostData.editCnfName;
+					jsonDpi.picNum = this.extraPostData.picNum;
+					jsonDpi.picPage = this.extraPostData.picPage;
+					jsonDpi.styleType = this.extraPostData.styleType;
+					jsonDpi.userDbId = localStorage.getItem('userDbId');
+					//确认选择
+					Indicator.open({
+						text: '正在切换画框...',
+						spinnerType: 'fading-circle'
+					});
+					Api.work.checkDPI(jsonDpi).then(res => {
+						if(res){
+							this.getImg(res.data);
+							Indicator.close();
+						}
+						
+					},err=>{
+	                		Indicator.close();
+	                    Toast('网络错误!');
+	                })
+				}
 			},
 			trimStr(str){//字符串去空格
 				return str.replace(/(^\s*)|(\s*$)/g,"");
@@ -315,7 +337,7 @@
 			},
 			//调起编辑图片组件
 			 editorImage(jsons){
-	            //console.log('宽高',jsons)
+	           
 	            this.$store.commit(
 	                'showEditor',
 	                {

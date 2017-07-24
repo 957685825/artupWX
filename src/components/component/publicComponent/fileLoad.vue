@@ -150,6 +150,7 @@
 				jsonDpi.userDbId = localStorage.getItem('userDbId');
 				//确认选择
 				Api.work.checkDPI(jsonDpi).then(res => {
+					console.log(res)
 					this.$emit('getImgData', res.data)
 					//隐藏两个模块
 					this.sheetVisibles = false;
