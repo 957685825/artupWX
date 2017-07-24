@@ -329,7 +329,12 @@
 	            )
 	        },
 	        linkGo(){
-				this.vurRouterGo();
+		        	if(this.finishWork == true){
+		        		this.finishWork = !this.finishWork;
+		        	}else{
+					this.vurRouterGo();
+		        		
+		        	}
 			}
 
 		},

@@ -368,7 +368,7 @@
                 })
 			},
 	        linkGo(){
-				this.vurRouterGo();
+					this.vurRouterGo();
 			}
 		},
 		mounted(){

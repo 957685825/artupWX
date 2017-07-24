@@ -168,7 +168,7 @@
 					this.imgData = val;
 					var picObj = {
 					 	"constName":'1_1',
-					 	"picDbId" : val.bdId,
+					 	"picDbId" : val.pictureDbId,
 					 	"page" :val.picPage,
 					 	"editCnfIndex" :val.styleType,
 					 	"num" : val.picNum,
@@ -297,7 +297,12 @@
 	            )
 	       },
 	        linkGo(){
-				this.vurRouterGo();
+					if(this.finishWork == true){
+			        		this.finishWork = !this.finishWork;
+			        	}else{
+						this.vurRouterGo();
+			        		
+			        	}
 			}
 
 		},
