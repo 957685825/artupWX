@@ -25,15 +25,17 @@
 				    //旋转角度
 				    var rotat = Number(newStr[2].replace(/\(/,"").replace(/\)/,"").replace("deg",""));
 				    //判断偏移量第一次的没有偏移的时候如果不是number是NaN的时候手动赋值0
+
 				    if(isNaN(deviationX)){
 				       deviationX = 0;
 				    }if(isNaN(deviationY)){
 				       deviationY = 0;
 				    }
+
 				    if(deviationX == kuangWidth){
-				       deviationX = 0;
+				       //deviationX = 0;
 				    }if(deviationY == kuangHeight){
-				       deviationY = 0;
+				       //deviationY = 0;
 				    }
 
 			        //alert(kuangWidth/scale*120)
@@ -42,6 +44,7 @@
 			        //原图中的偏移量Y
 			        var nowdeviationY = Number(Math.abs(deviationY)/scale).toFixed(2);
 			        //当图片旋转90时
+
 			        if(rotat == 90 && nowdeviationX > 0){
 			          nowdeviationX = Number(myImg.height - Math.abs(deviationX)/scale).toFixed(2);
 			          
